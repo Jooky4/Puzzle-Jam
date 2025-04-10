@@ -7,8 +7,12 @@ extends Node2D
 @onready var block_for_drop_1 = $UI/VBoxContainer/ColorRect/Block
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
 
+var CURRENT_LEVEL_MATRIX : Array = []
+
 func _ready() -> void:
 	create_level()
+	block_for_drop_1.create_random_color()
+	block_for_drop_2.create_random_color()
 
 func _input(event):
 	var drop = false
@@ -24,6 +28,7 @@ func _input(event):
 						$UI/VBoxContainer/ColorRect.add_child(buff)
 						buff.create_random_color()
 						block_for_drop_1 = buff
+						update_lvl_matrix()
 						drop = true
 					elif block_for_drop_2.follow_mouse:
 						block_for_drop_2.drop_block()
@@ -33,6 +38,7 @@ func _input(event):
 						$UI/VBoxContainer/ColorRect2.add_child(buff)
 						buff.create_random_color()
 						block_for_drop_2 = buff
+						update_lvl_matrix()
 						drop = true
 					break
 
@@ -49,22 +55,37 @@ func move_node(node: Node, new_parent: Node):
 	node.global_position = new_parent.global_position
 
 func create_level() -> void:
-	var level_arr = LevelManager.get_current_level_setup()
+	CURRENT_LEVEL_MATRIX = LevelManager.get_current_level_setup()
 
-	for i in range(level_arr.size()):
-		for j in range(level_arr[i].size()):
+	for i in range(CURRENT_LEVEL_MATRIX.size()):
+		for j in range(CURRENT_LEVEL_MATRIX[i].size()):
 			var buff = EMPTY_BLOCK.instantiate()
-			if level_arr[i][j] != [-1, -1, -1, -1]:
+			if CURRENT_LEVEL_MATRIX[i][j] != [-1, -1, -1, -1]:
 				block_container.add_child(buff)
-	
-				if level_arr[i][j] != [0, 0, 0, 0]:
+
+				if CURRENT_LEVEL_MATRIX[i][j] != [0, 0, 0, 0]:
 					var buff1 = COLOR_BLOCK.instantiate()
 					buff.not_can_drop()
 					buff.add_child(buff1)
-					buff1.get_color_block(level_arr[i][j])
+					buff1.get_color_block(CURRENT_LEVEL_MATRIX[i][j])
 
-			elif level_arr[i][j] == [-1, -1, -1, -1]:
+			elif CURRENT_LEVEL_MATRIX[i][j] == [-1, -1, -1, -1]:
 				buff.set_not_active()
 				block_container.add_child(buff)
 
 	block_container.anchors_preset = Control.PRESET_CENTER
+	update_lvl_matrix()
+
+func update_lvl_matrix() -> void:
+	var count = 0
+	for i in block_container.get_children():
+		if i.active:
+			if i.get_child_count() != 1:
+				for j in i.get_children():
+					if "Block" in j.name:
+						CURRENT_LEVEL_MATRIX[count / 6][count % 6] = j.BLOCK_COLORS
+			else:
+				CURRENT_LEVEL_MATRIX[count / 6][count % 6] = [0, 0, 0, 0]
+		else:
+			CURRENT_LEVEL_MATRIX[count / 6][count % 6] = [-1, -1, -1, -1]
+		count += 1

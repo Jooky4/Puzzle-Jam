@@ -1,8 +1,9 @@
 extends Control
 
 @onready var texture = $TextureRect
-@onready var can_drop_block : bool = true
-@onready var select : bool = false
+var can_drop_block : bool = true
+var active : bool = true
+var select : bool = false
 
 func add_block() -> void:
 	not_can_drop()
@@ -10,6 +11,7 @@ func add_block() -> void:
 	$TextureRect.use_parent_material = true
 
 func set_not_active() -> void:
+	active = false
 	can_drop_block = false
 	self.custom_minimum_size = Vector2(0, 0)
 	$TextureRect.visible = false
