@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://3tj3dir3mrf4"]
+
+[ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
+[ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/Block/block.tscn" id="2_1ov45"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_lscpc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 640)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 1280.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2356.0
+offset_top = -640.0
+offset_right = 2356.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.447059)
+
+[node name="GridContainer" type="GridContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -640.0
+offset_right = -360.0
+offset_bottom = -640.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 6
+
+[node name="VBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = 403.0
+offset_right = 360.0
+offset_bottom = 553.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+color = Color(0, 0, 0, 0.670588)
+
+[node name="Block" parent="UI/VBoxContainer/ColorRect" instance=ExtResource("2_1ov45")]
+layout_mode = 1
+offset_left = -52.0
+offset_top = -55.0
+offset_right = 53.0
+offset_bottom = 50.0
+
+[node name="ColorRect2" type="ColorRect" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+color = Color(0, 0, 0, 0.670588)
+
+[node name="Block2" parent="UI/VBoxContainer/ColorRect2" instance=ExtResource("2_1ov45")]
+layout_mode = 1
+offset_left = -52.0
+offset_top = -53.0
+offset_right = 53.0
+offset_bottom = 52.0
