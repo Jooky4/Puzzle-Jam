@@ -7,10 +7,12 @@ extends Node2D
 @onready var block_for_drop_1 = $UI/VBoxContainer/ColorRect/Block
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
 
+var BLOCK_ARR : Array
 var CURRENT_LEVEL_MATRIX : Array = []
 
 func _ready() -> void:
 	create_level()
+	BLOCK_ARR = block_container.get_children()
 	block_for_drop_1.create_random_color()
 	block_for_drop_2.create_random_color()
 
@@ -18,6 +20,7 @@ func _input(event):
 	var drop = false
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			var count = 0
 			for i in block_container.get_children():
 				if i.select:
 					if block_for_drop_1.follow_mouse:
@@ -29,7 +32,9 @@ func _input(event):
 						buff.create_random_color()
 						block_for_drop_1 = buff
 						update_lvl_matrix()
+						check_matches(count / 6, count % 6)
 						drop = true
+
 					elif block_for_drop_2.follow_mouse:
 						block_for_drop_2.drop_block()
 						i.add_block()
@@ -39,8 +44,10 @@ func _input(event):
 						buff.create_random_color()
 						block_for_drop_2 = buff
 						update_lvl_matrix()
+						check_matches(count / 6, count % 6)
 						drop = true
 					break
+				count += 1
 
 			if drop == false:
 				block_for_drop_1.button_up()
@@ -89,3 +96,83 @@ func update_lvl_matrix() -> void:
 		else:
 			CURRENT_LEVEL_MATRIX[count / 6][count % 6] = [-1, -1, -1, -1]
 		count += 1
+
+func check_matches(x: int, y: int) -> void:
+	var have_coincidence : bool = false
+	var current_cell = CURRENT_LEVEL_MATRIX[x][y]
+	if current_cell[0] == -1:
+		return  # Неактивная ячейка
+
+	var connections = [
+		[
+			[x-1, y, 2],
+			[x, y-1, 1]
+		],
+		[
+			[x-1, y, 3],
+			[x, y+1, 0]
+		],
+		[
+			[x+1, y, 0],
+			[x, y-1, 3]
+		],
+		[
+			[x+1, y, 1],
+			[x, y+1, 2]
+		]
+	]
+
+	for side in 4:
+		var current_color = current_cell[side]
+		if current_color <= 0:
+			continue
+
+		for connection in connections[side]:
+			var nx = connection[0]
+			var ny = connection[1]
+			var neighbor_side = connection[2]
+
+			if nx < 0 or ny < 0 or nx >= len(CURRENT_LEVEL_MATRIX) or ny >= len(CURRENT_LEVEL_MATRIX[0]):
+				continue
+
+			var neighbor_cell = CURRENT_LEVEL_MATRIX[nx][ny]
+			var neighbor_color = neighbor_cell[neighbor_side]
+
+			if neighbor_color == current_color:
+				#print("Совпадение найдено:")
+				#print("Основной блок: позиция (%d, %d), сторона %d, цвет %d" % [x, y, side, current_color])
+				#print("Соседний блок: позиция (%d, %d), сторона %d, цвет %d" % [nx, ny, neighbor_side, neighbor_color], "   ", neighbor_cell)
+				current_cell[side] = 0
+				neighbor_cell[neighbor_side] = 0
+				CURRENT_LEVEL_MATRIX[y][x] = current_cell
+				CURRENT_LEVEL_MATRIX[ny][nx] = neighbor_cell
+
+				for j in BLOCK_ARR[((x * 6) + y)].get_children():
+					if "Block" in j.name:
+						if x == nx and y > ny:
+							j.update_block(current_color, "left")
+						elif x == nx and y < ny:
+							j.update_block(current_color, "right")
+						elif x > nx and y == ny:
+							j.update_block(current_color, "up")
+						elif x < nx and y == ny:
+							j.update_block(current_color, "down")
+
+				for j in BLOCK_ARR[((nx * 6) + ny)].get_children():
+					if "Block" in j.name:
+						if x == nx and y > ny:
+							j.update_block(neighbor_color, "right")
+						elif x == nx and y < ny:
+							j.update_block(neighbor_color, "left")
+						elif x > nx and y == ny:
+							j.update_block(neighbor_color, "down")
+						elif x < nx and y == ny:
+							j.update_block(neighbor_color, "up")
+
+				update_lvl_matrix()
+				await get_tree().create_timer(1).timeout
+				check_matches(nx, ny)
+				have_coincidence = true
+				break
+	if have_coincidence:
+		check_matches(x, y)

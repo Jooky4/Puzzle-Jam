@@ -28,3 +28,8 @@ func _on_mouse_exited() -> void:
 	if can_drop_block:
 		select = false
 		$TextureRect.use_parent_material = true
+
+func free_block() -> void:
+	can_drop_block = true
+	active = true
+	select = false
