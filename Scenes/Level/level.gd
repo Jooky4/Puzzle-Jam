@@ -1,20 +1,48 @@
 extends Node2D
 
-@onready var EMPTY_BLOCK = preload("res://Scenes/Block/empty_block.tscn")
-@onready var COLOR_BLOCK = preload("res://Scenes/Block/block.tscn")
+@export var cell_block: PackedScene
+@export var color_block: PackedScene
+
 @onready var block_container = $UI/GridContainer
 
 @onready var block_for_drop_1 = $UI/VBoxContainer/ColorRect/Block
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
+@onready var level_label: Label = $UI/PanelContainer/Label
 
-var BLOCK_ARR : Array
-var CURRENT_LEVEL_MATRIX : Array = []
+@onready var target_colors_container: HBoxContainer = $UI/TargetColorController
+
+var BLOCK_ARR: Array
+var current_level: Array = []
 
 func _ready() -> void:
+	_restart_level()
+
+	Gui.show_level_ui()
+	Gui.restart_level.connect(_restart_level)
+	Gui.next_level.connect(_next_level)
+
+
+func _next_level() -> void:
+	LevelManager.current_level += 1
+	Player.data.current_level = LevelManager.current_level
+	Player.save_data()
+	_restart_level()
+
+
+func _restart_level() -> void:
+	BLOCK_ARR = []
+
+	for i in block_container.get_children():
+		block_container.remove_child(i)
+
+	target_colors_container.set_colors(LevelManager.get_target_colors())
+
 	create_level()
 	BLOCK_ARR = block_container.get_children()
 	block_for_drop_1.create_random_color()
 	block_for_drop_2.create_random_color()
+	_update_ui()
+
 
 func _input(event):
 	var drop = false
@@ -27,11 +55,12 @@ func _input(event):
 						block_for_drop_1.drop_block()
 						i.add_block()
 						move_node(block_for_drop_1, i)
-						var buff = COLOR_BLOCK.instantiate()
+						var buff = color_block.instantiate()
 						$UI/VBoxContainer/ColorRect.add_child(buff)
 						buff.create_random_color()
+
 						block_for_drop_1 = buff
-						update_lvl_matrix()
+						update_level()
 						check_matches(count / 6, count % 6)
 						drop = true
 
@@ -39,13 +68,14 @@ func _input(event):
 						block_for_drop_2.drop_block()
 						i.add_block()
 						move_node(block_for_drop_2, i)
-						var buff = COLOR_BLOCK.instantiate()
+						var buff = color_block.instantiate()
 						$UI/VBoxContainer/ColorRect2.add_child(buff)
 						buff.create_random_color()
 						block_for_drop_2 = buff
-						update_lvl_matrix()
+						update_level()
 						check_matches(count / 6, count % 6)
 						drop = true
+
 					break
 				count += 1
 
@@ -55,53 +85,74 @@ func _input(event):
 				block_for_drop_2.button_up()
 				block_for_drop_2.global_position = $UI/VBoxContainer/ColorRect2.global_position + Vector2(23, 23)
 
+
+func _update_ui() -> void:
+	level_label.text = "Уровень: %d" % (LevelManager.current_level + 1)
+
+
 func move_node(node: Node, new_parent: Node):
 	var old_parent = node.get_parent()
 	old_parent.remove_child(node)
 	new_parent.add_child(node)
 	node.global_position = new_parent.global_position
 
-func create_level() -> void:
-	CURRENT_LEVEL_MATRIX = LevelManager.get_current_level_setup()
 
-	for i in range(CURRENT_LEVEL_MATRIX.size()):
-		for j in range(CURRENT_LEVEL_MATRIX[i].size()):
-			var buff = EMPTY_BLOCK.instantiate()
-			if CURRENT_LEVEL_MATRIX[i][j] != [-1, -1, -1, -1]:
+func create_level() -> void:
+	current_level = LevelManager.get_current_level()
+
+	for i in block_container.get_children():
+		block_container.remove_child(i)
+
+	for i in range(current_level.size()):
+		for j in range(current_level[i].size()):
+			var buff = cell_block.instantiate()
+			if current_level[i][j] != LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
 
-				if CURRENT_LEVEL_MATRIX[i][j] != [0, 0, 0, 0]:
-					var buff1 = COLOR_BLOCK.instantiate()
+				if current_level[i][j] != LevelData.FREE_CELL:
+					var buff1 = color_block.instantiate()
 					buff.not_can_drop()
 					buff.add_child(buff1)
-					buff1.get_color_block(CURRENT_LEVEL_MATRIX[i][j])
+					buff1.get_color_block(current_level[i][j])
 
-			elif CURRENT_LEVEL_MATRIX[i][j] == [-1, -1, -1, -1]:
-				buff.set_not_active()
+			elif current_level[i][j] == LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
+				buff.set_not_active()
 
 	block_container.anchors_preset = Control.PRESET_CENTER
-	update_lvl_matrix()
 
-func update_lvl_matrix() -> void:
+	update_level()
+
+
+func update_level() -> void:
+	# Обновляет данные текущего уровня
+
 	var count = 0
-	for i in block_container.get_children():
-		if i.active:
-			if i.get_child_count() != 1:
-				for j in i.get_children():
+	for cell in block_container.get_children():
+		if cell.active:
+			if cell.get_child_count() != 1:
+				for j in cell.get_children():
 					if "Block" in j.name:
-						CURRENT_LEVEL_MATRIX[count / 6][count % 6] = j.BLOCK_COLORS
+						current_level[count / 6][count % 6] = j.colors
 			else:
-				CURRENT_LEVEL_MATRIX[count / 6][count % 6] = [0, 0, 0, 0]
+				current_level[count / 6][count % 6] = LevelData.FREE_CELL
 		else:
-			CURRENT_LEVEL_MATRIX[count / 6][count % 6] = [-1, -1, -1, -1]
+			var row = count / 6
+			var col = count % 6
+			current_level[row][col] = LevelData.EMPTY_CELL
+
 		count += 1
 
+
+var check_match_count: int = 0
+
 func check_matches(x: int, y: int) -> void:
-	var have_coincidence : bool = false
-	var current_cell = CURRENT_LEVEL_MATRIX[x][y]
-	if current_cell[0] == -1:
-		return  # Неактивная ячейка
+	check_match_count += 1
+	var have_match: bool = false
+	var current_cell = current_level[x][y]
+
+	if current_cell == LevelData.EMPTY_CELL:
+		return
 
 	var connections = [
 		[
@@ -122,7 +173,7 @@ func check_matches(x: int, y: int) -> void:
 		]
 	]
 
-	for side in 4:
+	for side in 4: # from 0 to 3
 		var current_color = current_cell[side]
 		if current_color <= 0:
 			continue
@@ -130,12 +181,13 @@ func check_matches(x: int, y: int) -> void:
 		for connection in connections[side]:
 			var nx = connection[0]
 			var ny = connection[1]
-			var neighbor_side = connection[2]
 
-			if nx < 0 or ny < 0 or nx >= len(CURRENT_LEVEL_MATRIX) or ny >= len(CURRENT_LEVEL_MATRIX[0]):
+			# проверка выхода за границы поля
+			if nx < 0 or ny < 0 or nx >= len(current_level) or ny >= len(current_level[0]):
 				continue
 
-			var neighbor_cell = CURRENT_LEVEL_MATRIX[nx][ny]
+			var neighbor_side = connection[2]
+			var neighbor_cell = current_level[nx][ny]
 			var neighbor_color = neighbor_cell[neighbor_side]
 
 			if neighbor_color == current_color:
@@ -144,35 +196,84 @@ func check_matches(x: int, y: int) -> void:
 				#print("Соседний блок: позиция (%d, %d), сторона %d, цвет %d" % [nx, ny, neighbor_side, neighbor_color], "   ", neighbor_cell)
 				current_cell[side] = 0
 				neighbor_cell[neighbor_side] = 0
-				CURRENT_LEVEL_MATRIX[y][x] = current_cell
-				CURRENT_LEVEL_MATRIX[ny][nx] = neighbor_cell
+				current_level[y][x] = current_cell
+				current_level[ny][nx] = neighbor_cell
 
+				# обновляем цвета у текущей плитки
 				for j in BLOCK_ARR[((x * 6) + y)].get_children():
 					if "Block" in j.name:
-						if x == nx and y > ny:
-							j.update_block(current_color, "left")
-						elif x == nx and y < ny:
-							j.update_block(current_color, "right")
-						elif x > nx and y == ny:
-							j.update_block(current_color, "up")
-						elif x < nx and y == ny:
-							j.update_block(current_color, "down")
+						var direction: String
 
+						if x == nx and y > ny:
+							direction = "left"
+						elif x == nx and y < ny:
+							direction = "right"
+						elif x > nx and y == ny:
+							direction = "up"
+						elif x < nx and y == ny:
+							direction = "down"
+
+						target_colors_container.dec_color(current_color)
+						j.update_block(current_color, direction)
+
+				# обновляем цета у соседней плитки
 				for j in BLOCK_ARR[((nx * 6) + ny)].get_children():
 					if "Block" in j.name:
-						if x == nx and y > ny:
-							j.update_block(neighbor_color, "right")
-						elif x == nx and y < ny:
-							j.update_block(neighbor_color, "left")
-						elif x > nx and y == ny:
-							j.update_block(neighbor_color, "down")
-						elif x < nx and y == ny:
-							j.update_block(neighbor_color, "up")
+						var direction: String
 
-				update_lvl_matrix()
-				await get_tree().create_timer(1).timeout
+						if x == nx and y > ny:
+							direction = "right"
+						elif x == nx and y < ny:
+							direction = "left"
+						elif x > nx and y == ny:
+							direction = "down"
+						elif x < nx and y == ny:
+							direction = "up"
+
+						target_colors_container.dec_color(current_color)
+						j.update_block(current_color, direction)
+
+				update_level()
 				check_matches(nx, ny)
-				have_coincidence = true
+				have_match = true
 				break
-	if have_coincidence:
+
+	if have_match:
 		check_matches(x, y)
+
+	check_match_count -= 1
+
+	if check_match_count < 1:
+		update_level()
+		check_level_complete()
+		check_game_over()
+
+
+func get_free_cell_count() -> int:
+	var free_cell_count: int = 0
+
+	for row in current_level:
+		for cell in row:
+			if cell == LevelData.FREE_CELL:
+				free_cell_count += 1
+
+	return free_cell_count
+
+
+func check_game_over() -> void:
+	if get_free_cell_count() == 0:
+		Gui.show_modal(Gui.EModal.GameOver)
+
+
+func check_level_complete() -> void:
+	var is_complete: bool = true
+
+	for t in target_colors_container.get_children():
+		if t.count > 0:
+			is_complete = false
+			break
+
+	if is_complete:
+		Player.data.gold += 10
+		Gui.set_gold(Player.data.gold)
+		Gui.show_modal(Gui.EModal.LevelComplete)

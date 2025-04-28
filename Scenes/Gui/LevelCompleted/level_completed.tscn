@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxbm0wayenbnt"]
+
+[ext_resource type="Script" uid="uid://bbci3dnqenni6" path="res://Scenes/Gui/LevelCompleted/level_completed.gd" id="1_hdtc0"]
+[ext_resource type="Texture2D" uid="uid://b22y1da6cv0wk" path="res://Resources/Gui/yellow_button.png" id="2_sm7vl"]
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hdtc0")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.436111
+anchor_top = 0.471875
+anchor_right = 0.563889
+anchor_bottom = 0.482031
+offset_left = -138.5
+offset_top = -21.0
+offset_right = 138.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Уровень пройден!"
+metadata/_edit_use_anchors_ = true
+
+[node name="NextButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -363.0
+offset_right = 90.0
+offset_bottom = -293.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("2_sm7vl")
+
+[node name="Label" type="Label" parent="NextButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Следующий"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]

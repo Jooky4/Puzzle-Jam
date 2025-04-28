@@ -11,14 +11,17 @@ config_version=5
 [application]
 
 config/name="Pazzle Jam"
-run/main_scene="uid://3tj3dir3mrf4"
+run/main_scene="uid://jgpe81x8d2j0"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-YandexSDK="*res://addons/godot-yandex-games-sdk/yandex_sdk.gd"
-LevelManager="*res://Scenes/Global/Level_manager.gd"
+LevelData="*res://Scenes/Global/level_data.gd"
+LevelManager="*res://Scenes/Global/level_manager.gd"
+Gui="*res://Scenes/Gui/gui.tscn"
+Bridge="*res://addons/playgama_bridge/bridge.gd"
+Player="*res://Scenes/Global/player.gd"
 
 [display]
 
@@ -27,6 +30,10 @@ window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/playgama_bridge/plugin.cfg")
 
 [file_customization]
 

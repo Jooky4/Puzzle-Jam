@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://ttm0o0voudov"]
+
+[ext_resource type="Script" uid="uid://doa4rh178tpkt" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
+[ext_resource type="PackedScene" uid="uid://3tj3dir3mrf4" path="res://Scenes/Level/level.tscn" id="2_0qgbs"]
+[ext_resource type="Texture2D" uid="uid://b22y1da6cv0wk" path="res://Resources/Gui/yellow_button.png" id="2_qgdf6"]
+
+[node name="MainMenu" type="Control"]
+custom_minimum_size = Vector2(720, 1280)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_right = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_v763k")
+level = ExtResource("2_0qgbs")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -253.0
+offset_right = 90.0
+offset_bottom = -183.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_qgdf6")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="MarginContainer/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -24.0
+offset_right = 50.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.717647)
+theme_override_font_sizes/font_size = 28
+text = "Играть"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 640)
+
+[connection signal="pressed" from="MarginContainer/TextureButton" to="." method="_on_texture_button_pressed"]

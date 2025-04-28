@@ -1,0 +1,243 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce74w5oeltvqv"]
+
+[ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
+[ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
+[ext_resource type="PackedScene" uid="uid://ttm0o0voudov" path="res://Scenes/MainMenu/main_menu.tscn" id="2_oujc8"]
+[ext_resource type="PackedScene" uid="uid://cxbm0wayenbnt" path="res://Scenes/Gui/LevelCompleted/level_completed.tscn" id="3_oujc8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw16r"]
+bg_color = Color(0.676147, 0.407988, 0.534178, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Gui" type="CanvasLayer"]
+script = ExtResource("1_bw16r")
+main_menu_scene = ExtResource("2_oujc8")
+
+[node name="VersionLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v0.0.0.1"
+metadata/_edit_use_anchors_ = true
+
+[node name="Top" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(720, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -270.0
+offset_right = 270.0
+offset_bottom = 63.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top"]
+layout_mode = 2
+
+[node name="Gold" type="HBoxContainer" parent="Top/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Top/HBoxContainer/Gold"]
+layout_mode = 2
+text = "GOLD"
+
+[node name="ValueLabel" type="Label" parent="Top/HBoxContainer/Gold"]
+layout_mode = 2
+text = "0"
+
+[node name="AddGoldButton" type="Button" parent="Top/HBoxContainer/Gold"]
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+text = "+"
+
+[node name="SpaceExpander" type="Control" parent="Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsButton" type="Button" parent="Top/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Settings"
+
+[node name="HomeButton" type="Button" parent="Top/HBoxContainer"]
+layout_mode = 2
+text = "В меню"
+
+[node name="SettingsModal" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
+
+[node name="Panel" type="Panel" parent="SettingsModal"]
+custom_minimum_size = Vector2(540, 320)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bw16r")
+
+[node name="Label" type="Label" parent="SettingsModal/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Настройки"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsModal/Panel"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+focus_mode = 0
+text = "x"
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsModal/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.5
+offset_top = -20.0
+offset_right = 75.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="MuteSoundButton" type="Button" parent="SettingsModal/Panel/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "Sound"
+
+[node name="MuteMusicButton" type="Button" parent="SettingsModal/Panel/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+text = "Music"
+
+[node name="ShopModal" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
+
+[node name="Panel" type="Panel" parent="ShopModal"]
+custom_minimum_size = Vector2(540, 320)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -160.0
+offset_right = 270.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bw16r")
+
+[node name="CloseButton" type="Button" parent="ShopModal/Panel"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "x"
+
+[node name="Label" type="Label" parent="ShopModal/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.5
+offset_top = -11.5
+offset_right = 90.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Магазин в разработке"
+
+[node name="GameOverModal" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GameOver" parent="GameOverModal" instance=ExtResource("2_aukgo")]
+layout_mode = 1
+
+[node name="LevelCompleteModal" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
+layout_mode = 1
+
+[connection signal="pressed" from="Top/HBoxContainer/Gold/AddGoldButton" to="." method="_on_add_gold_button_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/HomeButton" to="." method="_on_home_button_pressed"]
+[connection signal="pressed" from="SettingsModal/Panel/CloseButton" to="." method="_on_settings_close_button_pressed"]
+[connection signal="pressed" from="ShopModal/Panel/CloseButton" to="." method="_on_shop_close_button_pressed"]
