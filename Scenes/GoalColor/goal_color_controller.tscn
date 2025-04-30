@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://8rhmjet71ngk"]
+
+[ext_resource type="Script" uid="uid://c62biiwnp3w7" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
+[ext_resource type="PackedScene" uid="uid://gxx6cqyr5t8f" path="res://Scenes/GoalColor/goal_color.tscn" id="2_tgnh5"]
+
+[node name="TargetColorController" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+script = ExtResource("1_lamtr")
+goal_color = ExtResource("2_tgnh5")

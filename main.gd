@@ -6,6 +6,7 @@ extends Control
 
 func _ready() -> void:
 	Player.load_data()
+	LevelManager.current_level = Player.get_value("current_level")
 
 	if Player.is_play_first_time():
 		get_tree().change_scene_to_packed(game_scene)

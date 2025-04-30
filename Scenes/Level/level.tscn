@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=6 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
-[ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/TargetColor/target_color_controller.tscn" id="5_x701m"]
+[ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06ioy"]
+bg_color = Color(0.0807833, 0.0807834, 0.0807833, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_lscpc")
@@ -36,16 +43,6 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="TargetColorController" parent="UI" instance=ExtResource("5_x701m")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.0
-offset_top = 272.0
-offset_bottom = 272.0
-grow_vertical = 1
-
 [node name="Background" type="ColorRect" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
@@ -61,6 +58,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.447059)
+
+[node name="GoalColorController" parent="UI" instance=ExtResource("5_x701m")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_top = 204.0
+offset_bottom = 204.0
+grow_vertical = 1
 
 [node name="GridContainer" type="GridContainer" parent="UI"]
 layout_mode = 1
@@ -94,10 +101,10 @@ grow_vertical = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="UI/VBoxContainer"]
+[node name="ColorRect" type="Panel" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-color = Color(0, 0, 0, 0.670588)
+theme_override_styles/panel = SubResource("StyleBoxFlat_06ioy")
 
 [node name="Block" parent="UI/VBoxContainer/ColorRect" instance=ExtResource("2_1ov45")]
 layout_mode = 1
@@ -106,10 +113,10 @@ offset_top = -53.0
 offset_right = 53.0
 offset_bottom = 52.0
 
-[node name="ColorRect2" type="ColorRect" parent="UI/VBoxContainer"]
+[node name="ColorRect2" type="Panel" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-color = Color(0, 0, 0, 0.670588)
+theme_override_styles/panel = SubResource("StyleBoxFlat_06ioy")
 
 [node name="Block2" parent="UI/VBoxContainer/ColorRect2" instance=ExtResource("2_1ov45")]
 layout_mode = 1

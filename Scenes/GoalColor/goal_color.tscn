@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://gxx6cqyr5t8f"]
 
-[ext_resource type="Script" uid="uid://b770yeagkjo3e" path="res://Scenes/TargetColor/target_color.gd" id="1_3l1x0"]
+[ext_resource type="Script" uid="uid://b770yeagkjo3e" path="res://Scenes/GoalColor/goal_color.gd" id="1_3l1x0"]
 
 [node name="TargetColor" type="Panel"]
 custom_minimum_size = Vector2(64, 64)

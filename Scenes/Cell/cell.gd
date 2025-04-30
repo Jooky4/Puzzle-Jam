@@ -11,16 +11,27 @@ func _to_string() -> String:
 	return "<Cell %s %s>" % [name, "empty" if can_drop_block else "non empty"]
 
 
+func _update_ui() -> void:
+	if texture_rect:
+		texture_rect.visible = is_active()
+
+
 func add_block() -> void:
 	not_can_drop()
 	select = false
 	set_highlighted(false)
 
 
-func set_not_active() -> void:
+func is_active() -> bool:
+	return active
+
+
+func set_active(value: bool) -> void:
 	active = false
 	can_drop_block = false
 	self.custom_minimum_size = Vector2(0, 0)
+
+	_update_ui()
 
 
 func not_can_drop() -> void:

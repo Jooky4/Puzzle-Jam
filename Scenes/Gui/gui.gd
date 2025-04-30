@@ -2,8 +2,7 @@ extends CanvasLayer
 
 @export var main_menu_scene: PackedScene
 
-@onready var gold_value_label: Label = $Top/HBoxContainer/Gold/ValueLabel
-@onready var add_gold_button: Button = $Top/HBoxContainer/Gold/AddGoldButton
+@onready var money_value_label: Label = $Top/HBoxContainer/Money/ValueLabel
 @onready var home_button: Button = $Top/HBoxContainer/HomeButton
 @onready var settings_button: Button = $Top/HBoxContainer/SettingsButton
 
@@ -39,6 +38,13 @@ func _ready() -> void:
 	game_over.restart_level.connect(_on_game_over_restart_level)
 	level_complete.next_level.connect(_on_level_complete_next_level)
 
+	Player.data_updated.connect(_on_player_updated)
+
+
+func _on_player_updated(key: String) -> void:
+	if key == "money":
+		set_money(Player.money)
+
 
 func _on_game_over_restart_level() -> void:
 	hide_modal(EModal.GameOver)
@@ -58,11 +64,11 @@ func _on_settings_button_pressed() -> void:
 	show_modal(EModal.Settings)
 
 
-func set_gold(value: int) -> void:
-	gold_value_label.text = str(value)
+func set_money(value: int) -> void:
+	money_value_label.text = str(value)
 
 
-func _on_add_gold_button_pressed() -> void:
+func _on_add_money_button_pressed() -> void:
 	show_modal(EModal.Shop)
 
 

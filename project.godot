@@ -17,11 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LevelData="*res://Scenes/Global/level_data.gd"
-LevelManager="*res://Scenes/Global/level_manager.gd"
+LevelData="*res://Global/level_data.gd"
+LevelManager="*res://Global/level_manager.gd"
 Gui="*res://Scenes/Gui/gui.tscn"
 Bridge="*res://addons/playgama_bridge/bridge.gd"
-Player="*res://Scenes/Global/player.gd"
+Player="*res://Global/player.gd"
+Utils="*res://Global/utils.gd"
 
 [display]
 
@@ -38,12 +39,13 @@ enabled=PackedStringArray("res://addons/playgama_bridge/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Global/": "red",
 "res://Resources/": "yellow",
 "res://Resources/Fonts/": "pink",
 "res://Resources/Music/": "blue",
 "res://Resources/Shaders/": "teal",
 "res://Resources/Sounds/": "blue",
-"res://Scenes/": "red",
+"res://Scenes/": "green",
 "res://Texture/": "green"
 }
 

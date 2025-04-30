@@ -9,7 +9,7 @@ extends Node2D
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
 @onready var level_label: Label = $UI/PanelContainer/Label
 
-@onready var target_colors_container: HBoxContainer = $UI/TargetColorController
+@onready var goal_colors_container: HBoxContainer = $UI/GoalColorController
 
 var BLOCK_ARR: Array
 var current_level: Array = []
@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _next_level() -> void:
 	LevelManager.current_level += 1
-	Player.data.current_level = LevelManager.current_level
+	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
 	_restart_level()
 
@@ -35,7 +35,7 @@ func _restart_level() -> void:
 	for i in block_container.get_children():
 		block_container.remove_child(i)
 
-	target_colors_container.set_colors(LevelManager.get_target_colors())
+	goal_colors_container.set_colors(LevelManager.get_target_colors())
 
 	create_level()
 	BLOCK_ARR = block_container.get_children()
@@ -117,7 +117,7 @@ func create_level() -> void:
 
 			elif current_level[i][j] == LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
-				buff.set_not_active()
+				buff.set_active(false)
 
 	block_container.anchors_preset = Control.PRESET_CENTER
 
@@ -129,7 +129,7 @@ func update_level() -> void:
 
 	var count = 0
 	for cell in block_container.get_children():
-		if cell.active:
+		if cell.is_active():
 			if cell.get_child_count() != 1:
 				for j in cell.get_children():
 					if "Block" in j.name:
@@ -147,6 +147,7 @@ func update_level() -> void:
 var check_match_count: int = 0
 
 func check_matches(x: int, y: int) -> void:
+	#await Utils.timeout(1)
 	check_match_count += 1
 	var have_match: bool = false
 	var current_cell = current_level[x][y]
@@ -213,7 +214,7 @@ func check_matches(x: int, y: int) -> void:
 						elif x < nx and y == ny:
 							direction = "down"
 
-						target_colors_container.dec_color(current_color)
+						goal_colors_container.dec_color(current_color)
 						j.update_block(current_color, direction)
 
 				# обновляем цета у соседней плитки
@@ -230,7 +231,7 @@ func check_matches(x: int, y: int) -> void:
 						elif x < nx and y == ny:
 							direction = "up"
 
-						target_colors_container.dec_color(current_color)
+						goal_colors_container.dec_color(current_color)
 						j.update_block(current_color, direction)
 
 				update_level()
@@ -268,12 +269,11 @@ func check_game_over() -> void:
 func check_level_complete() -> void:
 	var is_complete: bool = true
 
-	for t in target_colors_container.get_children():
+	for t in goal_colors_container.get_children():
 		if t.count > 0:
 			is_complete = false
 			break
 
 	if is_complete:
-		Player.data.gold += 10
-		Gui.set_gold(Player.data.gold)
+		Player.set_value("money", 10 + Player.get_value("money"))
 		Gui.show_modal(Gui.EModal.LevelComplete)

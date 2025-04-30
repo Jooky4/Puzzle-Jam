@@ -1,8 +1,12 @@
 extends Node
 
-var current_level: int = 0
+var current_level: int = 0: set = _set_current_level
 var current_level_colors: Array
 
+
+func _set_current_level(value) -> void:
+	prints("set cur lvl", value)
+	current_level = value
 
 func get_random_color():
 	var keys = LevelData.COLORS.keys()
@@ -12,6 +16,7 @@ func get_random_color():
 
 
 func get_current_level() -> Array:
+	prints("current_level", current_level)
 	var _cur_level = current_level
 	if current_level > 200:
 		_cur_level = (current_level - 200) + 50

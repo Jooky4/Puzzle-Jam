@@ -52,19 +52,19 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer" type="HBoxContainer" parent="Top"]
 layout_mode = 2
 
-[node name="Gold" type="HBoxContainer" parent="Top/HBoxContainer"]
+[node name="Money" type="HBoxContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="Top/HBoxContainer/Gold"]
+[node name="Label" type="Label" parent="Top/HBoxContainer/Money"]
 layout_mode = 2
 text = "GOLD"
 
-[node name="ValueLabel" type="Label" parent="Top/HBoxContainer/Gold"]
+[node name="ValueLabel" type="Label" parent="Top/HBoxContainer/Money"]
 layout_mode = 2
 text = "0"
 
-[node name="AddGoldButton" type="Button" parent="Top/HBoxContainer/Gold"]
+[node name="AddMoneyButton" type="Button" parent="Top/HBoxContainer/Money"]
 custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 text = "+"
@@ -204,15 +204,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.5
-offset_top = -11.5
-offset_right = 90.5
-offset_bottom = 11.5
+offset_left = -169.5
+offset_top = -48.0
+offset_right = 169.5
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 30
 text = "Магазин в разработке"
 
 [node name="GameOverModal" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -225,6 +227,7 @@ size_flags_vertical = 3
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -236,7 +239,7 @@ size_flags_vertical = 3
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1
 
-[connection signal="pressed" from="Top/HBoxContainer/Gold/AddGoldButton" to="." method="_on_add_gold_button_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/Money/AddMoneyButton" to="." method="_on_add_money_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="SettingsModal/Panel/CloseButton" to="." method="_on_settings_close_button_pressed"]

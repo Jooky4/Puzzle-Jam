@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@export var target_color: PackedScene
+@export var goal_color: PackedScene
 
 var colors: Dictionary
 
@@ -15,7 +15,7 @@ func _create_ui() -> void:
 		remove_child(i)
 
 	for c in colors.keys():
-		var color_block = target_color.instantiate()
+		var color_block = goal_color.instantiate()
 		add_child(color_block)
 		color_block.set_count(colors[c])
 		var color = c

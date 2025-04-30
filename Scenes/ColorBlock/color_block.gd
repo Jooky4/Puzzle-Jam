@@ -11,6 +11,11 @@ extends Control
 
 var count_block = 0
 
+func _ready() -> void:
+	if not OS.is_debug_build():
+		debug_label.visible = false
+
+
 func _to_string() -> String:
 	return "<Block: %s colors: [%s]>" % [
 			name,
@@ -22,7 +27,7 @@ func _process(_delta):
 	if follow_mouse:
 		global_position = get_global_mouse_position() - Vector2(52.5, 52.5)
 
-	debug_label.text = str(colors)
+	debug_label.text = str("[%d, %d,\n%d, %d]" % colors)
 
 
 func get_color_block(arr_color) -> void:
@@ -54,12 +59,14 @@ func are_all_elements_equal(arr: Array) -> bool:
 
 func _on_button_button_down() -> void:
 	if can_take_block:
+		z_index = 10
 		follow_mouse = true
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func button_up() -> void:
 	follow_mouse = false
+	z_index = 0
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 
 
@@ -173,6 +180,7 @@ func update_ui() -> void:
 		var current_tail = tails[i]
 
 		if color == 0:
+			current_tail.color = Color.WHITE
 			continue
 
 		current_tail.color = LevelData.COLORS[color]
