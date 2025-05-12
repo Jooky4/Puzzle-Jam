@@ -7,8 +7,8 @@ extends Control
 
 
 @onready var arr_blocs = [$Small_block_1, $Small_block_2, $Small_block_3, $Small_block_4]
-@onready var colors: Array = LevelData.FREE_CELL.duplicate(true)
 @onready var debug_label: Label = $DebugLabel
+
 
 @onready var button = $Button
 
@@ -23,6 +23,13 @@ extends Control
 	17: texture_list[7],
 }
 
+var colors: Array = LevelData.FREE_CELL.duplicate(true)
+
+enum EPlanes {
+	HORIZONTAL,
+	VERTICAL,
+}
+
 var can_take_block: bool = true
 var follow_mouse: bool = false
 var count_block = 0
@@ -32,6 +39,7 @@ var is_button: bool
 
 
 signal pressed
+signal remove
 
 
 func _collect_jelly_layers():
@@ -117,7 +125,7 @@ func get_color_block(arr_color) -> void:
 	#$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
 	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
 
-	prints("arr_color", arr_color)
+	#prints("arr_color", arr_color)
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
 
@@ -224,7 +232,14 @@ func create_random_color(used_colors: Array = []) -> void:
 		used_colors = LevelManager.get_current_level_colors()
 
 	var data = _create_random_color(used_colors)
+
 	colors = data
+
+	# для тестов
+	#colors = [
+		#[10, 11, 10, 11],
+		#[10, 10, 11, 11],
+	#].pick_random()
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -232,27 +247,31 @@ func create_random_color(used_colors: Array = []) -> void:
 
 func update_ui() -> void:
 	# будущая замена set_reate_compain()
-	var tails = [
-		$Small_block_1/ColorRect,
-		$Small_block_2/ColorRect,
-		$Small_block_3/ColorRect,
-		$Small_block_4/ColorRect,
-	]
 
 	for i in colors.size():
 		var color = colors[i]
-		var current_tail = tails[i]
+		var current_tail = arr_blocs[i]
 
 		if color == 0:
-			current_tail.color = Color.WHITE
-			continue
+			_set_color(current_tail, Color.WHITE)
+		else:
+			_set_color(current_tail, LevelData.COLORS[color])
 
-		current_tail.color = LevelData.COLORS[color]
+
+func _set_color(tile: Node, color: Color) -> void:
+	var child_list = tile.get_children()
+
+	child_list[0].modulate = color.darkened(0.3)
+	child_list[1].modulate = color.darkened(0.3)
+	child_list[2].modulate = color
 
 
 func set_reate_compain(arr_color) -> void:
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
+		if arr_color[i] == 0:
+			break
+
 		var color = LevelData.COLORS[arr_color[i]]
 
 		var child_list = arr_blocs[i].get_children()
@@ -315,14 +334,28 @@ func set_reate_compain(arr_color) -> void:
 
 
 func remove_block() -> void:
+	remove.emit()
 	self.get_parent().free_block()
 	self.queue_free()
 
 
+func new_update_block(move: Dictionary) -> void:
+	if colors == LevelData.FREE_CELL:
+		prints("is free cell")
+		remove_block()
+		return
+
+	for k in move.keys():
+		var tile
+
+
 func update_block(delete_color, direction) -> void:
 	for i in range(colors.size()):
+		#prints("for i in colors")
 		if colors[i] == 0:
+			#prints("colors[i] is 0")
 			if count_block == 1:
+				#prints("count_block == 1")
 				colors = LevelData.FREE_CELL
 				self.get_parent().free_block()
 				self.queue_free()
@@ -393,3 +426,67 @@ func update_block(delete_color, direction) -> void:
 
 	#update_ui()
 	set_reate_compain(colors)
+
+
+func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
+	"""
+	Анимированно расширяет блоки.
+	fill_directions - данные из ColorBlock.get_fill_direction(side)
+	"""
+
+	var _t: Tween = create_tween().set_parallel()
+	_t.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
+
+	var tween_time = 0.5
+	if immediate:
+		tween_time = 0
+
+	var full_w = 200
+	var full_h = 200
+
+	var planes = {
+		0: {
+			1: EPlanes.HORIZONTAL,
+			2: EPlanes.VERTICAL,
+		},
+		1: {
+			0: EPlanes.HORIZONTAL,
+			3: EPlanes.VERTICAL,
+		},
+		2: {
+			3: EPlanes.HORIZONTAL,
+			0: EPlanes.VERTICAL,
+		},
+		3: {
+			2: EPlanes.HORIZONTAL,
+			1: EPlanes.VERTICAL,
+		},
+	}
+
+	var color_tiles = arr_blocs
+
+	for move_from in fill_directions.keys():
+		var move_to = fill_directions[move_from]
+
+		color_tiles[move_to].hide()
+
+		var _plane = planes[move_from][move_to]
+		var animated_block = color_tiles[move_from]
+
+		if not animated_block.visible:
+			continue
+
+		if _plane == EPlanes.HORIZONTAL:
+			_t.tween_property(animated_block, "size:x", full_w, tween_time)
+			if animated_block.position.x > 0:
+				_t.tween_property(animated_block, "position:x", 0, tween_time)
+		else:
+			_t.tween_property(animated_block, "size:y", full_h, tween_time)
+			if animated_block.position.y > 0:
+				_t.tween_property(animated_block, "position:y", 0, tween_time)
+
+	if Utils.uniq_array(colors).size() == 1 and colors[0] == 0:
+		remove_block()
+
+	_t.play()
+	return _t

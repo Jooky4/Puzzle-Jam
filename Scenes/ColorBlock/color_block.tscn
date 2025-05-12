@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=15 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" uid="uid://dyw0nwijl2uko" path="res://Assets/color_blocks/sky_blue.png" id="2_syucs"]
@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://bxxb1kn7pvl7t" path="res://Assets/color_blocks/2.png" id="11_310ax"]
 [ext_resource type="Texture2D" uid="uid://c6obotw7jb4ka" path="res://Assets/color_blocks/3.png" id="12_4yw1v"]
 [ext_resource type="Texture2D" uid="uid://2jtwej5lig4x" path="res://Assets/color_blocks/blik.png" id="13_310ax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_310ax"]
+line_spacing = -4.0
+font_size = 70
 
 [node name="Block" type="Control"]
 custom_minimum_size = Vector2(200, 200)
@@ -335,12 +339,16 @@ flat = true
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 20.0
+offset_bottom = 198.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14
+text = "[1, 2,
+ 3, 4]"
+label_settings = SubResource("LabelSettings_310ax")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

@@ -130,12 +130,12 @@ func _update_ui() -> void:
 	level_title.level_value = LevelManager.current_level + 1
 
 
-func move_node(node: Node, new_parent: Node):
-	var old_parent = node.get_parent()
-	old_parent.remove_child(node)
-	new_parent.add_child(node)
-	node.z_index = 0
-	node.position = Vector2(-50, -50)
+func move_node(block: Node, new_parent: Node):
+	var old_parent = block.get_parent()
+	old_parent.remove_child(block)
+	new_parent.add_child(block)
+	block.z_index = 0
+	block.position = Vector2(-50, -50)
 
 
 func _make_all_color_blocks_button() -> void:
@@ -303,104 +303,136 @@ func update_level() -> void:
 		count += 1
 
 
-func check_matches(x: int, y: int) -> void:
-	prints("check_matches")
+func check_matches(y: int, x: int) -> void:
+	new_check_matches(Vector2i(x, y))
 
+
+func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
+	var color_block = ColorBlock.new()
+	color_block.position = pos
+	color_block.colors = level_data[pos.y][pos.x]
+	return color_block
+
+
+# TODO: перенести в ColorBlock
+func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_block: ColorBlock, current_side: ColorBlock.ESides, neighbour_side: ColorBlock.ESides) -> bool:
+	# прилегающие блоки соприкосаются только одним цветом
+
+	var tile_color_in_neighbour = tile_color in neighbour_block.get_side_colors(neighbour_side)
+	var is_neighbour_colors_equal = neighbour_block.is_side_colors_equal(neighbour_side)
+	var is_block_colors_equal = current_block.is_side_colors_equal(current_side)
+
+	if is_block_colors_equal\
+	 and is_neighbour_colors_equal\
+	 and tile_color_in_neighbour:
+		prints("1) вся сторона текущего блока одного цвета и совпадает с всей стороной соседа")
+		return true
+
+	elif current_block.is_side_colors_equal(current_side) and tile_color_in_neighbour:
+		prints("2) вся сторона текущего блока одного цвета, этот цвет есть в соседнем блоке")
+		return true
+
+	elif neighbour_block.is_side_colors_equal(neighbour_side) and tile_color_in_neighbour:
+		prints("3) вся сторона соседа одного цвета, этот цвет есть в текущем блоке")
+		return true
+
+	else:
+		var cur_side_colors = current_block.get_side_colors(current_side)
+		var nei_side_colors = neighbour_block.get_side_colors(neighbour_side)
+
+		# на сторонах блоков нет нужного цвета
+		if tile_color not in cur_side_colors or tile_color not in nei_side_colors:
+			return false
+
+		var cur_color_index = cur_side_colors.find(tile_color)
+		var nei_color_index = nei_side_colors.find(tile_color)
+
+		if cur_color_index == nei_color_index:
+			prints("4) у соседа есть цвет на той-же позиции что у текущего блока")
+			return true
+
+	return false
+
+
+func new_check_matches(pos: Vector2i) -> void:
+	""" Рекурсивно проверяет все блоки вокруг на совпадения цветов """
+
+	# счётчик запуска функции
 	check_match_count += 1
-	var have_match: bool = false
-	var current_cell = current_level[x][y]
 
-	if current_cell == LevelData.EMPTY_CELL:
+	# За границами поля
+	if not _in_level_field(pos):
 		return
 
-	var connections = [
-		[
-			[x-1, y, 2],
-			[x, y-1, 1]
-		],
-		[
-			[x-1, y, 3],
-			[x, y+1, 0]
-		],
-		[
-			[x+1, y, 0],
-			[x, y-1, 3]
-		],
-		[
-			[x+1, y, 1],
-			[x, y+1, 2]
-		]
-	]
+	var current_block = _create_color_block(pos, current_level)
+	var around_blocks: Array
+	var tile_index: int
+	var tile_color: int
 
-	for side in 4: # from 0 to 3
-		var current_color = current_cell[side]
-		if current_color <= 0:
-			continue
+	# блоки у которых совпадают цвета с current_block
+	var matched_blocks: Array
 
-		for connection in connections[side]:
-			var nx = connection[0]
-			var ny = connection[1]
+	# ищем любые блоки прилегающие к цвету текущего блока
+	if current_block.get_unique_colors().size() == 1:
+		tile_index = 0
+		tile_color = current_block.colors[tile_index]
+		# цвет у блока один, значит берём все существующие блоки вкруг
+		around_blocks = get_blocks_around_tile(current_block, tile_index)
+		for j in around_blocks:
+			if _is_match_side_color(tile_color, current_block, j.block, j.current_side, j.neighbour_side):
+				matched_blocks.push_back(j)
 
-			# проверка выхода за границы поля
-			if nx < 0 or ny < 0 or nx >= len(current_level) or ny >= len(current_level[0]):
-				continue
+	else:
+		# у текущего блока больше одного цвета
 
-			var neighbor_side = connection[2]
-			var neighbor_cell = current_level[nx][ny]
-			var neighbor_color = neighbor_cell[neighbor_side]
+		# Обходим тайлы текущего блока
+		var tile_list = [0, 1, 2, 3]
 
-			if neighbor_color == current_color:
-				#print("Совпадение найдено:")
-				#print("Основной блок: позиция (%d, %d), сторона %d, цвет %d" % [x, y, side, current_color])
-				#print("Соседний блок: позиция (%d, %d), сторона %d, цвет %d" % [nx, ny, neighbor_side, neighbor_color], "   ", neighbor_cell)
-				current_cell[side] = 0
-				neighbor_cell[neighbor_side] = 0
-				current_level[y][x] = current_cell
-				current_level[ny][nx] = neighbor_cell
+		for i in tile_list:
+			tile_index = i
+			tile_color = current_block.colors[tile_index]
+			around_blocks = get_blocks_around_tile(current_block, tile_index)
+			# ищем совпадения по блокам вокруг
 
-				# обновляем цвета у текущей плитки
-				for j in BLOCK_ARR[((x * 6) + y)].get_children():
-					if "Block" in j.name:
-						var direction: String
+			for j in around_blocks:
+				if _is_match_side_color(tile_color, current_block, j.block, j.current_side, j.neighbour_side):
+					matched_blocks.push_back(j)
 
-						if x == nx and y > ny:
-							direction = "left"
-						elif x == nx and y < ny:
-							direction = "right"
-						elif x > nx and y == ny:
-							direction = "up"
-						elif x < nx and y == ny:
-							direction = "down"
-
-						goal_colors_container.dec_color(current_color)
-						EventBus.goals_changed.emit(goal_colors_container.colors)
-						j.update_block(current_color, direction)
-
-				# обновляем цета у соседней плитки
-				for j in BLOCK_ARR[((nx * 6) + ny)].get_children():
-					if "Block" in j.name:
-						var direction: String
-
-						if x == nx and y > ny:
-							direction = "right"
-						elif x == nx and y < ny:
-							direction = "left"
-						elif x > nx and y == ny:
-							direction = "down"
-						elif x < nx and y == ny:
-							direction = "up"
-
-						goal_colors_container.dec_color(current_color)
-						EventBus.goals_changed.emit(goal_colors_container.colors)
-						j.update_block(current_color, direction)
-
-				update_level()
-				check_matches(nx, ny)
-				have_match = true
+			# если найден хоть один блок, прилегающий к тайлу
+			if matched_blocks.size():
+				#prints("найден блок с совпадающим цветом")
 				break
 
-	if have_match:
-		check_matches(x, y)
+	if matched_blocks.size() > 0:
+		goal_colors_container.dec_color(tile_color)
+		EventBus.goals_changed.emit(goal_colors_container.colors)
+
+		var cur_side = matched_blocks[0].current_side
+		var cur_dir = current_block.remove_color(tile_color, cur_side)
+		var cur_block_node = get_color_block(current_block.position)
+		cur_block_node.colors = current_block.colors
+		cur_block_node.fill_colors(cur_dir)
+		current_block.autofill(cur_side)
+		# обновляем данные уровня
+		current_level[current_block.position.y][current_block.position.x] = current_block.colors
+
+		for i in matched_blocks:
+			var fill_dir = i.block.remove_color(tile_color, i.neighbour_side)
+			var _block = get_color_block(i.block.position)
+			if _block:
+				_block.colors = i.block.colors
+				_block.fill_colors(fill_dir)
+				i.block.autofill(i.neighbour_side)
+				_block.colors = i.block.colors
+				current_level[i.block.position.y][i.block.position.x] = i.block.colors
+
+		await Utils.timeout(0.5)
+		new_check_matches(current_block.position)
+
+		for i in matched_blocks:
+			await Utils.timeout(0.5)
+			var cb = i.block
+			new_check_matches(cb.position)
 
 	check_match_count -= 1
 
@@ -408,6 +440,55 @@ func check_matches(x: int, y: int) -> void:
 		update_level()
 		check_level_complete()
 		check_game_over()
+
+
+func get_color_block(pos: Vector2i) -> Node:
+	var _idx = Utils.get_index_by_pos(pos, 6)
+	var _cell = block_container.get_child(_idx)
+	var _block: Node = _cell.get_color_block()
+	return _block
+
+
+func _in_level_field(pos: Vector2i) -> bool:
+	# За границами поля
+	if pos.x < 0 or pos.x >= current_level[0].size() or pos.y < 0 or pos.y >= current_level.size():
+		return false
+
+	return true
+
+
+func get_blocks_around_tile(color_block: ColorBlock, tile_index) -> Array:
+	""" Возвращает блоки, прилегающие к указанному тайлу текущего блока """
+
+	var result: Array
+
+	var tile_side_list = color_block._tile_sides(tile_index)
+
+	for side in tile_side_list:
+		var neighbour_pos = color_block._side_position(side)
+		if not _in_level_field(neighbour_pos):
+			continue
+
+		var neighbour_block = _create_color_block(neighbour_pos, current_level)
+
+		# данные о соседнем блоке
+		var data = {
+			# соседний блок
+			"block": _create_color_block(neighbour_pos, current_level),
+			# сторона с которой соседний блок прилегает к color_block
+			"current_side": side,
+			# сторона с которой color_block прилегает к соседу
+			"neighbour_side": ColorBlock.REVERSE_SIDE[side]
+		}
+
+		# отсекаем пустые и неиспользуемые ячейки
+		if neighbour_block.is_free() or neighbour_block.colors == LevelData.EMPTY_CELL:
+			prints("is empty or free block")
+			continue
+
+		result.push_back(data)
+
+	return result
 
 
 func get_free_cell_count() -> int:

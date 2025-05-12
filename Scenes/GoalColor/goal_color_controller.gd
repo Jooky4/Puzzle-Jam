@@ -32,10 +32,10 @@ func _update_ui() -> void:
 		i.set_count(count)
 
 
-func dec_color(color: int) -> void:
+func dec_color(color: int, count: int = 2) -> void:
 	if color in colors.keys():
-		var count = colors[color]
-		colors[color] = max(0, count - 1)
+		var new_count = colors[color]
+		colors[color] = max(0, new_count - count)
 
 		_update_ui()
 

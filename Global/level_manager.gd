@@ -3,10 +3,12 @@ extends Node
 var current_level: int = 0: set = _set_current_level
 var current_level_colors: Array
 var is_prev_gameover: bool
+var current_level_data: Array
 
 func _set_current_level(value) -> void:
 	prints("set cur lvl", value)
 	current_level = value
+
 
 func get_random_color():
 	var keys = LevelData.COLORS.keys()
@@ -15,13 +17,36 @@ func get_random_color():
 	return LevelData.COLORS[random_key]
 
 
+func get_cell(pos: Vector2i) -> Array:
+	# сначала Y потом X, так как в массиве сначала идут ряды, потом колонки
+
+	prints("get_cell", pos)
+
+	if pos.y < 0 or pos.y >= current_level_data.size():
+		return []
+
+	if pos.x < 0 or pos.x >= current_level_data[0].size():
+		return []
+
+	var cur_level = get_current_level()
+	var result = cur_level[pos.y][pos.x]
+
+	prints("get_cell result", pos.y, pos.x, cur_level[pos.y])
+	# TODO: подумать нужно ли возвращать пустой массив
+	#if result == LevelData.EMPTY_CELL:
+		#return []
+
+	return result
+
+
 func get_current_level() -> Array:
-	prints("current_level", current_level)
+	""" копия текущего уровня """
 	var _cur_level = current_level
 	if current_level > 200:
 		_cur_level = (current_level - 200) + 50
 
 	var level = LevelData.levels[_cur_level].duplicate(true)
+	current_level_data = level
 
 	return level
 
@@ -49,6 +74,7 @@ func get_current_level_colors() -> Array:
 
 
 func get_target_colors() -> Dictionary:
+	""" цели для текущего уровня """
 	return LevelData.target_by_level[current_level].duplicate(true)
 
 

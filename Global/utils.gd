@@ -2,9 +2,7 @@ extends Node
 
 
 func timeout(value: float) -> void:
-	prints("timeout start", value)
 	await get_tree().create_timer(value).timeout
-	prints("timeout end")
 
 
 func uniq_array(arr: Array) -> Array:
