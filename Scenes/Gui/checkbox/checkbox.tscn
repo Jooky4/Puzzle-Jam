@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://da66456qv4f0o"]
+
+[ext_resource type="Script" uid="uid://pbv3yew2cheq" path="res://Scenes/Gui/checkbox/checkbox.gd" id="1_j26bo"]
+[ext_resource type="Texture2D" uid="uid://dpgrmrsjl80th" path="res://Assets/checkbox/bg_active.png" id="2_dxl6m"]
+[ext_resource type="Texture2D" uid="uid://c4rxbm3uakgap" path="res://Assets/checkbox/bg_inactive.png" id="2_tdb0s"]
+[ext_resource type="Texture2D" uid="uid://buwr1anjetrl" path="res://Assets/checkbox/handler.png" id="3_dxl6m"]
+
+[node name="TexturedCheckbox" type="Control"]
+custom_minimum_size = Vector2(112, 56)
+layout_mode = 3
+anchor_right = 0.175
+anchor_bottom = 0.048
+offset_right = -27.0
+offset_bottom = -22.44
+script = ExtResource("1_j26bo")
+value = null
+active_bg = ExtResource("2_dxl6m")
+inactive_bg = ExtResource("2_tdb0s")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(110, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -30.0
+offset_right = 55.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+toggle_mode = true
+flat = true
+
+[node name="Background" type="TextureRect" parent="Button"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 107.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("2_tdb0s")
+
+[node name="Handler" type="TextureRect" parent="Button"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.042
+anchor_right = 0.491
+anchor_bottom = 0.958
+offset_top = -0.0200002
+offset_right = -0.0100021
+offset_bottom = 0.0199966
+grow_vertical = 2
+texture = ExtResource("3_dxl6m")
+
+[connection signal="toggled" from="Button" to="." method="_on_checkbox_toggled"]

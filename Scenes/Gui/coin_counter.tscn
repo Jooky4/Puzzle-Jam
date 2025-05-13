@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc0fvnmdoovuh"]
+
+[ext_resource type="Texture2D" uid="uid://clr2m5jrtgtek" path="res://Assets/coin_counter_bg.png" id="1_k6lkh"]
+[ext_resource type="Script" uid="uid://c5d2n13fpt37a" path="res://Scenes/Gui/coin_counter.gd" id="1_ratuh"]
+[ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="2_ratuh"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ajjst"]
+
+[node name="CoinCounter" type="Control"]
+custom_minimum_size = Vector2(220, 90)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 223.0
+offset_bottom = 90.0
+script = ExtResource("1_ratuh")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -33.5
+offset_bottom = 33.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_k6lkh")
+
+[node name="Coin" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -40.0
+offset_right = 92.0
+offset_bottom = 44.0
+grow_vertical = 2
+texture = ExtResource("2_ratuh")
+
+[node name="ValueLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.439
+anchor_top = 0.222
+anchor_right = 0.951
+anchor_bottom = 0.856
+offset_left = 0.102997
+offset_top = -0.980001
+offset_right = -0.0730133
+offset_bottom = -1.04001
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_ajjst")
+theme_override_font_sizes/font_size = 45
+text = "333K"

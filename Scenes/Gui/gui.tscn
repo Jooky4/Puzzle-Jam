@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=10 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
 [ext_resource type="PackedScene" uid="uid://ttm0o0voudov" path="res://Scenes/MainMenu/main_menu.tscn" id="2_oujc8"]
 [ext_resource type="PackedScene" uid="uid://cxbm0wayenbnt" path="res://Scenes/Gui/LevelCompleted/level_completed.tscn" id="3_oujc8"]
+[ext_resource type="PackedScene" uid="uid://dc0fvnmdoovuh" path="res://Scenes/Gui/coin_counter.tscn" id="3_ukxxk"]
+[ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
+[ext_resource type="PackedScene" uid="uid://bro82nhdbg27y" path="res://Scenes/Gui/Settings/settings_modal.tscn" id="5_0vw31"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
 bg_color = Color(0, 0, 0, 0.784314)
@@ -29,7 +32,7 @@ offset_left = -59.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "v0.0.0.1"
+text = "build: 648f5f4"
 metadata/_edit_use_anchors_ = true
 
 [node name="Top" type="MarginContainer" parent="."]
@@ -43,121 +46,49 @@ offset_bottom = 63.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 20
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top"]
 layout_mode = 2
 
-[node name="Money" type="HBoxContainer" parent="Top/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/margin_left = 16
 
-[node name="Label" type="Label" parent="Top/HBoxContainer/Money"]
+[node name="SettingsButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "GOLD"
-
-[node name="ValueLabel" type="Label" parent="Top/HBoxContainer/Money"]
-layout_mode = 2
-text = "0"
-
-[node name="AddMoneyButton" type="Button" parent="Top/HBoxContainer/Money"]
-custom_minimum_size = Vector2(28, 0)
-layout_mode = 2
-text = "+"
+focus_mode = 0
+texture_normal = ExtResource("4_h6mnj")
+texture_pressed = ExtResource("4_h6mnj")
+texture_hover = ExtResource("4_h6mnj")
+texture_focused = ExtResource("4_h6mnj")
 
 [node name="SpaceExpander" type="Control" parent="Top/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SettingsButton" type="Button" parent="Top/HBoxContainer"]
+[node name="CoinCounter" parent="Top/HBoxContainer" instance=ExtResource("3_ukxxk")]
+unique_name_in_owner = true
 layout_mode = 2
-focus_mode = 0
-text = "Settings"
+value = 3330000
 
 [node name="HomeButton" type="Button" parent="Top/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "В меню"
 
-[node name="SettingsModal" type="Panel" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
-
-[node name="Panel" type="Panel" parent="SettingsModal"]
-custom_minimum_size = Vector2(540, 320)
-layout_mode = 1
+[node name="SettingsModal" parent="." instance=ExtResource("5_0vw31")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bw16r")
-
-[node name="Label" type="Label" parent="SettingsModal/Panel"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 42.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 30
-text = "Настройки"
-horizontal_alignment = 1
-
-[node name="CloseButton" type="Button" parent="SettingsModal/Panel"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -8.0
-offset_bottom = 8.0
-grow_horizontal = 0
-focus_mode = 0
-text = "x"
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsModal/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -75.5
-offset_top = -20.0
-offset_right = 75.5
-offset_bottom = 82.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 40
-
-[node name="MuteSoundButton" type="Button" parent="SettingsModal/Panel/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-toggle_mode = true
-text = "Sound"
-
-[node name="MuteMusicButton" type="Button" parent="SettingsModal/Panel/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-toggle_mode = true
-text = "Music"
 
 [node name="ShopModal" type="Panel" parent="."]
 visible = false
@@ -239,8 +170,7 @@ size_flags_vertical = 3
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1
 
-[connection signal="pressed" from="Top/HBoxContainer/Money/AddMoneyButton" to="." method="_on_add_money_button_pressed"]
-[connection signal="pressed" from="Top/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/HomeButton" to="." method="_on_home_button_pressed"]
-[connection signal="pressed" from="SettingsModal/Panel/CloseButton" to="." method="_on_settings_close_button_pressed"]
+[connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
 [connection signal="pressed" from="ShopModal/Panel/CloseButton" to="." method="_on_shop_close_button_pressed"]

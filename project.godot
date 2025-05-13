@@ -39,6 +39,7 @@ enabled=PackedStringArray("res://addons/playgama_bridge/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Assets/": "teal",
 "res://Global/": "red",
 "res://Resources/": "yellow",
 "res://Resources/Fonts/": "pink",

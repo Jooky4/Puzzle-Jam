@@ -1,0 +1,31 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://b4wdv0akko602"]
+
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="1_ua8ny"]
+[ext_resource type="StyleBox" uid="uid://h7f1mfu3ycll" path="res://Resources/Gui/green_btn_disabled.tres" id="2_blt4s"]
+[ext_resource type="StyleBox" uid="uid://disl60fnh6yv5" path="res://Resources/Gui/green_btn_normal.tres" id="3_uj3hr"]
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_ua8ny")
+Button/styles/disabled = ExtResource("2_blt4s")
+Button/styles/focus = null
+Button/styles/hover = ExtResource("3_uj3hr")
+Button/styles/normal = ExtResource("3_uj3hr")
+Button/styles/pressed = ExtResource("3_uj3hr")

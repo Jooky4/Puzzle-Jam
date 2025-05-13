@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=3 uid="uid://bro82nhdbg27y"]
+
+[ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="1_dlg3q"]
+[ext_resource type="Script" uid="uid://ci2nw5s4tca04" path="res://Scenes/Gui/Settings/settings_modal.gd" id="1_jndsi"]
+[ext_resource type="Texture2D" uid="uid://xml2cb6w6pof" path="res://Assets/settings/panel_bg.png" id="3_v26iv"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_k6v5j"]
+[ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="4_qimqs"]
+[ext_resource type="Texture2D" uid="uid://5hvckofmtlt8" path="res://Assets/settings/sound.png" id="7_5ulil"]
+[ext_resource type="PackedScene" uid="uid://da66456qv4f0o" path="res://Scenes/Gui/checkbox/checkbox.tscn" id="7_ntks4"]
+[ext_resource type="Texture2D" uid="uid://ybrpctbeo4hm" path="res://Assets/settings/music.png" id="9_3hsws"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw16r"]
+bg_color = Color(0.676, 0.408, 0.534, 0)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="SettingsModal" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
+script = ExtResource("1_jndsi")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dlg3q")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(466, 404)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.0
+offset_top = -169.0
+offset_right = 233.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bw16r")
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_v26iv")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 36.0
+offset_bottom = 109.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_k6v5j")
+theme_override_font_sizes/font_size = 63
+text = "Настройки"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.991713
+anchor_top = -0.0679012
+anchor_right = 1.05801
+anchor_bottom = 0.0209877
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+focus_mode = 0
+texture_normal = ExtResource("4_qimqs")
+texture_pressed = ExtResource("4_qimqs")
+texture_hover = ExtResource("4_qimqs")
+texture_focused = ExtResource("4_qimqs")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_top = 0.371653
+anchor_right = 0.936
+anchor_bottom = 0.905654
+offset_left = -0.222
+offset_top = -0.14801
+offset_right = -0.176025
+offset_bottom = 0.115967
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 38
+metadata/_edit_use_anchors_ = true
+
+[node name="Sound" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/VBoxContainer/Sound"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("7_5ulil")
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Sound"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_k6v5j")
+theme_override_font_sizes/font_size = 40
+text = "Звук"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SoundCheckbox" parent="Panel/VBoxContainer/Sound" instance=ExtResource("7_ntks4")]
+layout_mode = 2
+value = false
+
+[node name="Music" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/VBoxContainer/Music"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("9_3hsws")
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_k6v5j")
+theme_override_font_sizes/font_size = 40
+text = "Музыка"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicCheckbox" parent="Panel/VBoxContainer/Music" instance=ExtResource("7_ntks4")]
+layout_mode = 2
+value = false
+
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="checked" from="Panel/VBoxContainer/Sound/SoundCheckbox" to="." method="_on_sound_checkbox_checked"]
+[connection signal="checked" from="Panel/VBoxContainer/Music/MusicCheckbox" to="." method="_on_music_checkbox_checked"]

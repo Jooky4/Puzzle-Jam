@@ -2,9 +2,9 @@ extends CanvasLayer
 
 @export var main_menu_scene: PackedScene
 
-@onready var money_value_label: Label = $Top/HBoxContainer/Money/ValueLabel
-@onready var home_button: Button = $Top/HBoxContainer/HomeButton
-@onready var settings_button: Button = $Top/HBoxContainer/SettingsButton
+@onready var money_value_label: Control = %CoinCounter
+@onready var home_button: Button = %HomeButton
+@onready var settings_button: TextureButton = %SettingsButton
 
 @onready var game_over: Control = $GameOverModal/GameOver
 @onready var level_complete: Control = $LevelCompleteModal/LevelComplete
@@ -65,7 +65,7 @@ func _on_settings_button_pressed() -> void:
 
 
 func set_money(value: int) -> void:
-	money_value_label.text = str(value)
+	money_value_label.value = value
 
 
 func _on_add_money_button_pressed() -> void:
@@ -107,3 +107,7 @@ func show_level_ui() -> void:
 func show_main_menu_ui() -> void:
 	home_button.hide()
 	settings_button.show()
+
+
+func _on_settings_modal_modal_close() -> void:
+	hide_modal(EModal.Settings)
