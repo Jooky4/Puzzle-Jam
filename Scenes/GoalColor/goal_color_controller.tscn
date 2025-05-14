@@ -1,14 +1,80 @@
-[gd_scene load_steps=3 format=3 uid="uid://8rhmjet71ngk"]
+[gd_scene load_steps=9 format=3 uid="uid://8rhmjet71ngk"]
 
 [ext_resource type="Script" uid="uid://c62biiwnp3w7" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
 [ext_resource type="PackedScene" uid="uid://gxx6cqyr5t8f" path="res://Scenes/GoalColor/goal_color.tscn" id="2_tgnh5"]
+[ext_resource type="Texture2D" uid="uid://shqquwuhjv0l" path="res://Assets/goals/bg_top.png" id="3_mshfx"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_1q5yt"]
+[ext_resource type="Texture2D" uid="uid://0fxsjl7hc7kn" path="res://Assets/goals/bg_bottom.png" id="5_nbk5d"]
 
-[node name="TargetColorController" type="HBoxContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_y0dy1"]
+font = ExtResource("4_1q5yt")
+font_size = 40
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utj4s"]
+atlas = ExtResource("5_nbk5d")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6srid"]
+texture = SubResource("AtlasTexture_utj4s")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 18.0
+
+[node name="GoalColorController" type="Control"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 3
+anchor_right = 0.333
+anchor_bottom = 0.094
+offset_right = 0.23999
+offset_bottom = -0.320007
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
 script = ExtResource("1_lamtr")
 goal_color = ExtResource("2_tgnh5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -57.5
+offset_right = 360.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBG" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_mshfx")
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleBG"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -15.5
+offset_right = 32.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "цели"
+label_settings = SubResource("LabelSettings_y0dy1")
+
+[node name="Background" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(230, 74)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_6srid")
+
+[node name="Colors" type="HBoxContainer" parent="VBoxContainer/Background"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1

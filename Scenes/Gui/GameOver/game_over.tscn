@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckvojstvrbqhu"]
+[gd_scene load_steps=9 format=3 uid="uid://ckvojstvrbqhu"]
 
 [ext_resource type="Script" uid="uid://cy46lox607ykk" path="res://Scenes/Gui/GameOver/game_over.gd" id="1_i811m"]
-[ext_resource type="Texture2D" uid="uid://b22y1da6cv0wk" path="res://Resources/Gui/yellow_button.png" id="1_kl41b"]
+[ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="3_mjht2"]
+[ext_resource type="Texture2D" uid="uid://dv7tjm8tsy6yw" path="res://Assets/экран поражения/плашка.png" id="3_yy5sx"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ywu43"]
+[ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="5_yy5sx"]
+[ext_resource type="Texture2D" uid="uid://brn0f1m01ifql" path="res://Assets/game_over/message_bg.png" id="6_ywu43"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mjht2"]
+resource_local_to_scene = true
+line_spacing = 0.0
+font = ExtResource("4_ywu43")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_scjl8"]
+resource_local_to_scene = true
+line_spacing = 0.0
+font = ExtResource("4_ywu43")
+font_size = 42
+font_color = Color(1, 0.117647, 0.482353, 1)
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -10,52 +27,138 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_i811m")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -109.0
-offset_top = 580.0
-offset_right = 109.0
-offset_bottom = 635.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Game Over"
-
-[node name="RestartButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -361.0
-offset_right = 90.0
-offset_bottom = -291.0
-grow_horizontal = 2
-grow_vertical = 0
-texture_normal = ExtResource("1_kl41b")
-
-[node name="Label" type="Label" parent="RestartButton"]
+[node name="GoalColorController" parent="." instance=ExtResource("3_mjht2")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -15.0
-offset_right = 60.0
-offset_bottom = 8.0
+offset_left = -188.0
+offset_top = -372.0
+offset_right = 52.0
+offset_bottom = -252.0
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+
+[node name="Panel" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.573438
+anchor_right = 0.5
+anchor_bottom = 0.573438
+offset_left = -233.0
+offset_top = -242.0
+offset_right = 233.0
+offset_bottom = 242.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "Начать заново"
+texture = ExtResource("3_yy5sx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.5
+offset_top = 44.0
+offset_right = 196.5
+offset_bottom = 122.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.117647, 0.482353, 1)
+theme_override_fonts/font = ExtResource("4_ywu43")
+theme_override_font_sizes/font_size = 68
+text = "второй шанс"
+
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_top = -26.0
+offset_right = 25.0
+offset_bottom = 50.0
+grow_horizontal = 0
+focus_mode = 0
+texture_normal = ExtResource("5_yy5sx")
+texture_pressed = ExtResource("5_yy5sx")
+texture_hover = ExtResource("5_yy5sx")
+texture_focused = ExtResource("5_yy5sx")
+
+[node name="Message" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -69.5
+offset_right = 196.5
+offset_bottom = 69.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_ywu43")
+
+[node name="Label" type="Label" parent="Panel/Message"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -55.0
+offset_right = 22.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ywu43")
+theme_override_font_sizes/font_size = 45
+text = "освободи"
+label_settings = SubResource("LabelSettings_mjht2")
+
+[node name="Label2" type="Label" parent="Panel/Message"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 7.0
+offset_top = -55.0
+offset_right = 183.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ywu43")
+theme_override_font_sizes/font_size = 45
+text = "5 клеток"
+label_settings = SubResource("LabelSettings_scjl8")
+
+[node name="Label3" type="Label" parent="Panel/Message"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -6.0
+offset_right = 176.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ywu43")
+theme_override_font_sizes/font_size = 45
+text = "и продолжи игру"
+label_settings = SubResource("LabelSettings_mjht2")
 horizontal_alignment = 1
 
-[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

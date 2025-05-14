@@ -9,7 +9,7 @@ extends Node2D
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
 @onready var level_label: Label = $UI/PanelContainer/Label
 
-@onready var goal_colors_container: HBoxContainer = $UI/GoalColorController
+@onready var goal_colors_container: Control = $UI/GoalColorController
 
 var BLOCK_ARR: Array
 var current_level: Array = []
@@ -36,6 +36,7 @@ func _restart_level() -> void:
 		block_container.remove_child(i)
 
 	goal_colors_container.set_colors(LevelManager.get_target_colors())
+
 
 	create_level()
 	BLOCK_ARR = block_container.get_children()
@@ -268,13 +269,6 @@ func check_game_over() -> void:
 
 
 func check_level_complete() -> void:
-	var is_complete: bool = true
-
-	for t in goal_colors_container.get_children():
-		if t.count > 0:
-			is_complete = false
-			break
-
-	if is_complete:
+	if not goal_colors_container.has_items():
 		Player.set_value("money", 10 + Player.get_value("money"))
 		Gui.show_modal(Gui.EModal.LevelComplete)

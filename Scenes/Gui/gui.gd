@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var main_menu_scene: PackedScene
 
 @onready var money_value_label: Control = %CoinCounter
-@onready var home_button: Button = %HomeButton
+@onready var home_button: TextureButton = %HomeButton
 @onready var settings_button: TextureButton = %SettingsButton
 
 @onready var game_over: Control = $GameOverModal/GameOver
@@ -36,6 +36,7 @@ func _ready() -> void:
 	hide_all_modals()
 
 	game_over.restart_level.connect(_on_game_over_restart_level)
+	game_over.go_home.connect(_on_go_home_from_game_over)
 	level_complete.next_level.connect(_on_level_complete_next_level)
 
 	Player.data_updated.connect(_on_player_updated)
@@ -93,6 +94,12 @@ func hide_modal(modal_name: EModal) -> void:
 func hide_all_modals() -> void:
 	for name in _modals:
 		_modals[name].hide()
+
+
+func _on_go_home_from_game_over() -> void:
+	hide_all_modals()
+	get_tree().change_scene_to_packed(main_menu_scene)
+	# TODO: после GameOver поменять надпись кнопки на главном экране "Попробовать ещё раз"
 
 
 func _on_home_button_pressed() -> void:
