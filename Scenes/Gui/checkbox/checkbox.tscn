@@ -13,7 +13,6 @@ anchor_bottom = 0.048
 offset_right = -27.0
 offset_bottom = -22.44
 script = ExtResource("1_j26bo")
-value = null
 active_bg = ExtResource("2_dxl6m")
 inactive_bg = ExtResource("2_tdb0s")
 

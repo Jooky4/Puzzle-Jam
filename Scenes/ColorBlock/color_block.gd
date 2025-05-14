@@ -1,5 +1,7 @@
 extends Control
 
+@export var texture_list: Array[Texture2D]
+
 @onready var arr_blocs = [$Small_block_1, $Small_block_2, $Small_block_3, $Small_block_4]
 @onready var colors: Array = LevelData.FREE_CELL.duplicate(true)
 @onready var debug_label: Label = $DebugLabel
@@ -8,6 +10,16 @@ extends Control
 @onready var follow_mouse: bool = false
 @onready var button = $Button
 
+@onready var texture_binds = {
+	10: texture_list[0],
+	11: texture_list[1],
+	12: texture_list[2],
+	13: texture_list[3],
+	14: texture_list[4],
+	15: texture_list[5],
+	16: texture_list[6],
+	17: texture_list[7],
+}
 
 var count_block = 0
 
@@ -34,10 +46,17 @@ func get_color_block(arr_color) -> void:
 	can_take_block = false
 	button.visible = false
 	colors = arr_color
-	$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
-	$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
-	$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
-	$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
+
+	#$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
+	#$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
+	#$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
+	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
+
+	prints("arr_color", arr_color)
+	$Small_block_2/ColorRect.texture = texture_binds[arr_color[1]]
+	$Small_block_3/ColorRect.texture = texture_binds[arr_color[2]]
+	$Small_block_4/ColorRect.texture = texture_binds[arr_color[3]]
+	$Small_block_1/ColorRect.texture = texture_binds[arr_color[0]]
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -187,10 +206,21 @@ func update_ui() -> void:
 
 
 func set_reate_compain(arr_color) -> void:
-	$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
-	$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
-	$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
-	$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
+	$Small_block_2/ColorRect.texture = texture_binds[arr_color[1]]
+	$Small_block_3/ColorRect.texture = texture_binds[arr_color[2]]
+	$Small_block_4/ColorRect.texture = texture_binds[arr_color[3]]
+	$Small_block_1/ColorRect.texture = texture_binds[arr_color[0]]
+
+	#$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
+	#$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
+	#$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
+	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
+
+	var full_w = 200
+	var full_h = 200
+
+	var half_w = 100
+	var half_h = 100
 
 	if are_all_elements_equal(arr_color):
 		arr_blocs[0].visible = true
@@ -203,7 +233,7 @@ func set_reate_compain(arr_color) -> void:
 			#Vector2(105, 105),
 			#1
 		#)
-		arr_blocs[0].custom_minimum_size = Vector2(105, 105)
+		arr_blocs[0].size = Vector2(full_w, full_h)
 		count_block = 1
 
 	else:
@@ -211,25 +241,25 @@ func set_reate_compain(arr_color) -> void:
 			arr_blocs[0].visible = true
 			arr_blocs[1].visible = false
 			#create_tween().tween_property(arr_blocs[0], "custom_minimum_size", Vector2(105, 50), 1)
-			arr_blocs[0].custom_minimum_size = Vector2(105, 50)
+			arr_blocs[0].size = Vector2(full_w, half_h)
 
 		if arr_color[2] == arr_color[3]:
 			arr_blocs[2].visible = true
 			arr_blocs[3].visible = false
 			#create_tween().tween_property(arr_blocs[2], "custom_minimum_size", Vector2(105, 50), 1)
-			arr_blocs[2].custom_minimum_size = Vector2(105, 50)
+			arr_blocs[2].size = Vector2(full_w, half_h)
 
 		if arr_color[0] == arr_color[2]:
 			arr_blocs[0].visible = true
 			arr_blocs[2].visible = false
 			#create_tween().tween_property(arr_blocs[0], "custom_minimum_size", Vector2(50, 105), 1)
-			arr_blocs[0].custom_minimum_size = Vector2(50, 105)
+			arr_blocs[0].size = Vector2(half_w, full_h)
 
 		if arr_color[1] == arr_color[3]:
 			arr_blocs[1].visible = true
 			arr_blocs[3].visible = false
 			#create_tween().tween_property(arr_blocs[1], "custom_minimum_size", Vector2(50, 105), 1)
-			arr_blocs[1].custom_minimum_size = Vector2(50, 105)
+			arr_blocs[1].size = Vector2(half_w, full_h)
 
 		var unique_dict = {}
 		for color in arr_color:

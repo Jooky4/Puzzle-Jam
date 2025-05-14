@@ -94,6 +94,7 @@ func move_node(node: Node, new_parent: Node):
 	var old_parent = node.get_parent()
 	old_parent.remove_child(node)
 	new_parent.add_child(node)
+	node.z_index = 0
 	node.global_position = new_parent.global_position
 
 

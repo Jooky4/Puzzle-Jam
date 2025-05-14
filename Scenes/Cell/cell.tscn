@@ -22,13 +22,20 @@ gradient = SubResource("Gradient_iela3")
 
 [node name="Cell" type="Control"]
 use_parent_material = true
-custom_minimum_size = Vector2(105, 105)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
-anchor_right = 0.146
-anchor_bottom = 0.082
-offset_right = -0.12001
-offset_bottom = 0.0399933
-mouse_filter = 1
+anchor_left = 0.431
+anchor_top = 0.461
+anchor_right = 0.569
+anchor_bottom = 0.539
+offset_left = -0.320007
+offset_top = -0.0800171
+offset_right = 0.320007
+offset_bottom = 0.0799561
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_l3g6y")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -40,6 +47,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = SubResource("GradientTexture1D_jxq24")
 expand_mode = 1
 

@@ -1,104 +1,136 @@
-[gd_scene load_steps=2 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=10 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block.gd" id="1_qv5tu"]
+[ext_resource type="Texture2D" uid="uid://dyw0nwijl2uko" path="res://Assets/color_blocks/sky_blue.png" id="2_syucs"]
+[ext_resource type="Texture2D" uid="uid://b83c5ly0qft11" path="res://Assets/color_blocks/purple.png" id="3_tlo46"]
+[ext_resource type="Texture2D" uid="uid://jtq2bbdc7wv7" path="res://Assets/color_blocks/blue.png" id="4_yx27s"]
+[ext_resource type="Texture2D" uid="uid://bglqdget25jbp" path="res://Assets/color_blocks/green.png" id="5_ggtwr"]
+[ext_resource type="Texture2D" uid="uid://b7sq5qiokng0w" path="res://Assets/color_blocks/yellow.png" id="6_310ax"]
+[ext_resource type="Texture2D" uid="uid://bltkpcl7vcerx" path="res://Assets/color_blocks/red.png" id="7_4yw1v"]
+[ext_resource type="Texture2D" uid="uid://bf8fdl0xyy2xe" path="res://Assets/color_blocks/pink.png" id="8_tq0rt"]
+[ext_resource type="Texture2D" uid="uid://dp4f7lardhr4d" path="res://Assets/color_blocks/brown.png" id="9_xeolu"]
 
 [node name="Block" type="Control"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.5
-offset_top = -52.5
-offset_right = 52.5
-offset_bottom = 52.5
+anchor_left = 0.431
+anchor_top = 0.461
+anchor_right = 0.569
+anchor_bottom = 0.539
+offset_left = -50.32
+offset_top = -50.08
+offset_right = 50.32
+offset_bottom = 50.08
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(52.5, 52.5)
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(100, 92)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_qv5tu")
+texture_list = Array[Texture2D]([ExtResource("2_syucs"), ExtResource("3_tlo46"), ExtResource("4_yx27s"), ExtResource("5_ggtwr"), ExtResource("6_310ax"), ExtResource("7_4yw1v"), ExtResource("8_tq0rt"), ExtResource("9_xeolu")])
 
 [node name="Small_block_1" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_right = 100.0
+offset_bottom = 100.0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Small_block_1"]
+[node name="ColorRect" type="NinePatchRect" parent="Small_block_1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -10.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
 
 [node name="Small_block_2" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
-offset_bottom = 50.0
+offset_left = -100.0
+offset_bottom = 100.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Small_block_2"]
+[node name="ColorRect" type="NinePatchRect" parent="Small_block_2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
 
 [node name="Small_block_3" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -50.0
-offset_right = 50.0
+offset_top = -100.0
+offset_right = 100.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Small_block_3"]
+[node name="ColorRect" type="NinePatchRect" parent="Small_block_3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -10.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
 
 [node name="Small_block_4" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Small_block_4"]
+[node name="ColorRect" type="NinePatchRect" parent="Small_block_4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -10.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
 
 [node name="Button" type="Button" parent="."]
 z_index = -5
@@ -113,6 +145,7 @@ mouse_filter = 1
 flat = true
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
