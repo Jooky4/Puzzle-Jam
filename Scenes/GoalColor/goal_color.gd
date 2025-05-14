@@ -1,22 +1,49 @@
 extends Control
 
 
+@export var texture_list: Array[Texture2D]
+
 var color: int # смотри номера цветов в LevelData.COLORS
 var count: int
 
-@onready var color_rect: ColorRect = $ColorRect
 @onready var label: Label = $Label
+@onready var block: TextureRect = $Block
+@onready var done: TextureRect = $Done
+
+
+@onready var texture_binds = {
+	10: texture_list[0],
+	11: texture_list[1],
+	12: texture_list[2],
+	13: texture_list[3],
+	14: texture_list[4],
+	15: texture_list[5],
+	16: texture_list[6],
+	17: texture_list[7],
+}
+
+
+func _ready() -> void:
+	_update_ui()
+
+
+func _update_ui() -> void:
+	if label:
+		label.text = str(count)
+		label.visible = count > 0
+
+	if done:
+		done.visible = count == 0
 
 
 func set_count(value: int) -> void:
 	count = max(0, value)
 
-	if label:
-		label.text = str(value)
+	_update_ui()
 
 
 func set_color(value: int) -> void:
 	color = value
 
-	if color_rect:
-		color_rect.color = LevelData.COLORS[value]
+	if block:
+		block.texture = texture_binds[value]
