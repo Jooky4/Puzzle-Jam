@@ -78,3 +78,9 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
+
+[node name="TargetColor" parent="VBoxContainer/Background/Colors" instance=ExtResource("2_tgnh5")]
+layout_mode = 2
+
+[node name="TargetColor2" parent="VBoxContainer/Background/Colors" instance=ExtResource("2_tgnh5")]
+layout_mode = 2

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=9 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="5_7i4w6"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
+[ext_resource type="PackedScene" uid="uid://bhu88im5cp8nc" path="res://Scenes/Level/level_title.tscn" id="6_362x8"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="6_q8n36"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06ioy"]
@@ -46,21 +47,11 @@ offset_right = 720.0
 offset_bottom = 1280.0
 mouse_filter = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="UI"]
+[node name="LevelTitle" parent="UI" instance=ExtResource("6_362x8")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_top = 120.0
-offset_right = 100.0
-offset_bottom = 143.0
-grow_horizontal = 2
-
-[node name="Label" type="Label" parent="UI/PanelContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-horizontal_alignment = 1
+offset_top = 32.0
+offset_bottom = 55.0
+difficulty = 1
 
 [node name="GoalColorController" parent="UI" instance=ExtResource("5_x701m")]
 layout_mode = 1
@@ -68,9 +59,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
+offset_left = -120.0
 offset_top = 204.0
+offset_right = 120.0
 offset_bottom = 204.0
-grow_vertical = 1
 
 [node name="GridContainer" type="GridContainer" parent="UI"]
 layout_mode = 1

@@ -37,6 +37,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_b1qu0")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

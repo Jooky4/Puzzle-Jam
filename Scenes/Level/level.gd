@@ -7,7 +7,7 @@ extends Node2D
 
 @onready var block_for_drop_1 = $UI/VBoxContainer/ColorRect/Block
 @onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
-@onready var level_label: Label = $UI/PanelContainer/Label
+@onready var level_title: Control = $UI/LevelTitle
 
 @onready var goal_colors_container: Control = $UI/GoalColorController
 
@@ -88,7 +88,7 @@ func _input(event):
 
 
 func _update_ui() -> void:
-	level_label.text = "Уровень: %d" % (LevelManager.current_level + 1)
+	level_title.level_value = LevelManager.current_level + 1
 
 
 func move_node(node: Node, new_parent: Node):

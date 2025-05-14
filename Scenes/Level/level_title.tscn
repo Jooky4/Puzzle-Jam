@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhu88im5cp8nc"]
+
+[ext_resource type="Script" uid="uid://de7bagq7htff6" path="res://Scenes/Level/level_title.gd" id="1_medeh"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="2_mf5w2"]
+[ext_resource type="Texture2D" uid="uid://bila3ypwsrqhi" path="res://Assets/level_title/hard.png" id="3_r6kbx"]
+[ext_resource type="Texture2D" uid="uid://dk1fmgttpf2kj" path="res://Assets/level_title/super_hard.png" id="4_4scjw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xh5tg"]
+line_spacing = 0.0
+font = ExtResource("2_mf5w2")
+font_size = 44
+
+[sub_resource type="LabelSettings" id="LabelSettings_aoqxk"]
+line_spacing = -8.0
+font = ExtResource("2_mf5w2")
+font_size = 20
+
+[node name="LevelTitle" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 39.0
+grow_horizontal = 2
+script = ExtResource("1_medeh")
+difficulty = 0
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_right = 120.0
+offset_bottom = 51.0
+grow_horizontal = 2
+text = "уровень 10"
+label_settings = SubResource("LabelSettings_xh5tg")
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+offset_left = -35.0
+offset_top = 44.0
+offset_right = 235.0
+offset_bottom = 47.0
+grow_horizontal = 2
+color = Color(0.180392, 0.00784314, 0.337255, 1)
+
+[node name="Hard" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -135.5
+offset_top = 30.0
+offset_right = 135.5
+offset_bottom = 105.0
+grow_horizontal = 2
+texture = ExtResource("3_r6kbx")
+
+[node name="Label" type="Label" parent="Hard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.288
+anchor_top = 0.053
+anchor_right = 0.716
+anchor_bottom = 0.587
+offset_left = -0.0480042
+offset_top = 5.025
+offset_right = -0.0360107
+offset_bottom = -5.025
+grow_horizontal = 2
+grow_vertical = 2
+text = "Сложный"
+label_settings = SubResource("LabelSettings_aoqxk")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="VeryHard" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.5
+offset_top = 9.5
+offset_right = 135.5
+offset_bottom = 84.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4scjw")
+
+[node name="Label" type="Label" parent="VeryHard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.288
+anchor_top = 0.053
+anchor_right = 0.716
+anchor_bottom = 0.587
+offset_left = -0.0480042
+offset_top = 5.025
+offset_right = -0.0360107
+offset_bottom = -5.025
+grow_horizontal = 2
+grow_vertical = 2
+text = "Супер сложный"
+label_settings = SubResource("LabelSettings_aoqxk")
+horizontal_alignment = 1
+autowrap_mode = 3
