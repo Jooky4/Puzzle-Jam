@@ -29,6 +29,7 @@ var count_block = 0
 var last_position := Vector2.ZERO
 var jelly_layers: Array = []
 
+
 func _collect_jelly_layers():
 	for control in arr_blocs:
 		var children = control.get_children()
@@ -90,7 +91,7 @@ func _process(delta):
 
 		patch1.position = patch1.position.lerp(target1, jelly_lerp_speed * delta)
 		patch2.position = patch2.position.lerp(target2, jelly_lerp_speed * delta)
-		
+
 	debug_label.text = str("[%d, %d,\n%d, %d]" % colors)
 
 
@@ -107,9 +108,10 @@ func get_color_block(arr_color) -> void:
 	prints("arr_color", arr_color)
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
+		var color = LevelData.COLORS[arr_color[i]]
 		for patch in nine_patches:
-			patch.texture = texture_binds[arr_color[i]]
-
+			patch.modulate = color
+			#patch.texture = #texture_binds[arr_color[i]]
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -211,33 +213,6 @@ func create_random_color(used_colors: Array = []) -> void:
 	#update_ui()
 
 
-# TODO: remove
-func old_create_random_color() -> void:
-	var keys = LevelData.COLORS.keys()
-	var arr_color = []
-
-	arr_color.append(keys[randi() % keys.size()])
-	arr_color.append(keys[randi() % keys.size()])
-
-	var third_color = keys[randi() % keys.size()]
-	while third_color == arr_color[0] and third_color == arr_color[1]:
-		third_color = keys[randi() % keys.size()]
-	arr_color.append(third_color)
-
-	var fourth_color = keys[randi() % keys.size()]
-	while (fourth_color == arr_color[0] and fourth_color == arr_color[1]) or \
-		  (fourth_color == arr_color[0] and fourth_color == arr_color[2]) or \
-		  (fourth_color == arr_color[1] and fourth_color == arr_color[2]):
-		fourth_color = keys[randi() % keys.size()]
-	arr_color.append(fourth_color)
-
-	arr_color.shuffle()
-
-	colors = arr_color
-	set_reate_compain(colors)
-	#update_ui()
-
-
 func update_ui() -> void:
 	# будущая замена set_reate_compain()
 	var tails = [
@@ -261,14 +236,12 @@ func update_ui() -> void:
 func set_reate_compain(arr_color) -> void:
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
-		for patch in nine_patches:
-			patch.texture = texture_binds[arr_color[i]]
+		var color = LevelData.COLORS[arr_color[i]]
 
-
-	#$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
-	#$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
-	#$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
-	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
+		var child_list = arr_blocs[i].get_children()
+		child_list[0].modulate = color.darkened(0.3)
+		child_list[1].modulate = color
+		child_list[2].modulate = color
 
 	var full_w = 200
 	var full_h = 200

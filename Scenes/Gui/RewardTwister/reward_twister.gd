@@ -20,7 +20,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	label.text = "+" + str(current_reward())
+	if label:
+		label.text = "+" + str(current_reward())
 
 
 func current_reward() -> int:

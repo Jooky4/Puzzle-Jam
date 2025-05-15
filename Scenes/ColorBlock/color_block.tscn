@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=13 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" uid="uid://dyw0nwijl2uko" path="res://Assets/color_blocks/sky_blue.png" id="2_syucs"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bltkpcl7vcerx" path="res://Assets/color_blocks/red.png" id="7_4yw1v"]
 [ext_resource type="Texture2D" uid="uid://bf8fdl0xyy2xe" path="res://Assets/color_blocks/pink.png" id="8_tq0rt"]
 [ext_resource type="Texture2D" uid="uid://dp4f7lardhr4d" path="res://Assets/color_blocks/brown.png" id="9_xeolu"]
+[ext_resource type="Texture2D" uid="uid://dalk2jpfvf205" path="res://Assets/color_blocks/1.png" id="10_ggtwr"]
+[ext_resource type="Texture2D" uid="uid://bxxb1kn7pvl7t" path="res://Assets/color_blocks/2.png" id="11_310ax"]
+[ext_resource type="Texture2D" uid="uid://c6obotw7jb4ka" path="res://Assets/color_blocks/3.png" id="12_4yw1v"]
 
 [node name="Block" type="Control"]
 custom_minimum_size = Vector2(200, 200)
@@ -50,7 +53,7 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("12_4yw1v")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -64,13 +67,14 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("11_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_1"]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,7 +82,7 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("10_ggtwr")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -103,7 +107,7 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("12_4yw1v")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -117,13 +121,14 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("11_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_2"]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,7 +136,7 @@ anchor_bottom = 1.0
 offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("10_ggtwr")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -156,7 +161,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("12_4yw1v")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -170,7 +175,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("11_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -184,7 +189,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("10_ggtwr")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -209,7 +214,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("12_4yw1v")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -223,7 +228,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("11_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -237,7 +242,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tlo46")
+texture = ExtResource("10_ggtwr")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20

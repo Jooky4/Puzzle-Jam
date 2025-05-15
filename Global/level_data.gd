@@ -2,14 +2,14 @@ extends Node
 
 #var COLOR_BLOCK = {
 var COLORS = {
-	10: Color.SKY_BLUE,
-	11: Color.PURPLE,
-	12: Color.BLUE,
-	13: Color.GREEN,
-	14: Color.YELLOW,
-	15: Color.CRIMSON, # красный
-	16: Color.PINK,
-	17: Color("#4D220E"), # коричневый
+	10: Color("#0FB5FA"), # голубой
+	11: Color("#AC48FA"), # фиолетовый
+	12: Color("#1A61EB"),
+	13: Color("#61DB43"),
+	14: Color("#FFDC37"),
+	15: Color("#F12A48"),
+	16: Color("#EE2BE5"),
+	17: Color("#CC7400"), # коричневый
 }
 
 # пустая, в неё ничего не положить
