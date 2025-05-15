@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=12 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
@@ -7,13 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://bhu88im5cp8nc" path="res://Scenes/Level/level_title.tscn" id="6_362x8"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="6_q8n36"]
+[ext_resource type="Texture2D" uid="uid://ciye1cpko3xw1" path="res://Assets/level/level_field_bg.png" id="8_362x8"]
+[ext_resource type="Texture2D" uid="uid://5ow4tqe635gs" path="res://Assets/level/new_blocks_bg.png" id="10_6rsi7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06ioy"]
-bg_color = Color(0.0807833, 0.0807834, 0.0807833, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unl86"]
+texture = ExtResource("10_6rsi7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wvups"]
+texture = ExtResource("10_6rsi7")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_lscpc")
@@ -61,9 +62,24 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
 offset_left = -120.0
-offset_top = 192.0
+offset_top = 187.0
 offset_right = 120.0
-offset_bottom = 312.0
+offset_bottom = 307.0
+
+[node name="LevelBackground" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -344.5
+offset_top = -333.0
+offset_right = 344.5
+offset_bottom = 377.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_362x8")
 
 [node name="GridContainer" type="GridContainer" parent="UI"]
 layout_mode = 1
@@ -81,7 +97,7 @@ grow_vertical = 2
 mouse_filter = 2
 columns = 6
 
-[node name="VBoxContainer" type="HBoxContainer" parent="UI"]
+[node name="VBoxContainer" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -89,18 +105,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -360.0
-offset_top = 403.0
+offset_top = 368.0
 offset_right = 360.0
-offset_bottom = 553.0
+offset_bottom = 498.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 100
-alignment = 1
 
 [node name="ColorRect" type="Panel" parent="UI/VBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
+self_modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_06ioy")
+offset_left = 237.0
+offset_top = 7.0
+offset_right = 367.0
+offset_bottom = 137.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/panel = SubResource("StyleBoxTexture_unl86")
 
 [node name="Block" parent="UI/VBoxContainer/ColorRect" instance=ExtResource("2_1ov45")]
 layout_mode = 1
@@ -110,14 +130,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -100.0
+offset_top = -97.0
 offset_right = 100.0
-offset_bottom = 100.0
+offset_bottom = 103.0
 
 [node name="ColorRect2" type="Panel" parent="UI/VBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
+self_modulate = Color(1, 1, 1, 0.5)
+custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_06ioy")
+offset_left = 384.0
+offset_top = 7.0
+offset_right = 514.0
+offset_bottom = 137.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/panel = SubResource("StyleBoxTexture_wvups")
 
 [node name="Block2" parent="UI/VBoxContainer/ColorRect2" instance=ExtResource("2_1ov45")]
 layout_mode = 1
@@ -127,6 +153,6 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -100.0
+offset_top = -97.0
 offset_right = 100.0
-offset_bottom = 100.0
+offset_bottom = 103.0

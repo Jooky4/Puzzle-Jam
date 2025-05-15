@@ -111,6 +111,7 @@ func get_color_block(arr_color) -> void:
 	prints("arr_color", arr_color)
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
+
 		var color = LevelData.COLORS[arr_color[i]]
 		for patch in nine_patches:
 			patch.modulate = color

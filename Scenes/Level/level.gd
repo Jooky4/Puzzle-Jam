@@ -40,7 +40,6 @@ func _restart_level() -> void:
 	EventBus.goals_changed.emit(goal_colors_value)
 	goal_colors_container.set_colors(goal_colors_value)
 
-
 	create_level()
 	BLOCK_ARR = block_container.get_children()
 	block_for_drop_1.create_random_color()
@@ -85,9 +84,9 @@ func _input(event):
 
 			if drop == false:
 				block_for_drop_1.button_up()
-				block_for_drop_1.global_position = $UI/VBoxContainer/ColorRect.global_position + Vector2(23, 23)
+				block_for_drop_1.position = Vector2(-35, -32)
 				block_for_drop_2.button_up()
-				block_for_drop_2.global_position = $UI/VBoxContainer/ColorRect2.global_position + Vector2(23, 23)
+				block_for_drop_2.position = Vector2(-35, -32)
 
 
 func _update_ui() -> void:
@@ -99,7 +98,7 @@ func move_node(node: Node, new_parent: Node):
 	old_parent.remove_child(node)
 	new_parent.add_child(node)
 	node.z_index = 0
-	node.global_position = new_parent.global_position
+	node.position = Vector2(-50, -50)
 
 
 func create_level() -> void:
@@ -111,7 +110,9 @@ func create_level() -> void:
 	for i in range(current_level.size()):
 		for j in range(current_level[i].size()):
 			var buff = cell_block.instantiate()
-			if current_level[i][j] != LevelData.EMPTY_CELL:
+
+			var current_level_cell = current_level[i][j]
+			if current_level_cell != LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
 
 				if current_level[i][j] != LevelData.FREE_CELL:

@@ -54,7 +54,7 @@ func _rotate() -> void:
 
 
 func _current_degree() -> float:
-	return rad_to_deg(arrow.rotation) + 90
+	return clamp(0, 180, rad_to_deg(arrow.rotation) + 90)
 
 
 func _on_texture_button_pressed() -> void:

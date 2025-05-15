@@ -61,7 +61,7 @@ offset_bottom = 63.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/margin_left = 12
+theme_override_constants/margin_left = 22
 theme_override_constants/margin_top = 21
 theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 20
@@ -70,12 +70,11 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer" type="HBoxContainer" parent="Top"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_right = 0
+theme_override_constants/margin_left = 36
 
-[node name="HomeButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]
+[node name="HomeButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
@@ -83,6 +82,10 @@ texture_normal = ExtResource("3_4nsri")
 texture_pressed = ExtResource("3_4nsri")
 texture_hover = ExtResource("3_4nsri")
 texture_focused = ExtResource("3_4nsri")
+
+[node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
+visible = false
+layout_mode = 2
 
 [node name="SettingsButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -179,6 +182,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jgx55")
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -191,7 +195,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1
 
-[connection signal="pressed" from="Top/HBoxContainer/MarginContainer/HomeButton" to="." method="_on_home_button_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
 [connection signal="pressed" from="ShopModal/Panel/CloseButton" to="." method="_on_shop_close_button_pressed"]
