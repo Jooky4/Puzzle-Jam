@@ -1,5 +1,8 @@
 extends Control
 
+
+@onready var level_reward_label: Label = $LevelReward/Label
+
 signal next_level
 
 

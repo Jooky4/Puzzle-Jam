@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckvojstvrbqhu"]
+[gd_scene load_steps=15 format=3 uid="uid://ckvojstvrbqhu"]
 
 [ext_resource type="Script" uid="uid://cy46lox607ykk" path="res://Scenes/Gui/GameOver/game_over.gd" id="1_i811m"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="3_mjht2"]
-[ext_resource type="Texture2D" uid="uid://dv7tjm8tsy6yw" path="res://Assets/экран поражения/плашка.png" id="3_yy5sx"]
+[ext_resource type="Texture2D" uid="uid://dv7tjm8tsy6yw" path="res://Assets/game_over/window_bg.png" id="3_yy5sx"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ywu43"]
 [ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="5_yy5sx"]
 [ext_resource type="Texture2D" uid="uid://brn0f1m01ifql" path="res://Assets/game_over/message_bg.png" id="6_ywu43"]
+[ext_resource type="Texture2D" uid="uid://b65c7sful2i4d" path="res://Assets/game_over/try_again_coin_button.png" id="7_tc13h"]
+[ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="8_xqcb6"]
+[ext_resource type="Texture2D" uid="uid://bs373e7t2m4e3" path="res://Assets/game_over/try_again_ads_button.png" id="9_ox218"]
+[ext_resource type="Texture2D" uid="uid://b2hyfyi58cto6" path="res://Assets/game_over/ADS.png" id="10_8y2xk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mjht2"]
 resource_local_to_scene = true
@@ -19,6 +23,14 @@ line_spacing = 0.0
 font = ExtResource("4_ywu43")
 font_size = 42
 font_color = Color(1, 0.117647, 0.482353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ken6"]
+font = ExtResource("4_ywu43")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_0pr40"]
+font = ExtResource("4_ywu43")
+font_size = 40
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -158,5 +170,99 @@ theme_override_font_sizes/font_size = 45
 text = "и продолжи игру"
 label_settings = SubResource("LabelSettings_mjht2")
 horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -118.001
+offset_right = 198.0
+offset_bottom = -44.0006
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 36
+
+[node name="TryAgainForCoin" type="TextureButton" parent="Panel/Buttons"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("7_tc13h")
+texture_pressed = ExtResource("7_tc13h")
+texture_hover = ExtResource("7_tc13h")
+texture_focused = ExtResource("7_tc13h")
+
+[node name="CoinIcon" type="TextureRect" parent="Panel/Buttons/TryAgainForCoin"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -22.0006
+offset_right = 102.0
+offset_bottom = 61.9994
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_xqcb6")
+
+[node name="Label" type="Label" parent="Panel/Buttons/TryAgainForCoin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -23.0
+offset_right = 81.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "900"
+label_settings = SubResource("LabelSettings_2ken6")
+horizontal_alignment = 1
+
+[node name="TryAgainForADS" type="TextureButton" parent="Panel/Buttons"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("9_ox218")
+texture_pressed = ExtResource("9_ox218")
+texture_hover = ExtResource("9_ox218")
+texture_focused = ExtResource("9_ox218")
+
+[node name="AdsIcon" type="TextureRect" parent="Panel/Buttons/TryAgainForADS"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -20.0
+offset_right = 72.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_8y2xk")
+
+[node name="Label" type="Label" parent="Panel/Buttons/TryAgainForADS"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -23.0
+offset_right = 76.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ADS"
+label_settings = SubResource("LabelSettings_0pr40")
+horizontal_alignment = 2
 
 [connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]

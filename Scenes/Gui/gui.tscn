@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=15 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
@@ -22,6 +22,9 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
+texture = ExtResource("7_8i80b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xe2re"]
 texture = ExtResource("7_8i80b")
 
 [node name="Gui" type="CanvasLayer"]
@@ -176,7 +179,6 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jgx55")
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -184,6 +186,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1
