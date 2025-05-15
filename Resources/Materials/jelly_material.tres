@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bg0h5af5cm0yn"]
+
+[ext_resource type="Shader" uid="uid://cukirmrxl1ey6" path="res://Resources/Shaders/jelly_effect.gdshader" id="1_74xc0"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_74xc0")
+shader_parameter/velocity = Vector2(0, 0)
+shader_parameter/last_velocity = Vector2(0, 0)
+shader_parameter/amplitude = 0.03
+shader_parameter/damping = 1.4
+shader_parameter/oscillation_strength = 0.0
+shader_parameter/oscillation_frequency = 10.0
+shader_parameter/oscillation_decay = 0.5
+shader_parameter/stop_time = 2352.94

@@ -1,6 +1,10 @@
 extends Control
 
 @export var texture_list: Array[Texture2D]
+@export var jelly_lerp_speed: float = 8.0
+@export var jelly_offset_scale1: float = 0.5
+@export var jelly_offset_scale2: float = 0.3
+
 
 @onready var arr_blocs = [$Small_block_1, $Small_block_2, $Small_block_3, $Small_block_4]
 @onready var colors: Array = LevelData.FREE_CELL.duplicate(true)
@@ -22,10 +26,36 @@ extends Control
 }
 
 var count_block = 0
+var last_position := Vector2.ZERO
+var jelly_layers: Array = []
+
+func _collect_jelly_layers():
+	for control in arr_blocs:
+		var children = control.get_children()
+		if children.size() >= 2:
+			# сохраняем: control, patch1, patch2, их локальные позиции
+			jelly_layers.append({
+				"control": control,
+				"patch1": children[0],
+				"patch2": children[1],
+				"pos1": children[0].position,
+				"pos2": children[1].position
+			})
+
+
+func get_all_nine_patches(control: Control) -> Array:
+	var result = []
+	for child in control.get_children():
+		if child is NinePatchRect:
+			result.append(child)
+	return result
+
 
 func _ready() -> void:
 	if not OS.is_debug_build():
 		debug_label.visible = false
+	_collect_jelly_layers()
+	last_position = global_position
 
 
 func _to_string() -> String:
@@ -35,10 +65,32 @@ func _to_string() -> String:
 		]
 
 
-func _process(_delta):
+func _process(delta):
 	if follow_mouse:
 		global_position = get_global_mouse_position() - Vector2(52.5, 52.5)
 
+	# Вычисляем скорость движения блока
+	var velocity = global_position - last_position
+	last_position = global_position
+
+	# Обновляем желейные слои
+	for layer in jelly_layers:
+		var control = layer["control"]
+		var patch1 = layer["patch1"]
+		var patch2 = layer["patch2"]
+		var base_pos1: Vector2 = layer["pos1"]
+		var base_pos2: Vector2 = layer["pos2"]
+
+		# Смещаем patch в сторону, противоположную движению блока
+		var offset1 = -velocity * jelly_offset_scale1
+		var offset2 = -velocity * jelly_offset_scale2
+
+		var target1 = base_pos1 + offset1
+		var target2 = base_pos2 + offset2
+
+		patch1.position = patch1.position.lerp(target1, jelly_lerp_speed * delta)
+		patch2.position = patch2.position.lerp(target2, jelly_lerp_speed * delta)
+		
 	debug_label.text = str("[%d, %d,\n%d, %d]" % colors)
 
 
@@ -53,10 +105,11 @@ func get_color_block(arr_color) -> void:
 	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
 
 	prints("arr_color", arr_color)
-	$Small_block_2/ColorRect.texture = texture_binds[arr_color[1]]
-	$Small_block_3/ColorRect.texture = texture_binds[arr_color[2]]
-	$Small_block_4/ColorRect.texture = texture_binds[arr_color[3]]
-	$Small_block_1/ColorRect.texture = texture_binds[arr_color[0]]
+	for i in arr_blocs.size():
+		var nine_patches = get_all_nine_patches(arr_blocs[i])
+		for patch in nine_patches:
+			patch.texture = texture_binds[arr_color[i]]
+
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -206,10 +259,11 @@ func update_ui() -> void:
 
 
 func set_reate_compain(arr_color) -> void:
-	$Small_block_2/ColorRect.texture = texture_binds[arr_color[1]]
-	$Small_block_3/ColorRect.texture = texture_binds[arr_color[2]]
-	$Small_block_4/ColorRect.texture = texture_binds[arr_color[3]]
-	$Small_block_1/ColorRect.texture = texture_binds[arr_color[0]]
+	for i in arr_blocs.size():
+		var nine_patches = get_all_nine_patches(arr_blocs[i])
+		for patch in nine_patches:
+			patch.texture = texture_binds[arr_color[i]]
+
 
 	#$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
 	#$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]

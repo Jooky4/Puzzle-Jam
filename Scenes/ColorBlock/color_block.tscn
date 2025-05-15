@@ -30,6 +30,9 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_qv5tu")
 texture_list = Array[Texture2D]([ExtResource("2_syucs"), ExtResource("3_tlo46"), ExtResource("4_yx27s"), ExtResource("5_ggtwr"), ExtResource("6_310ax"), ExtResource("7_4yw1v"), ExtResource("8_tq0rt"), ExtResource("9_xeolu")])
+jelly_lerp_speed = 20.0
+jelly_offset_scale1 = 1.0
+jelly_offset_scale2 = 0.5
 
 [node name="Small_block_1" type="Control" parent="."]
 custom_minimum_size = Vector2(100, 100)
@@ -44,8 +47,35 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -10.0
-offset_right = -1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect2" type="NinePatchRect" parent="Small_block_1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect3" type="NinePatchRect" parent="Small_block_1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_tlo46")
@@ -70,8 +100,35 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -10.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect2" type="NinePatchRect" parent="Small_block_2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect3" type="NinePatchRect" parent="Small_block_2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_tlo46")
@@ -96,8 +153,35 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -10.0
-offset_right = -1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect2" type="NinePatchRect" parent="Small_block_3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect3" type="NinePatchRect" parent="Small_block_3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_tlo46")
@@ -122,8 +206,35 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -10.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect2" type="NinePatchRect" parent="Small_block_4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tlo46")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect3" type="NinePatchRect" parent="Small_block_4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_tlo46")
