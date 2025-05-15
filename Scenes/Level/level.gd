@@ -35,7 +35,10 @@ func _restart_level() -> void:
 	for i in block_container.get_children():
 		block_container.remove_child(i)
 
-	goal_colors_container.set_colors(LevelManager.get_target_colors())
+	LevelManager.is_prev_gameover = false
+	var goal_colors_value = LevelManager.get_target_colors()
+	EventBus.goals_changed.emit(goal_colors_value)
+	goal_colors_container.set_colors(goal_colors_value)
 
 
 	create_level()
@@ -217,6 +220,7 @@ func check_matches(x: int, y: int) -> void:
 							direction = "down"
 
 						goal_colors_container.dec_color(current_color)
+						EventBus.goals_changed.emit(goal_colors_container.colors)
 						j.update_block(current_color, direction)
 
 				# обновляем цета у соседней плитки
@@ -234,6 +238,7 @@ func check_matches(x: int, y: int) -> void:
 							direction = "up"
 
 						goal_colors_container.dec_color(current_color)
+						EventBus.goals_changed.emit(goal_colors_container.colors)
 						j.update_block(current_color, direction)
 
 				update_level()
@@ -265,10 +270,12 @@ func get_free_cell_count() -> int:
 
 func check_game_over() -> void:
 	if get_free_cell_count() == 0:
-		Gui.show_modal(Gui.EModal.GameOver)
+		LevelManager.is_prev_gameover = true
+		EventBus.goals_changed.emit(goal_colors_container.colors)
+		EventBus.game_over.emit()
 
 
 func check_level_complete() -> void:
 	if not goal_colors_container.has_items():
-		Player.set_value("money", 10 + Player.get_value("money"))
+		EventBus.coins_changed.emit(10 + Player.get_value("coins"))
 		Gui.show_modal(Gui.EModal.LevelComplete)

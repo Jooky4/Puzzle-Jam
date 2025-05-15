@@ -2,11 +2,19 @@ extends Node
 
 
 var _data = {
-	"money": 0,
+	"coins": 0,
 	"current_level": 0 # индекс уровня
 }
 
 signal data_updated(key: String)
+
+
+func _ready() -> void:
+	EventBus.coins_changed.connect(_on_coins_changed)
+
+
+func _on_coins_changed(value: int) -> void:
+	set_value("coins", value)
 
 
 func is_play_first_time() -> bool:

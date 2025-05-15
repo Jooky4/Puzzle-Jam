@@ -39,12 +39,12 @@ func _ready() -> void:
 	game_over.go_home.connect(_on_go_home_from_game_over)
 	level_complete.next_level.connect(_on_level_complete_next_level)
 
-	Player.data_updated.connect(_on_player_updated)
+	EventBus.coins_changed.connect(_set_money)
+	EventBus.game_over.connect(_on_game_over)
 
 
-func _on_player_updated(key: String) -> void:
-	if key == "money":
-		set_money(Player.money)
+func _on_game_over() -> void:
+	show_modal(EModal.GameOver)
 
 
 func _on_game_over_restart_level() -> void:
@@ -65,7 +65,7 @@ func _on_settings_button_pressed() -> void:
 	show_modal(EModal.Settings)
 
 
-func set_money(value: int) -> void:
+func _set_money(value: int) -> void:
 	money_value_label.value = value
 
 

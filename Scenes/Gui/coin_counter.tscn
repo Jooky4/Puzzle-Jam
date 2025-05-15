@@ -6,37 +6,41 @@
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ajjst"]
 
 [node name="CoinCounter" type="Control"]
-custom_minimum_size = Vector2(220, 90)
+custom_minimum_size = Vector2(170, 63)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 223.0
-offset_bottom = 90.0
+offset_right = 170.0
+offset_bottom = 70.0
 script = ExtResource("1_ratuh")
 
 [node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(170, 68)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -33.5
-offset_bottom = 33.5
+offset_left = -125.0
+offset_top = -29.0
+offset_right = 45.0
+offset_bottom = 39.0
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_k6lkh")
 
 [node name="Coin" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(89, 84)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -40.0
-offset_right = 92.0
-offset_bottom = 44.0
+offset_top = -35.0
+offset_right = 89.0
+offset_bottom = 49.0
 grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ratuh")
 
 [node name="ValueLabel" type="Label" parent="."]
@@ -46,14 +50,15 @@ anchor_left = 0.439
 anchor_top = 0.222
 anchor_right = 0.951
 anchor_bottom = 0.856
-offset_left = 0.102997
-offset_top = -0.980001
-offset_right = -0.0730133
-offset_bottom = -1.04001
+offset_left = -0.630005
+offset_top = -7.54
+offset_right = 10.33
+offset_bottom = -5.92
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/line_spacing = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("4_ajjst")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 40
 text = "333K"
+vertical_alignment = 1

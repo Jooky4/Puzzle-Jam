@@ -10,6 +10,7 @@ var colors: Dictionary
 
 func set_colors(value: Dictionary) -> void:
 	colors = value
+
 	_create_ui()
 
 
