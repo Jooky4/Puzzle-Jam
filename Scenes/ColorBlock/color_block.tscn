@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=14 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" uid="uid://dyw0nwijl2uko" path="res://Assets/color_blocks/sky_blue.png" id="2_syucs"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dalk2jpfvf205" path="res://Assets/color_blocks/1.png" id="10_ggtwr"]
 [ext_resource type="Texture2D" uid="uid://bxxb1kn7pvl7t" path="res://Assets/color_blocks/2.png" id="11_310ax"]
 [ext_resource type="Texture2D" uid="uid://c6obotw7jb4ka" path="res://Assets/color_blocks/3.png" id="12_4yw1v"]
+[ext_resource type="Texture2D" uid="uid://2jtwej5lig4x" path="res://Assets/color_blocks/blik.png" id="13_310ax"]
 
 [node name="Block" type="Control"]
 custom_minimum_size = Vector2(200, 200)
@@ -33,9 +34,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_qv5tu")
 texture_list = Array[Texture2D]([ExtResource("2_syucs"), ExtResource("3_tlo46"), ExtResource("4_yx27s"), ExtResource("5_ggtwr"), ExtResource("6_310ax"), ExtResource("7_4yw1v"), ExtResource("8_tq0rt"), ExtResource("9_xeolu")])
-jelly_lerp_speed = 20.0
-jelly_offset_scale1 = 1.0
-jelly_offset_scale2 = 0.5
+jelly_offset_scale2 = 1.0
 
 [node name="Small_block_1" type="Control" parent="."]
 custom_minimum_size = Vector2(100, 100)
@@ -46,6 +45,7 @@ offset_bottom = 100.0
 mouse_filter = 2
 
 [node name="ColorRect" type="NinePatchRect" parent="Small_block_1"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,6 +60,7 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect2" type="NinePatchRect" parent="Small_block_1"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,7 +75,8 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_1"]
-z_index = -1
+modulate = Color(0, 0.670775, 0.765054, 1)
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,6 +85,21 @@ offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_ggtwr")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect4" type="NinePatchRect" parent="Small_block_1"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -100,6 +117,7 @@ grow_horizontal = 0
 mouse_filter = 2
 
 [node name="ColorRect" type="NinePatchRect" parent="Small_block_2"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,6 +132,7 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect2" type="NinePatchRect" parent="Small_block_2"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,7 +147,8 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_2"]
-z_index = -1
+modulate = Color(0, 0.670775, 0.765054, 1)
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,6 +157,21 @@ offset_top = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_ggtwr")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect4" type="NinePatchRect" parent="Small_block_2"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -154,6 +189,7 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="ColorRect" type="NinePatchRect" parent="Small_block_3"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,6 +204,7 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect2" type="NinePatchRect" parent="Small_block_3"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,6 +219,8 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_3"]
+modulate = Color(0, 0.670775, 0.765054, 1)
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -190,6 +229,21 @@ offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_ggtwr")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect4" type="NinePatchRect" parent="Small_block_3"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -207,6 +261,7 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="ColorRect" type="NinePatchRect" parent="Small_block_4"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,6 +276,7 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect2" type="NinePatchRect" parent="Small_block_4"]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -235,6 +291,8 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="ColorRect3" type="NinePatchRect" parent="Small_block_4"]
+modulate = Color(0, 0.670775, 0.765054, 1)
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -243,6 +301,21 @@ offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_ggtwr")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect4" type="NinePatchRect" parent="Small_block_4"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_310ax")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20

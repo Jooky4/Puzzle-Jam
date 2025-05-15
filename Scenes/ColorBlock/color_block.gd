@@ -37,10 +37,11 @@ func _collect_jelly_layers():
 			# сохраняем: control, patch1, patch2, их локальные позиции
 			jelly_layers.append({
 				"control": control,
-				"patch1": children[0],
-				"patch2": children[1],
-				"pos1": children[0].position,
-				"pos2": children[1].position
+				"patch1": children[1],
+				"patch2": children[2],
+				"patch3": children[3],
+				"pos1": children[1].position,
+				"pos2": children[2].position
 			})
 
 
@@ -79,6 +80,7 @@ func _process(delta):
 		var control = layer["control"]
 		var patch1 = layer["patch1"]
 		var patch2 = layer["patch2"]
+		var patch3 = layer["patch3"]
 		var base_pos1: Vector2 = layer["pos1"]
 		var base_pos2: Vector2 = layer["pos2"]
 
@@ -91,6 +93,7 @@ func _process(delta):
 
 		patch1.position = patch1.position.lerp(target1, jelly_lerp_speed * delta)
 		patch2.position = patch2.position.lerp(target2, jelly_lerp_speed * delta)
+		patch3.position = patch2.position
 
 	debug_label.text = str("[%d, %d,\n%d, %d]" % colors)
 
@@ -240,7 +243,7 @@ func set_reate_compain(arr_color) -> void:
 
 		var child_list = arr_blocs[i].get_children()
 		child_list[0].modulate = color.darkened(0.3)
-		child_list[1].modulate = color
+		child_list[1].modulate = color.darkened(0.3)
 		child_list[2].modulate = color
 
 	var full_w = 200
