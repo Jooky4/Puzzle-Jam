@@ -13,3 +13,4 @@ extends Node
 signal goals_changed(goals: Dictionary)
 signal coins_changed(count: int)
 signal game_over
+signal level_complete(level_number: int)

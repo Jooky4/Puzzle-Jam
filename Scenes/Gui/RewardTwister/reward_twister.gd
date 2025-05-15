@@ -16,7 +16,8 @@ signal reward(value: int)
 
 func _ready() -> void:
 	arrow.rotation = deg_to_rad(-90)
-	_rotate()
+	start_animation()
+	_tween.stop()
 
 
 func _process(delta: float) -> void:
@@ -44,7 +45,14 @@ func _find_segment(value) -> int:
 	return (value / segment_length) + 1
 
 
-func _rotate() -> void:
+func start_animation() -> void:
+	if not _tween:
+		_rotate_animation()
+
+	_tween.play()
+
+
+func _rotate_animation() -> void:
 	_tween = create_tween()
 	_tween.tween_property(arrow, "rotation", deg_to_rad(90), iteration_time)
 	_tween.chain()

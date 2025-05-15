@@ -14,6 +14,9 @@ extends CanvasLayer
 @onready var game_over_modal: Panel = $GameOverModal
 @onready var level_complete_modal: Panel = $LevelCompleteModal
 
+@onready var home_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer2
+@onready var settings_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer
+
 signal restart_level
 signal next_level
 
@@ -41,6 +44,12 @@ func _ready() -> void:
 
 	EventBus.coins_changed.connect(_set_money)
 	EventBus.game_over.connect(_on_game_over)
+	EventBus.level_complete.connect(_on_level_complete)
+
+
+func _on_level_complete(level_number: int) -> void:
+	level_complete.update()
+	show_modal(EModal.LevelComplete)
 
 
 func _on_game_over() -> void:
@@ -107,13 +116,13 @@ func _on_home_button_pressed() -> void:
 
 
 func show_level_ui() -> void:
-	home_button.show()
-	settings_button.hide()
+	home_button_wrap.show()
+	settings_button_wrap.hide()
 
 
 func show_main_menu_ui() -> void:
-	home_button.hide()
-	settings_button.show()
+	home_button_wrap.hide()
+	settings_button_wrap.show()
 
 
 func _on_settings_modal_modal_close() -> void:

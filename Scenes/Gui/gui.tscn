@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=14 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
 [ext_resource type="PackedScene" uid="uid://ttm0o0voudov" path="res://Scenes/MainMenu/main_menu.tscn" id="2_oujc8"]
 [ext_resource type="Texture2D" uid="uid://dgnuy7o0pdxqs" path="res://Assets/home_button.png" id="3_4nsri"]
-[ext_resource type="Texture2D" uid="uid://bbw6tt3lthryd" path="res://Assets/photo_2025-05-14_23-54-18.jpg" id="3_jgx55"]
 [ext_resource type="PackedScene" uid="uid://cxbm0wayenbnt" path="res://Scenes/Gui/LevelCompleted/level_completed.tscn" id="3_oujc8"]
 [ext_resource type="PackedScene" uid="uid://dc0fvnmdoovuh" path="res://Scenes/Gui/coin_counter.tscn" id="3_ukxxk"]
 [ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
@@ -31,12 +30,6 @@ texture = ExtResource("7_8i80b")
 script = ExtResource("1_bw16r")
 main_menu_scene = ExtResource("2_oujc8")
 
-[node name="Photo2025-05-1423-54-18" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(355.603, 640.5)
-scale = Vector2(2.03016, 2.03016)
-texture = ExtResource("3_jgx55")
-
 [node name="VersionLabel" type="Label" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -47,7 +40,7 @@ offset_left = -59.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "build: 648f5f4"
+text = "build: 250515"
 metadata/_edit_use_anchors_ = true
 
 [node name="Top" type="MarginContainer" parent="."]
@@ -84,7 +77,6 @@ texture_hover = ExtResource("3_4nsri")
 texture_focused = ExtResource("3_4nsri")
 
 [node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="SettingsButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]

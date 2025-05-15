@@ -279,4 +279,4 @@ func check_game_over() -> void:
 func check_level_complete() -> void:
 	if not goal_colors_container.has_items():
 		EventBus.coins_changed.emit(10 + Player.get_value("coins"))
-		Gui.show_modal(Gui.EModal.LevelComplete)
+		EventBus.level_complete.emit(LevelManager.current_level)
