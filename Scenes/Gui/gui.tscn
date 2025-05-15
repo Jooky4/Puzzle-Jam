@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=15 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
 [ext_resource type="PackedScene" uid="uid://ttm0o0voudov" path="res://Scenes/MainMenu/main_menu.tscn" id="2_oujc8"]
 [ext_resource type="Texture2D" uid="uid://dgnuy7o0pdxqs" path="res://Assets/home_button.png" id="3_4nsri"]
+[ext_resource type="Texture2D" uid="uid://bbw6tt3lthryd" path="res://Assets/photo_2025-05-14_23-54-18.jpg" id="3_jgx55"]
 [ext_resource type="PackedScene" uid="uid://cxbm0wayenbnt" path="res://Scenes/Gui/LevelCompleted/level_completed.tscn" id="3_oujc8"]
 [ext_resource type="PackedScene" uid="uid://dc0fvnmdoovuh" path="res://Scenes/Gui/coin_counter.tscn" id="3_ukxxk"]
 [ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
 [ext_resource type="PackedScene" uid="uid://bro82nhdbg27y" path="res://Scenes/Gui/Settings/settings_modal.tscn" id="5_0vw31"]
+[ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
 bg_color = Color(0, 0, 0, 0.784314)
@@ -19,9 +21,21 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
+texture = ExtResource("7_8i80b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xe2re"]
+texture = ExtResource("7_8i80b")
+
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_bw16r")
 main_menu_scene = ExtResource("2_oujc8")
+
+[node name="Photo2025-05-1423-54-18" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(355.603, 640.5)
+scale = Vector2(2.03016, 2.03016)
+texture = ExtResource("3_jgx55")
 
 [node name="VersionLabel" type="Label" parent="."]
 anchors_preset = 3
@@ -48,8 +62,8 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 44
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_top = 21
+theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 20
 metadata/_edit_use_anchors_ = true
 
@@ -59,6 +73,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 0
 
 [node name="HomeButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -85,7 +100,7 @@ size_flags_horizontal = 3
 [node name="CoinCounter" parent="Top/HBoxContainer" instance=ExtResource("3_ukxxk")]
 unique_name_in_owner = true
 layout_mode = 2
-value = 3330000
+value = 333000
 
 [node name="SettingsModal" parent="." instance=ExtResource("5_0vw31")]
 visible = false
@@ -158,12 +173,12 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_jgx55")
 
 [node name="GameOver" parent="GameOverModal" instance=ExtResource("2_aukgo")]
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -171,6 +186,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1

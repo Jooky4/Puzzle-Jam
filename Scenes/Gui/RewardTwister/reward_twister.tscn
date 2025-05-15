@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://cs6j1c2jh02o6"]
+
+[ext_resource type="Script" uid="uid://lsronnfcuv78" path="res://Scenes/Gui/RewardTwister/reward_twister.gd" id="1_uvomn"]
+[ext_resource type="Texture2D" uid="uid://tgnj2q7ovrx2" path="res://Assets/reward_twister/scale.png" id="2_sbbpb"]
+[ext_resource type="Texture2D" uid="uid://dnmfh3168gx0m" path="res://Assets/reward_twister/arrow.png" id="3_ktxr8"]
+[ext_resource type="Texture2D" uid="uid://cxpw220jb4ilg" path="res://Assets/reward_twister/ads_button.png" id="4_sbbpb"]
+[ext_resource type="Texture2D" uid="uid://n5v11t56vy0o" path="res://Assets/ads_icon.png" id="5_6e08r"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_ktxr8"]
+[ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="6_glbc0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8jraf"]
+font = ExtResource("5_ktxr8")
+font_size = 68
+
+[node name="RewardTwister" type="Control"]
+custom_minimum_size = Vector2(460, 350)
+layout_mode = 3
+anchor_right = 0.646
+anchor_bottom = 0.29
+offset_right = -0.120026
+offset_bottom = -13.2
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uvomn")
+base_value = 50
+multiplier_list = Array[int]([2, 3, 4, 3, 2])
+
+[node name="Scale" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -222.0
+offset_right = 222.0
+offset_bottom = 202.0
+grow_horizontal = 2
+texture = ExtResource("2_sbbpb")
+
+[node name="Arrow" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -214.0
+offset_right = 27.0
+offset_bottom = -141.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(27, 56)
+texture = ExtResource("3_ktxr8")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -231.5
+offset_top = -161.0
+offset_right = 231.5
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("4_sbbpb")
+
+[node name="AdsIcon" type="TextureRect" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -32.5
+offset_right = 150.0
+offset_bottom = 32.5
+grow_vertical = 2
+texture = ExtResource("5_6e08r")
+
+[node name="CoinIcon" type="TextureRect" parent="TextureButton"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 34.0
+offset_right = 255.0
+offset_bottom = 118.0
+texture = ExtResource("6_glbc0")
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 45.5
+offset_top = -34.5
+offset_right = 198.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+123"
+label_settings = SubResource("LabelSettings_8jraf")
+vertical_alignment = 1
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

@@ -2,7 +2,7 @@ extends Node
 
 var current_level: int = 0: set = _set_current_level
 var current_level_colors: Array
-
+var is_prev_gameover: bool
 
 func _set_current_level(value) -> void:
 	prints("set cur lvl", value)

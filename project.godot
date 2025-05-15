@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+EventBus="*res://Global/event_bus.gd"
 LevelData="*res://Global/level_data.gd"
 LevelManager="*res://Global/level_manager.gd"
 Gui="*res://Scenes/Gui/gui.tscn"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ttm0o0voudov"]
+[gd_scene load_steps=11 format=3 uid="uid://ttm0o0voudov"]
 
 [ext_resource type="Script" uid="uid://doa4rh178tpkt" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
 [ext_resource type="PackedScene" uid="uid://3tj3dir3mrf4" path="res://Scenes/Level/level.tscn" id="2_0qgbs"]
@@ -8,6 +8,20 @@
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="7_n5jej"]
 [ext_resource type="PackedScene" uid="uid://caubchhv84iv6" path="res://Scenes/MainMenu/level_progress.tscn" id="9_omq0y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_omq0y"]
+line_spacing = -7.0
+font = ExtResource("6_n5jej")
+font_size = 81
+outline_size = 4
+outline_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2r307"]
+line_spacing = -7.0
+font = ExtResource("6_n5jej")
+font_size = 44
+outline_size = 4
+outline_color = Color(0, 0, 0, 0.6)
 
 [node name="MainMenu" type="Control"]
 custom_minimum_size = Vector2(720, 1280)
@@ -43,7 +57,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(360, 640)
 texture = ExtResource("4_omq0y")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="PlayButton" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -61,25 +75,45 @@ texture_normal = ExtResource("3_qgdf6")
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="TextureButton"]
+[node name="PlayLabel" type="Label" parent="PlayButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -19.5
-offset_right = 50.0
-offset_bottom = 19.5
+offset_left = -149.0
+offset_top = -75.5
+offset_right = 149.0
+offset_bottom = 75.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("6_n5jej")
-theme_override_font_sizes/font_size = 87
 text = "Играть"
+label_settings = SubResource("LabelSettings_omq0y")
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="TryAgainLabel" type="Label" parent="PlayButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -75.5
+offset_right = 149.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Попробовать ещё раз"
+label_settings = SubResource("LabelSettings_2r307")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 uppercase = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -101,4 +135,4 @@ value = 100
 level = 385
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_texture_button_pressed"]
