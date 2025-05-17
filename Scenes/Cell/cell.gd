@@ -5,6 +5,8 @@ extends Control
 @export var simple_texture: Texture2D
 @export var ads_texture: Texture2D
 
+var level_position: Vector2i
+
 @onready var texture_rect = $TextureRect
 @onready var ads_button: Button = $AdsButton
 
@@ -75,6 +77,13 @@ func set_highlighted(value: bool) -> void:
 		#color = inactive_color
 #
 	#texture_rect.modulate = color
+
+
+func get_color_block() -> Node:
+	if active and not can_drop_block:
+		return get_child(-1)
+	else:
+		return null
 
 
 func _on_button_pressed() -> void:

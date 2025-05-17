@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://bv70kwlvkx154"]
+
+[ext_resource type="Script" uid="uid://bj4rke6mosxtd" path="res://Scenes/BoosterUi/booster_ui.gd" id="1_tk7pq"]
+[ext_resource type="Texture2D" uid="uid://ci4y41wdt2bur" path="res://Assets/BoosterUI/back_button.png" id="2_ht8q7"]
+[ext_resource type="Texture2D" uid="uid://ba7gdkoowvr1g" path="res://Assets/BoosterButton/shuffle_icon.png" id="4_xe38g"]
+[ext_resource type="Texture2D" uid="uid://dgybwmgiv6hhd" path="res://Assets/BoosterUI/use_button.png" id="6_tstyh"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="7_xlsem"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xe38g"]
+line_spacing = 0.0
+font = ExtResource("7_xlsem")
+font_size = 27
+
+[node name="BoosterUI" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/separation = 53
+alignment = 1
+script = ExtResource("1_tk7pq")
+
+[node name="CancelButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+texture_normal = ExtResource("2_ht8q7")
+texture_pressed = ExtResource("2_ht8q7")
+texture_hover = ExtResource("2_ht8q7")
+texture_focused = ExtResource("2_ht8q7")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_xe38g")
+
+[node name="UseButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+texture_normal = ExtResource("6_tstyh")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(208, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Выберите клетку для очистки"
+label_settings = SubResource("LabelSettings_xe38g")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="UseButton" to="." method="_on_use_button_pressed"]

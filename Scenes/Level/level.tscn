@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=17 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="6_q8n36"]
 [ext_resource type="Texture2D" uid="uid://ciye1cpko3xw1" path="res://Assets/level/level_field_bg.png" id="8_362x8"]
 [ext_resource type="Texture2D" uid="uid://5ow4tqe635gs" path="res://Assets/level/new_blocks_bg.png" id="10_6rsi7"]
+[ext_resource type="PackedScene" uid="uid://c0wuc6iecq3i6" path="res://Scenes/BoosterButton/booster_button.tscn" id="10_unl86"]
+[ext_resource type="Resource" uid="uid://b3fa0qyw2m1bb" path="res://Resources/Boosters/hammer.tres" id="11_k2muv"]
+[ext_resource type="PackedScene" uid="uid://bv70kwlvkx154" path="res://Scenes/BoosterUi/booster_ui.tscn" id="11_unl86"]
+[ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="12_dhxf7"]
+[ext_resource type="Resource" uid="uid://bf162jva2s0ae" path="res://Resources/Boosters/shuffle.tres" id="13_mkqdc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unl86"]
 texture = ExtResource("10_6rsi7")
@@ -81,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_362x8")
 
-[node name="GridContainer" type="GridContainer" parent="UI"]
+[node name="BlockContainer" type="GridContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -97,7 +102,7 @@ grow_vertical = 2
 mouse_filter = 2
 columns = 6
 
-[node name="VBoxContainer" type="Control" parent="UI"]
+[node name="NewColorBlocks" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,7 +116,7 @@ offset_bottom = 498.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="Panel" parent="UI/VBoxContainer"]
+[node name="ColorRect" type="Panel" parent="UI/NewColorBlocks"]
 self_modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
@@ -122,7 +127,7 @@ offset_bottom = 137.0
 scale = Vector2(0.8, 0.8)
 theme_override_styles/panel = SubResource("StyleBoxTexture_unl86")
 
-[node name="Block" parent="UI/VBoxContainer/ColorRect" instance=ExtResource("2_1ov45")]
+[node name="Block" parent="UI/NewColorBlocks/ColorRect" instance=ExtResource("2_1ov45")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,7 +139,7 @@ offset_top = -97.0
 offset_right = 100.0
 offset_bottom = 103.0
 
-[node name="ColorRect2" type="Panel" parent="UI/VBoxContainer"]
+[node name="ColorRect2" type="Panel" parent="UI/NewColorBlocks"]
 self_modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
@@ -145,7 +150,7 @@ offset_bottom = 137.0
 scale = Vector2(0.8, 0.8)
 theme_override_styles/panel = SubResource("StyleBoxTexture_wvups")
 
-[node name="Block2" parent="UI/VBoxContainer/ColorRect2" instance=ExtResource("2_1ov45")]
+[node name="Block2" parent="UI/NewColorBlocks/ColorRect2" instance=ExtResource("2_1ov45")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,3 +161,54 @@ offset_left = -100.0
 offset_top = -97.0
 offset_right = 100.0
 offset_bottom = 103.0
+
+[node name="Boosters" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 18
+
+[node name="Hammer" parent="UI/Boosters" instance=ExtResource("10_unl86")]
+layout_mode = 2
+booster = ExtResource("11_k2muv")
+count = 3
+
+[node name="Bomb" parent="UI/Boosters" instance=ExtResource("10_unl86")]
+layout_mode = 2
+booster = ExtResource("12_dhxf7")
+count = 1
+locked_text = "30 ур"
+
+[node name="Shuffle" parent="UI/Boosters" instance=ExtResource("10_unl86")]
+layout_mode = 2
+disabled = true
+booster = ExtResource("13_mkqdc")
+locked_text = "30 ур"
+
+[node name="BoosterUI" parent="UI" instance=ExtResource("11_unl86")]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -304.5
+offset_top = -252.0
+offset_right = 304.5
+offset_bottom = -140.0
+grow_vertical = 0
+
+[connection signal="pressed" from="UI/Boosters/Hammer" to="." method="_on_hammer_pressed"]
+[connection signal="pressed" from="UI/Boosters/Bomb" to="." method="_on_bomb_pressed"]
+[connection signal="pressed" from="UI/Boosters/Shuffle" to="." method="_on_shuffle_pressed"]
+[connection signal="cancel" from="UI/BoosterUI" to="." method="_on_booster_ui_cancel"]

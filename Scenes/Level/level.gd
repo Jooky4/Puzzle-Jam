@@ -3,23 +3,60 @@ extends Node2D
 @export var cell_block: PackedScene
 @export var color_block: PackedScene
 
-@onready var block_container = $UI/GridContainer
+@onready var block_container = $UI/BlockContainer
 
-@onready var block_for_drop_1 = $UI/VBoxContainer/ColorRect/Block
-@onready var block_for_drop_2 = $UI/VBoxContainer/ColorRect2/Block2
+@onready var new_block_cell_left: Panel = $UI/NewColorBlocks/ColorRect
+@onready var new_block_cell_right: Panel = $UI/NewColorBlocks/ColorRect2
+
+@onready var block_for_drop_1 = $UI/NewColorBlocks/ColorRect/Block
+@onready var block_for_drop_2 = $UI/NewColorBlocks/ColorRect2/Block2
 @onready var level_title: Control = $UI/LevelTitle
 
 @onready var goal_colors_container: Control = $UI/GoalColorController
+@onready var booster_ui: HBoxContainer = $UI/BoosterUI
+@onready var new_color_blocks: Control = $UI/NewColorBlocks
+@onready var booster_panel: HBoxContainer = $UI/Boosters
+
+@onready var hammer_button: TextureButton = $UI/Boosters/Hammer
+@onready var bomb_button: TextureButton = $UI/Boosters/Bomb
+@onready var shuffle_button: TextureButton = $UI/Boosters/Shuffle
+
 
 var BLOCK_ARR: Array
 var current_level: Array = []
+var _state: EState
+var check_match_count: int = 0
+var current_booster: Booster
+
+
+enum EState {
+	PLAY,
+	BOOSTER,
+}
+
 
 func _ready() -> void:
+	for booster_btn in booster_panel.get_children():
+		booster_btn.count = Player.get_booster_count(booster_btn.booster.type)
+
 	_restart_level()
 
 	Gui.show_level_ui()
 	Gui.restart_level.connect(_restart_level)
 	Gui.next_level.connect(_next_level)
+
+
+func _set_state(value: EState) -> void:
+	_state = value
+
+	match value:
+		EState.PLAY:
+			_hide_booster_ui()
+			_demake_all_color_blocks_button()
+		EState.BOOSTER:
+			_set_booster_ui()
+			_show_booster_ui()
+			_make_all_color_blocks_button()
 
 
 func _next_level() -> void:
@@ -59,7 +96,7 @@ func _input(event):
 						i.add_block()
 						move_node(block_for_drop_1, i)
 						var buff = color_block.instantiate()
-						$UI/VBoxContainer/ColorRect.add_child(buff)
+						new_block_cell_left.add_child(buff)
 						buff.create_random_color()
 
 						block_for_drop_1 = buff
@@ -72,7 +109,7 @@ func _input(event):
 						i.add_block()
 						move_node(block_for_drop_2, i)
 						var buff = color_block.instantiate()
-						$UI/VBoxContainer/ColorRect2.add_child(buff)
+						new_block_cell_right.add_child(buff)
 						buff.create_random_color()
 						block_for_drop_2 = buff
 						update_level()
@@ -101,6 +138,20 @@ func move_node(node: Node, new_parent: Node):
 	node.position = Vector2(-50, -50)
 
 
+func _make_all_color_blocks_button() -> void:
+	for i in block_container.get_children():
+		if i.active and not i.can_drop_block:
+			var color_block = i.get_child(-1)
+			color_block.set_is_button(true)
+
+
+func _demake_all_color_blocks_button() -> void:
+	for i in block_container.get_children():
+		if i.active and not i.can_drop_block:
+			var color_block = i.get_child(-1)
+			color_block.set_is_button(false)
+
+
 func create_level() -> void:
 	current_level = LevelManager.get_current_level()
 
@@ -110,6 +161,8 @@ func create_level() -> void:
 	for i in range(current_level.size()):
 		for j in range(current_level[i].size()):
 			var buff = cell_block.instantiate()
+			buff.level_position.x = j
+			buff.level_position.y = i
 
 			var current_level_cell = current_level[i][j]
 			if current_level_cell != LevelData.EMPTY_CELL:
@@ -117,6 +170,7 @@ func create_level() -> void:
 
 				if current_level[i][j] != LevelData.FREE_CELL:
 					var buff1 = color_block.instantiate()
+					buff1.pressed.connect(_on_color_block_pressed)
 					buff.not_can_drop()
 					buff.add_child(buff1)
 					buff1.get_color_block(current_level[i][j])
@@ -128,6 +182,69 @@ func create_level() -> void:
 	block_container.anchors_preset = Control.PRESET_CENTER
 
 	update_level()
+
+
+func _on_color_block_pressed(block: Node) -> void:
+	# работает только во время использования бустера
+
+	if _state == EState.BOOSTER:
+		if current_booster.type == Booster.EType.HAMMER:
+			block.colors = LevelData.FREE_CELL
+			block.remove_block()
+			_set_state(EState.PLAY)
+			EventBus.booster_used.emit(current_booster.type)
+		elif current_booster.type == Booster.EType.BOMB:
+			var cell_pos = block.get_parent().level_position
+
+			# запустить анимацию падения бомбы _здесь_
+
+			# Ждём когда пройдёт анимация падения бомбы
+			await Utils.timeout(0.2)
+
+			# удаляем указанный блок
+			block.colors = LevelData.FREE_CELL
+			block.remove_block()
+
+			# запускаем удаление плиток соседей
+			await bomb_explode_neighbours(cell_pos)
+			_set_state(EState.PLAY)
+			EventBus.booster_used.emit(current_booster.type)
+
+
+func bomb_explode_neighbours(pos: Vector2i) -> void:
+	var neighbours = [
+		Vector2i(-1, -1),
+		Vector2i(-1, 0),
+		Vector2i(-1, 1),
+		Vector2i(1, -1),
+		Vector2i(1, 0),
+		Vector2i(1, 1),
+		Vector2i(0, -1),
+		Vector2i(0, 1),
+	]
+
+	var level_height = LevelManager.get_current_level().size()
+	var level_width = LevelManager.get_current_level()[0].size()
+
+	for side in neighbours:
+		var n_pos = side + pos
+
+		if n_pos.x >= 0 and n_pos.x < level_width and n_pos.y >= 0 and n_pos.y < level_height:
+			var cur_level_cell = current_level[n_pos.y][n_pos.x]
+			if cur_level_cell == LevelData.EMPTY_CELL:
+				continue
+
+			current_level[n_pos.y][n_pos.x][1] = 0
+			var _idx = Utils.get_index_by_pos(n_pos, level_width)
+			var _cell = block_container.get_child(_idx)
+
+			var _block = _cell.get_color_block()
+			var level_cell = current_level[n_pos.x][n_pos.y]
+			if _block != null:
+				_block.update_block(0, "up")
+
+	update_level()
+	await Utils.timeout(0.2)
 
 
 func update_level() -> void:
@@ -149,8 +266,6 @@ func update_level() -> void:
 
 		count += 1
 
-
-var check_match_count: int = 0
 
 func check_matches(x: int, y: int) -> void:
 	#await Utils.timeout(1)
@@ -280,3 +395,48 @@ func check_level_complete() -> void:
 	if not goal_colors_container.has_items():
 		EventBus.coins_changed.emit(10 + Player.get_value("coins"))
 		EventBus.level_complete.emit(LevelManager.current_level)
+
+
+func _set_booster_ui() -> void:
+	booster_ui.booster = current_booster
+	booster_ui._update_ui()
+
+
+func _on_booster_button_pressed(booster: Booster) -> void:
+	current_booster = booster
+	var booster_count = Player.get_booster_count(booster.type)
+	if booster_count == 0:
+		prints("show ads")
+	else:
+		_set_state(EState.BOOSTER)
+
+
+func _on_hammer_pressed() -> void:
+	prints("hammer pressed")
+	_on_booster_button_pressed(hammer_button.booster)
+
+
+func _on_bomb_pressed() -> void:
+	prints("bomb pressed")
+	_on_booster_button_pressed(bomb_button.booster)
+
+
+func _on_shuffle_pressed() -> void:
+	prints("shuffle pressed")
+	_on_booster_button_pressed(shuffle_button.booster)
+
+
+func _on_booster_ui_cancel() -> void:
+	_hide_booster_ui()
+
+
+func _show_booster_ui() -> void:
+	new_color_blocks.hide()
+	booster_panel.hide()
+	booster_ui.show()
+
+
+func _hide_booster_ui() -> void:
+	new_color_blocks.show()
+	booster_panel.show()
+	booster_ui.hide()

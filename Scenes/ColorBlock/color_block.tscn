@@ -322,7 +322,7 @@ patch_margin_right = 20
 patch_margin_bottom = 40
 
 [node name="Button" type="Button" parent="."]
-z_index = -5
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -3,14 +3,32 @@ extends Node
 
 var _data = {
 	"coins": 0,
-	"current_level": 0 # индекс уровня
+	"current_level": 0, # индекс уровня
+	"hammer": 2,
+	"bomb": 1,
+	"shuffle": 0,
 }
 
-signal data_updated(key: String)
+var booster_name = {
+	Booster.EType.HAMMER: "hammer",
+	Booster.EType.BOMB: "bomb",
+	Booster.EType.SHUFFLE: "shuffle",
+}
 
 
 func _ready() -> void:
 	EventBus.coins_changed.connect(_on_coins_changed)
+	EventBus.booster_used.connect(_on_booster_used)
+
+
+func get_booster_count(booster_type: Booster.EType) -> int:
+	return get_value(booster_name[booster_type])
+
+
+func _on_booster_used(booster_type: Booster.EType) -> void:
+	var cur_data_name = booster_name[booster_type]
+	var old_value = get_booster_count(booster_type)
+	set_value(cur_data_name, max(old_value - 1, 0))
 
 
 func _on_coins_changed(value: int) -> void:
@@ -29,7 +47,7 @@ func _get(property):
 func set_value(key: String, value) -> void:
 	if key in _data.keys():
 		_data[key] = value
-		data_updated.emit(key)
+		EventBus.player_data_changed.emit(key)
 
 
 func get_value(key: String):

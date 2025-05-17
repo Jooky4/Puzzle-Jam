@@ -10,8 +10,6 @@ extends Control
 @onready var colors: Array = LevelData.FREE_CELL.duplicate(true)
 @onready var debug_label: Label = $DebugLabel
 
-@onready var can_take_block: bool = true
-@onready var follow_mouse: bool = false
 @onready var button = $Button
 
 @onready var texture_binds = {
@@ -25,9 +23,15 @@ extends Control
 	17: texture_list[7],
 }
 
+var can_take_block: bool = true
+var follow_mouse: bool = false
 var count_block = 0
 var last_position := Vector2.ZERO
 var jelly_layers: Array = []
+var is_button: bool
+
+
+signal pressed
 
 
 func _collect_jelly_layers():
@@ -65,6 +69,11 @@ func _to_string() -> String:
 			name,
 			colors
 		]
+
+
+func set_is_button(value: bool) -> void:
+	is_button = value
+	button.visible = is_button
 
 
 func _process(delta):
@@ -136,6 +145,10 @@ func are_all_elements_equal(arr: Array) -> bool:
 
 
 func _on_button_button_down() -> void:
+	if is_button:
+		pressed.emit(self)
+		return
+
 	if can_take_block:
 		z_index = 10
 		follow_mouse = true
@@ -299,6 +312,11 @@ func set_reate_compain(arr_color) -> void:
 
 		if arr_blocs[0].visible and arr_blocs[1].visible and arr_blocs[2].visible and arr_blocs[3].visible:
 			count_block = 4
+
+
+func remove_block() -> void:
+	self.get_parent().free_block()
+	self.queue_free()
 
 
 func update_block(delete_color, direction) -> void:

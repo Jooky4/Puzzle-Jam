@@ -28,3 +28,7 @@ func format_number(n: int) -> String:
 		result = str(n)
 
 	return result
+
+
+func get_index_by_pos(pos: Vector2i, row_size: int) -> int:
+	return pos.y * row_size + pos.x

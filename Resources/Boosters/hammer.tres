@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BoosterType" load_steps=3 format=3 uid="uid://b3fa0qyw2m1bb"]
+
+[ext_resource type="Script" uid="uid://bfq6jhox0x4mg" path="res://Resources/Boosters/booster.gd" id="1_s2u1g"]
+[ext_resource type="Texture2D" uid="uid://oxk43hgsv726" path="res://Assets/BoosterButton/hammer.png" id="1_sogx5"]
+
+[resource]
+script = ExtResource("1_s2u1g")
+icon = ExtResource("1_sogx5")
+type = 0
+metadata/_custom_type_script = "uid://bfq6jhox0x4mg"
