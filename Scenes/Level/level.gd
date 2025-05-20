@@ -189,8 +189,7 @@ func _on_color_block_pressed(block: Node) -> void:
 
 	if _state == EState.BOOSTER:
 		if current_booster.type == Booster.EType.HAMMER:
-			block.colors = LevelData.FREE_CELL
-			block.remove_block()
+			hammer(block)
 			_set_state(EState.PLAY)
 			EventBus.booster_used.emit(current_booster.type)
 		elif current_booster.type == Booster.EType.BOMB:
@@ -209,6 +208,12 @@ func _on_color_block_pressed(block: Node) -> void:
 			await bomb_explode_neighbours(cell_pos)
 			_set_state(EState.PLAY)
 			EventBus.booster_used.emit(current_booster.type)
+
+
+func hammer(block: Node) -> void:
+	prints("hammer booster run", block)
+	block.colors = LevelData.FREE_CELL
+	block.remove_block()
 
 
 func bomb_explode_neighbours(pos: Vector2i) -> void:
@@ -248,8 +253,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 
 func shuffle() -> void:
-	prints("shuffle booster")
-
+	prints("shuffle booster run")
 	var _non_empty_cells = LevelManager.get_non_empty_cells()
 	var _positions: Array
 	var _cell_data: Array
@@ -272,8 +276,11 @@ func shuffle() -> void:
 			_color_block.colors = _colors
 			_color_block.set_reate_compain(_colors)
 
+	update_level()
+	await Utils.timeout(0.1)
+
 	for i in _positions:
-		check_matches(i.x, i.y)
+		check_matches(i.y, i.x)
 
 
 func update_level() -> void:
