@@ -189,8 +189,7 @@ func _on_color_block_pressed(block: Node) -> void:
 
 	if _state == EState.BOOSTER:
 		if current_booster.type == Booster.EType.HAMMER:
-			block.colors = LevelData.FREE_CELL
-			block.remove_block()
+			hammer(block)
 			_set_state(EState.PLAY)
 			EventBus.booster_used.emit(current_booster.type)
 		elif current_booster.type == Booster.EType.BOMB:
@@ -211,6 +210,12 @@ func _on_color_block_pressed(block: Node) -> void:
 			EventBus.booster_used.emit(current_booster.type)
 
 
+func hammer(block: Node) -> void:
+	prints("hammer booster run", block)
+	block.colors = LevelData.FREE_CELL
+	block.remove_block()
+
+
 func bomb_explode_neighbours(pos: Vector2i) -> void:
 	var neighbours = [
 		Vector2i(-1, -1),
@@ -229,7 +234,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 	for side in neighbours:
 		var n_pos = side + pos
 
-		if n_pos.x >= 0 and n_pos.x < level_width and n_pos.y >= 0 and n_pos.y < level_height:
+		if n_pos.x >= 0 and n_pos.x < level_width - 1 and n_pos.y >= 0 and n_pos.y < level_height - 1:
 			var cur_level_cell = current_level[n_pos.y][n_pos.x]
 			if cur_level_cell == LevelData.EMPTY_CELL:
 				continue
@@ -245,6 +250,37 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 	update_level()
 	await Utils.timeout(0.2)
+
+
+func shuffle() -> void:
+	prints("shuffle booster run")
+	var _non_empty_cells = LevelManager.get_non_empty_cells()
+	var _positions: Array
+	var _cell_data: Array
+
+	for i in _non_empty_cells:
+		if i.colors == LevelData.ADS_CELL:
+			continue
+
+		_positions.push_back(i.position)
+		_cell_data.push_back(i.colors)
+
+	_cell_data.shuffle()
+	for i in _cell_data.size():
+		var _colors = _cell_data[i]
+		var pos = _positions[i]
+		current_level[pos.y][pos.x] = _colors
+		var cell_block = BLOCK_ARR[Utils.get_index_by_pos(pos, 6)]
+		var _color_block = cell_block.get_color_block()
+		if _color_block:
+			_color_block.colors = _colors
+			_color_block.set_reate_compain(_colors)
+
+	update_level()
+	await Utils.timeout(0.1)
+
+	for i in _positions:
+		check_matches(i.y, i.x)
 
 
 func update_level() -> void:
@@ -268,7 +304,8 @@ func update_level() -> void:
 
 
 func check_matches(x: int, y: int) -> void:
-	#await Utils.timeout(1)
+	prints("check_matches")
+
 	check_match_count += 1
 	var have_match: bool = false
 	var current_cell = current_level[x][y]
@@ -406,7 +443,7 @@ func _on_booster_button_pressed(booster: Booster) -> void:
 	current_booster = booster
 	var booster_count = Player.get_booster_count(booster.type)
 	if booster_count == 0:
-		prints("show ads")
+		prints("show ads", booster)
 	else:
 		_set_state(EState.BOOSTER)
 
@@ -440,3 +477,9 @@ func _hide_booster_ui() -> void:
 	new_color_blocks.show()
 	booster_panel.show()
 	booster_ui.hide()
+
+
+func _on_booster_ui_use_pressed() -> void:
+	await shuffle()
+	_set_state(EState.PLAY)
+	EventBus.booster_used.emit(current_booster.type)

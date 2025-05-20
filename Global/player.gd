@@ -5,8 +5,8 @@ var _data = {
 	"coins": 0,
 	"current_level": 0, # индекс уровня
 	"hammer": 2,
-	"bomb": 1,
-	"shuffle": 0,
+	"bomb": 2,
+	"shuffle": 2,
 }
 
 var booster_name = {

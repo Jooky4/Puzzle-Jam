@@ -189,8 +189,8 @@ locked_text = "30 ур"
 
 [node name="Shuffle" parent="UI/Boosters" instance=ExtResource("10_unl86")]
 layout_mode = 2
-disabled = true
 booster = ExtResource("13_mkqdc")
+count = 3
 locked_text = "30 ур"
 
 [node name="BoosterUI" parent="UI" instance=ExtResource("11_unl86")]
@@ -212,3 +212,4 @@ grow_vertical = 0
 [connection signal="pressed" from="UI/Boosters/Bomb" to="." method="_on_bomb_pressed"]
 [connection signal="pressed" from="UI/Boosters/Shuffle" to="." method="_on_shuffle_pressed"]
 [connection signal="cancel" from="UI/BoosterUI" to="." method="_on_booster_ui_cancel"]
+[connection signal="use" from="UI/BoosterUI" to="." method="_on_booster_ui_use_pressed"]
