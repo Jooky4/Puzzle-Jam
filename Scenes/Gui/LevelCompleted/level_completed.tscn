@@ -1,14 +1,55 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxbm0wayenbnt"]
+[gd_scene load_steps=28 format=3 uid="uid://cxbm0wayenbnt"]
 
 [ext_resource type="Script" uid="uid://bbci3dnqenni6" path="res://Scenes/Gui/LevelCompleted/level_completed.gd" id="1_hdtc0"]
 [ext_resource type="Texture2D" uid="uid://bdxh3x6tgtuk6" path="res://Assets/level_complete/stars.png" id="2_0luqf"]
+[ext_resource type="Texture2D" uid="uid://cwu1vhfgk2tut" path="res://Assets/Effects/Star2.png" id="2_4klig"]
+[ext_resource type="Texture2D" uid="uid://cd8cstp7blnmt" path="res://Assets/Effects/flashlight.png" id="2_f62md"]
 [ext_resource type="Texture2D" uid="uid://cnl6r784d8cs4" path="res://Assets/level_complete/glow.png" id="2_rpji8"]
+[ext_resource type="Texture2D" uid="uid://dfjkgq27aiq1o" path="res://Assets/Effects/title_glow.png" id="3_1s5vq"]
 [ext_resource type="Texture2D" uid="uid://bkx5hvgg4u40m" path="res://Assets/level_complete/title_banner.png" id="3_def30"]
+[ext_resource type="Texture2D" uid="uid://0e345oyn1qqy" path="res://Assets/Effects/confeti.png" id="3_vhpej"]
 [ext_resource type="Texture2D" uid="uid://q0nl245bjvns" path="res://Assets/game_over/green_button.png" id="4_dkv61"]
 [ext_resource type="Texture2D" uid="uid://c1i1vapi5oqnj" path="res://Assets/level_complete/coins_icon.png" id="5_0luqf"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_2n123"]
 [ext_resource type="PackedScene" uid="uid://cs6j1c2jh02o6" path="res://Scenes/Gui/RewardTwister/reward_twister.tscn" id="7_pnehs"]
 [ext_resource type="Texture2D" uid="uid://p6ppfwxayl72" path="res://Assets/level_complete/coin.png" id="9_4klig"]
+
+[sub_resource type="Gradient" id="Gradient_f62md"]
+offsets = PackedFloat32Array(0, 0.223744, 0.810502, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_dad1t"]
+offsets = PackedFloat32Array(0, 0.105023, 0.586758, 0.785388)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_24c54"]
+offsets = PackedFloat32Array(0.0890411, 0.184932, 0.671233, 0.851598)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_cbgro"]
+offsets = PackedFloat32Array(0.159817, 0.260274, 0.730594, 0.910959)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_hfsbd"]
+offsets = PackedFloat32Array(0.232877, 0.342466, 0.810502, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_1s5vq"]
+offsets = PackedFloat32Array(0, 0.182648, 0.292237, 0.826484, 1)
+colors = PackedColorArray(1, 0.937255, 0.807843, 0, 1, 0.937255, 0.807843, 0, 1, 0.937255, 0.807843, 1, 1, 0.937255, 0.807843, 1, 1, 0.937255, 0.807843, 0)
+
+[sub_resource type="Curve" id="Curve_m7bum"]
+_data = [Vector2(0, 0.00203085), 0.0, 5.0362, 0, 0, Vector2(0.146552, 1), 1.06169, 1.06169, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6d7bm"]
+offsets = PackedFloat32Array(0, 0.0639269, 0.920091, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_a2lux"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.178082, 0.347032, 0.511416, 0.673516, 0.847032, 1)
+colors = PackedColorArray(0.933333, 0.878431, 0.196078, 1, 0.23, 0.473834, 1, 1, 0.462745, 0.760784, 0, 1, 0.960784, 0.329412, 0.254902, 1, 1, 0.317438, 0.646603, 1, 0, 0.839042, 0.898363, 1, 0, 0.718666, 0.77, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dssuf"]
 font = ExtResource("5_2n123")
@@ -18,6 +59,91 @@ font_size = 36
 font = ExtResource("5_2n123")
 font_size = 72
 
+[sub_resource type="Animation" id="Animation_f62md"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ConfetiEffect/ParticlesConfeti:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ConfetiEffect/ParticlesConfeti2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ConfetiEffect/ParticlesConfeti3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_a2lux"]
+resource_name = "Start"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ConfetiEffect/ParticlesConfeti:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.03333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ConfetiEffect/ParticlesConfeti2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ConfetiEffect/ParticlesConfeti3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.96667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dad1t"]
+_data = {
+&"RESET": SubResource("Animation_f62md"),
+&"Start": SubResource("Animation_a2lux")
+}
+
 [node name="LevelComplete" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -26,8 +152,95 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hdtc0")
+delay_particle1 = 1.0
+delay_particle2 = 1.5
+delay_particle3 = 2.0
+
+[node name="ParticlesGlow" type="CPUParticles2D" parent="."]
+position = Vector2(364, 367)
+amount = 2
+texture = ExtResource("3_1s5vq")
+speed_scale = 0.5
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.8
+scale_amount_max = 0.8
+color = Color(1, 0.52, 0.736, 0.533333)
+color_ramp = SubResource("Gradient_f62md")
+
+[node name="FlashEffect" type="Node2D" parent="."]
+
+[node name="Line1" type="CPUParticles2D" parent="FlashEffect"]
+position = Vector2(218, 392)
+rotation = -0.606116
+amount = 2
+texture = ExtResource("2_f62md")
+lifetime = 2.0
+speed_scale = 0.5
+local_coords = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_dad1t")
+
+[node name="Line2" type="CPUParticles2D" parent="FlashEffect"]
+position = Vector2(309, 358)
+rotation = -0.158454
+amount = 2
+texture = ExtResource("2_f62md")
+lifetime = 2.0
+speed_scale = 0.5
+local_coords = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_24c54")
+
+[node name="Line3" type="CPUParticles2D" parent="FlashEffect"]
+position = Vector2(420, 366)
+rotation = 0.200129
+amount = 2
+texture = ExtResource("2_f62md")
+lifetime = 2.0
+speed_scale = 0.5
+local_coords = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_cbgro")
+
+[node name="Line4" type="CPUParticles2D" parent="FlashEffect"]
+position = Vector2(517, 396)
+rotation = 0.613303
+amount = 2
+texture = ExtResource("2_f62md")
+lifetime = 2.0
+speed_scale = 0.5
+local_coords = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_hfsbd")
+
+[node name="ParticlesStars" type="CPUParticles2D" parent="."]
+position = Vector2(363, 407)
+amount = 10
+texture = ExtResource("2_4klig")
+lifetime = 1.7
+speed_scale = 0.4
+direction = Vector2(0, -1)
+spread = 75.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 304.53
+initial_velocity_max = 304.53
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_1s5vq")
 
 [node name="Stars" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -40,6 +253,7 @@ grow_horizontal = 2
 texture = ExtResource("2_0luqf")
 
 [node name="Glow" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -64,6 +278,83 @@ offset_bottom = -173.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_def30")
+
+[node name="ConfetiEffect" type="Node2D" parent="."]
+
+[node name="ParticlesConfeti" type="CPUParticles2D" parent="ConfetiEffect"]
+position = Vector2(181, 501)
+rotation = -0.20944
+emitting = false
+amount = 25
+texture = ExtResource("3_vhpej")
+lifetime = 2.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+lifetime_randomness = 0.5
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, 350)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+scale_amount_min = 0.7
+scale_amount_curve = SubResource("Curve_m7bum")
+color_ramp = SubResource("Gradient_6d7bm")
+color_initial_ramp = SubResource("Gradient_a2lux")
+
+[node name="ParticlesConfeti2" type="CPUParticles2D" parent="ConfetiEffect"]
+position = Vector2(516, 722)
+rotation = 0.20944
+emitting = false
+amount = 25
+texture = ExtResource("3_vhpej")
+lifetime = 2.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+lifetime_randomness = 0.5
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, 350)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+scale_amount_min = 0.7
+scale_amount_curve = SubResource("Curve_m7bum")
+color_ramp = SubResource("Gradient_6d7bm")
+color_initial_ramp = SubResource("Gradient_a2lux")
+
+[node name="ParticlesConfeti3" type="CPUParticles2D" parent="ConfetiEffect"]
+position = Vector2(181, 946)
+rotation = -0.20944
+emitting = false
+amount = 25
+texture = ExtResource("3_vhpej")
+lifetime = 2.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+lifetime_randomness = 0.5
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, 350)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+scale_amount_min = 0.7
+scale_amount_curve = SubResource("Curve_m7bum")
+color_ramp = SubResource("Gradient_6d7bm")
+color_initial_ramp = SubResource("Gradient_a2lux")
 
 [node name="CoinsIcon" type="TextureRect" parent="."]
 layout_mode = 1
@@ -171,5 +462,10 @@ offset_bottom = 31.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("9_4klig")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dad1t")
+}
 
 [connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]

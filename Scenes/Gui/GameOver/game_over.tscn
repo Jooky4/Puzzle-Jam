@@ -75,15 +75,18 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -196.5
+offset_left = -229.0
 offset_top = 44.0
-offset_right = 196.5
+offset_right = 230.0
 offset_bottom = 122.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.117647, 0.482353, 1)
 theme_override_fonts/font = ExtResource("4_ywu43")
-theme_override_font_sizes/font_size = 68
+theme_override_font_sizes/font_size = 55
 text = "второй шанс"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="CloseButton" type="TextureButton" parent="Panel"]
 layout_mode = 1
