@@ -61,6 +61,7 @@ font_size = 72
 
 [sub_resource type="Animation" id="Animation_f62md"]
 resource_name = "RESET"
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -152,9 +153,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hdtc0")
-delay_particle1 = 1.0
-delay_particle2 = 1.5
-delay_particle3 = 2.0
 
 [node name="ParticlesGlow" type="CPUParticles2D" parent="."]
 position = Vector2(364, 367)
@@ -279,7 +277,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_def30")
 
-[node name="ConfetiEffect" type="Node2D" parent="."]
+[node name="ConfetiEffect" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
 
 [node name="ParticlesConfeti" type="CPUParticles2D" parent="ConfetiEffect"]
 position = Vector2(181, 501)
