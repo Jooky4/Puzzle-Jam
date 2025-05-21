@@ -40,7 +40,7 @@ offset_left = -59.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "build: 250515"
+text = "build: 250521"
 metadata/_edit_use_anchors_ = true
 
 [node name="Top" type="MarginContainer" parent="."]
