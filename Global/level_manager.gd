@@ -90,8 +90,13 @@ func get_color_with_type(color: int) -> Dictionary:
 		_normalized_color = color - 3000
 		block_type = BlockType.ROCKET
 
+	var _color: Color
+	if _normalized_color > 2:
+		_color = LevelData.COLORS[_normalized_color]
+
 	return {
-		"color": _normalized_color,
+		"color_number": _normalized_color,
+		"color": _color,
 		"type": block_type
 	}
 
@@ -163,7 +168,9 @@ func _level_colors(level: Array) -> Array:
 	for i in level:
 		for j in i:
 			for c in j:
-				if c > 0:
-					_colors[c] = true
+				var _typed_color = get_color_with_type(c)
+				var _color = _typed_color.color_number
+				if _color > 2:
+					_colors[_color] = true
 
 	return _colors.keys()

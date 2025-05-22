@@ -23,6 +23,8 @@ var last_position := Vector2.ZERO
 var jelly_layers: Array = []
 var is_button: bool: set = _set_is_button
 
+var _color_node_binds: Dictionary = {}
+
 signal pressed
 signal remove
 
@@ -53,20 +55,17 @@ func get_all_nine_patches(control: Control) -> Array:
 func _ready() -> void:
 	if not OS.is_debug_build():
 		debug_label.visible = false
+
 	_collect_jelly_layers()
 	last_position = global_position
 
 
 func _to_string() -> String:
-	return "<Block: %s colors: [%s]>" % [
-			name,
-			colors
-		]
+	return "<Block: %s colors: [%s]>" % [name, colors]
 
 
 func set_is_button(value: bool) -> void:
 	is_button = value
-	button.visible = is_button
 
 
 func _process(delta):
@@ -108,11 +107,12 @@ func get_color_block(arr_color) -> void:
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
 
-		var color = LevelData.COLORS[arr_color[i]]
+		#var color = LevelData.COLORS[arr_color[i]]
+		var color_data = LevelManager.get_color_with_type(arr_color[i])
 		# Назначаем цвет кроме последнего. Последний это блик
 		for patch_idx in nine_patches.size()-1:
 			var _patch = nine_patches[patch_idx]
-			_patch.modulate = color
+			_patch.modulate = color_data.color
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -147,6 +147,7 @@ func _set_is_button(value: bool) -> void:
 	is_button = value
 	if button:
 		var _cur_mouse_filter = button.mouse_filter
+		button.visible = is_button
 		if is_button:
 			button.mouse_filter = Control.MOUSE_FILTER_PASS
 		else:
@@ -261,18 +262,19 @@ func set_reate_compain(arr_color) -> void:
 		if arr_color[i] == 0:
 			break
 
-		var color = LevelData.COLORS[arr_color[i]]
-
-		var child_list = arr_blocs[i].get_children()
-		child_list[0].modulate = color.darkened(0.3)
-		child_list[1].modulate = color.darkened(0.3)
-		child_list[2].modulate = color
+		var _color_data = LevelManager.get_color_with_type(arr_color[i])
+		_set_color(arr_blocs[i], _color_data.color)
 
 	var full_w = 200
 	var full_h = 200
 
 	var half_w = 100
 	var half_h = 100
+
+	for i in arr_color.size():
+		var _color = arr_color[i]
+		var _block = arr_blocs[i]
+		_color_node_binds[_color] = _block
 
 	if are_all_elements_equal(arr_color):
 		arr_blocs[0].visible = true
@@ -281,6 +283,7 @@ func set_reate_compain(arr_color) -> void:
 		arr_blocs[3].visible = false
 
 		arr_blocs[0].size = Vector2(full_w, full_h)
+		_color_node_binds[arr_color[0]] = arr_blocs[0]
 		count_block = 1
 
 	else:
@@ -288,21 +291,25 @@ func set_reate_compain(arr_color) -> void:
 			arr_blocs[0].visible = true
 			arr_blocs[1].visible = false
 			arr_blocs[0].size = Vector2(full_w, half_h)
+			_color_node_binds[arr_color[0]] = arr_blocs[0]
 
 		if arr_color[2] == arr_color[3]:
 			arr_blocs[2].visible = true
 			arr_blocs[3].visible = false
 			arr_blocs[2].size = Vector2(full_w, half_h)
+			_color_node_binds[arr_color[2]] = arr_blocs[2]
 
 		if arr_color[0] == arr_color[2]:
 			arr_blocs[0].visible = true
 			arr_blocs[2].visible = false
 			arr_blocs[0].size = Vector2(half_w, full_h)
+			_color_node_binds[arr_color[0]] = arr_blocs[0]
 
 		if arr_color[1] == arr_color[3]:
 			arr_blocs[1].visible = true
 			arr_blocs[3].visible = false
 			arr_blocs[1].size = Vector2(half_w, full_h)
+			_color_node_binds[arr_color[1]] = arr_blocs[1]
 
 		var unique_dict = {}
 		for color in arr_color:
@@ -310,7 +317,18 @@ func set_reate_compain(arr_color) -> void:
 		count_block = unique_dict.keys().size()
 
 		if arr_blocs[0].visible and arr_blocs[1].visible and arr_blocs[2].visible and arr_blocs[3].visible:
+			for i in arr_color.size():
+				var _color = arr_color[i]
+
 			count_block = 4
+
+		for i in arr_color.size():
+			var _color = arr_color[i]
+			var _block = arr_blocs[i]
+
+			var _is_same_block = _color_node_binds[_color] == _block
+			if _is_same_block and not _block.visible:
+				_color_node_binds.erase(_color)
 
 
 func remove_block() -> void:
@@ -467,3 +485,19 @@ func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 
 	_t.play()
 	return _t
+
+
+func _get_color_node(color: int) -> Node:
+	return Node.new()
+
+
+func get_color_tile_node(color: int) -> Node:
+	""" Возвращает ноду цвета """
+
+	var _color_node = _color_node_binds[color]
+
+	var _node = _color_node.duplicate()
+	#_node.color = LevelManager.get_color_with_type(color).color
+	#_node.size = _color_node.size / 2
+	_node.position = global_position
+	return _node

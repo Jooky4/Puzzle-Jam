@@ -170,17 +170,21 @@ func create_level() -> void:
 			buff.level_position.y = i
 
 			var current_level_cell = current_level[i][j]
-			if current_level_cell != LevelData.EMPTY_CELL:
+
+			if current_level_cell == LevelData.ADS_CELL:
 				block_container.add_child(buff)
 
-				if current_level[i][j] != LevelData.FREE_CELL:
+			elif current_level_cell != LevelData.EMPTY_CELL:
+				block_container.add_child(buff)
+
+				if current_level_cell != LevelData.FREE_CELL:
 					var buff1 = color_block.instantiate()
 					buff1.pressed.connect(_on_color_block_pressed)
 					buff.not_can_drop()
 					buff.add_child(buff1)
-					buff1.get_color_block(current_level[i][j])
+					buff1.get_color_block(current_level_cell)
 
-			elif current_level[i][j] == LevelData.EMPTY_CELL:
+			elif current_level_cell == LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
 				buff.set_active(false)
 
@@ -373,11 +377,34 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 	return false
 
 
+func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBlock.ESides) -> Node:
+	""" анимированно удаляем цвет у ColorBlock ноды """
+
+	var result: Node
+
+	var cur_fill_dir = color_block.remove_color(color, side)
+	var block_node = get_color_block(color_block.position)
+
+	# получаем удаляемый тайл
+	result = block_node.get_color_tile_node(color)
+
+	block_node.colors = color_block.colors
+	# анимируем заполнение дыр в блоке
+	block_node.fill_colors(cur_fill_dir)
+	color_block.autofill(side)
+
+	# обновляем ячейку уровня
+	current_level[color_block.position.y][color_block.position.x] = color_block.colors
+
+	return result
+
+
 func check_matches(pos: Vector2i) -> void:
 	""" Рекурсивно проверяет все блоки вокруг на совпадения цветов """
 
 	# счётчик запуска функции
 	check_match_count += 1
+	var time_before_check_next: float = 0.5
 
 	# За границами поля
 	if not _in_level_field(pos):
@@ -423,35 +450,63 @@ func check_matches(pos: Vector2i) -> void:
 				break
 
 	if matched_blocks.size() > 0:
-		prints("анимация удаления тайла:", tile_color, LevelData.COLOR_NAMES[tile_color])
+		#prints("анимация удаления тайла:", tile_color, LevelData.COLOR_NAMES[tile_color])
+
+		# Засчитываем цель по цвету
 		goal_colors_container.dec_color(tile_color)
+		# Оповещаем всех что цель обновилась
 		EventBus.goals_changed.emit(goal_colors_container.colors)
 
-		var cur_side = matched_blocks[0].current_side
-		var cur_dir = current_block.remove_color(tile_color, cur_side)
-		var cur_block_node = get_color_block(current_block.position)
-		cur_block_node.colors = current_block.colors
-		cur_block_node.fill_colors(cur_dir)
-		current_block.autofill(cur_side)
-		# обновляем данные уровня
-		current_level[current_block.position.y][current_block.position.x] = current_block.colors
+		var tiles_to_remove: Array
+		var _tile = _cb_node_remove_colors(current_block, tile_color, matched_blocks[0].current_side)
+		tiles_to_remove.push_back(_tile)
 
 		for i in matched_blocks:
-			var fill_dir = i.block.remove_color(tile_color, i.neighbour_side)
-			var _block = get_color_block(i.block.position)
-			if _block:
-				_block.colors = i.block.colors
-				_block.fill_colors(fill_dir)
-				i.block.autofill(i.neighbour_side)
-				_block.colors = i.block.colors
-				current_level[i.block.position.y][i.block.position.x] = i.block.colors
+			var _tile2 = _cb_node_remove_colors(i.block, tile_color, i.neighbour_side)
+			tiles_to_remove.push_back(_tile2)
 
-		await Utils.timeout(0.5)
-		check_matches(current_block.position)
+		var used_block_list = [{"block": current_block}]
+		used_block_list.append_array(matched_blocks)
 
-		for i in matched_blocks:
+		# --- Анимируем все удаляемые цветные тайлы ---
+		# ищем среднюю точку между всех тайлов
+		var _tiles_positions: Array[Vector2]
+		for i in tiles_to_remove:
+			var _pos = i.position + (i.size / 2)
+			_tiles_positions.push_back(_pos)
+
+		var center_pos = Utils.find_center_of_position_list(_tiles_positions)
+
+		var _tween_time: float = 1
+		for t in tiles_to_remove:
+			var _tween = create_tween().set_parallel()
+			add_child(t)
+			t.z_index = 100
+
+			# поднимаем блок вверх
+
+			# масштаб у ColorBlock 0.5, если не сделать такой-же масштаб тайлу - он будет большой
+			t.scale = Vector2(0.5, 0.5)
+
+			# Поднимает блок вверх
+			_tween.tween_property(t, "scale", t.scale + Vector2(0.1, 0.1), _tween_time / 5)
+			_tween.tween_property(t, "position", t.position + Vector2(0, -50), _tween_time / 5)
+			_tween.set_ease(Tween.EASE_IN_OUT)
+			_tween.chain()
+
+			_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
+
+			# корректировка координаты центра
+			var _correct_center_pos = center_pos + Vector2(-(t.size.x / 4), -(t.size.y / 2))
+			_tween.tween_property(t, "position", _correct_center_pos, _tween_time / 2)
+			_tween.tween_property(t, "scale", Vector2(0, 0), _tween_time / 2)
+			_tween.play()
+
+
+		# --- запускаем проверку для всех изменённых блоков ---
+		for i in used_block_list:
 			var cb = i.block
-			await Utils.timeout(0.5)
+			await Utils.timeout(time_before_check_next)
 			check_matches(cb.position)
 
 	check_match_count -= 1

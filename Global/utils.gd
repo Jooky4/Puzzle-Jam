@@ -30,3 +30,14 @@ func format_number(n: int) -> String:
 
 func get_index_by_pos(pos: Vector2i, row_size: int) -> int:
 	return pos.y * row_size + pos.x
+
+
+func find_center_of_position_list(list: Array) -> Vector2:
+	if list.is_empty():
+		return Vector2.ZERO
+
+	var sum = Vector2.ZERO
+	for _pos in list:
+		sum += _pos
+
+	return sum / list.size()
