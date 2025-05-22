@@ -35,7 +35,7 @@ var follow_mouse: bool = false
 var count_block = 0
 var last_position := Vector2.ZERO
 var jelly_layers: Array = []
-var is_button: bool
+var is_button: bool: set = _set_is_button
 
 
 signal pressed
@@ -161,6 +161,16 @@ func _on_button_button_down() -> void:
 		z_index = 10
 		follow_mouse = true
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+func _set_is_button(value: bool) -> void:
+	is_button = value
+	if button:
+		var _cur_mouse_filter = button.mouse_filter
+		if is_button:
+			button.mouse_filter = Control.MOUSE_FILTER_PASS
+		else:
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func button_up() -> void:

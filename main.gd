@@ -10,8 +10,8 @@ func _ready() -> void:
 	LevelManager.current_level = Player.get_value("current_level")
 
 	if Player.is_play_first_time():
-		get_tree().change_scene_to_packed(game_scene)
+		get_tree().call_deferred("change_scene_to_packed", game_scene)
 	else:
-		get_tree().change_scene_to_packed(main_menu_scene)
+		get_tree().call_deferred("change_scene_to_packed", main_menu_scene)
 
 	Bridge.platform.send_message("game_ready")
