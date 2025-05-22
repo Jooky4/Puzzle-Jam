@@ -101,7 +101,8 @@ func _input(event):
 
 						block_for_drop_1 = buff
 						update_level()
-						check_matches(count / 6, count % 6)
+						var _pos = Vector2i(count % 6, count / 6)
+						check_matches(_pos)
 						drop = true
 
 					elif block_for_drop_2.follow_mouse:
@@ -113,7 +114,8 @@ func _input(event):
 						buff.create_random_color()
 						block_for_drop_2 = buff
 						update_level()
-						check_matches(count / 6, count % 6)
+						var _pos = Vector2i(count % 6, count / 6)
+						check_matches(_pos)
 						drop = true
 
 					break
@@ -133,6 +135,7 @@ func _update_ui() -> void:
 func move_node(block: Node, new_parent: Node):
 	var old_parent = block.get_parent()
 	old_parent.remove_child(block)
+	block.pressed.connect(_on_color_block_pressed)
 	new_parent.add_child(block)
 	block.z_index = 0
 	block.position = Vector2(-50, -50)
@@ -274,13 +277,12 @@ func shuffle() -> void:
 		var _color_block = cell_block.get_color_block()
 		if _color_block:
 			_color_block.colors = _colors
-			_color_block.set_reate_compain(_colors)
 
 	update_level()
 	await Utils.timeout(0.1)
 
-	for i in _positions:
-		check_matches(i.y, i.x)
+	for _pos in _positions:
+		check_matches(_pos)
 
 
 func update_level() -> void:
@@ -303,10 +305,6 @@ func update_level() -> void:
 		count += 1
 
 
-func check_matches(y: int, x: int) -> void:
-	new_check_matches(Vector2i(x, y))
-
-
 func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
 	var color_block = ColorBlock.new()
 	color_block.position = pos
@@ -314,7 +312,7 @@ func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
 	return color_block
 
 
-# TODO: перенести в ColorBlock
+# TODO: подумать над переносом в ColorBlock
 func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_block: ColorBlock, current_side: ColorBlock.ESides, neighbour_side: ColorBlock.ESides) -> bool:
 	# прилегающие блоки соприкосаются только одним цветом
 
@@ -354,7 +352,7 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 	return false
 
 
-func new_check_matches(pos: Vector2i) -> void:
+func check_matches(pos: Vector2i) -> void:
 	""" Рекурсивно проверяет все блоки вокруг на совпадения цветов """
 
 	# счётчик запуска функции
@@ -404,6 +402,7 @@ func new_check_matches(pos: Vector2i) -> void:
 				break
 
 	if matched_blocks.size() > 0:
+		prints("анимация удаления тайла:", tile_color, LevelData.COLOR_NAMES[tile_color])
 		goal_colors_container.dec_color(tile_color)
 		EventBus.goals_changed.emit(goal_colors_container.colors)
 
@@ -427,12 +426,12 @@ func new_check_matches(pos: Vector2i) -> void:
 				current_level[i.block.position.y][i.block.position.x] = i.block.colors
 
 		await Utils.timeout(0.5)
-		new_check_matches(current_block.position)
+		check_matches(current_block.position)
 
 		for i in matched_blocks:
-			await Utils.timeout(0.5)
 			var cb = i.block
-			new_check_matches(cb.position)
+			await Utils.timeout(0.5)
+			check_matches(cb.position)
 
 	check_match_count -= 1
 
@@ -483,7 +482,7 @@ func get_blocks_around_tile(color_block: ColorBlock, tile_index) -> Array:
 
 		# отсекаем пустые и неиспользуемые ячейки
 		if neighbour_block.is_free() or neighbour_block.colors == LevelData.EMPTY_CELL:
-			prints("is empty or free block")
+			#prints("is empty or free block")
 			continue
 
 		result.push_back(data)
@@ -545,7 +544,7 @@ func _on_shuffle_pressed() -> void:
 
 
 func _on_booster_ui_cancel() -> void:
-	_hide_booster_ui()
+	_set_state(EState.PLAY)
 
 
 func _show_booster_ui() -> void:
