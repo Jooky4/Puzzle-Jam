@@ -1,0 +1,231 @@
+[gd_scene load_steps=11 format=3 uid="uid://cj3ixpro2ygul"]
+
+[ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="1_1t01a"]
+[ext_resource type="Texture2D" uid="uid://d1cpg1kj3bh2h" path="res://Assets/BoosterButton/bomb.png" id="1_el8xm"]
+[ext_resource type="Texture2D" uid="uid://cgeejnlljot0d" path="res://Assets/Effects/shadow.png" id="2_1t01a"]
+[ext_resource type="Texture2D" uid="uid://6utcax3thvel" path="res://Assets/Effects/ring.png" id="2_x5u5p"]
+
+[sub_resource type="Curve" id="Curve_x5u5p"]
+_data = [Vector2(0, 0), 0.0, 1.52118, 0, 0, Vector2(1, 0), -6.11023, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_c3mvn"]
+offsets = PackedFloat32Array(0, 0.719178, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_c3mvn"]
+_data = [Vector2(0, 0), 0.0, 2.17323, 0, 0, Vector2(1, 0.99472), -0.0583343, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_el8xm"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(95, -239)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bomb:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bomb:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shadow:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SmogParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RingParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1t01a"]
+resource_name = "bomb_fall"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bomb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.2),
+"transitions": PackedFloat32Array(0.5, 2.5, 1),
+"update": 0,
+"values": [Vector2(1, -239), Vector2(1, -271), Vector2(1, -37)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bomb:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.758536]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bomb:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 1, 1.13333, 1.26667),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1, 1), Vector2(1.14, 1.14), Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SmogParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Shadow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RingParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x5u5p"]
+_data = {
+&"RESET": SubResource("Animation_el8xm"),
+&"bomb_fall": SubResource("Animation_1t01a")
+}
+
+[node name="AnimationBomb" type="Node2D"]
+
+[node name="SmogParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+texture = ExtResource("1_1t01a")
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.2
+explosiveness = 0.85
+lifetime_randomness = 0.3
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, -300)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_max = 90.0
+linear_accel_min = -200.0
+linear_accel_max = -200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 0.7
+scale_amount_curve = SubResource("Curve_x5u5p")
+color_ramp = SubResource("Gradient_c3mvn")
+
+[node name="RingParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 1
+texture = ExtResource("2_x5u5p")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.85
+lifetime_randomness = 0.3
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c3mvn")
+color_ramp = SubResource("Gradient_c3mvn")
+
+[node name="Bomb" type="Sprite2D" parent="."]
+position = Vector2(95, -239)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_el8xm")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.0980392)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_1t01a")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x5u5p")
+}

@@ -1,0 +1,270 @@
+[gd_scene load_steps=12 format=3 uid="uid://c7d7qdx846pbr"]
+
+[ext_resource type="Texture2D" uid="uid://uyuyx5g4hhf2" path="res://Assets/BoosterButton/hammer_down.png" id="1_1bukn"]
+[ext_resource type="Texture2D" uid="uid://dww6n7xnvlsln" path="res://Assets/BoosterButton/hammer_up.png" id="2_unyai"]
+[ext_resource type="Texture2D" uid="uid://cst5kcobfjjwi" path="res://Assets/Effects/hammer_star.png" id="3_unyai"]
+[ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="4_f5poa"]
+
+[sub_resource type="Curve" id="Curve_wyf12"]
+_data = [Vector2(0, 0), 0.0, 1.52118, 0, 0, Vector2(1, 0), -6.11023, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_o51au"]
+offsets = PackedFloat32Array(0, 0.844749, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_f5poa"]
+_data = [Vector2(0, 1), 0.0, 0.0544453, 0, 0, Vector2(1, 0), -2.6515, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_wyf12"]
+offsets = PackedFloat32Array(0, 0.285388, 0.598173, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_o51au"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerDowm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(192, -134)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerDowm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HammerDowm:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HammerDowm/HammerUp:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -22)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HammerDowm/HammerUp:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HammerDowm/HammerUp:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HammerDowm/HammerUp/StarParticle:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SmogParticles:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_l8htl"]
+resource_name = "hammer_kick"
+length = 2.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerDowm:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1.975, 2.2),
+"transitions": PackedFloat32Array(-2, -2, 2, -2),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HammerDowm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.6, 1, 1.25, 1.4, 1.525, 1.9, 2.2),
+"transitions": PackedFloat32Array(-2, -2, -2, 0.5, 2, 2, 0.5, -2, -2, 1),
+"update": 0,
+"values": [Vector2(192, -170), Vector2(192, -98), Vector2(192, -103), Vector2(192, -103), Vector2(193, -75), Vector2(193, -75), Vector2(92, -22), Vector2(92, -33), Vector2(92, -33), Vector2(92, -65)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HammerDowm/HammerUp:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.35, 0.55),
+"transitions": PackedFloat32Array(-2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-4, -22), Vector2(-4, -22), Vector2(-4, -17), Vector2(-4, -22)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HammerDowm:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6, 1, 1.25, 1.4, 1.625),
+"transitions": PackedFloat32Array(0.5, 2, 2, 0.5, 1),
+"update": 0,
+"values": [0.0, 1.00689, 1.00689, -1.309, -0.969866]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HammerDowm/HammerUp:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.1, 1.4, 1.775),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [-0.139626, -0.139626, 0.0872665, 0.0872665, -0.121074]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HammerDowm/HammerUp/StarParticle:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.25, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SmogParticles:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2yme"]
+_data = {
+&"RESET": SubResource("Animation_o51au"),
+&"hammer_kick": SubResource("Animation_l8htl")
+}
+
+[node name="AnimationHammer" type="Node2D"]
+
+[node name="SmogParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 14
+texture = ExtResource("4_f5poa")
+lifetime = 0.6
+one_shot = true
+speed_scale = 1.4
+explosiveness = 0.85
+lifetime_randomness = 0.3
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, -190)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+angular_velocity_max = 90.0
+linear_accel_min = -200.0
+linear_accel_max = -200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_curve = SubResource("Curve_wyf12")
+color_ramp = SubResource("Gradient_o51au")
+
+[node name="HammerDowm" type="Sprite2D" parent="."]
+position = Vector2(192, -134)
+texture = ExtResource("1_1bukn")
+offset = Vector2(10, -30)
+
+[node name="HammerUp" type="Sprite2D" parent="HammerDowm"]
+position = Vector2(-4, -22)
+texture = ExtResource("2_unyai")
+offset = Vector2(14, -8)
+
+[node name="StarParticle" type="CPUParticles2D" parent="HammerDowm/HammerUp"]
+position = Vector2(59.2402, -31.9234)
+rotation = 0.121074
+emitting = false
+amount = 20
+texture = ExtResource("3_unyai")
+lifetime = 0.25
+preprocess = 0.19
+draw_order = 1
+gravity = Vector2(0, 0)
+scale_amount_min = 0.35
+scale_amount_max = 0.35
+scale_amount_curve = SubResource("Curve_f5poa")
+color_ramp = SubResource("Gradient_wyf12")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h2yme")
+}
