@@ -21,6 +21,8 @@ extends Node2D
 @onready var bomb_button: TextureButton = $UI/Boosters/Bomb
 @onready var shuffle_button: TextureButton = $UI/Boosters/Shuffle
 
+@onready var hammer_animation: Node2D = $AnimationHammer
+
 
 var BLOCK_ARR: Array
 var current_level: Array = []
@@ -214,9 +216,28 @@ func _on_color_block_pressed(block: Node) -> void:
 
 
 func hammer(block: Node) -> void:
-	prints("hammer booster run", block)
 	block.colors = LevelData.FREE_CELL
+	var animation = hammer_animation
+
+	# выравниваем анимацию по центру блока
+	animation.position = block.global_position + Vector2(50, 50)
+
+	animation.z_index = 100
+	animation.play()
+
+	# ждём анимацию
+	var animation_time: float = 2.2
+	var time_to_remove_block: float = 1.7
+
+	# ждём момент удара
+	await Utils.timeout(time_to_remove_block)
+	# удаляем блок
 	block.remove_block()
+
+	# TODO: здесь будет звук
+
+	# ждём конец анимации
+	#await Utils.timeout(animation_time - time_to_remove_block)
 
 
 func bomb_explode_neighbours(pos: Vector2i) -> void:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=18 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
+[ext_resource type="PackedScene" uid="uid://ddm5gf0xru7sp" path="res://Scenes/BoosterUi/animation_hammer.tscn" id="4_dhxf7"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="5_7i4w6"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://bhu88im5cp8nc" path="res://Scenes/Level/level_title.tscn" id="6_362x8"]
@@ -207,6 +208,8 @@ offset_top = -252.0
 offset_right = 304.5
 offset_bottom = -140.0
 grow_vertical = 0
+
+[node name="AnimationHammer" parent="." instance=ExtResource("4_dhxf7")]
 
 [connection signal="pressed" from="UI/Boosters/Hammer" to="." method="_on_hammer_pressed"]
 [connection signal="pressed" from="UI/Boosters/Bomb" to="." method="_on_bomb_pressed"]

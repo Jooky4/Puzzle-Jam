@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7d7qdx846pbr"]
+[gd_scene load_steps=13 format=3 uid="uid://ddm5gf0xru7sp"]
 
 [ext_resource type="Texture2D" uid="uid://uyuyx5g4hhf2" path="res://Assets/BoosterButton/hammer_down.png" id="1_1bukn"]
+[ext_resource type="Script" uid="uid://bt3n5j60uefxb" path="res://Scenes/BoosterUi/animation_hammer.gd" id="1_wyf12"]
 [ext_resource type="Texture2D" uid="uid://dww6n7xnvlsln" path="res://Assets/BoosterButton/hammer_up.png" id="2_unyai"]
 [ext_resource type="Texture2D" uid="uid://cst5kcobfjjwi" path="res://Assets/Effects/hammer_star.png" id="3_unyai"]
 [ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="4_f5poa"]
@@ -216,6 +217,7 @@ _data = {
 }
 
 [node name="AnimationHammer" type="Node2D"]
+script = ExtResource("1_wyf12")
 
 [node name="SmogParticles" type="CPUParticles2D" parent="."]
 emitting = false
