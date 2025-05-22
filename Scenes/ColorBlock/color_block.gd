@@ -1,6 +1,5 @@
 extends Control
 
-@export var texture_list: Array[Texture2D]
 @export var jelly_lerp_speed: float = 8.0
 @export var jelly_offset_scale1: float = 0.5
 @export var jelly_offset_scale2: float = 0.3
@@ -8,20 +7,7 @@ extends Control
 
 @onready var arr_blocs = [$Small_block_1, $Small_block_2, $Small_block_3, $Small_block_4]
 @onready var debug_label: Label = $DebugLabel
-
-
 @onready var button = $Button
-
-@onready var texture_binds = {
-	10: texture_list[0],
-	11: texture_list[1],
-	12: texture_list[2],
-	13: texture_list[3],
-	14: texture_list[4],
-	15: texture_list[5],
-	16: texture_list[6],
-	17: texture_list[7],
-}
 
 var colors: Array = LevelData.FREE_CELL.duplicate(true)
 
@@ -36,7 +22,6 @@ var count_block = 0
 var last_position := Vector2.ZERO
 var jelly_layers: Array = []
 var is_button: bool: set = _set_is_button
-
 
 signal pressed
 signal remove
@@ -120,19 +105,14 @@ func get_color_block(arr_color) -> void:
 	button.visible = false
 	colors = arr_color
 
-	#$Small_block_1/ColorRect.color = LevelData.COLORS[arr_color[0]]
-	#$Small_block_2/ColorRect.color = LevelData.COLORS[arr_color[1]]
-	#$Small_block_3/ColorRect.color = LevelData.COLORS[arr_color[2]]
-	#$Small_block_4/ColorRect.color = LevelData.COLORS[arr_color[3]]
-
-	#prints("arr_color", arr_color)
 	for i in arr_blocs.size():
 		var nine_patches = get_all_nine_patches(arr_blocs[i])
 
 		var color = LevelData.COLORS[arr_color[i]]
-		for patch in nine_patches:
-			patch.modulate = color
-			#patch.texture = #texture_binds[arr_color[i]]
+		# Назначаем цвет кроме последнего. Последний это блик
+		for patch_idx in nine_patches.size()-1:
+			var _patch = nine_patches[patch_idx]
+			_patch.modulate = color
 
 	set_reate_compain(colors)
 	#update_ui()
@@ -252,7 +232,6 @@ func create_random_color(used_colors: Array = []) -> void:
 	#].pick_random()
 
 	set_reate_compain(colors)
-	#update_ui()
 
 
 func update_ui() -> void:
@@ -300,12 +279,7 @@ func set_reate_compain(arr_color) -> void:
 		arr_blocs[1].visible = false
 		arr_blocs[2].visible = false
 		arr_blocs[3].visible = false
-		#create_tween().tween_property(
-			#arr_blocs[0],
-			#"custom_minimum_size",
-			#Vector2(105, 105),
-			#1
-		#)
+
 		arr_blocs[0].size = Vector2(full_w, full_h)
 		count_block = 1
 
@@ -313,25 +287,21 @@ func set_reate_compain(arr_color) -> void:
 		if arr_color[0] == arr_color[1]:
 			arr_blocs[0].visible = true
 			arr_blocs[1].visible = false
-			#create_tween().tween_property(arr_blocs[0], "custom_minimum_size", Vector2(105, 50), 1)
 			arr_blocs[0].size = Vector2(full_w, half_h)
 
 		if arr_color[2] == arr_color[3]:
 			arr_blocs[2].visible = true
 			arr_blocs[3].visible = false
-			#create_tween().tween_property(arr_blocs[2], "custom_minimum_size", Vector2(105, 50), 1)
 			arr_blocs[2].size = Vector2(full_w, half_h)
 
 		if arr_color[0] == arr_color[2]:
 			arr_blocs[0].visible = true
 			arr_blocs[2].visible = false
-			#create_tween().tween_property(arr_blocs[0], "custom_minimum_size", Vector2(50, 105), 1)
 			arr_blocs[0].size = Vector2(half_w, full_h)
 
 		if arr_color[1] == arr_color[3]:
 			arr_blocs[1].visible = true
 			arr_blocs[3].visible = false
-			#create_tween().tween_property(arr_blocs[1], "custom_minimum_size", Vector2(50, 105), 1)
 			arr_blocs[1].size = Vector2(half_w, full_h)
 
 		var unique_dict = {}
@@ -361,11 +331,8 @@ func new_update_block(move: Dictionary) -> void:
 
 func update_block(delete_color, direction) -> void:
 	for i in range(colors.size()):
-		#prints("for i in colors")
 		if colors[i] == 0:
-			#prints("colors[i] is 0")
 			if count_block == 1:
-				#prints("count_block == 1")
 				colors = LevelData.FREE_CELL
 				self.get_parent().free_block()
 				self.queue_free()
