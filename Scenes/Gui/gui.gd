@@ -36,6 +36,7 @@ enum EModal {
 }
 
 func _ready() -> void:
+	prints("gui ready")
 	hide_all_modals()
 
 	game_over.restart_level.connect(_on_game_over_restart_level)
@@ -124,6 +125,14 @@ func show_level_ui() -> void:
 func show_main_menu_ui() -> void:
 	home_button_wrap.hide()
 	settings_button_wrap.show()
+
+
+func show_default_ui() -> void:
+	if home_button:
+		home_button_wrap.hide()
+
+	if settings_button_wrap:
+		settings_button_wrap.hide()
 
 
 func _on_settings_modal_modal_close() -> void:

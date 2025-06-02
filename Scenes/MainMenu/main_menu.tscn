@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ttm0o0voudov"]
+[gd_scene load_steps=14 format=3 uid="uid://ttm0o0voudov"]
 
 [ext_resource type="Script" uid="uid://doa4rh178tpkt" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
 [ext_resource type="PackedScene" uid="uid://3tj3dir3mrf4" path="res://Scenes/Level/level.tscn" id="2_0qgbs"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_omq0y"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="7_n5jej"]
+[ext_resource type="Texture2D" uid="uid://bxylty08in6vu" path="res://Assets/shop_icon.png" id="9_agesy"]
 [ext_resource type="PackedScene" uid="uid://caubchhv84iv6" path="res://Scenes/MainMenu/level_progress.tscn" id="9_omq0y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_omq0y"]
@@ -22,6 +23,19 @@ font = ExtResource("6_n5jej")
 font_size = 44
 outline_size = 4
 outline_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdp32"]
+bg_color = Color(0.153, 0, 0.322, 0.55)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_rlg4b"]
+font = ExtResource("6_n5jej")
+font_size = 20
 
 [node name="MainMenu" type="Control"]
 custom_minimum_size = Vector2(720, 1280)
@@ -135,4 +149,32 @@ value = 100
 level = 385
 metadata/_edit_use_anchors_ = true
 
+[node name="ShopButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 301.0
+offset_right = 180.0
+offset_bottom = 433.0
+focus_mode = 0
+texture_normal = ExtResource("9_agesy")
+
+[node name="Label" type="Label" parent="ShopButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -18.0
+offset_right = 36.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_mdp32")
+text = "МАГАЗИН"
+label_settings = SubResource("LabelSettings_rlg4b")
+horizontal_alignment = 1
+
 [connection signal="pressed" from="PlayButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="ShopButton" to="." method="_on_shop_button_pressed"]

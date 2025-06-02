@@ -1,0 +1,217 @@
+[gd_scene load_steps=12 format=3 uid="uid://dup06l285as1o"]
+
+[ext_resource type="Script" uid="uid://c6omfipd6jj2v" path="res://Scenes/Shop/shop.gd" id="1_8dak6"]
+[ext_resource type="Texture2D" uid="uid://grj6lrpbolaa" path="res://Assets/shop/shop_background.png" id="1_dqdqq"]
+[ext_resource type="Texture2D" uid="uid://q4j0gd0ah8rd" path="res://Assets/shop/close_btn.png" id="2_8dak6"]
+[ext_resource type="Texture2D" uid="uid://b3y2aa3ubcwyq" path="res://Assets/shop/shop_head_bg.png" id="3_w8bjl"]
+[ext_resource type="PackedScene" uid="uid://m0ib0rkawnlx" path="res://Scenes/Shop/coin_pack/coin_pack.tscn" id="5_274ew"]
+[ext_resource type="Texture2D" uid="uid://c28wtugiu7srb" path="res://Assets/shop/shop_coins_head_bg.png" id="6_kcc5r"]
+[ext_resource type="Texture2D" uid="uid://5rrnjjpeasay" path="res://Assets/shop/coins_list_bg.png" id="7_xybqi"]
+[ext_resource type="Texture2D" uid="uid://bbwd2ullqpnxl" path="res://Assets/shop/booster_set_head_bg.png" id="9_kcc5r"]
+[ext_resource type="PackedScene" uid="uid://bk5ieei7j7ott" path="res://Scenes/Shop/booster_set/booster_set.tscn" id="10_xybqi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjwgl"]
+texture = ExtResource("7_xybqi")
+texture_margin_left = 8.0
+texture_margin_top = 10.0
+texture_margin_bottom = 10.0
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xybqi"]
+texture = ExtResource("7_xybqi")
+texture_margin_left = 8.0
+texture_margin_top = 10.0
+texture_margin_bottom = 10.0
+expand_margin_top = 5.0
+
+[node name="ShopScene" type="Control"]
+custom_minimum_size = Vector2(540, 320)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8dak6")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -403.0
+offset_top = -640.0
+offset_right = 411.0
+offset_bottom = 684.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dqdqq")
+
+[node name="Head" type="Control" parent="."]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = 148.0
+grow_horizontal = 2
+
+[node name="HeadBg" type="TextureRect" parent="Head"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_w8bjl")
+
+[node name="CloseButton" type="TextureButton" parent="Head"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+offset_left = 21.0
+offset_top = 26.0
+offset_right = 135.0
+offset_bottom = 129.0
+focus_mode = 0
+texture_normal = ExtResource("2_8dak6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(720, 1115)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 162.0
+offset_right = 360.0
+offset_bottom = 202.0
+grow_horizontal = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="Coins" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Head" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Coins"]
+layout_mode = 2
+theme_override_constants/margin_top = 14
+
+[node name="HeadBackground" type="TextureRect" parent="ScrollContainer/VBoxContainer/Coins/Head"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_kcc5r")
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Coins"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 14
+
+[node name="Panel" type="PanelContainer" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_cjwgl")
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel"]
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 31
+columns = 3
+
+[node name="CoinPack" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+count = 100
+info = 1
+
+[node name="CoinPack2" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+price = 1
+count = 100
+
+[node name="CoinPack3" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+price = 19
+count = 500
+
+[node name="CoinPack4" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+price = 69
+count = 2000
+info = 2
+
+[node name="CoinPack5" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+price = 139
+count = 5000
+info = 3
+
+[node name="CoinPack6" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
+layout_mode = 2
+price = 239
+count = 10000
+info = 4
+
+[node name="BoosterPack" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Head" type="MarginContainer" parent="ScrollContainer/VBoxContainer/BoosterPack"]
+layout_mode = 2
+theme_override_constants/margin_top = 14
+
+[node name="HeadBackground" type="TextureRect" parent="ScrollContainer/VBoxContainer/BoosterPack/Head"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_kcc5r")
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/BoosterPack"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="PanelContainer" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xybqi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel"]
+layout_mode = 2
+
+[node name="BoosterSet" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
+layout_mode = 2
+booster_count = 1
+price = 69
+coins_count = 500
+
+[node name="BoosterSet2" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
+layout_mode = 2
+type = 1
+discount = 1
+booster_count = 3
+price = 189
+coins_count = 2000
+
+[node name="BoosterSet3" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
+layout_mode = 2
+type = 2
+discount = 2
+booster_count = 5
+price = 299
+coins_count = 2000
+
+[node name="BoosterSet4" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
+layout_mode = 2
+type = 3
+discount = 3
+booster_count = 10
+price = 469
+coins_count = 2000
+
+[connection signal="pressed" from="Head/CloseButton" to="." method="_on_close_button_pressed"]

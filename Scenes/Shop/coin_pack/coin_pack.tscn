@@ -1,0 +1,150 @@
+[gd_scene load_steps=11 format=3 uid="uid://m0ib0rkawnlx"]
+
+[ext_resource type="Texture2D" uid="uid://jga4fclsqkpk" path="res://Assets/shop/coin_pack/coin_pack_bg.png" id="1_1v6mu"]
+[ext_resource type="Script" uid="uid://bh24qm3yvrdwm" path="res://Scenes/Shop/coin_pack/coin_pack.gd" id="1_f7y21"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_vrgho"]
+[ext_resource type="Texture2D" uid="uid://dgs8x4ji4w8rh" path="res://Assets/shop/coin_pack/price_bg.png" id="5_vrgho"]
+[ext_resource type="Texture2D" uid="uid://bungottxk2lqp" path="res://Assets/shop/coin_pack/иконка рекламы.png" id="6_4twdm"]
+[ext_resource type="Texture2D" uid="uid://75fn2q8tmxre" path="res://Assets/shop/coin_pack/exclamation_sign.png" id="8_6tjpg"]
+[ext_resource type="PackedScene" uid="uid://bmdijdvqunf1c" path="res://Scenes/Shop/discount_flag/discount_flag.tscn" id="9_abunm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4twdm"]
+font = ExtResource("4_vrgho")
+font_size = 38
+
+[sub_resource type="LabelSettings" id="LabelSettings_kxjkt"]
+font = ExtResource("4_vrgho")
+font_size = 29
+font_color = Color(0, 0.298039, 0.454902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6tjpg"]
+font = ExtResource("4_vrgho")
+font_size = 22
+font_color = Color(0, 0.298039, 0.454902, 1)
+
+[node name="CoinPack" type="Button"]
+custom_minimum_size = Vector2(224, 238)
+offset_right = 222.0
+offset_bottom = 234.0
+focus_mode = 0
+flat = true
+script = ExtResource("1_f7y21")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_1v6mu")
+
+[node name="Count" type="Label" parent="."]
+z_index = 10
+layout_mode = 0
+offset_left = 24.0
+offset_top = 113.0
+offset_right = 198.0
+offset_bottom = 159.0
+text = "0"
+label_settings = SubResource("LabelSettings_4twdm")
+horizontal_alignment = 2
+
+[node name="PriceBg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.5
+offset_top = -81.0
+offset_right = 83.5
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("5_vrgho")
+
+[node name="PriceLabel" type="Label" parent="PriceBg"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -44.0
+offset_right = 76.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "0 руб"
+label_settings = SubResource("LabelSettings_kxjkt")
+horizontal_alignment = 1
+
+[node name="AdsLabel" type="HBoxContainer" parent="PriceBg"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -71.5
+offset_top = -48.0
+offset_right = 71.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="PriceBg/AdsLabel"]
+layout_mode = 2
+texture = ExtResource("6_4twdm")
+
+[node name="Label" type="Label" parent="PriceBg/AdsLabel"]
+custom_minimum_size = Vector2(0, 37)
+layout_mode = 2
+text = "РЕКЛАМА"
+label_settings = SubResource("LabelSettings_6tjpg")
+vertical_alignment = 2
+uppercase = true
+
+[node name="CoinImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -83.0
+offset_right = 65.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Indicator" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = -5.0
+offset_bottom = 35.0
+grow_horizontal = 0
+
+[node name="Warning" type="TextureRect" parent="Indicator"]
+visible = false
+layout_mode = 0
+offset_left = -10.0
+offset_right = 32.0
+offset_bottom = 42.0
+texture = ExtResource("8_6tjpg")
+
+[node name="DiscountFlag" parent="Indicator" instance=ExtResource("9_abunm")]
+visible = false
+z_index = 10
+layout_mode = 1
+offset_left = -63.0
+offset_top = -22.0
+offset_right = 41.84
+offset_bottom = 47.76

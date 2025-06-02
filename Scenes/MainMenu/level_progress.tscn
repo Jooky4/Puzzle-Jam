@@ -18,7 +18,6 @@ offset_bottom = -0.440033
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_gd0ml")
-level = null
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 2
@@ -45,7 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-value = 100.0
 fill_mode = 4
 radial_initial_angle = 211.0
 radial_fill_degrees = 287.0

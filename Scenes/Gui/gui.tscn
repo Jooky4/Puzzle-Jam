@@ -9,16 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
 [ext_resource type="PackedScene" uid="uid://bro82nhdbg27y" path="res://Scenes/Gui/Settings/settings_modal.tscn" id="5_0vw31"]
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
+[ext_resource type="PackedScene" uid="uid://dup06l285as1o" path="res://Scenes/Shop/shop.tscn" id="7_jgx55"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
 bg_color = Color(0, 0, 0, 0.784314)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw16r"]
-bg_color = Color(0.676147, 0.407988, 0.534178, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
 texture = ExtResource("7_8i80b")
@@ -116,48 +110,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
 
-[node name="Panel" type="Panel" parent="ShopModal"]
-custom_minimum_size = Vector2(540, 320)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -270.0
-offset_top = -160.0
-offset_right = 270.0
-offset_bottom = 160.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bw16r")
-
-[node name="CloseButton" type="Button" parent="ShopModal/Panel"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-text = "x"
-
-[node name="Label" type="Label" parent="ShopModal/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -169.5
-offset_top = -48.0
-offset_right = 169.5
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "Магазин в разработке"
+[node name="Panel" parent="ShopModal" instance=ExtResource("7_jgx55")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 540.0
+offset_bottom = 320.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="GameOverModal" type="Panel" parent="."]
 visible = false
@@ -190,4 +155,3 @@ layout_mode = 1
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
-[connection signal="pressed" from="ShopModal/Panel/CloseButton" to="." method="_on_shop_close_button_pressed"]
