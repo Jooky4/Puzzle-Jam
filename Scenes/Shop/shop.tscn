@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dup06l285as1o"]
+[gd_scene load_steps=14 format=3 uid="uid://dup06l285as1o"]
 
 [ext_resource type="Script" uid="uid://c6omfipd6jj2v" path="res://Scenes/Shop/shop.gd" id="1_8dak6"]
 [ext_resource type="Texture2D" uid="uid://grj6lrpbolaa" path="res://Assets/shop/shop_background.png" id="1_dqdqq"]
 [ext_resource type="Texture2D" uid="uid://q4j0gd0ah8rd" path="res://Assets/shop/close_btn.png" id="2_8dak6"]
+[ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="2_xybqi"]
+[ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="3_cjwgl"]
 [ext_resource type="Texture2D" uid="uid://b3y2aa3ubcwyq" path="res://Assets/shop/shop_head_bg.png" id="3_w8bjl"]
 [ext_resource type="PackedScene" uid="uid://m0ib0rkawnlx" path="res://Scenes/Shop/coin_pack/coin_pack.tscn" id="5_274ew"]
 [ext_resource type="Texture2D" uid="uid://c28wtugiu7srb" path="res://Assets/shop/shop_coins_head_bg.png" id="6_kcc5r"]
@@ -33,6 +35,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8dak6")
+
+[node name="Background2" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1658.5
+offset_top = -645.5
+offset_right = 1658.5
+offset_bottom = 645.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -640.0
+offset_right = 1301.0
+offset_bottom = 640.0
+grow_vertical = 2
+texture = ExtResource("2_xybqi")
+
+[node name="Right" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1301.0
+offset_top = -640.0
+offset_bottom = 640.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_xybqi")
+
+[node name="TextureRect" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -401.5
+offset_top = -640.0
+offset_right = 401.5
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cjwgl")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -124,6 +180,7 @@ columns = 3
 
 [node name="CoinPack" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = ""
 count = 100
 info = 1
 
@@ -212,7 +269,7 @@ type = 2
 discount = 2
 booster_count = 5
 price = 299
-coins_count = 2000
+coins_count = 5000
 
 [node name="BoosterSet4" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
 layout_mode = 2
@@ -221,6 +278,7 @@ type = 3
 discount = 3
 booster_count = 10
 price = 469
-coins_count = 2000
+coins_count = 10000
 
 [connection signal="pressed" from="Head/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack" to="." method="_on_ads_coin_pack_pressed"]

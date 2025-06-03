@@ -9,6 +9,6 @@ func _ready() -> void:
 	if Player.is_play_first_time():
 		ChangeScene.to("game")
 	else:
-		ChangeScene.to("main")
+		ChangeScene.to("menu")
 
 	Bridge.platform.send_message("game_ready")

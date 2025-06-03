@@ -68,11 +68,14 @@ var catalog_mock_data = [
 @onready var coin_pack_6: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack6
 
 
+@onready var coin_pack_list = [coin_pack, coin_pack_2, coin_pack_3, coin_pack_4, coin_pack_5, coin_pack_6]
+
 @onready var booster_set: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet
 @onready var booster_set_2: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet2
 @onready var booster_set_3: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet3
 @onready var booster_set_4: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet4
 
+@onready var booster_set_list = [booster_set, booster_set_2, booster_set_3, booster_set_4]
 
 
 func _ready() -> void:
@@ -82,11 +85,13 @@ func _ready() -> void:
 	if not is_catalog_loaded:
 		_get_catalog()
 
-	for i in [coin_pack, coin_pack_2, coin_pack_3, coin_pack_4, coin_pack_5, coin_pack_6]:
+	for i in coin_pack_list:
 		i.pressed.connect(_on_coin_pack_pressed.bind(i))
 
 	for i in [booster_set, booster_set_2, booster_set_3, booster_set_4]:
 		i.pressed.connect(_on_booster_pressed.bind(i))
+
+	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
 
 
 func _on_close_button_pressed() -> void:
@@ -108,6 +113,26 @@ func _on_get_catalog_completed(success, catalog):
 		#print("Price Currency Code: " + str(item.priceCurrencyCode))
 		print("Price Value: " + str(item.priceValue))
 
+		if item.id.begins_with("coin"):
+			for i in coin_pack_list:
+				if i.purchase_id == item.id:
+					var _price = _split_price(item.price)
+					i.currency = _price[1]
+					i.price = _price[0]
+					break
+
+		if item.id.begins_with("booster"):
+			prints("item id booster", item.id)
+			for i in booster_set_list:
+				if i.purchase_id == item.id:
+					var _price = _split_price(item.price)
+					i.currency_char = _price[1]
+					i.price = _price[0]
+					break
+
+func _split_price(value: String) -> Array:
+	return value.split(" ")
+
 
 func _on_coin_pack_pressed(coin_pack: Node) -> void:
 	prints("coin_pack_pressed", coin_pack.purchase_id)
@@ -126,3 +151,14 @@ func _on_booster_pressed(booster_set: Node) -> void:
 func _on_purchase_completed(success, purchase):
 	print(success)
 	print(purchase)
+
+
+func _on_ads_coin_pack_pressed() -> void:
+	prints("click ads coins")
+	Bridge.advertisement.show_rewarded()
+
+
+func _on_rewarded_state_changed(state) -> void:
+	prints("rewarded state", state)
+	if state == "rewarded":
+		EventBus.coins_changed.emit(100 + Player.get_value("coins"))

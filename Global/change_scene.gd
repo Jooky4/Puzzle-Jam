@@ -13,13 +13,12 @@ var scene_aliases: Dictionary = {
 @onready var animetionplayer = $AnimationPlayer
 @onready var debug_label: Label = $DebugLabel
 @onready var fps_indicator: Label = $FpsIndicator
+@onready var version_label: Label = $VersionLabel
 
 
 func _ready():
-	if Config.SHOW_FPS:
-		fps_indicator.show()
-	else:
-		fps_indicator.hide()
+	fps_indicator.visible = Config.SHOW_FPS
+	version_label.visible = Config.SHOW_BUILD_VERSION
 
 	color_rect.visible = false
 

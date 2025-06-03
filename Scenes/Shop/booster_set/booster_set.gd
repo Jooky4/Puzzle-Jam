@@ -20,7 +20,7 @@ enum EDiscount {
 @export var type: EType
 @export var discount: EDiscount
 @export var booster_count: int
-@export var price: int
+@export var price: int: set = _set_price
 @export var currency_char: String
 @export var coins_count: int
 
@@ -109,7 +109,15 @@ func _ready() -> void:
 	_update_ui()
 
 
+func _set_price(value: int) -> void:
+	price = value
+	_update_ui()
+
+
 func _update_ui() -> void:
+	if not texture_aliases:
+		return
+
 	var cur_texture = texture_aliases[type]
 
 	if price_label:

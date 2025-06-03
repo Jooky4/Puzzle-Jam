@@ -18,19 +18,6 @@ texture = ExtResource("7_8i80b")
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_bw16r")
 
-[node name="VersionLabel" type="Label" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -59.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "build: 250603"
-metadata/_edit_use_anchors_ = true
-
 [node name="Top" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(720, 0)
 anchors_preset = 5
@@ -83,9 +70,11 @@ texture_focused = ExtResource("4_h6mnj")
 [node name="SpaceExpander" type="Control" parent="Top/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="CoinCounter" parent="Top/HBoxContainer" instance=ExtResource("3_ukxxk")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(182, 98)
 layout_mode = 2
 value = 333000
 

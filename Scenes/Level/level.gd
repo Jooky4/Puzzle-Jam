@@ -36,6 +36,7 @@ enum EState {
 	BOOSTER,
 }
 
+var _current_cell_rewarded: Node
 
 func _ready() -> void:
 	for booster_btn in booster_panel.get_children():
@@ -46,6 +47,7 @@ func _ready() -> void:
 	Gui.show_level_ui()
 	Gui.restart_level.connect(_restart_level)
 	Gui.next_level.connect(_next_level)
+	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
 
 
 func _set_state(value: EState) -> void:
@@ -157,6 +159,18 @@ func _demake_all_color_blocks_button() -> void:
 			color_block.set_is_button(false)
 
 
+func _on_ads_cell_pressed(cell: Node) -> void:
+	_current_cell_rewarded = cell
+	Bridge.advertisement.show_rewarded()
+
+
+func _on_rewarded_state_changed(status: String) -> void:
+	if status == "rewarded":
+		if _current_cell_rewarded != null:
+			_current_cell_rewarded.cell_type = "normal"
+			_current_cell_rewarded = null
+
+
 func create_level() -> void:
 	current_level = LevelManager.get_current_level()
 
@@ -173,6 +187,8 @@ func create_level() -> void:
 
 			if current_level_cell == LevelData.ADS_CELL:
 				block_container.add_child(buff)
+				buff.cell_type = "ads"
+				buff.show_ads.connect(_on_ads_cell_pressed.bind(buff))
 
 			elif current_level_cell != LevelData.EMPTY_CELL:
 				block_container.add_child(buff)

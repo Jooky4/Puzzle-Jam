@@ -2,7 +2,7 @@
 extends Button
 
 @export var purchase_id: String
-@export var price: int
+@export var price: int: set = _set_price
 @export var currency: String = "руб"
 @export var count: int
 @export var info: Info
@@ -47,6 +47,11 @@ var discount_text_bind = {
 }
 
 func _ready() -> void:
+	_update_ui()
+
+
+func _set_price(value: int) -> void:
+	price = value
 	_update_ui()
 
 
