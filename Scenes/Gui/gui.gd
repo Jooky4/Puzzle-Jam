@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-@export var main_menu_scene: PackedScene
-
 @onready var money_value_label: Control = %CoinCounter
 @onready var home_button: TextureButton = %HomeButton
 @onready var settings_button: TextureButton = %SettingsButton
@@ -10,7 +8,6 @@ extends CanvasLayer
 @onready var level_complete: Control = $LevelCompleteModal/LevelComplete
 
 @onready var settings_modal: Panel = $SettingsModal
-@onready var shop_modal: Panel = $ShopModal
 @onready var game_over_modal: Panel = $GameOverModal
 @onready var level_complete_modal: Panel = $LevelCompleteModal
 
@@ -30,7 +27,6 @@ enum EModal {
 
 @onready var _modals: Dictionary[EModal, Node] = {
 	EModal.Settings: settings_modal,
-	EModal.Shop: shop_modal,
 	EModal.LevelComplete: level_complete_modal,
 	EModal.GameOver: game_over_modal,
 }
@@ -109,12 +105,12 @@ func hide_all_modals() -> void:
 
 func _on_go_home_from_game_over() -> void:
 	hide_all_modals()
-	get_tree().change_scene_to_packed(main_menu_scene)
+	ChangeScene.to("menu")
 	# TODO: после GameOver поменять надпись кнопки на главном экране "Попробовать ещё раз"
 
 
 func _on_home_button_pressed() -> void:
-	get_tree().change_scene_to_packed(main_menu_scene)
+	ChangeScene.to("menu")
 
 
 func show_level_ui() -> void:

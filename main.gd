@@ -1,8 +1,5 @@
 extends Control
 
-@export var main_menu_scene: PackedScene
-@export var game_scene: PackedScene
-
 
 func _ready() -> void:
 	Player.load_data()
@@ -10,8 +7,8 @@ func _ready() -> void:
 	LevelManager.current_level = Player.get_value("current_level")
 
 	if Player.is_play_first_time():
-		get_tree().call_deferred("change_scene_to_packed", game_scene)
+		ChangeScene.to("game")
 	else:
-		get_tree().call_deferred("change_scene_to_packed", main_menu_scene)
+		ChangeScene.to("main")
 
 	Bridge.platform.send_message("game_ready")

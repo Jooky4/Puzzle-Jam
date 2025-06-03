@@ -129,28 +129,33 @@ info = 1
 
 [node name="CoinPack2" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = "coins_100"
 price = 1
 count = 100
 
 [node name="CoinPack3" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = "coins_500"
 price = 19
 count = 500
 
 [node name="CoinPack4" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = "coins_2000"
 price = 69
 count = 2000
 info = 2
 
 [node name="CoinPack5" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = "coins_5000"
 price = 139
 count = 5000
 info = 3
 
 [node name="CoinPack6" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
+purchase_id = "coins_10000"
 price = 239
 count = 10000
 info = 4
@@ -186,12 +191,14 @@ layout_mode = 2
 
 [node name="BoosterSet" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
 layout_mode = 2
+purchase_id = "boosters_mini"
 booster_count = 1
 price = 69
 coins_count = 500
 
 [node name="BoosterSet2" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
 layout_mode = 2
+purchase_id = "boosters_start"
 type = 1
 discount = 1
 booster_count = 3
@@ -200,6 +207,7 @@ coins_count = 2000
 
 [node name="BoosterSet3" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
 layout_mode = 2
+purchase_id = "boosters_best"
 type = 2
 discount = 2
 booster_count = 5
@@ -208,6 +216,7 @@ coins_count = 2000
 
 [node name="BoosterSet4" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer" instance=ExtResource("10_xybqi")]
 layout_mode = 2
+purchase_id = "boosters_big"
 type = 3
 discount = 3
 booster_count = 10

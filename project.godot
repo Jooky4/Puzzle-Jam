@@ -10,14 +10,16 @@ config_version=5
 
 [application]
 
-config/name="Pazzle Jam"
+config/name="Puzzle Jam"
 run/main_scene="uid://jgpe81x8d2j0"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
+Config="*res://Global/config.gd"
 EventBus="*res://Global/event_bus.gd"
+ChangeScene="*res://Global/change_scene.tscn"
 LevelData="*res://Global/level_data.gd"
 LevelManager="*res://Global/level_manager.gd"
 Gui="*res://Scenes/Gui/gui.tscn"

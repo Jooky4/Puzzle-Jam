@@ -14,8 +14,8 @@ func _ready() -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	get_tree().change_scene_to_packed(level)
+	ChangeScene.to("game")
 
 
 func _on_shop_button_pressed() -> void:
-	prints("show shop")
+	ChangeScene.to("shop")

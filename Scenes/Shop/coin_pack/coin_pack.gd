@@ -1,6 +1,7 @@
 @tool
 extends Button
 
+@export var purchase_id: String
 @export var price: int
 @export var currency: String = "руб"
 @export var count: int

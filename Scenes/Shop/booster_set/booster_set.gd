@@ -16,6 +16,7 @@ enum EDiscount {
 	DISCOUNT_50,
 }
 
+@export var purchase_id: String
 @export var type: EType
 @export var discount: EDiscount
 @export var booster_count: int

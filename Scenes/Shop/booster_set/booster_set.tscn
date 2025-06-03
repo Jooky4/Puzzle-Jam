@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bk5ieei7j7ott"]
+[gd_scene load_steps=24 format=3 uid="uid://bk5ieei7j7ott"]
 
 [ext_resource type="Script" uid="uid://s68x2baa3yg8" path="res://Scenes/Shop/booster_set/booster_set.gd" id="1_rog81"]
 [ext_resource type="Texture2D" uid="uid://ds0ctf1206pjg" path="res://Assets/shop/booster_set/mini_bg.png" id="2_jguy7"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://ljaj2b4000g0" path="res://Assets/shop/booster_set/big_fg.png" id="9_4wxgl"]
 [ext_resource type="PackedScene" uid="uid://bmdijdvqunf1c" path="res://Scenes/Shop/discount_flag/discount_flag.tscn" id="10_6jc43"]
 [ext_resource type="Texture2D" uid="uid://mfbhe6j44i18" path="res://Assets/shop/coin_pack/coin_500.png" id="10_me6im"]
-[ext_resource type="Texture2D" uid="uid://lktgbs8bu7vu" path="res://Assets/shop/PJ_shop_design2.png" id="10_o4sqq"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="10_xx78k"]
 [ext_resource type="Texture2D" uid="uid://dnxcqjwrhlcvm" path="res://Assets/shop/coin_pack/coin_2k.png" id="11_reoma"]
 [ext_resource type="Texture2D" uid="uid://dodltk0t1mh33" path="res://Assets/shop/booster_set/boosters.png" id="12_cq72d"]
@@ -50,6 +49,7 @@ offset_bottom = 22.52
 focus_mode = 0
 flat = true
 script = ExtResource("1_rog81")
+purchase_id = null
 currency_char = "Z"
 mini_bg = ExtResource("2_jguy7")
 start_bg = ExtResource("3_6jc43")
@@ -63,15 +63,6 @@ coins500 = ExtResource("10_me6im")
 coins2000 = ExtResource("11_reoma")
 coins5000 = ExtResource("12_gsboe")
 coins10000 = ExtResource("13_6ornw")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = -1014.0
-offset_top = -973.0
-offset_right = 1661.0
-offset_bottom = 381.0
-texture = ExtResource("10_o4sqq")
 
 [node name="Background" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -149,11 +140,13 @@ offset_top = -41.0
 offset_right = 342.0
 offset_bottom = 51.0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BoosterCommon" type="TextureRect" parent="Background/Boosters"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("12_cq72d")
 
 [node name="BoosterBig" type="TextureRect" parent="Background/Boosters"]
@@ -163,6 +156,7 @@ offset_left = -9.0
 offset_top = -8.0
 offset_right = 288.0
 offset_bottom = 100.0
+mouse_filter = 2
 texture = ExtResource("14_4wxgl")
 
 [node name="Label" type="Label" parent="Background/Boosters"]
@@ -220,6 +214,7 @@ offset_right = -149.0
 offset_bottom = 54.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BigCoinsImage" type="TextureRect" parent="Background/Coins"]
 unique_name_in_owner = true
@@ -233,6 +228,7 @@ offset_top = -13.0
 offset_right = 58.0
 offset_bottom = 106.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = ExtResource("19_reoma")
 
 [node name="CoinsImage" type="TextureRect" parent="Background/Coins"]
@@ -245,6 +241,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Background/Coins"]
 layout_mode = 1

@@ -1,18 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=11 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
-[ext_resource type="PackedScene" uid="uid://ttm0o0voudov" path="res://Scenes/MainMenu/main_menu.tscn" id="2_oujc8"]
 [ext_resource type="Texture2D" uid="uid://dgnuy7o0pdxqs" path="res://Assets/home_button.png" id="3_4nsri"]
 [ext_resource type="PackedScene" uid="uid://cxbm0wayenbnt" path="res://Scenes/Gui/LevelCompleted/level_completed.tscn" id="3_oujc8"]
 [ext_resource type="PackedScene" uid="uid://dc0fvnmdoovuh" path="res://Scenes/Gui/coin_counter.tscn" id="3_ukxxk"]
 [ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
 [ext_resource type="PackedScene" uid="uid://bro82nhdbg27y" path="res://Scenes/Gui/Settings/settings_modal.tscn" id="5_0vw31"]
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
-[ext_resource type="PackedScene" uid="uid://dup06l285as1o" path="res://Scenes/Shop/shop.tscn" id="7_jgx55"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
-bg_color = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
 texture = ExtResource("7_8i80b")
@@ -22,7 +17,6 @@ texture = ExtResource("7_8i80b")
 
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_bw16r")
-main_menu_scene = ExtResource("2_oujc8")
 
 [node name="VersionLabel" type="Label" parent="."]
 anchors_preset = 3
@@ -34,7 +28,7 @@ offset_left = -59.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "build: 250521"
+text = "build: 250603"
 metadata/_edit_use_anchors_ = true
 
 [node name="Top" type="MarginContainer" parent="."]
@@ -48,6 +42,7 @@ offset_bottom = 63.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 2
 theme_override_constants/margin_left = 22
 theme_override_constants/margin_top = 21
 theme_override_constants/margin_right = 22
@@ -56,9 +51,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Top"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 36
 
 [node name="HomeButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer2"]
@@ -72,6 +69,7 @@ texture_focused = ExtResource("3_4nsri")
 
 [node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="SettingsButton" type="TextureButton" parent="Top/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -98,31 +96,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-
-[node name="ShopModal" type="Panel" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_ddinf")
-
-[node name="Panel" parent="ShopModal" instance=ExtResource("7_jgx55")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 540.0
-offset_bottom = 320.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="GameOverModal" type="Panel" parent="."]
 visible = false

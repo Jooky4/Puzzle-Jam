@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://djc70uufvapqf"]
+
+[ext_resource type="Script" uid="uid://c8xe2u6evqbyk" path="res://Global/change_scene.gd" id="1_v203g"]
+[ext_resource type="PackedScene" uid="uid://cenjuncy5arxi" path="res://Global/fps_indicator.tscn" id="1_vndcb"]
+
+[sub_resource type="Animation" id="Animation_t85mf"]
+resource_name = "Black_screen"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lwdvp"]
+resource_name = "Normal_screen"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5a2ve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oefeh"]
+_data = {
+&"Black_screen": SubResource("Animation_t85mf"),
+&"Normal_screen": SubResource("Animation_lwdvp"),
+&"RESET": SubResource("Animation_5a2ve")
+}
+
+[node name="Change_scene" type="CanvasLayer"]
+script = ExtResource("1_v203g")
+
+[node name="FpsIndicator" parent="." instance=ExtResource("1_vndcb")]
+z_index = 20
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 48.0
+offset_bottom = 39.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_oefeh")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 15
+offset_left = -1739.0
+offset_top = -192.0
+offset_right = 2694.0
+offset_bottom = 1586.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="DebugLabel" type="Label" parent="."]
+z_index = 20
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
+offset_top = 1.0
+offset_right = -5.0
+offset_bottom = 24.0
+grow_horizontal = 0
+theme_override_constants/outline_size = 1
+horizontal_alignment = 2
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
