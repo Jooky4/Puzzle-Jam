@@ -190,3 +190,10 @@ func is_current_level_hard() -> bool:
 
 func is_current_level_super_hard() -> bool:
 	return is_level_super_hard(current_level)
+
+
+func get_pregenerated_color_blocks() -> Array:
+	if LevelData.blocks_for_levels.has(current_level):
+		return LevelData.blocks_for_levels[current_level]
+
+	return []

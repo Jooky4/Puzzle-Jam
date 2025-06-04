@@ -37,6 +37,7 @@ enum EState {
 }
 
 var _current_cell_rewarded: Node
+var pregenerated_color_blocks: Array
 
 func _ready() -> void:
 	for booster_btn in booster_panel.get_children():
@@ -70,6 +71,15 @@ func _next_level() -> void:
 	_restart_level()
 
 
+func _make_colored_color_block(cb: Node) -> void:
+	if pregenerated_color_blocks.size():
+		var _colors = pregenerated_color_blocks.pop_front()
+		cb.colors = _colors
+		cb.set_reate_compain(_colors)
+	else:
+		cb.create_random_color()
+
+
 func _restart_level() -> void:
 	BLOCK_ARR = []
 
@@ -83,8 +93,10 @@ func _restart_level() -> void:
 
 	create_level()
 	BLOCK_ARR = block_container.get_children()
-	block_for_drop_1.create_random_color()
-	block_for_drop_2.create_random_color()
+
+	_make_colored_color_block(block_for_drop_1)
+	_make_colored_color_block(block_for_drop_2)
+
 	_update_ui()
 
 
@@ -95,13 +107,14 @@ func _input(event):
 			var count = 0
 			for i in block_container.get_children():
 				if i.select:
+					# TODO: объединить повторяющийся код из IF
 					if block_for_drop_1.follow_mouse:
 						block_for_drop_1.drop_block()
 						i.add_block()
 						move_node(block_for_drop_1, i)
 						var buff = color_block.instantiate()
 						new_block_cell_left.add_child(buff)
-						buff.create_random_color()
+						_make_colored_color_block(buff)
 
 						block_for_drop_1 = buff
 						update_level()
@@ -115,7 +128,7 @@ func _input(event):
 						move_node(block_for_drop_2, i)
 						var buff = color_block.instantiate()
 						new_block_cell_right.add_child(buff)
-						buff.create_random_color()
+						_make_colored_color_block(buff)
 						block_for_drop_2 = buff
 						update_level()
 						var _pos = Vector2i(count % 6, count / 6)
@@ -182,6 +195,7 @@ func _on_rewarded_state_changed(status: String) -> void:
 
 func create_level() -> void:
 	current_level = LevelManager.get_current_level()
+	pregenerated_color_blocks = LevelManager.get_pregenerated_color_blocks()
 
 	for i in block_container.get_children():
 		block_container.remove_child(i)
