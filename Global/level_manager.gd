@@ -174,3 +174,19 @@ func _level_colors(level: Array) -> Array:
 					_colors[_color] = true
 
 	return _colors.keys()
+
+
+func is_level_hard(level: int) -> bool:
+	return level in LevelData.hard_levels
+
+
+func is_level_super_hard(level: int) -> bool:
+	return level in LevelData.super_hard_levels
+
+
+func is_current_level_hard() -> bool:
+	return is_level_hard(current_level)
+
+
+func is_current_level_super_hard() -> bool:
+	return is_level_super_hard(current_level)

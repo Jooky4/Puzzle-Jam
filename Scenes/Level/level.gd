@@ -135,6 +135,15 @@ func _input(event):
 func _update_ui() -> void:
 	level_title.level_value = LevelManager.current_level + 1
 
+	var _dif = "normal"
+
+	if LevelManager.is_current_level_hard():
+		_dif = "hard"
+	elif LevelManager.is_current_level_super_hard():
+		_dif = "super_hard"
+
+	level_title.difficulty = _dif
+
 
 func move_node(block: Node, new_parent: Node):
 	var old_parent = block.get_parent()

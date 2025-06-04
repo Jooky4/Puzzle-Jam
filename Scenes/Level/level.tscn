@@ -60,6 +60,7 @@ offset_left = -141.0
 offset_top = 47.0
 offset_right = 131.0
 offset_bottom = 167.0
+difficulty = 0
 
 [node name="GoalColorController" parent="UI" instance=ExtResource("5_x701m")]
 layout_mode = 1

@@ -1,7 +1,7 @@
 extends Control
 
 @export var level_value: int: set = _set_level_value
-@export_enum("normal", "hard", "very_hard") var difficulty: set = _set_diff
+@export_enum("normal", "hard", "super_hard") var difficulty: set = _set_diff
 
 @onready var label: Label = $Label
 
@@ -30,4 +30,4 @@ func _update_ui() -> void:
 		label.text = "уровень" + " " + str(level_value)
 
 	hard_label.visible = difficulty == "hard"
-	very_hard_label.visible = difficulty == "very_hard"
+	very_hard_label.visible = difficulty == "super_hard"

@@ -78,6 +78,9 @@ var catalog_mock_data = [
 @onready var booster_set_list = [booster_set, booster_set_2, booster_set_3, booster_set_4]
 
 
+var _cur_purchase: Node
+
+
 func _ready() -> void:
 	prints("shop ready")
 	Gui.show_default_ui()
@@ -129,6 +132,7 @@ func _on_get_catalog_completed(success, catalog):
 					i.currency_char = _price[1]
 					i.price = _price[0]
 					break
+
 
 func _split_price(value: String) -> Array:
 	return value.split(" ")
