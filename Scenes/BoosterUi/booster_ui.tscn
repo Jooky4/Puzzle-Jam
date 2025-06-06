@@ -49,6 +49,7 @@ size_flags_vertical = 4
 texture = ExtResource("4_xe38g")
 
 [node name="UseButton" type="TextureButton" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

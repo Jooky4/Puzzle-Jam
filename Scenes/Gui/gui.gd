@@ -6,13 +6,16 @@ extends CanvasLayer
 
 @onready var game_over: Control = $GameOverModal/GameOver
 @onready var level_complete: Control = $LevelCompleteModal/LevelComplete
+@onready var buy_booster: Control = $BuyBoosterModal/BuyBooster
 
 @onready var settings_modal: Panel = $SettingsModal
 @onready var game_over_modal: Panel = $GameOverModal
 @onready var level_complete_modal: Panel = $LevelCompleteModal
+@onready var buy_booster_modal: Panel = $BuyBoosterModal
 
 @onready var home_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer2
 @onready var settings_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer
+
 
 signal restart_level
 signal next_level
@@ -23,12 +26,14 @@ enum EModal {
 	Shop,
 	LevelComplete,
 	GameOver,
+	BuyBooster
 }
 
 @onready var _modals: Dictionary[EModal, Node] = {
 	EModal.Settings: settings_modal,
 	EModal.LevelComplete: level_complete_modal,
 	EModal.GameOver: game_over_modal,
+	EModal.BuyBooster: buy_booster_modal,
 }
 
 func _ready() -> void:
@@ -38,10 +43,21 @@ func _ready() -> void:
 	game_over.restart_level.connect(_on_game_over_restart_level)
 	game_over.go_home.connect(_on_go_home_from_game_over)
 	level_complete.next_level.connect(_on_level_complete_next_level)
+	buy_booster.modal_close.connect(_on_buy_booster_close)
 
 	EventBus.coins_changed.connect(_set_money)
 	EventBus.game_over.connect(_on_game_over)
 	EventBus.level_complete.connect(_on_level_complete)
+	EventBus.buy_booster.connect(_on_buy_booster)
+
+
+func _on_buy_booster(booster: Booster) -> void:
+	buy_booster.booster = booster
+	show_modal(EModal.BuyBooster)
+
+
+func _on_buy_booster_close() -> void:
+	hide_modal(EModal.BuyBooster)
 
 
 func _on_level_complete(level_number: int) -> void:

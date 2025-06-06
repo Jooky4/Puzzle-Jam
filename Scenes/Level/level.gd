@@ -352,8 +352,11 @@ func shuffle() -> void:
 	update_level()
 	await Utils.timeout(0.1)
 
+	# TODO: переделать проверку
 	for _pos in _positions:
-		check_matches(_pos)
+		#check_matches(_pos)
+		pass
+
 
 
 func update_level() -> void:
@@ -646,7 +649,7 @@ func _on_booster_button_pressed(booster: Booster) -> void:
 	current_booster = booster
 	var booster_count = Player.get_booster_count(booster.type)
 	if booster_count == 0:
-		prints("show ads", booster)
+		EventBus.buy_booster.emit(booster)
 	else:
 		_set_state(EState.BOOSTER)
 

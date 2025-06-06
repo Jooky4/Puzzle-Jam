@@ -16,3 +16,4 @@ signal game_over
 signal level_complete(level_number: int)
 signal booster_used(booster_type: Booster.EType)
 signal player_data_changed(name: String)
+signal buy_booster(booster_type: Booster)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=13 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
@@ -8,12 +8,14 @@
 [ext_resource type="Texture2D" uid="uid://h5y72p4ex2wj" path="res://Assets/settings_button.png" id="4_h6mnj"]
 [ext_resource type="PackedScene" uid="uid://bro82nhdbg27y" path="res://Scenes/Gui/Settings/settings_modal.tscn" id="5_0vw31"]
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
+[ext_resource type="Texture2D" uid="uid://bwgf78txo0vgn" path="res://Assets/BuyBooster/shadow.png" id="8_jgx55"]
+[ext_resource type="PackedScene" uid="uid://de0n844wooxm0" path="res://Scenes/Gui/BuyBooster/buy_booster.tscn" id="9_8i80b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
 texture = ExtResource("7_8i80b")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xe2re"]
-texture = ExtResource("7_8i80b")
+texture = ExtResource("8_jgx55")
 
 [node name="Gui" type="CanvasLayer"]
 script = ExtResource("1_bw16r")
@@ -101,7 +103,6 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jgx55")
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -112,6 +113,17 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
+layout_mode = 1
+
+[node name="BuyBoosterModal" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
+
+[node name="BuyBooster" parent="BuyBoosterModal" instance=ExtResource("9_8i80b")]
 layout_mode = 1
 
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]

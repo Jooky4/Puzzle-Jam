@@ -1,0 +1,120 @@
+[gd_scene load_steps=9 format=3 uid="uid://de0n844wooxm0"]
+
+[ext_resource type="Texture2D" uid="uid://dbphalchc3plj" path="res://Assets/BuyBooster/background.png" id="1_7alo2"]
+[ext_resource type="Script" uid="uid://dwcytph8otdxi" path="res://Scenes/Gui/BuyBooster/buy_booster.gd" id="1_w4neb"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="3_6ql0y"]
+[ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="3_sfyc4"]
+[ext_resource type="PackedScene" uid="uid://cpdjbcrkxnfah" path="res://Scenes/Gui/BuyBooster/buy_booster_item.tscn" id="5_tgyow"]
+[ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="7_qt3t6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgyow"]
+bg_color = Color(0.803922, 0, 0.337255, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_qt3t6"]
+font = ExtResource("3_6ql0y")
+font_size = 48
+
+[node name="BuyBooster" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4neb")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.5
+offset_top = -271.0
+offset_right = 305.5
+offset_bottom = 271.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7alo2")
+
+[node name="HeadBackground" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.5
+offset_top = 44.0
+offset_right = 232.5
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tgyow")
+
+[node name="Label" type="Label" parent="Background/HeadBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "НЕТ МОЛОТОВ"
+label_settings = SubResource("LabelSettings_qt3t6")
+uppercase = true
+
+[node name="CloseButton" type="TextureButton" parent="Background"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.5
+offset_top = -29.0
+offset_right = 19.5
+offset_bottom = 47.0
+grow_horizontal = 0
+focus_mode = 0
+texture_normal = ExtResource("3_sfyc4")
+texture_pressed = ExtResource("3_sfyc4")
+texture_hover = ExtResource("3_sfyc4")
+texture_focused = ExtResource("3_sfyc4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.5
+offset_top = -111.0
+offset_right = 263.5
+offset_bottom = 239.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="ForCoins" parent="Background/HBoxContainer" instance=ExtResource("5_tgyow")]
+layout_mode = 2
+count = 3
+buy_type = "coins"
+
+[node name="ForAds" parent="Background/HBoxContainer" instance=ExtResource("5_tgyow")]
+layout_mode = 2
+count = 1
+booster = ExtResource("7_qt3t6")
+buy_type = "ads"
+
+[connection signal="pressed" from="Background/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="buy_pressed" from="Background/HBoxContainer/ForCoins" to="." method="_on_for_coins_buy_pressed"]
+[connection signal="buy_pressed" from="Background/HBoxContainer/ForAds" to="." method="_on_for_ads_buy_pressed"]

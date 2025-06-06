@@ -4,9 +4,9 @@ extends Node
 var _data = {
 	"coins": 0,
 	"current_level": 0, # индекс уровня
-	"hammer": 2,
-	"bomb": 2,
-	"shuffle": 1,
+	"hammer": 0,
+	"bomb": 0,
+	"shuffle": 0,
 	"mute_sfx": false,
 	"mute_music": false,
 }
@@ -25,6 +25,11 @@ func _ready() -> void:
 
 func get_booster_count(booster_type: Booster.EType) -> int:
 	return get_value(booster_name[booster_type])
+
+func add_booster(booster_type: Booster.EType, count: int) -> void:
+	var cur_data_name = booster_name[booster_type]
+	var old_value = get_booster_count(booster_type)
+	set_value(cur_data_name, max(old_value + count, 0))
 
 
 func _on_booster_used(booster_type: Booster.EType) -> void:

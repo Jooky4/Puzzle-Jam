@@ -12,9 +12,19 @@ var description = {
 	EType.SHUFFLE: "",
 }
 
+var no_booster_msg = {
+	EType.HAMMER: tr("NO_HAMMERS"),
+	EType.BOMB: tr("NO_BOMBS"),
+	EType.SHUFFLE: tr("NO_SHUFFLES"),
+}
+
 @export var icon: Texture2D
 @export var type: EType
 
 
 func get_description() -> String:
 	return description[type]
+
+
+func get_not_booster_msg() -> String:
+	return no_booster_msg[type]
