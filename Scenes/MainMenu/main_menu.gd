@@ -13,9 +13,11 @@ func _ready() -> void:
 	try_again_label.visible = LevelManager.is_prev_gameover
 
 
-func _on_texture_button_pressed() -> void:
+func _on_play_button_pressed() -> void:
+	SFX.play_sound("click")
 	ChangeScene.to("game")
 
 
 func _on_shop_button_pressed() -> void:
+	SFX.play_sound("click")
 	ChangeScene.to("shop")

@@ -51,6 +51,7 @@ func _on_level_complete(level_number: int) -> void:
 
 
 func _on_game_over() -> void:
+	SFX.play_sound("defeat")
 	show_modal(EModal.GameOver)
 
 
@@ -69,6 +70,7 @@ func _on_settings_close_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
+	SFX.play_sound("click")
 	show_modal(EModal.Settings)
 
 
@@ -105,11 +107,13 @@ func hide_all_modals() -> void:
 
 func _on_go_home_from_game_over() -> void:
 	hide_all_modals()
+	SFX.play_sound("click")
 	ChangeScene.to("menu")
 	# TODO: после GameOver поменять надпись кнопки на главном экране "Попробовать ещё раз"
 
 
 func _on_home_button_pressed() -> void:
+	SFX.play_sound("click")
 	ChangeScene.to("menu")
 
 

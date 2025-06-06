@@ -24,6 +24,7 @@ var count: int
 
 
 func _ready() -> void:
+	prints("goal_color ready")
 	_update_ui()
 
 
@@ -37,7 +38,13 @@ func _update_ui() -> void:
 
 
 func set_count(value: int) -> void:
-	count = max(0, value)
+	var new_count = max(0, value)
+
+	if count > 0 and new_count == 0:
+		#prints("goal reached!", color)
+		SFX.play_sound("target_2")
+
+	count = new_count
 
 	_update_ui()
 

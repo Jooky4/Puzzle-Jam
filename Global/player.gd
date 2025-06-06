@@ -6,7 +6,9 @@ var _data = {
 	"current_level": 0, # индекс уровня
 	"hammer": 2,
 	"bomb": 2,
-	"shuffle": 2,
+	"shuffle": 0,
+	"mute_sfx": false,
+	"mute_music": false,
 }
 
 var booster_name = {

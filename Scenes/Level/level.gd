@@ -102,11 +102,13 @@ func _restart_level() -> void:
 
 func _input(event):
 	var drop = false
+
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			var count = 0
 			for i in block_container.get_children():
 				if i.select:
+					SFX.play_sound("cube_install")
 					# TODO: объединить повторяющийся код из IF
 					if block_for_drop_1.follow_mouse:
 						block_for_drop_1.drop_block()
@@ -143,6 +145,9 @@ func _input(event):
 				block_for_drop_1.position = Vector2(-35, -32)
 				block_for_drop_2.button_up()
 				block_for_drop_2.position = Vector2(-35, -32)
+
+				# TODO: определять что блок не просто отпущен, а вернулся потому что сброшен в непустую клетку
+				#SFX.play_sound("cube_noneinstall")
 
 
 func _update_ui() -> void:
@@ -244,9 +249,10 @@ func _on_color_block_pressed(block: Node) -> void:
 			var cell_pos = block.get_parent().level_position
 
 			# запустить анимацию падения бомбы _здесь_
+			SFX.play_sound("bomb")
 
 			# Ждём когда пройдёт анимация падения бомбы
-			await Utils.timeout(0.2)
+			await Utils.timeout(1)
 
 			# удаляем указанный блок
 			block.colors = LevelData.FREE_CELL
@@ -325,6 +331,7 @@ func shuffle() -> void:
 	var _positions: Array
 	var _cell_data: Array
 
+	SFX.play_sound("spinner")
 	for i in _non_empty_cells:
 		if i.colors == LevelData.ADS_CELL:
 			continue
@@ -540,6 +547,7 @@ func check_matches(pos: Vector2i) -> void:
 			_tween.tween_property(t, "position", _correct_center_pos, _tween_time / 2)
 			_tween.tween_property(t, "scale", Vector2(0, 0), _tween_time / 2)
 			_tween.play()
+			SFX.play_sound("cube_merge")
 
 
 		# --- запускаем проверку для всех изменённых блоков ---

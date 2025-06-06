@@ -138,6 +138,7 @@ func _on_button_button_down() -> void:
 		return
 
 	if can_take_block:
+		SFX.play_sound("cube_take")
 		z_index = 10
 		follow_mouse = true
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE

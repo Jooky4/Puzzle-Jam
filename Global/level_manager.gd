@@ -194,6 +194,6 @@ func is_current_level_super_hard() -> bool:
 
 func get_pregenerated_color_blocks() -> Array:
 	if LevelData.blocks_for_levels.has(current_level):
-		return LevelData.blocks_for_levels[current_level]
+		return LevelData.blocks_for_levels[current_level].duplicate(true)
 
 	return []

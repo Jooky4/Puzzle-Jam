@@ -98,6 +98,7 @@ func _ready() -> void:
 
 
 func _on_close_button_pressed() -> void:
+	SFX.play_sound("click")
 	ChangeScene.to("menu")
 
 
@@ -140,14 +141,14 @@ func _split_price(value: String) -> Array:
 
 func _on_coin_pack_pressed(coin_pack: Node) -> void:
 	prints("coin_pack_pressed", coin_pack.purchase_id)
-
+	SFX.play_sound("click")
 	var id = coin_pack.purchase_id
 	Bridge.payments.purchase(id, Callable(self, "_on_purchase_completed"))
 
 
 func _on_booster_pressed(booster_set: Node) -> void:
 	prints("booster_pressed", booster_set.type)
-
+	SFX.play_sound("click")
 	var id = booster_set.purchase_id
 	Bridge.payments.purchase(id, Callable(self, "_on_purchase_completed"))
 

@@ -11,6 +11,7 @@ signal next_level
 
 func play_animation() -> void:
 	animation_player.play("Start")
+	SFX.play_sound("victory")
 
 
 func update() -> void:

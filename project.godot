@@ -25,6 +25,7 @@ LevelManager="*res://Global/level_manager.gd"
 Gui="*res://Scenes/Gui/gui.tscn"
 Bridge="*res://addons/playgama_bridge/bridge.gd"
 Player="*res://Global/player.gd"
+SFX="*res://Global/sfx.tscn"
 Utils="*res://Global/utils.gd"
 
 [display]
@@ -50,7 +51,8 @@ folder_colors={
 "res://Resources/Shaders/": "teal",
 "res://Resources/Sounds/": "blue",
 "res://Scenes/": "green",
-"res://Texture/": "green"
+"res://Texture/": "green",
+"res://Types/": "pink"
 }
 
 [rendering]

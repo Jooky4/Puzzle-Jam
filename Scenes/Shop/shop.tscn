@@ -180,7 +180,6 @@ columns = 3
 
 [node name="CoinPack" parent="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer" instance=ExtResource("5_274ew")]
 layout_mode = 2
-purchase_id = ""
 count = 100
 info = 1
 

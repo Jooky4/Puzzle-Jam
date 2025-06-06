@@ -176,5 +176,5 @@ text = "МАГАЗИН"
 label_settings = SubResource("LabelSettings_rlg4b")
 horizontal_alignment = 1
 
-[connection signal="pressed" from="PlayButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="ShopButton" to="." method="_on_shop_button_pressed"]
