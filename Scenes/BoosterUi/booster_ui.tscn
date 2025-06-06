@@ -1,10 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bv70kwlvkx154"]
+[gd_scene load_steps=10 format=3 uid="uid://bv70kwlvkx154"]
 
 [ext_resource type="Script" uid="uid://bj4rke6mosxtd" path="res://Scenes/BoosterUi/booster_ui.gd" id="1_tk7pq"]
 [ext_resource type="Texture2D" uid="uid://ci4y41wdt2bur" path="res://Assets/BoosterUI/back_button.png" id="2_ht8q7"]
 [ext_resource type="Texture2D" uid="uid://ba7gdkoowvr1g" path="res://Assets/BoosterButton/shuffle_icon.png" id="4_xe38g"]
 [ext_resource type="Texture2D" uid="uid://dgybwmgiv6hhd" path="res://Assets/BoosterUI/use_button.png" id="6_tstyh"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="7_xlsem"]
+
+[sub_resource type="Gradient" id="Gradient_e8myy"]
+offsets = PackedFloat32Array(0.003003, 1)
+colors = PackedColorArray(0.439216, 0.737255, 0, 1, 0.623529, 0.87451, 0.133333, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_blr2k"]
+gradient = SubResource("Gradient_e8myy")
+height = 30
+fill_from = Vector2(1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e8myy"]
+font = ExtResource("7_xlsem")
+font_size = 23
 
 [sub_resource type="LabelSettings" id="LabelSettings_xe38g"]
 line_spacing = 0.0
@@ -36,12 +49,37 @@ size_flags_vertical = 4
 texture = ExtResource("4_xe38g")
 
 [node name="UseButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 texture_normal = ExtResource("6_tstyh")
+
+[node name="TODO_REMOVE_KOSTYL" type="TextureRect" parent="UseButton"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 28.0
+offset_right = 176.0
+offset_bottom = 58.0
+texture = SubResource("GradientTexture2D_blr2k")
+
+[node name="Label" type="Label" parent="UseButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -14.5
+offset_right = 82.5
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BTN_USE"
+label_settings = SubResource("LabelSettings_e8myy")
+horizontal_alignment = 1
+uppercase = true
 
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(208, 0)

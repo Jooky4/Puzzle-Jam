@@ -55,6 +55,11 @@ folder_colors={
 "res://Types/": "pink"
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Translations/translations.en.translation", "res://Translations/translations.ru.translation")
+locale/test="en"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

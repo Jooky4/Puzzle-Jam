@@ -40,30 +40,31 @@ enum EDiscount {
 @export var coins5000: Texture2D
 @export var coins10000: Texture2D
 
+
 @onready var texture_aliases = {
 	EType.MINI: {
-		"title": "Мини",
+		"title": tr("PACK_MINI"),
 		"font_size": 42,
 		"bg": mini_bg,
 		"fg": mini_fg,
 		"discount_color": 0,
 	},
 	EType.START: {
-		"title": "Стартовый",
+		"title": tr("PACK_START"),
 		"font_size": 33,
 		"bg": start_bg,
 		"fg": start_fg,
 		"discount_color": 1,
 	},
 	EType.BEST: {
-		"title": "Выгодный",
+		"title": tr("PACK_BEST"),
 		"font_size": 33,
 		"bg": best_bg,
 		"fg": best_fg,
 		"discount_color": 2,
 	},
 	EType.BIG: {
-		"title": "Большой",
+		"title": tr("PACK_BIG"),
 		"font_size": 33,
 		"bg": big_bg,
 		"fg": big_fg,

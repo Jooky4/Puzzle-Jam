@@ -16,6 +16,7 @@ func _update_ui() -> void:
 
 	use_button.visible = booster.type == Booster.EType.SHUFFLE
 	label.visible = booster.type != Booster.EType.SHUFFLE
+	label.text = booster.get_description()
 
 
 func _on_cancel_button_pressed() -> void:

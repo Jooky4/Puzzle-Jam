@@ -73,7 +73,7 @@ offset_bottom = 109.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_k6v5j")
 theme_override_font_sizes/font_size = 63
-text = "Настройки"
+text = "TITLE_SETTINGS"
 horizontal_alignment = 1
 uppercase = true
 
@@ -124,7 +124,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("4_k6v5j")
 theme_override_font_sizes/font_size = 40
-text = "Звук"
+text = "SOUND"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -144,7 +144,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("4_k6v5j")
 theme_override_font_sizes/font_size = 40
-text = "Музыка"
+text = "MUSIC"
 horizontal_alignment = 1
 vertical_alignment = 1
 

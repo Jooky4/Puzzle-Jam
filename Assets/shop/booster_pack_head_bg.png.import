@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbwd2ullqpnxl"
-path="res://.godot/imported/booster_set_head_bg.png-cb207634d6f68d7b8dcacc283382eadf.ctex"
+uid="uid://4crb2fnclsy4"
+path="res://.godot/imported/booster_pack_head_bg.png-e36a999b852e37c29049a46e1c195dd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/shop/booster_set_head_bg.png"
-dest_files=["res://.godot/imported/booster_set_head_bg.png-cb207634d6f68d7b8dcacc283382eadf.ctex"]
+source_file="res://Assets/shop/booster_pack_head_bg.png"
+dest_files=["res://.godot/imported/booster_pack_head_bg.png-e36a999b852e37c29049a46e1c195dd4.ctex"]
 
 [params]
 

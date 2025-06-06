@@ -95,17 +95,20 @@ offset_right = 71.5
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 6
+alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="PriceBg/AdsLabel"]
 layout_mode = 2
 texture = ExtResource("6_4twdm")
 
 [node name="Label" type="Label" parent="PriceBg/AdsLabel"]
-custom_minimum_size = Vector2(0, 37)
+custom_minimum_size = Vector2(50, 37)
 layout_mode = 2
-text = "РЕКЛАМА"
+text = "LBL_ADVERTISEMENT"
 label_settings = SubResource("LabelSettings_6tjpg")
 vertical_alignment = 2
+clip_text = true
 uppercase = true
 
 [node name="CoinImage" type="TextureRect" parent="."]

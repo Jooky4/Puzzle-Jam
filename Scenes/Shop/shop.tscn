@@ -1,16 +1,28 @@
-[gd_scene load_steps=14 format=3 uid="uid://dup06l285as1o"]
+[gd_scene load_steps=18 format=3 uid="uid://dup06l285as1o"]
 
 [ext_resource type="Script" uid="uid://c6omfipd6jj2v" path="res://Scenes/Shop/shop.gd" id="1_8dak6"]
 [ext_resource type="Texture2D" uid="uid://grj6lrpbolaa" path="res://Assets/shop/shop_background.png" id="1_dqdqq"]
 [ext_resource type="Texture2D" uid="uid://q4j0gd0ah8rd" path="res://Assets/shop/close_btn.png" id="2_8dak6"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="2_xybqi"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="3_cjwgl"]
-[ext_resource type="Texture2D" uid="uid://b3y2aa3ubcwyq" path="res://Assets/shop/shop_head_bg.png" id="3_w8bjl"]
+[ext_resource type="Texture2D" uid="uid://5m0sppkqpnwx" path="res://Assets/shop/shop_head_bg.png" id="3_w8bjl"]
 [ext_resource type="PackedScene" uid="uid://m0ib0rkawnlx" path="res://Scenes/Shop/coin_pack/coin_pack.tscn" id="5_274ew"]
-[ext_resource type="Texture2D" uid="uid://c28wtugiu7srb" path="res://Assets/shop/shop_coins_head_bg.png" id="6_kcc5r"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_fsgtm"]
 [ext_resource type="Texture2D" uid="uid://5rrnjjpeasay" path="res://Assets/shop/coins_list_bg.png" id="7_xybqi"]
-[ext_resource type="Texture2D" uid="uid://bbwd2ullqpnxl" path="res://Assets/shop/booster_set_head_bg.png" id="9_kcc5r"]
+[ext_resource type="Texture2D" uid="uid://c006v64fvshbc" path="res://Assets/shop/coins_head_bg.png" id="8_fsgtm"]
 [ext_resource type="PackedScene" uid="uid://bk5ieei7j7ott" path="res://Scenes/Shop/booster_set/booster_set.tscn" id="10_xybqi"]
+[ext_resource type="Texture2D" uid="uid://4crb2fnclsy4" path="res://Assets/shop/booster_pack_head_bg.png" id="11_fsgtm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oha7t"]
+font = ExtResource("6_fsgtm")
+font_size = 61
+font_color = Color(0.737255, 0.921569, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fsgtm"]
+font = ExtResource("6_fsgtm")
+font_size = 54
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjwgl"]
 texture = ExtResource("7_xybqi")
@@ -18,6 +30,10 @@ texture_margin_left = 8.0
 texture_margin_top = 10.0
 texture_margin_bottom = 10.0
 expand_margin_top = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ps16d"]
+font = ExtResource("6_fsgtm")
+font_size = 54
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xybqi"]
 texture = ExtResource("7_xybqi")
@@ -106,6 +122,7 @@ grow_vertical = 2
 texture = ExtResource("1_dqdqq")
 
 [node name="Head" type="Control" parent="."]
+z_index = 30
 custom_minimum_size = Vector2(720, 0)
 layout_mode = 1
 anchors_preset = 5
@@ -119,6 +136,20 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_w8bjl")
+
+[node name="Label" type="Label" parent="Head/HeadBg"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 183.0
+offset_top = -44.5
+offset_right = 456.0
+offset_bottom = 26.5
+grow_vertical = 2
+text = "TITLE_SHOP"
+label_settings = SubResource("LabelSettings_oha7t")
+uppercase = true
 
 [node name="CloseButton" type="TextureButton" parent="Head"]
 custom_minimum_size = Vector2(40, 40)
@@ -136,10 +167,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -360.0
-offset_top = 162.0
-offset_right = 360.0
-offset_bottom = 202.0
+offset_left = -361.0
+offset_top = 135.0
+offset_right = 361.0
+offset_bottom = 1280.0
 grow_horizontal = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
@@ -155,12 +186,31 @@ alignment = 1
 
 [node name="Head" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Coins"]
 layout_mode = 2
-theme_override_constants/margin_top = 14
+theme_override_constants/margin_top = 41
 
 [node name="HeadBackground" type="TextureRect" parent="ScrollContainer/VBoxContainer/Coins/Head"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("6_kcc5r")
+texture = ExtResource("8_fsgtm")
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Coins/Head/HeadBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -38.0
+offset_right = 105.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "DIV_COINS"
+label_settings = SubResource("LabelSettings_fsgtm")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Coins"]
 layout_mode = 2
@@ -229,7 +279,26 @@ theme_override_constants/margin_top = 14
 [node name="HeadBackground" type="TextureRect" parent="ScrollContainer/VBoxContainer/BoosterPack/Head"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("9_kcc5r")
+texture = ExtResource("11_fsgtm")
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BoosterPack/Head/HeadBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.5
+offset_top = -35.0
+offset_right = 130.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "DIV_PACKS"
+label_settings = SubResource("LabelSettings_ps16d")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/BoosterPack"]
 layout_mode = 2

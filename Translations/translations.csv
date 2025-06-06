@@ -1,0 +1,38 @@
+id;ru;en
+BTN_PLAY;Играть;Play
+TRY_AGAIN;Попробовать ещё раз;Try again
+LEVEL;Уровень;Level
+TITLE_SETTINGS;Настройки;Settings
+SOUND;Звук;Sound
+MUSIC;Музыка;Music
+WIN_STREAK;Серия побед;Win streak
+TITLE_WIN_STREAK;Серия побед;Win streak
+WIN_STREAK_DESC;Больше побед = больше бонус. Не прервись!;More wins = bigger bonus. Don’t break the streak!
+TITLE_SHOP;Магазин;Shop
+DIV_COINS;Монеты;Coins
+DIV_PACKS;Наборы;Packs
+PACK_MINI;Мини;Mini Pack
+PACK_START;Стартовый;Starter Pack
+PACK_BEST;Выгодный;Best Deal
+PACK_BIG;Большой;Big Pack
+LBL_DISCOUNT;выгода;value
+LBL_ADS;Рекл;ADS
+LBL_ADVERTISEMENT;Реклама;ADS
+LBL_FREE;Бесплатно;Free
+TITLE_LEVEL;Уровень;Level
+DIFF_HARD;Сложный;Hard
+DIFF_SUPER_HARD;Супер сложный;Super hard
+GOALS;цели;goals
+NO_HAMMERS;Нет молотов;No hammers
+NO_BOMBS;Нет бомбочек;No bombs
+NO_SHUFFLES;Нет перемешек;No shuffles
+BTN_USE;Использовать;Use
+HAMMER_USE_DESC;Выберите клетку для очистки;Select cell to clear
+BOMB_USE_DESC;Выберите область для подрыва;Select area to blast
+LEVEL_COMPLETE;Уровень пройден;Level complete
+BTN_CONTINUE;Продолжить;Continue
+TITLE_SECOND_CHANCE;Второй шанс;Second Chance
+SECOND_CHANCE_DESC;Освободи 5 клеток и продолжи игру;Free 5 cells to keep playing
+TUT_LOCKED_DESC;Этот куб заблокирован;This cube is locked
+TUT_KEY_DESC;Собери ключ, чтобы открыть его
+TUT_ICE_DESC;Эти кубы заморожены, попробуем разбить лед!;These cubes are frozen, let’s try breaking the ice!

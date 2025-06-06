@@ -47,6 +47,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="TitleBG" type="TextureRect" parent="VBoxContainer"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("3_mshfx")
@@ -64,7 +65,7 @@ offset_right = 32.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "цели"
+text = "GOALS"
 label_settings = SubResource("LabelSettings_y0dy1")
 
 [node name="Background" type="PanelContainer" parent="VBoxContainer"]

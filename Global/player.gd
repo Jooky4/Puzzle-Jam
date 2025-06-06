@@ -6,7 +6,7 @@ var _data = {
 	"current_level": 0, # индекс уровня
 	"hammer": 2,
 	"bomb": 2,
-	"shuffle": 0,
+	"shuffle": 1,
 	"mute_sfx": false,
 	"mute_music": false,
 }
