@@ -1,32 +1,39 @@
 {
-	 "platforms": {
-		  "game_distribution": {
-				"gameId": ""
-		  },
-		  "telegram": {
-				"adsgramBlockId": ""
-		  },
-		  "y8": {
-				"gameId": "",
-				"adsenseId": "",
-				"channelId": ""
-		  },
-		  "lagged": {
-				"devId": "",
-				"publisherId": ""
-		  },
-		  "facebook": {
-				"bannerPlacementId": "",
-				"interstitialPlacements": [],
-				"rewardedPlacements": []
-		  }
-	 },
-	 "payments": [
-		  {
-				"commonId": "coins_100",
-				"yandex": {
-					 "id": "coins_100"
-				},
-		  }
-	 ]
+    "platforms": {
+        "game_distribution": {
+            "gameId": ""
+        },
+        "telegram": {
+            "adsgramBlockId": ""
+        },
+        "y8": {
+            "gameId": "",
+            "adsenseId": "",
+            "channelId": ""
+        },
+        "lagged": {
+            "devId": "",
+            "publisherId": ""
+        }
+    },
+    "advertisement": {
+        "interstitial": {
+            "preloadOnStart": true
+        },
+        "rewarded": {
+            "preloadOnStart": true
+        }
+    },
+    "payments": [
+        {
+            "id": "test_product",
+            "playgama": {
+                "amount": 1
+            },
+            "playdeck": {
+                "amount": 1,
+                "description": "TEST PRODUCT"
+            }
+        }
+    ]
 }
