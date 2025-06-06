@@ -1,6 +1,5 @@
 extends Node
 
-
 var _data = {
 	"coins": 0,
 	"current_level": 0, # индекс уровня

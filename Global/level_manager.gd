@@ -165,6 +165,10 @@ func get_target_colors() -> Dictionary:
 func _level_colors(level: Array) -> Array:
 	var _colors: Dictionary
 
+	# Временный фикс бага (на уровне очень мало цветов)
+	if current_level == 12:
+		return [10, 11, 12, 13, 14]
+
 	for i in level:
 		for j in i:
 			for c in j:
