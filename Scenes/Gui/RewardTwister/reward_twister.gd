@@ -2,7 +2,7 @@ extends Control
 
 
 @export var iteration_time: float = 1
-@export var base_value: int = 100
+@export var base_value: int = 100: set = _set_base_value
 @export var multiplier_list: Array[int]
 
 @onready var arrow: TextureRect = $Arrow
@@ -23,6 +23,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if label:
 		label.text = "+" + str(current_reward())
+
+
+func _set_base_value(value: int) -> void:
+	base_value = value
 
 
 func current_reward() -> int:

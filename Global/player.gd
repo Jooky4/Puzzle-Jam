@@ -68,6 +68,13 @@ func save_data():
 
 	config.set_value("player", "money", get_value("money"))
 	config.set_value("player", "current_level", get_value("current_level"))
+
+	config.set_value("player", "hammer", get_value("hammer"))
+	config.set_value("player", "bomb", get_value("bomb"))
+	config.set_value("player", "shuffle", get_value("shuffle"))
+	config.set_value("player", "mute_sfx", get_value("mute_sfx"))
+	config.set_value("player", "mute_music", get_value("mute_music"))
+
 	var err = config.save("user://player.cfg")
 
 
@@ -77,3 +84,8 @@ func load_data():
 	if error == OK:
 		set_value("money", config.get_value("player", "money", 0))
 		set_value("current_level", config.get_value("player", "current_level", 0))
+		set_value("hammer", config.get_value("player", "hammer"))
+		set_value("bomb", config.get_value("player", "bomb"))
+		set_value("shuffle", config.get_value("player", "shuffle"))
+		set_value("mute_sfx", config.get_value("player", "mute_sfx"))
+		set_value("mute_music", config.get_value("player", "mute_music"))

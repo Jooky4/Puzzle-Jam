@@ -1,5 +1,9 @@
 extends Control
 
+const LEVEL_REWARD_ADS = "level_reward_ads"
+
+@export var reward: int: set = _set_reward
+var _bonus_reward: int
 
 @onready var level_reward_label: Label = $LevelReward/Label
 @onready var reward_twister: Control = $RewardTwister
@@ -7,6 +11,37 @@ extends Control
 
 
 signal next_level
+
+
+func _ready() -> void:
+	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
+
+
+func _on_rewarded_state_changed(status: String) -> void:
+	""" покупка попытки пройти уровень за рекламу """
+
+	if Bridge.advertisement.rewarded_placement == LEVEL_REWARD_ADS:
+		if status == "rewarded":
+			prints("level complete reward for ads")
+			reward = _bonus_reward
+			EventBus.coins_changed.emit(Player.coins + reward)
+			next_level.emit()
+		elif status == "closed":
+			next_level.emit()
+
+
+func _set_reward(value: int) -> void:
+	reward = value
+
+	_update_ui()
+
+
+func _update_ui() -> void:
+	if level_reward_label:
+		level_reward_label.text = str(reward)
+
+	if reward_twister:
+		reward_twister.base_value = reward
 
 
 func play_animation() -> void:
@@ -19,4 +54,10 @@ func update() -> void:
 
 
 func _on_next_button_pressed() -> void:
+	EventBus.coins_changed.emit(Player.coins + reward)
 	next_level.emit()
+
+
+func _on_reward_twister_reward(value: int) -> void:
+	_bonus_reward = value
+	Bridge.advertisement.show_rewarded(LEVEL_REWARD_ADS)

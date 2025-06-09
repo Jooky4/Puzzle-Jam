@@ -82,6 +82,7 @@ func _set_state(value: EState) -> void:
 
 
 func _next_level() -> void:
+	prints("_next_level()")
 	LevelManager.current_level += 1
 	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
@@ -648,7 +649,6 @@ func check_game_over() -> void:
 
 func check_level_complete() -> void:
 	if not goal_colors_container.has_items():
-		EventBus.coins_changed.emit(10 + Player.coins)
 		EventBus.level_complete.emit(LevelManager.current_level)
 
 

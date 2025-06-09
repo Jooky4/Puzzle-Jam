@@ -66,8 +66,13 @@ func _on_buy_booster_close() -> void:
 
 
 func _on_level_complete(level_number: int) -> void:
+	# TODO: здесь можно на основе номера уровня начислить соотв. награду
+	level_complete.reward = 101
+
 	level_complete.update()
 	level_complete.play_animation()
+
+
 	show_modal(EModal.LevelComplete)
 
 

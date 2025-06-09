@@ -18,8 +18,6 @@ signal show_ads
 
 
 func _ready() -> void:
-	prints("cell ready")
-
 	_update_ui()
 
 
@@ -29,7 +27,7 @@ func _to_string() -> String:
 
 func _update_ui() -> void:
 	if ads_button:
-		prints("ads button", cell_type == "ads")
+		#prints("ads button", cell_type == "ads")
 		ads_button.visible = cell_type == "ads"
 
 	if texture_rect:
