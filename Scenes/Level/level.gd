@@ -49,6 +49,23 @@ func _ready() -> void:
 	Gui.restart_level.connect(_restart_level)
 	Gui.next_level.connect(_next_level)
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
+	EventBus.buy_free_cell_on_level.connect(_on_buy_free_cells)
+
+
+func _on_buy_free_cells(count: int) -> void:
+	prints("buy free cells", count)
+	var _non_empty_cells = LevelManager.get_non_empty_cells()
+
+	for i in _non_empty_cells.slice(0, 5):
+		if i.colors == LevelData.ADS_CELL:
+			continue
+
+		current_level[position.y][position.x] = LevelData.FREE_CELL
+		var cell = block_container.get_child(Utils.get_index_by_pos(i.position, current_level[0].size()))
+		var cb = cell.get_color_block()
+		cb.remove_block()
+
+	update_level()
 
 
 func _set_state(value: EState) -> void:
@@ -282,11 +299,6 @@ func hammer(block: Node) -> void:
 	await Utils.timeout(time_to_remove_block)
 	# удаляем блок
 	block.remove_block()
-
-	# TODO: здесь будет звук
-
-	# ждём конец анимации
-	#await Utils.timeout(animation_time - time_to_remove_block)
 
 
 func bomb_explode_neighbours(pos: Vector2i) -> void:
@@ -636,7 +648,7 @@ func check_game_over() -> void:
 
 func check_level_complete() -> void:
 	if not goal_colors_container.has_items():
-		EventBus.coins_changed.emit(10 + Player.get_value("coins"))
+		EventBus.coins_changed.emit(10 + Player.coins)
 		EventBus.level_complete.emit(LevelManager.current_level)
 
 

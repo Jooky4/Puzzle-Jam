@@ -166,4 +166,4 @@ func _on_ads_coin_pack_pressed() -> void:
 func _on_rewarded_state_changed(state) -> void:
 	prints("rewarded state", state)
 	if state == "rewarded":
-		EventBus.coins_changed.emit(100 + Player.get_value("coins"))
+		EventBus.coins_changed.emit(100 + Player.coins)

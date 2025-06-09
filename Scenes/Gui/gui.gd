@@ -42,6 +42,7 @@ func _ready() -> void:
 
 	game_over.restart_level.connect(_on_game_over_restart_level)
 	game_over.go_home.connect(_on_go_home_from_game_over)
+	game_over.close.connect(_on_game_over_close)
 	level_complete.next_level.connect(_on_level_complete_next_level)
 	buy_booster.modal_close.connect(_on_buy_booster_close)
 
@@ -49,6 +50,10 @@ func _ready() -> void:
 	EventBus.game_over.connect(_on_game_over)
 	EventBus.level_complete.connect(_on_level_complete)
 	EventBus.buy_booster.connect(_on_buy_booster)
+
+
+func _on_game_over_close() -> void:
+	hide_modal(EModal.GameOver)
 
 
 func _on_buy_booster(booster: Booster) -> void:

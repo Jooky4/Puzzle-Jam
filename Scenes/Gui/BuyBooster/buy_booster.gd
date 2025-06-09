@@ -48,8 +48,8 @@ func _on_close_button_pressed() -> void:
 
 func _on_for_coins_buy_pressed(booster: Booster, count: Variant) -> void:
 	prints("buyed for coins", booster, count)
-	if Player.get_value("coins") >= COINS_PRICE:
-		EventBus.coins_changed.emit(Player.get_value("coins") - COINS_PRICE)
+	if Player.coins >= COINS_PRICE:
+		EventBus.coins_changed.emit(Player.coins - COINS_PRICE)
 		Player.add_booster(booster.type, count)
 		modal_close.emit()
 

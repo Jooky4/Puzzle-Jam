@@ -143,6 +143,9 @@ func get_non_empty_cells() -> Array:
 	for y in _cur_level_data.size():
 		for x in _cur_level_data[y].size():
 			var _cur_cell = _cur_level_data[y][x]
+
+			# TODO: проверять рекламный блок
+
 			if _cur_cell != LevelData.EMPTY_CELL and _cur_cell != LevelData.FREE_CELL:
 				var cell = {
 					"position": Vector2i(x, y),

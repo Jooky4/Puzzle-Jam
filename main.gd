@@ -3,7 +3,7 @@ extends Control
 
 func _ready() -> void:
 	Player.load_data()
-	EventBus.coins_changed.emit(Player.get_value("coins"))
+	EventBus.coins_changed.emit(Player.coins)
 	LevelManager.current_level = Player.get_value("current_level")
 
 	if Player.is_play_first_time():
