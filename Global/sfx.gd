@@ -4,7 +4,7 @@ var sfx_config = {
 	"bomb": {
 		"path": "res://Assets/sfx/bomb.ogg",
 		"volume": 0,
-		"pitch": 1,
+		"pitch": 0.95,
 		"sound": null,
 	},
 	"buy_buster": {

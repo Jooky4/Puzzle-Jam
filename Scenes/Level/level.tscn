@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=19 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bv70kwlvkx154" path="res://Scenes/BoosterUi/booster_ui.tscn" id="11_unl86"]
 [ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="12_dhxf7"]
 [ext_resource type="Resource" uid="uid://bf162jva2s0ae" path="res://Resources/Boosters/shuffle.tres" id="13_mkqdc"]
+[ext_resource type="PackedScene" uid="uid://cj3ixpro2ygul" path="res://Scenes/BoosterUi/animationBomb.tscn" id="16_mkqdc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unl86"]
 texture = ExtResource("10_6rsi7")
@@ -212,6 +213,9 @@ offset_bottom = -140.0
 grow_vertical = 0
 
 [node name="AnimationHammer" parent="." instance=ExtResource("4_dhxf7")]
+
+[node name="AnimationBomb" parent="." instance=ExtResource("16_mkqdc")]
+z_index = 10
 
 [connection signal="pressed" from="UI/Boosters/Hammer" to="." method="_on_hammer_pressed"]
 [connection signal="pressed" from="UI/Boosters/Bomb" to="." method="_on_bomb_pressed"]

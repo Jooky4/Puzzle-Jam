@@ -22,6 +22,7 @@ extends Node2D
 @onready var shuffle_button: TextureButton = $UI/Boosters/Shuffle
 
 @onready var hammer_animation: Node2D = $AnimationHammer
+@onready var animation_bomb: Node2D = $AnimationBomb
 
 
 var BLOCK_ARR: Array
@@ -267,14 +268,20 @@ func _on_color_block_pressed(block: Node) -> void:
 			var cell_pos = block.get_parent().level_position
 
 			# запустить анимацию падения бомбы _здесь_
-			SFX.play_sound("bomb")
+			animation_bomb.position = block.global_position + Vector2(50, 50)
+			animation_bomb.play()
+			#SFX.play_sound("bomb")
 
 			# Ждём когда пройдёт анимация падения бомбы
-			await Utils.timeout(1)
+			await Utils.timeout(1.25)
 
 			# удаляем указанный блок
+			var _colors = block.colors
 			block.colors = LevelData.FREE_CELL
 			block.remove_block()
+
+			for tile_color in Utils.uniq_array(_colors):
+				goal_colors_container.dec_color(tile_color, 1)
 
 			# запускаем удаление плиток соседей
 			await bomb_explode_neighbours(cell_pos)
@@ -283,6 +290,7 @@ func _on_color_block_pressed(block: Node) -> void:
 
 
 func hammer(block: Node) -> void:
+	var _colors = block.colors.duplicate(true)
 	block.colors = LevelData.FREE_CELL
 	var animation = hammer_animation
 
@@ -300,6 +308,9 @@ func hammer(block: Node) -> void:
 	await Utils.timeout(time_to_remove_block)
 	# удаляем блок
 	block.remove_block()
+
+	for tile_color in Utils.uniq_array(_colors):
+		goal_colors_container.dec_color(tile_color, 1)
 
 
 func bomb_explode_neighbours(pos: Vector2i) -> void:
@@ -325,13 +336,16 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 			if cur_level_cell == LevelData.EMPTY_CELL:
 				continue
 
-			current_level[n_pos.y][n_pos.x][1] = 0
 			var _idx = Utils.get_index_by_pos(n_pos, level_width)
 			var _cell = block_container.get_child(_idx)
 
 			var _block = _cell.get_color_block()
 			var level_cell = current_level[n_pos.x][n_pos.y]
 			if _block != null:
+				var _rnd_index = randi_range(0, 3)
+				var _color = _block.colors[_rnd_index]
+				goal_colors_container.dec_color(_color, 1)
+				_block.colors[_rnd_index] = 0
 				_block.update_block(0, "up")
 
 	update_level()
