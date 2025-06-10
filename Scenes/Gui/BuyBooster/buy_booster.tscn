@@ -106,12 +106,10 @@ alignment = 1
 
 [node name="ForCoins" parent="Background/HBoxContainer" instance=ExtResource("5_tgyow")]
 layout_mode = 2
-count = 3
 buy_type = "coins"
 
 [node name="ForAds" parent="Background/HBoxContainer" instance=ExtResource("5_tgyow")]
 layout_mode = 2
-count = 1
 booster = ExtResource("7_qt3t6")
 buy_type = "ads"
 

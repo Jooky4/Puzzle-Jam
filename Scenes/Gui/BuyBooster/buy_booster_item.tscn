@@ -55,9 +55,11 @@ offset_top = -29.0
 offset_right = 42.0
 grow_horizontal = 0
 grow_vertical = 0
+text = "0"
 label_settings = SubResource("LabelSettings_g1jly")
 
 [node name="BuyForCoins" type="TextureButton" parent="."]
+visible = false
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("4_nn6fd")
@@ -100,6 +102,7 @@ label_settings = SubResource("LabelSettings_d4i0e")
 horizontal_alignment = 1
 
 [node name="BuyForADS" type="TextureButton" parent="."]
+visible = false
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("6_w4drl")
