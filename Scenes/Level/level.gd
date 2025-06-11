@@ -561,6 +561,9 @@ func check_matches(pos: Vector2i) -> void:
 		# ищем среднюю точку между всех тайлов
 		var _tiles_positions: Array[Vector2]
 		for i in tiles_to_remove:
+			if i == null:
+				continue
+
 			var _pos = i.position + (i.size / 2)
 			_tiles_positions.push_back(_pos)
 
@@ -568,6 +571,9 @@ func check_matches(pos: Vector2i) -> void:
 
 		var _tween_time: float = 1
 		for t in tiles_to_remove:
+			if t == null:
+				continue
+
 			var _tween = create_tween().set_parallel()
 			add_child(t)
 			t.z_index = 100
@@ -586,15 +592,15 @@ func check_matches(pos: Vector2i) -> void:
 			_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
 
 			# корректировка координаты центра
-			var _correct_center_pos = center_pos + Vector2(-(t.size.x / 4), -(t.size.y / 2))
+			var _correct_center_pos = center_pos #+ Vector2(-(t.size.x / 4), -(t.size.y / 2))
 			_tween.tween_property(t, "position", _correct_center_pos, _tween_time / 2)
 			_tween.tween_property(t, "scale", Vector2(0, 0), _tween_time / 2)
 			_tween.play()
 			SFX.play_sound("cube_merge")
 
-		# --- запускаем проверку для всех изменённых блоков ---
 		await Utils.timeout(0.1)
 
+		# --- запускаем проверку для всех изменённых блоков ---
 		for i in used_block_list:
 			var cb = i.block
 			await Utils.timeout(time_before_check_next)

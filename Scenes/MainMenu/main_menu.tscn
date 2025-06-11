@@ -146,7 +146,7 @@ offset_bottom = 254.5
 grow_horizontal = 2
 grow_vertical = 2
 value = 100
-level = 385
+level = 122
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopButton" type="TextureButton" parent="."]
