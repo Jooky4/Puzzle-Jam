@@ -41,6 +41,9 @@ enum EState {
 var _current_cell_rewarded: Node
 var pregenerated_color_blocks: Array
 
+var _debug_var_1: bool = false
+
+
 func _ready() -> void:
 	for booster_btn in booster_panel.get_children():
 		booster_btn.count = Player.get_booster_count(booster_btn.booster.type)
@@ -55,19 +58,17 @@ func _ready() -> void:
 
 
 func _on_buy_free_cells(count: int) -> void:
-	prints("buy free cells", count)
-	var _non_empty_cells = LevelManager.get_non_empty_cells()
+	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
 
 	for i in _non_empty_cells.slice(0, 5):
 		if i.colors == LevelData.ADS_CELL:
 			continue
 
-		current_level[position.y][position.x] = LevelData.FREE_CELL
-		var cell = block_container.get_child(Utils.get_index_by_pos(i.position, current_level[0].size()))
+		current_level[i.position.y][i.position.x] = LevelData.FREE_CELL
+		var _cell_idx_in_grid = Utils.get_index_by_pos(i.position, current_level[0].size())
+		var cell = block_container.get_child(_cell_idx_in_grid)
 		var cb = cell.get_color_block()
 		cb.remove_block()
-
-	update_level()
 
 
 func _set_state(value: EState) -> void:
@@ -117,6 +118,22 @@ func _restart_level() -> void:
 	_make_colored_color_block(block_for_drop_2)
 
 	_update_ui()
+
+
+func _process(delta: float) -> void:
+	if Config.CHEATS_ENABLED:
+		if Input.is_action_just_pressed("DEBUG_KEY_1"):
+			_debug_var_1 = not _debug_var_1
+			block_for_drop_1._enable_debug_label(_debug_var_1)
+			block_for_drop_2._enable_debug_label(_debug_var_1)
+
+			for i in block_container.get_children():
+				var _cb = i.get_color_block()
+				if _cb != null:
+					_cb._enable_debug_label(_debug_var_1)
+
+		if Input.is_action_just_pressed("DEBUG_KEY_2"):
+			EventBus.game_over.emit()
 
 
 func _input(event):
@@ -353,7 +370,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 
 func shuffle() -> void:
-	var _non_empty_cells = LevelManager.get_non_empty_cells()
+	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
 	var _positions: Array
 	var _cell_data: Array
 

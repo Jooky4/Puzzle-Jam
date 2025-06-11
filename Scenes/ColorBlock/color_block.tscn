@@ -7,8 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://2jtwej5lig4x" path="res://Assets/color_blocks/blik.png" id="13_310ax"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_310ax"]
-line_spacing = -4.0
-font_size = 70
+line_spacing = 16.0
+font_size = 60
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Block" type="Control"]
 custom_minimum_size = Vector2(200, 200)
@@ -334,12 +336,14 @@ z_index = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 198.0
+offset_top = -16.0
+offset_bottom = 182.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14
-text = "[1, 2,
- 3, 4]"
+text = "1  2
+3  4"
 label_settings = SubResource("LabelSettings_310ax")
+horizontal_alignment = 1
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

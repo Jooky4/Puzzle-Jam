@@ -29,6 +29,14 @@ signal pressed
 signal remove
 
 
+func _toggle_debug_label() -> void:
+	debug_label.visible = not debug_label.visible
+
+
+func _enable_debug_label(value: bool) -> void:
+	debug_label.visible = value
+
+
 func _collect_jelly_layers():
 	for control in arr_blocs:
 		var children = control.get_children()
@@ -96,7 +104,7 @@ func _process(delta):
 		patch2.position = patch2.position.lerp(target2, jelly_lerp_speed * delta)
 		patch3.position = patch2.position
 
-	debug_label.text = str("[%d, %d,\n%d, %d]" % colors)
+	debug_label.text = str("%d  %d\n%d  %d" % colors)
 
 
 func get_color_block(arr_color) -> void:

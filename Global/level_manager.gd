@@ -135,10 +135,8 @@ func get_current_level() -> Array:
 	return level
 
 
-func get_non_empty_cells() -> Array:
+func get_non_empty_cells(_cur_level_data: Array) -> Array:
 	var result: Array
-
-	var _cur_level_data = get_current_level()
 
 	for y in _cur_level_data.size():
 		for x in _cur_level_data[y].size():
