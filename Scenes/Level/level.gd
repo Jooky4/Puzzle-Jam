@@ -35,6 +35,7 @@ var current_booster: Booster
 enum EState {
 	PLAY,
 	BOOSTER,
+	CHECK,
 }
 
 var _current_cell_rewarded: Node
@@ -83,7 +84,6 @@ func _set_state(value: EState) -> void:
 
 
 func _next_level() -> void:
-	prints("_next_level()")
 	LevelManager.current_level += 1
 	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
@@ -207,7 +207,8 @@ func _demake_all_color_blocks_button() -> void:
 
 func _on_ads_cell_pressed(cell: Node) -> void:
 	_current_cell_rewarded = cell
-	Bridge.advertisement.show_rewarded()
+	if _state == EState.PLAY:
+		Bridge.advertisement.show_rewarded()
 
 
 func _on_rewarded_state_changed(status: String) -> void:
@@ -270,7 +271,6 @@ func _on_color_block_pressed(block: Node) -> void:
 			# запустить анимацию падения бомбы _здесь_
 			animation_bomb.position = block.global_position + Vector2(50, 50)
 			animation_bomb.play()
-			#SFX.play_sound("bomb")
 
 			# Ждём когда пройдёт анимация падения бомбы
 			await Utils.timeout(1.25)
@@ -353,7 +353,6 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 
 func shuffle() -> void:
-	prints("shuffle booster run")
 	var _non_empty_cells = LevelManager.get_non_empty_cells()
 	var _positions: Array
 	var _cell_data: Array
@@ -405,6 +404,9 @@ func update_level() -> void:
 
 		count += 1
 
+	block_container.anchors_preset = Control.PRESET_CENTER
+
+
 
 func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
 	var color_block = ColorBlock.new()
@@ -417,6 +419,8 @@ func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
 func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_block: ColorBlock, current_side: ColorBlock.ESides, neighbour_side: ColorBlock.ESides) -> bool:
 	# прилегающие блоки соприкосаются только одним цветом
 
+	var _DEBUG = false
+
 	var tile_color_in_neighbour = tile_color in neighbour_block.get_side_colors(neighbour_side)
 	var is_neighbour_colors_equal = neighbour_block.is_side_colors_equal(neighbour_side)
 	var is_block_colors_equal = current_block.is_side_colors_equal(current_side)
@@ -424,15 +428,18 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 	if is_block_colors_equal\
 	 and is_neighbour_colors_equal\
 	 and tile_color_in_neighbour:
-		prints("1) вся сторона текущего блока одного цвета и совпадает с всей стороной соседа")
+		if _DEBUG:
+			prints("1) вся сторона текущего блока одного цвета и совпадает с всей стороной соседа")
 		return true
 
 	elif current_block.is_side_colors_equal(current_side) and tile_color_in_neighbour:
-		prints("2) вся сторона текущего блока одного цвета, этот цвет есть в соседнем блоке")
+		if _DEBUG:
+			prints("2) вся сторона текущего блока одного цвета, этот цвет есть в соседнем блоке")
 		return true
 
 	elif neighbour_block.is_side_colors_equal(neighbour_side) and tile_color_in_neighbour:
-		prints("3) вся сторона соседа одного цвета, этот цвет есть в текущем блоке")
+		if _DEBUG:
+			prints("3) вся сторона соседа одного цвета, этот цвет есть в текущем блоке")
 		return true
 
 	else:
@@ -447,7 +454,8 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 		var nei_color_index = nei_side_colors.find(tile_color)
 
 		if cur_color_index == nei_color_index:
-			prints("4) у соседа есть цвет на той-же позиции что у текущего блока")
+			if _DEBUG:
+				prints("4) у соседа есть цвет на той-же позиции что у текущего блока")
 			return true
 
 	return false
@@ -460,6 +468,9 @@ func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBloc
 
 	var cur_fill_dir = color_block.remove_color(color, side)
 	var block_node = get_color_block(color_block.position)
+
+	if block_node == null:
+		return
 
 	# получаем удаляемый тайл
 	result = block_node.get_color_tile_node(color)
@@ -478,6 +489,7 @@ func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBloc
 func check_matches(pos: Vector2i) -> void:
 	""" Рекурсивно проверяет все блоки вокруг на совпадения цветов """
 
+	_set_state(EState.CHECK)
 	# счётчик запуска функции
 	check_match_count += 1
 	var time_before_check_next: float = 0.5
@@ -535,7 +547,8 @@ func check_matches(pos: Vector2i) -> void:
 
 		var tiles_to_remove: Array
 		var _tile = _cb_node_remove_colors(current_block, tile_color, matched_blocks[0].current_side)
-		tiles_to_remove.push_back(_tile)
+		if _tile:
+			tiles_to_remove.push_back(_tile)
 
 		for i in matched_blocks:
 			var _tile2 = _cb_node_remove_colors(i.block, tile_color, i.neighbour_side)
@@ -579,8 +592,9 @@ func check_matches(pos: Vector2i) -> void:
 			_tween.play()
 			SFX.play_sound("cube_merge")
 
-
 		# --- запускаем проверку для всех изменённых блоков ---
+		await Utils.timeout(0.1)
+
 		for i in used_block_list:
 			var cb = i.block
 			await Utils.timeout(time_before_check_next)
@@ -589,6 +603,7 @@ func check_matches(pos: Vector2i) -> void:
 	check_match_count -= 1
 
 	if check_match_count < 1:
+		_set_state(EState.PLAY)
 		update_level()
 		check_level_complete()
 		check_game_over()

@@ -1,5 +1,7 @@
 extends AudioManager
 
+const DEBUG = false
+
 var sfx_config = {
 	"bomb": {
 		"path": "res://Assets/sfx/bomb.ogg",
@@ -137,11 +139,12 @@ var sfx_config = {
 
 
 func stop_sound(name: String) -> void:
-	if OS.is_debug_build():
+	if DEBUG:
 		prints("SFX.stop_sound(%s)" % name)
 
 	if not sfx_config.has(name):
-		prints("SFX sound not found", name)
+		if DEBUG:
+			prints("SFX sound not found", name)
 		return
 
 	if sfx_config.has(name) and sfx_config[name].sound:
@@ -149,11 +152,12 @@ func stop_sound(name: String) -> void:
 
 
 func play_sound(name: String) -> void:
-	if OS.is_debug_build():
+	if DEBUG:
 		prints("SFX.play_sound(%s)" % name)
 
 	if not sfx_config.has(name):
-		prints("SFX sound not found", name)
+		if DEBUG:
+			prints("SFX sound not found", name)
 		return
 
 	var sfx_c = sfx_config[name]
@@ -163,6 +167,7 @@ func play_sound(name: String) -> void:
 	else:
 		var asp = AudioStreamPlayer.new()
 		add_child(asp)
+		asp.set_bus("SFX")
 		asp.stream = load(sfx_c.path)
 		asp.volume_db = sfx_c.volume
 		asp.pitch_scale = sfx_c.pitch

@@ -25,6 +25,7 @@ func _ready() -> void:
 func get_booster_count(booster_type: Booster.EType) -> int:
 	return get_value(booster_name[booster_type])
 
+
 func add_booster(booster_type: Booster.EType, count: int) -> void:
 	var cur_data_name = booster_name[booster_type]
 	var old_value = get_booster_count(booster_type)
@@ -89,3 +90,5 @@ func load_data():
 		set_value("shuffle", config.get_value("player", "shuffle"))
 		set_value("mute_sfx", config.get_value("player", "mute_sfx"))
 		set_value("mute_music", config.get_value("player", "mute_music"))
+
+	EventBus.player_loaded.emit()

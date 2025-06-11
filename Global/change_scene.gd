@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+const DEBUG = false
+
 @export var game_scene: PackedScene
 
 # TODO: заменить имена на enum?
@@ -33,7 +35,9 @@ func normal_screen() -> void:
 
 
 func to(scene_name: String) -> void:
-	prints("ChangeScene.to(%s)" % scene_name)
+	if DEBUG:
+		prints("ChangeScene.to(%s)" % scene_name)
+
 	if scene_aliases.has(scene_name):
 		var _scene = scene_aliases[scene_name]
 		var _status = get_tree().call_deferred("change_scene_to_file", _scene)

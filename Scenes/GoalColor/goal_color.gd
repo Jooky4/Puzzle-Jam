@@ -24,7 +24,6 @@ var count: int
 
 
 func _ready() -> void:
-	prints("goal_color ready")
 	_update_ui()
 
 

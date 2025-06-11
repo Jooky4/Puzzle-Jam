@@ -168,12 +168,15 @@ func get_target_colors() -> Dictionary:
 func _level_colors(level: Array) -> Array:
 	var _colors: Dictionary
 
-	# Временный фикс бага (на уровне очень мало цветов)
+	# фикс бага (на уровне очень мало цветов)
 	if current_level == 12:
 		return [10, 11, 12, 13, 14]
 
 	for i in level:
 		for j in i:
+			if j in LevelData.NON_COLOR_BLOCK_CELLS:
+				continue
+
 			for c in j:
 				var _typed_color = get_color_with_type(c)
 				var _color = _typed_color.color_number

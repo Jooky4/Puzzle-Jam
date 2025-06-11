@@ -13,8 +13,14 @@ func _on_focus_exited():
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
 
 
-func set_mute(value: bool) -> void:
-	AudioServer.set_bus_mute(0, value)
+func set_mute(bus: String, value: bool) -> void:
+	var db = 0
+	if value:
+		db = -80
+
+	var _bus_idx = AudioServer.get_bus_index(bus)
+	#var _bus_idx = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_volume_db(_bus_idx, db)
 
 
 func play_sound(name: String) -> void:

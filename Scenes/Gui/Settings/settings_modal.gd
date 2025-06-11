@@ -1,8 +1,25 @@
 extends Panel
 
+@onready var sound_checkbox: Control = $Panel/VBoxContainer/Sound/SoundCheckbox
+@onready var music_checkbox: Control = $Panel/VBoxContainer/Music/MusicCheckbox
+
 
 signal modal_close
-signal mute_toggled(value: bool)
+
+
+func _ready() -> void:
+	EventBus.player_loaded.connect(_on_player_data_loaded)
+
+
+func _on_player_data_loaded() -> void:
+	var mute_sfx = Player.get_value("mute_sfx")
+	sound_checkbox.set_value_no_signal(not mute_sfx)
+	SFX.set_mute("SFX", mute_sfx)
+
+	var mute_music = Player.get_value("mute_music")
+	music_checkbox.set_value_no_signal(not mute_music)
+	SFX.set_mute("Music", mute_sfx)
+
 
 func _on_close_button_pressed() -> void:
 	SFX.play_sound("click")
@@ -10,8 +27,12 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_sound_checkbox_checked(value: Variant) -> void:
-	SFX.set_mute(not value)
+	SFX.set_mute("SFX", not value)
+	Player.set_value("mute_sfx", not value)
+	Player.save_data()
 
 
-func _on_music_checkbox_checked(val: Variant) -> void:
-	prints("music", val)
+func _on_music_checkbox_checked(value: Variant) -> void:
+	SFX.set_mute("Music", not value)
+	Player.set_value("mute_music", not value)
+	Player.save_data()

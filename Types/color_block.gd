@@ -18,6 +18,7 @@ side - сторона блока (верхняя сторона, левая ст
 @export var colors: Array
 @export var position: Vector2i
 
+const DEBUG = false
 const FREE_TILE_COLOR = 0
 
 var is_vertical: bool
@@ -253,10 +254,12 @@ func get_fill_direction(side: ESides) -> Dictionary:
 
 	match _uniq_colors.size():
 		1:
-			prints("пустой блок, нечего перемещать")
+			if DEBUG:
+				prints("пустой блок, нечего перемещать")
 			result = {}
 		2:
-			prints("Заполняем всё оставшимся цветом")
+			if DEBUG:
+				prints("Заполняем всё оставшимся цветом")
 			var _side: ESides
 
 			# удаляем пустые тайлы, остаётся единственный цвет
@@ -281,7 +284,8 @@ func get_fill_direction(side: ESides) -> Dictionary:
 				result[tile] = another_side_tile
 
 		3:
-			prints("fill 3 colors")
+			if DEBUG:
+				prints("fill 3 colors")
 			var side_tile_indexes = get_side_tiles(side)
 			var _color_count = get_colors_count()
 
@@ -291,7 +295,8 @@ func get_fill_direction(side: ESides) -> Dictionary:
 				return {}
 
 			if _color_count[FREE_TILE_COLOR] == 2:
-				prints("две пустых ячейки")
+				if DEBUG:
+					prints("две пустых ячейки")
 				_uniq_colors.erase(FREE_TILE_COLOR)
 				var color1 = _uniq_colors[0]
 				var color2 = _uniq_colors[1]
@@ -304,8 +309,11 @@ func get_fill_direction(side: ESides) -> Dictionary:
 				result[_color2_tile] = get_another_side_tile(_color2_tile, _side)
 
 			else:
-				prints("одна пустая ячейка")
 				""" ищем цвет, занимающий одну ячейку и перемещаем в пустую """
+
+				if DEBUG:
+					prints("одна пустая ячейка")
+
 				var the_signle_tile_index: int
 
 				for i in colors.size():
@@ -318,7 +326,8 @@ func get_fill_direction(side: ESides) -> Dictionary:
 				result[the_signle_tile_index] = free_tile_index
 
 		4:
-			prints("fill 4 colors")
+			if DEBUG:
+				prints("fill 4 colors")
 			var color_index = colors.find(FREE_TILE_COLOR)
 			var another_color_index = get_another_side_tile(color_index, side)
 			result = {
@@ -356,7 +365,8 @@ func _remove_color(color, side: ESides) -> Array:
 					if cur_color == color:
 						result[i] = FREE_TILE_COLOR
 		3:
-			prints("3 colors")
+			if DEBUG:
+				prints("3 colors")
 			var side_colors = get_side_colors(side)
 			var side_tile_indexes = get_side_tiles(side)
 
@@ -366,14 +376,16 @@ func _remove_color(color, side: ESides) -> Array:
 
 			# если с указанной стороны цвета одинаковые и совпадают с удаляемым цветом
 			if side_colors[0] == side_colors[1] and side_colors[0] == color:
-				prints("this side has same colors")
+				if DEBUG:
+					prints("this side has same colors")
 				# копируем цвета с противоположной стороны
 				result[side_tile_indexes[0]] = FREE_TILE_COLOR
 				result[side_tile_indexes[1]] = FREE_TILE_COLOR
 
 			# на стороне цвета разные
 			else:
-				prints("not same colors in side")
+				if DEBUG:
+					prints("not same colors in side")
 				# ищем удаляемый цвет
 				var tile_to_remove: int
 				var tile_to_stay: int
@@ -386,7 +398,8 @@ func _remove_color(color, side: ESides) -> Array:
 
 				# если удаляемый цвет занимает две клетки (в глубину)
 				if color_count[colors[tile_to_remove]] > 1:
-					prints("2 cell in deep")
+					if DEBUG:
+						prints("2 cell in deep")
 					var tile_to_remove2 = get_another_side_tile(tile_to_remove, side)
 					var _side = get_side_by_tiles(tile_to_remove, tile_to_remove2)
 
@@ -396,10 +409,12 @@ func _remove_color(color, side: ESides) -> Array:
 					result[front_tiles[0]] = FREE_TILE_COLOR
 					result[front_tiles[1]] = FREE_TILE_COLOR
 				else:
-					prints("not 2 cell in deep")
+					if DEBUG:
+						prints("not 2 cell in deep")
 					result[tile_to_remove] = FREE_TILE_COLOR
 		4:
-			prints("4 colors")
+			if DEBUG:
+				prints("4 colors")
 			var color_index = colors.find(color)
 
 			var another_color_index = get_another_side_tile(color_index, side)
@@ -423,14 +438,16 @@ func _tile_sides(tile_index: int) -> Array:
 
 	# если весь блок имеет один цвет, тайл "смотрит" во все стороны
 	if get_unique_colors().size() == 1:
-		prints("цвет занимает весь блок")
+		if DEBUG:
+			prints("цвет занимает весь блок")
 		return [ESides.TOP, ESides.RIGHT, ESides.BOTTOM, ESides.LEFT]
 
 	var tile_color = colors[tile_index]
 
 	# если цвет занимает два тайла (в т.ч. указанный тайл)
 	if get_colors_count()[tile_color] == 2:
-		prints("тайл занимает два блока")
+		if DEBUG:
+			prints("тайл занимает два блока")
 		for side in TILE_INDEXES_BY_SIDE.keys():
 			var _side_tiles = TILE_INDEXES_BY_SIDE[side]
 

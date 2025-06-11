@@ -16,6 +16,7 @@ signal game_over
 signal level_complete(level_number: int)
 signal booster_used(booster_type: Booster.EType)
 signal player_data_changed(name: String)
+signal player_loaded
 signal buy_booster(booster_type: Booster)
 
 # На экране GameOver освобождает N-ячеек за монеты/рекламу, что-бы продолжить игру

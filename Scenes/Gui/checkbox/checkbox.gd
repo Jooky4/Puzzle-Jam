@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-@export var value: bool = false: set = _set_value
+@export var value: bool = false
 @export var active_bg: Texture2D
 @export var inactive_bg: Texture2D
 
@@ -19,22 +19,34 @@ func _ready() -> void:
 	button.button_pressed = value
 
 
-func _set_value(_value: bool) -> void:
+func set_value_no_signal(_value: bool) -> void:
+	value = _value
+
+	if button:
+		button.set_pressed_no_signal(value)
+		_update_checkbox(value)
+
+
+func set_value(_value: bool) -> void:
 	value = _value
 
 	if button:
 		button.button_pressed = value
 
 
-func _on_checkbox_toggled(toggled_on: bool) -> void:
-	value = toggled_on
-
-	if toggled_on:
+func _update_checkbox(value: bool) -> void:
+	if value:
 		background.texture = active_bg
 		_move_handler(RIGHT_POS)
 	else:
 		background.texture = inactive_bg
 		_move_handler(LEFT_POS)
+
+
+func _on_checkbox_toggled(toggled_on: bool) -> void:
+	value = toggled_on
+
+	_update_checkbox(toggled_on)
 
 	checked.emit(toggled_on)
 
