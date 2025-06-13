@@ -381,36 +381,61 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 func shuffle() -> void:
 	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
-	var _positions: Array
-	var _cell_data: Array
+	var _new_non_empty_cells = _non_empty_cells.duplicate(true)
+	_new_non_empty_cells.shuffle()
 
+	await Utils.timeout(0.5)
 	SFX.play_sound("spinner")
-	for i in _non_empty_cells:
-		if i.colors == LevelData.ADS_CELL:
-			continue
 
-		_positions.push_back(i.position)
-		_cell_data.push_back(i.colors)
+	for i in _non_empty_cells.size():
+		var _cell = _non_empty_cells[i]
+		var _new_cell = _new_non_empty_cells[i]
+		var _tween = create_tween()
 
-	_cell_data.shuffle()
-
-	await Utils.timeout(0.5)
-
-	for i in _cell_data.size():
-		var _colors = _cell_data[i]
-		var pos = _positions[i]
-		current_level[pos.y][pos.x] = _colors
-		var cell_block = BLOCK_ARR[Utils.get_index_by_pos(pos, 6)]
+		var cell_block = BLOCK_ARR[Utils.get_index_by_pos(_cell.position, 6)]
 		var _color_block = cell_block.get_color_block()
-		if _color_block:
-			_color_block.colors = _colors
-			_color_block.update_tiles(_colors)
+		var new_cell_block = BLOCK_ARR[Utils.get_index_by_pos(_new_cell.position, 6)]
+		var new_color_block = new_cell_block.get_color_block()
 
-	#update_level()
-	await Utils.timeout(0.5)
+		# создаём копию цветного блока для перемещения
+		var cb = load("res://Scenes/ColorBlock/color_block.tscn").instantiate()
+		add_child(cb)
+		cb.update_tiles(_color_block.colors)
+		cb.position = _color_block.global_position - Vector2(50, 50)
 
-	for _pos in _positions:
-		check_matches(_pos)
+		_color_block.hide()
+		new_color_block.hide()
+		new_color_block.colors = _color_block.colors.duplicate()
+		new_color_block.update_tiles(_color_block.colors)
+
+		# подъём над ячейкой
+		var _up_pos = _color_block.global_position.y - 100
+		current_level[_new_cell.position.y][_new_cell.position.x] = _color_block.colors.duplicate()
+		_tween.tween_property(cb, "position:y", _up_pos, 0.2)
+		_tween.set_ease(Tween.EASE_IN_OUT)
+		_tween.chain()
+
+		# Перемещение на новую позицию (будет находиться выше ячейки из-за подъёма)
+		var _new_pos = new_color_block.global_position - Vector2(50, 50) - Vector2(0, 100)
+
+		_tween.tween_property(cb, "position", _new_pos, 0.5)
+		_tween.set_ease(Tween.EASE_IN_OUT)
+
+		# опускание на ячейку
+		_tween.tween_property(cb, "position", _new_pos + Vector2(0, 100), 0.3)
+		_tween.play()
+		_tween.tween_callback(_restore_color_block.bind(cb, _color_block))
+
+	await Utils.timeout(0.51)
+
+	for cell in _new_non_empty_cells:
+		check_matches(cell.position)
+
+
+func _restore_color_block(moving_cb_node, cb) -> void:
+	remove_child(moving_cb_node)
+	if cb:
+		cb.show()
 
 
 func update_level() -> void:
@@ -433,7 +458,6 @@ func update_level() -> void:
 		count += 1
 
 	block_container.anchors_preset = Control.PRESET_CENTER
-
 
 
 func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
@@ -722,6 +746,9 @@ func _set_booster_ui() -> void:
 
 
 func _on_booster_button_pressed(booster: Booster) -> void:
+	if _state != EState.PLAY:
+		return
+
 	current_booster = booster
 	var booster_count = Player.get_booster_count(booster.type)
 	if booster_count == 0:
