@@ -95,7 +95,7 @@ func _make_colored_color_block(cb: Node) -> void:
 	if pregenerated_color_blocks.size():
 		var _colors = pregenerated_color_blocks.pop_front()
 		cb.colors = _colors
-		cb.set_reate_compain(_colors)
+		cb.update_tiles(_colors)
 	else:
 		cb.create_random_color()
 
@@ -259,11 +259,12 @@ func create_level() -> void:
 				block_container.add_child(buff)
 
 				if current_level_cell != LevelData.FREE_CELL:
-					var buff1 = color_block.instantiate()
-					buff1.pressed.connect(_on_color_block_pressed)
+					var _cb = color_block.instantiate()
+					_cb.pressed.connect(_on_color_block_pressed)
 					buff.not_can_drop()
-					buff.add_child(buff1)
-					buff1.get_color_block(current_level_cell)
+					buff.add_child(_cb)
+					_cb.colors = current_level_cell
+					_cb.update_tiles(current_level_cell)
 
 			elif current_level_cell == LevelData.EMPTY_CELL:
 				block_container.add_child(buff)
@@ -357,15 +358,24 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 			var _cell = block_container.get_child(_idx)
 
 			var _block = _cell.get_color_block()
-			var level_cell = current_level[n_pos.x][n_pos.y]
+
 			if _block != null:
 				var _rnd_index = randi_range(0, 3)
 				var _color = _block.colors[_rnd_index]
 				goal_colors_container.dec_color(_color, 1)
-				_block.colors[_rnd_index] = 0
-				_block.update_block(0, "up")
+				var _remove_color = cur_level_cell[_rnd_index]
 
-	update_level()
+				var sides = {
+					0: ColorBlock.ESides.TOP,
+					1: ColorBlock.ESides.RIGHT,
+					2: ColorBlock.ESides.BOTTOM,
+					3: ColorBlock.ESides.LEFT,
+				}
+
+				var _cb = _create_color_block(n_pos, current_level)
+				_cb_node_remove_colors(_cb, _remove_color, sides[_rnd_index])
+				_block.colors = _cb.colors
+
 	await Utils.timeout(0.2)
 
 
@@ -383,6 +393,9 @@ func shuffle() -> void:
 		_cell_data.push_back(i.colors)
 
 	_cell_data.shuffle()
+
+	await Utils.timeout(0.5)
+
 	for i in _cell_data.size():
 		var _colors = _cell_data[i]
 		var pos = _positions[i]
@@ -391,19 +404,17 @@ func shuffle() -> void:
 		var _color_block = cell_block.get_color_block()
 		if _color_block:
 			_color_block.colors = _colors
+			_color_block.update_tiles(_colors)
 
-	update_level()
-	await Utils.timeout(0.1)
+	#update_level()
+	await Utils.timeout(0.5)
 
-	# TODO: переделать проверку
 	for _pos in _positions:
-		#check_matches(_pos)
-		pass
-
+		check_matches(_pos)
 
 
 func update_level() -> void:
-	# Обновляет данные текущего уровня
+	# Обновляет данные текущего уровня из блоков на игровом поле
 
 	var count = 0
 	for cell in block_container.get_children():
@@ -511,6 +522,7 @@ func check_matches(pos: Vector2i) -> void:
 	check_match_count += 1
 	var time_before_check_next: float = 0.5
 
+	await Utils.timeout(0.5)
 	# За границами поля
 	if not _in_level_field(pos):
 		return
@@ -581,7 +593,7 @@ func check_matches(pos: Vector2i) -> void:
 			if i == null:
 				continue
 
-			var _pos = i.position + (i.size / 2)
+			var _pos = i.position
 			_tiles_positions.push_back(_pos)
 
 		var center_pos = Utils.find_center_of_position_list(_tiles_positions)
@@ -603,10 +615,10 @@ func check_matches(pos: Vector2i) -> void:
 			# Поднимает блок вверх
 			_tween.tween_property(t, "scale", t.scale + Vector2(0.1, 0.1), _tween_time / 5)
 			_tween.tween_property(t, "position", t.position + Vector2(0, -50), _tween_time / 5)
-			_tween.set_ease(Tween.EASE_IN_OUT)
+			_tween.set_ease(Tween.EASE_OUT)
 			_tween.chain()
 
-			_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
+			_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 
 			# корректировка координаты центра
 			var _correct_center_pos = center_pos #+ Vector2(-(t.size.x / 4), -(t.size.y / 2))

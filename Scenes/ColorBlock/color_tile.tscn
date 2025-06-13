@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://bocxkuoqq1o00"]
+
+[ext_resource type="Texture2D" uid="uid://c6obotw7jb4ka" path="res://Assets/color_blocks/3.png" id="1_m8w64"]
+[ext_resource type="Script" uid="uid://cpigjt3s36m07" path="res://Scenes/ColorBlock/color_tile.gd" id="1_pxbud"]
+[ext_resource type="Texture2D" uid="uid://bxxb1kn7pvl7t" path="res://Assets/color_blocks/2.png" id="2_pxbud"]
+[ext_resource type="Texture2D" uid="uid://dalk2jpfvf205" path="res://Assets/color_blocks/1.png" id="3_sp4o1"]
+[ext_resource type="Texture2D" uid="uid://2jtwej5lig4x" path="res://Assets/color_blocks/blik.png" id="4_8h45m"]
+
+[node name="ColorTile" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchor_right = 0.139
+anchor_bottom = 0.078
+offset_right = -0.0800095
+offset_bottom = 0.159996
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
+script = ExtResource("1_pxbud")
+
+[node name="ColorRect" type="NinePatchRect" parent="."]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m8w64")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect2" type="NinePatchRect" parent="."]
+modulate = Color(4.04298e-06, 0.490526, 0.561287, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pxbud")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect3" type="NinePatchRect" parent="."]
+modulate = Color(0, 0.670775, 0.765054, 1)
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_sp4o1")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40
+
+[node name="ColorRect4" type="NinePatchRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_8h45m")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 40

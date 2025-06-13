@@ -1,11 +1,10 @@
 extends Control
 
-@export var jelly_lerp_speed: float = 8.0
-@export var jelly_offset_scale1: float = 0.5
-@export var jelly_offset_scale2: float = 0.3
 
-
-@onready var arr_blocs = [$Small_block_1, $Small_block_2, $Small_block_3, $Small_block_4]
+@onready var tile_nodes = [
+	$ColorTile0, $ColorTile1,
+	$ColorTile2, $ColorTile3
+]
 @onready var debug_label: Label = $DebugLabel
 @onready var button = $Button
 
@@ -25,6 +24,13 @@ var is_button: bool: set = _set_is_button
 
 var _color_node_binds: Dictionary = {}
 
+# размеры блока в пикселях
+const FULL_W = 200
+const FULL_H = 200
+const HALF_W = FULL_W / 2
+const HALF_H = FULL_H / 2
+
+
 signal pressed
 signal remove
 
@@ -37,34 +43,10 @@ func _enable_debug_label(value: bool) -> void:
 	debug_label.visible = value
 
 
-func _collect_jelly_layers():
-	for control in arr_blocs:
-		var children = control.get_children()
-		if children.size() >= 2:
-			# сохраняем: control, patch1, patch2, их локальные позиции
-			jelly_layers.append({
-				"control": control,
-				"patch1": children[1],
-				"patch2": children[2],
-				"patch3": children[3],
-				"pos1": children[1].position,
-				"pos2": children[2].position
-			})
-
-
-func get_all_nine_patches(control: Control) -> Array:
-	var result = []
-	for child in control.get_children():
-		if child is NinePatchRect:
-			result.append(child)
-	return result
-
-
 func _ready() -> void:
 	if not OS.is_debug_build():
 		debug_label.visible = false
 
-	_collect_jelly_layers()
 	last_position = global_position
 
 
@@ -84,46 +66,11 @@ func _process(delta):
 	var velocity = global_position - last_position
 	last_position = global_position
 
-	# Обновляем желейные слои
-	for layer in jelly_layers:
-		var control = layer["control"]
-		var patch1 = layer["patch1"]
-		var patch2 = layer["patch2"]
-		var patch3 = layer["patch3"]
-		var base_pos1: Vector2 = layer["pos1"]
-		var base_pos2: Vector2 = layer["pos2"]
-
-		# Смещаем patch в сторону, противоположную движению блока
-		var offset1 = -velocity * jelly_offset_scale1
-		var offset2 = -velocity * jelly_offset_scale2
-
-		var target1 = base_pos1 + offset1
-		var target2 = base_pos2 + offset2
-
-		patch1.position = patch1.position.lerp(target1, jelly_lerp_speed * delta)
-		patch2.position = patch2.position.lerp(target2, jelly_lerp_speed * delta)
-		patch3.position = patch2.position
+	for tile in tile_nodes:
+		tile.velocity = velocity
+		tile.is_fly = follow_mouse
 
 	debug_label.text = str("%d  %d\n%d  %d" % colors)
-
-
-func get_color_block(arr_color) -> void:
-	can_take_block = false
-	button.visible = false
-	colors = arr_color
-
-	for i in arr_blocs.size():
-		var nine_patches = get_all_nine_patches(arr_blocs[i])
-
-		#var color = LevelData.COLORS[arr_color[i]]
-		var color_data = LevelManager.get_color_with_type(arr_color[i])
-		# Назначаем цвет кроме последнего. Последний это блик
-		for patch_idx in nine_patches.size()-1:
-			var _patch = nine_patches[patch_idx]
-			_patch.modulate = color_data.color
-
-	set_reate_compain(colors)
-	#update_ui()
 
 
 func drop_block() -> void:
@@ -241,103 +188,82 @@ func create_random_color(used_colors: Array = []) -> void:
 		#[10, 10, 11, 11],
 	#].pick_random()
 
-	set_reate_compain(colors)
+	update_tiles(colors)
+	#set_reate_compain(colors)
 
 
-func update_ui() -> void:
-	# будущая замена set_reate_compain()
+func set_colors(color_list: Array) -> void:
+	"""
+	задаёт цвета всем тайлам,
+	сбрасывает размеры и положение тайлов
+	"""
 
-	for i in colors.size():
-		var color = colors[i]
-		var current_tail = arr_blocs[i]
+	_color_node_binds = {}
 
-		if color == 0:
-			_set_color(current_tail, Color.WHITE)
-		else:
-			_set_color(current_tail, LevelData.COLORS[color])
+	const block_pos = {
+		0: Vector2(0, 0),
+		1: Vector2(HALF_W, 0),
+		2: Vector2(0, HALF_H),
+		3: Vector2(HALF_W, HALF_H),
+	}
 
-
-func _set_color(tile: Node, color: Color) -> void:
-	var child_list = tile.get_children()
-
-	child_list[0].modulate = color.darkened(0.3)
-	child_list[1].modulate = color.darkened(0.3)
-	child_list[2].modulate = color
-
-
-func set_reate_compain(arr_color) -> void:
-	for i in arr_blocs.size():
-		var nine_patches = get_all_nine_patches(arr_blocs[i])
-		if arr_color[i] == 0:
-			break
-
-		var _color_data = LevelManager.get_color_with_type(arr_color[i])
-		_set_color(arr_blocs[i], _color_data.color)
-
-	var full_w = 200
-	var full_h = 200
-
-	var half_w = 100
-	var half_h = 100
-
-	for i in arr_color.size():
-		var _color = arr_color[i]
-		var _block = arr_blocs[i]
+	for i in tile_nodes.size():
+		var _color = color_list[i]
+		var _block = tile_nodes[i]
 		_color_node_binds[_color] = _block
 
-	if are_all_elements_equal(arr_color):
-		arr_blocs[0].visible = true
-		arr_blocs[1].visible = false
-		arr_blocs[2].visible = false
-		arr_blocs[3].visible = false
+		# сброс предыдущих манипуляций с тайлами
+		_block.position = block_pos[i]
+		_block.size = Vector2(HALF_W, HALF_H)
+		_block.visible = true
 
-		arr_blocs[0].size = Vector2(full_w, full_h)
-		_color_node_binds[arr_color[0]] = arr_blocs[0]
+		var _color_data = LevelManager.get_color_with_type(_color)
+		_block.color = _color_data.color
+
+
+func update_tiles(color_list: Array) -> void:
+	""" Обновляет размеры тайлов на основе количества цветов. Без анимации """
+
+	set_colors(color_list)
+
+	if are_all_elements_equal(color_list):
+		tile_nodes[0].visible = true
+		tile_nodes[1].visible = false
+		tile_nodes[2].visible = false
+		tile_nodes[3].visible = false
+
+		tile_nodes[0].size = Vector2(FULL_W, FULL_H)
+		_color_node_binds[color_list[0]] = tile_nodes[0]
 		count_block = 1
 
 	else:
-		if arr_color[0] == arr_color[1]:
-			arr_blocs[0].visible = true
-			arr_blocs[1].visible = false
-			arr_blocs[0].size = Vector2(full_w, half_h)
-			_color_node_binds[arr_color[0]] = arr_blocs[0]
+		# один цвет сверху
+		if color_list[0] == color_list[1]:
+			tile_nodes[0].visible = true
+			tile_nodes[1].visible = false
+			tile_nodes[0].size = Vector2(FULL_W, HALF_H)
+			_color_node_binds[color_list[0]] = tile_nodes[0]
 
-		if arr_color[2] == arr_color[3]:
-			arr_blocs[2].visible = true
-			arr_blocs[3].visible = false
-			arr_blocs[2].size = Vector2(full_w, half_h)
-			_color_node_binds[arr_color[2]] = arr_blocs[2]
+		# один цвет снизу
+		if color_list[2] == color_list[3]:
+			tile_nodes[2].visible = true
+			tile_nodes[3].visible = false
+			tile_nodes[2].size = Vector2(FULL_W, HALF_H)
+			_color_node_binds[color_list[2]] = tile_nodes[2]
 
-		if arr_color[0] == arr_color[2]:
-			arr_blocs[0].visible = true
-			arr_blocs[2].visible = false
-			arr_blocs[0].size = Vector2(half_w, full_h)
-			_color_node_binds[arr_color[0]] = arr_blocs[0]
+		# один цвет слева
+		if color_list[0] == color_list[2]:
+			tile_nodes[0].visible = true
+			tile_nodes[2].visible = false
+			tile_nodes[0].size = Vector2(HALF_W, FULL_H)
+			_color_node_binds[color_list[0]] = tile_nodes[0]
 
-		if arr_color[1] == arr_color[3]:
-			arr_blocs[1].visible = true
-			arr_blocs[3].visible = false
-			arr_blocs[1].size = Vector2(half_w, full_h)
-			_color_node_binds[arr_color[1]] = arr_blocs[1]
-
-		var unique_dict = {}
-		for color in arr_color:
-			unique_dict[color] = true
-		count_block = unique_dict.keys().size()
-
-		if arr_blocs[0].visible and arr_blocs[1].visible and arr_blocs[2].visible and arr_blocs[3].visible:
-			for i in arr_color.size():
-				var _color = arr_color[i]
-
-			count_block = 4
-
-		for i in arr_color.size():
-			var _color = arr_color[i]
-			var _block = arr_blocs[i]
-
-			var _is_same_block = _color_node_binds[_color] == _block
-			if _is_same_block and not _block.visible:
-				_color_node_binds.erase(_color)
+		# один цвет справа
+		if color_list[1] == color_list[3]:
+			tile_nodes[1].visible = true
+			tile_nodes[3].visible = false
+			tile_nodes[1].size = Vector2(HALF_W, FULL_H)
+			_color_node_binds[color_list[1]] = tile_nodes[1]
 
 
 func remove_block() -> void:
@@ -346,17 +272,8 @@ func remove_block() -> void:
 	self.queue_free()
 
 
-func new_update_block(move: Dictionary) -> void:
-	if colors == LevelData.FREE_CELL:
-		prints("is free cell")
-		remove_block()
-		return
-
-	for k in move.keys():
-		var tile
-
-
-func update_block(delete_color, direction) -> void:
+# TODO: remove
+func old_update_block(delete_color, direction) -> void:
 	for i in range(colors.size()):
 		if colors[i] == 0:
 			if count_block == 1:
@@ -428,8 +345,8 @@ func update_block(delete_color, direction) -> void:
 						colors[i] = colors[2]
 				break
 
-	#update_ui()
-	set_reate_compain(colors)
+	update_tiles(colors)
+	#set_reate_compain(colors)
 
 
 func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
@@ -467,15 +384,13 @@ func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 		},
 	}
 
-	var color_tiles = arr_blocs
-
 	for move_from in fill_directions.keys():
 		var move_to = fill_directions[move_from]
 
-		color_tiles[move_to].hide()
+		tile_nodes[move_to].hide()
 
 		var _plane = planes[move_from][move_to]
-		var animated_block = color_tiles[move_from]
+		var animated_block = tile_nodes[move_from]
 
 		if not animated_block.visible:
 			continue
@@ -494,10 +409,6 @@ func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 
 	_t.play()
 	return _t
-
-
-func _get_color_node(color: int) -> Node:
-	return Node.new()
 
 
 func get_color_tile_node(color: int) -> Node:
