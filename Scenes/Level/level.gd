@@ -131,7 +131,9 @@ func _restart_level() -> void:
 
 func _process(delta: float) -> void:
 	if Config.CHEATS_ENABLED:
+		# Включение/Выключение показа номера цвета на цветном блоке
 		if Input.is_action_just_pressed("DEBUG_KEY_1"):
+			prints("DEBUG_KEY_1 just pressed")
 			_debug_var_1 = not _debug_var_1
 			block_for_drop_1._enable_debug_label(_debug_var_1)
 			block_for_drop_2._enable_debug_label(_debug_var_1)
@@ -142,10 +144,17 @@ func _process(delta: float) -> void:
 					_cb._enable_debug_label(_debug_var_1)
 
 		if Input.is_action_just_pressed("DEBUG_KEY_2"):
+			prints("DEBUG_KEY_2 just pressed")
 			EventBus.game_over.emit()
 
 		if Input.is_action_just_pressed("DEBUG_KEY_3"):
+			prints("DEBUG_KEY_3 just pressed")
 			EventBus.level_complete.emit(Player.get_value("current_level") + 1)
+
+		if Input.is_action_just_pressed("DEBUG_KEY_4"):
+			prints("DEBUG_KEY_4 just pressed")
+			block_container.anchors_preset = Control.PRESET_FULL_RECT
+			block_container.anchors_preset = Control.PRESET_CENTER
 
 
 func _input(event):
@@ -286,6 +295,7 @@ func create_level() -> void:
 				block_container.add_child(buff)
 				buff.set_active(false)
 
+	block_container.anchors_preset = Control.PRESET_FULL_RECT
 	block_container.anchors_preset = Control.PRESET_CENTER
 
 	update_level()
@@ -473,6 +483,7 @@ func update_level() -> void:
 
 		count += 1
 
+	block_container.anchors_preset = Control.PRESET_FULL_RECT
 	block_container.anchors_preset = Control.PRESET_CENTER
 
 
