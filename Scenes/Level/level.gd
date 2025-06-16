@@ -124,7 +124,13 @@ func _restart_level() -> void:
 	BLOCK_ARR = block_container.get_children()
 
 	_make_colored_color_block(block_for_drop_1)
-	_make_colored_color_block(block_for_drop_2)
+
+	# скрытие второго раздатчика блоков на первом и втором уровнях
+	if Player.get_value("current_level") in [0, 1]:
+		new_block_cell_right.hide()
+	else:
+		new_block_cell_right.show()
+		_make_colored_color_block(block_for_drop_2)
 
 	_update_ui()
 

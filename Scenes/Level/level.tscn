@@ -106,7 +106,7 @@ grow_vertical = 2
 mouse_filter = 2
 columns = 6
 
-[node name="NewColorBlocks" type="Control" parent="UI"]
+[node name="NewColorBlocks" type="HBoxContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,16 +119,13 @@ offset_right = 360.0
 offset_bottom = 498.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 80
+alignment = 1
 
 [node name="ColorRect" type="Panel" parent="UI/NewColorBlocks"]
 self_modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
-offset_left = 237.0
-offset_top = 7.0
-offset_right = 367.0
-offset_bottom = 137.0
-scale = Vector2(0.8, 0.8)
 theme_override_styles/panel = SubResource("StyleBoxTexture_unl86")
 
 [node name="Block" parent="UI/NewColorBlocks/ColorRect" instance=ExtResource("2_1ov45")]
@@ -147,11 +144,6 @@ offset_bottom = 103.0
 self_modulate = Color(1, 1, 1, 0.5)
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
-offset_left = 384.0
-offset_top = 7.0
-offset_right = 514.0
-offset_bottom = 137.0
-scale = Vector2(0.8, 0.8)
 theme_override_styles/panel = SubResource("StyleBoxTexture_wvups")
 
 [node name="Block2" parent="UI/NewColorBlocks/ColorRect2" instance=ExtResource("2_1ov45")]
