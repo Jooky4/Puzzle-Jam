@@ -1,5 +1,8 @@
 extends Node
 
+const MAX_LEVEL = 199
+const MAX_LEVEL_GOAL = 50
+
 var current_level: int = 0: set = _set_current_level
 var current_level_colors: Array
 var is_prev_gameover: bool
@@ -126,8 +129,10 @@ func get_cell(pos: Vector2i) -> Array:
 func get_current_level() -> Array:
 	""" копия текущего уровня """
 	var _cur_level = current_level
-	if current_level > 200:
-		_cur_level = (current_level - 200) + 50
+	prints("all, cur, max", LevelData.levels.size(), current_level, MAX_LEVEL)
+	if current_level > MAX_LEVEL - 1:
+		prints("max level reached")
+		_cur_level = (current_level % MAX_LEVEL) + 50
 
 	var level = LevelData.levels[_cur_level].duplicate(true)
 	current_level_data = level
@@ -160,7 +165,16 @@ func get_current_level_colors() -> Array:
 
 func get_target_colors() -> Dictionary:
 	""" цели для текущего уровня """
-	return LevelData.target_by_level[current_level].duplicate(true)
+
+	var result: Dictionary
+
+	if current_level >= MAX_LEVEL_GOAL:
+		var _cur_level_goal = current_level % MAX_LEVEL_GOAL
+		result = LevelData.target_by_level[_cur_level_goal].duplicate(true)
+	else:
+		result = LevelData.target_by_level[current_level].duplicate(true)
+
+	return result
 
 
 func _level_colors(level: Array) -> Array:
