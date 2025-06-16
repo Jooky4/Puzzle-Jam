@@ -25,6 +25,7 @@ func _on_rewarded_state_changed(status: String) -> void:
 			prints("level complete reward for ads")
 			reward = _bonus_reward
 			EventBus.coins_changed.emit(Player.coins + reward)
+			Player.save_data()
 			next_level.emit()
 		elif status == "closed":
 			next_level.emit()

@@ -58,12 +58,21 @@ func _ready() -> void:
 
 
 func _on_buy_free_cells(count: int) -> void:
+	""" Удаляет случайные count блоков на карте """
 	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
 
-	for i in _non_empty_cells.slice(0, 5):
+	# исключаем рекламные блоки
+	var _non_empty_cells_no_ads: Array
+	for i in _non_empty_cells:
 		if i.colors == LevelData.ADS_CELL:
 			continue
+		_non_empty_cells_no_ads.push_back(i)
 
+	# перемешиваем найденные блоки
+	_non_empty_cells_no_ads.shuffle()
+
+	# удаляем случайные пять блоков на карте
+	for i in _non_empty_cells_no_ads.slice(0, count):
 		current_level[i.position.y][i.position.x] = LevelData.FREE_CELL
 		var _cell_idx_in_grid = Utils.get_index_by_pos(i.position, current_level[0].size())
 		var cell = block_container.get_child(_cell_idx_in_grid)
@@ -135,6 +144,9 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("DEBUG_KEY_2"):
 			EventBus.game_over.emit()
 
+		if Input.is_action_just_pressed("DEBUG_KEY_3"):
+			EventBus.level_complete.emit(Player.get_value("current_level") + 1)
+
 
 func _input(event):
 	var drop = false
@@ -152,6 +164,8 @@ func _input(event):
 						move_node(block_for_drop_1, i)
 						var buff = color_block.instantiate()
 						new_block_cell_left.add_child(buff)
+						if Config.CHEATS_ENABLED:
+							buff._enable_debug_label(_debug_var_1)
 						_make_colored_color_block(buff)
 
 						block_for_drop_1 = buff
@@ -172,6 +186,8 @@ func _input(event):
 						var _pos = Vector2i(count % 6, count / 6)
 						check_matches(_pos)
 						drop = true
+						if Config.CHEATS_ENABLED:
+							buff._enable_debug_label(_debug_var_1)
 
 					break
 				count += 1
@@ -546,7 +562,8 @@ func check_matches(pos: Vector2i) -> void:
 	check_match_count += 1
 	var time_before_check_next: float = 0.5
 
-	await Utils.timeout(0.5)
+	#await Utils.timeout(0.5)
+
 	# За границами поля
 	if not _in_level_field(pos):
 		return

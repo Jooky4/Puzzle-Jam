@@ -40,6 +40,7 @@ func _on_booster_used(booster_type: Booster.EType) -> void:
 
 func _on_coins_changed(value: int) -> void:
 	set_value("coins", value)
+	prints("player on coins changed", get_value("coins"))
 
 
 func is_play_first_time() -> bool:
@@ -65,9 +66,10 @@ func get_value(key: String):
 
 
 func save_data():
+	prints("Player.save_data()", _data)
 	var config = ConfigFile.new()
 
-	config.set_value("player", "money", get_value("money"))
+	config.set_value("player", "coins", get_value("coins"))
 	config.set_value("player", "current_level", get_value("current_level"))
 
 	config.set_value("player", "hammer", get_value("hammer"))
@@ -83,7 +85,8 @@ func load_data():
 	var config = ConfigFile.new()
 	var error = config.load("user://player.cfg")
 	if error == OK:
-		set_value("money", config.get_value("player", "money", 0))
+		prints("load data OK")
+		set_value("coins", config.get_value("player", "coins", 0))
 		set_value("current_level", config.get_value("player", "current_level", 0))
 		set_value("hammer", config.get_value("player", "hammer"))
 		set_value("bomb", config.get_value("player", "bomb"))

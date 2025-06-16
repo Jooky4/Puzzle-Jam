@@ -40,7 +40,8 @@ func _toggle_debug_label() -> void:
 
 
 func _enable_debug_label(value: bool) -> void:
-	debug_label.visible = value
+	if debug_label:
+		debug_label.visible = value
 
 
 func _ready() -> void:
