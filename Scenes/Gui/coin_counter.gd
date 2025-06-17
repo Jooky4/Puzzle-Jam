@@ -8,7 +8,6 @@ extends Control
 
 func _ready() -> void:
 	_set_value(value)
-	#_update_label()
 
 
 func _set_value(_value: int) -> void:

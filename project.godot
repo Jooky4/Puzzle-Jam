@@ -32,6 +32,10 @@ Player="*res://Global/player.gd"
 Gui="*res://Scenes/Gui/gui.tscn"
 Utils="*res://Global/utils.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=720

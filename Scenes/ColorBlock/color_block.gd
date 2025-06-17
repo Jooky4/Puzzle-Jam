@@ -1,6 +1,5 @@
 extends Control
 
-
 @onready var tile_nodes = [
 	$ColorTile0, $ColorTile1,
 	$ColorTile2, $ColorTile3
@@ -19,7 +18,6 @@ var can_take_block: bool = true
 var follow_mouse: bool = false
 var count_block = 0
 var last_position := Vector2.ZERO
-var jelly_layers: Array = []
 var is_button: bool: set = _set_is_button
 
 var _color_node_binds: Dictionary = {}
@@ -273,93 +271,24 @@ func remove_block() -> void:
 	self.queue_free()
 
 
-# TODO: remove
-func old_update_block(delete_color, direction) -> void:
-	for i in range(colors.size()):
-		if colors[i] == 0:
-			if count_block == 1:
-				colors = LevelData.FREE_CELL
-				self.get_parent().free_block()
-				self.queue_free()
-				return
-
-			elif count_block == 2:
-				for k in colors:
-					if colors.count(k) == 2:
-						colors = [k, k, k, k]
-						break
-				break
-
-			elif count_block == 3:
-				for j in range(colors.size()):
-					if colors[j] == delete_color:
-						colors[j] = 0
-
-				if colors[0] == 0 and colors[3] == 0:
-					colors[0] = colors[1]
-					colors[3] = colors[2]
-				elif colors[1] == 0 and colors[2] == 0:
-					colors[1] = colors[0]
-					colors[2] = colors[3]
-				elif colors[0] == 0 and colors[2] == 0:
-					colors[0] = colors[1]
-					colors[2] = colors[3]
-				elif colors[1] == 0 and colors[3] == 0:
-					colors[1] = colors[0]
-					colors[3] = colors[2]
-				elif colors[0] == 0 and colors[1] == 0:
-					colors[0] = colors[2]
-					colors[1] = colors[3]
-				elif colors[1] == 0 and colors[2] == 0:
-					colors[1] = colors[0]
-					colors[2] = colors[3]
-				elif colors[2] == 0 and colors[3] == 0:
-					colors[2] = colors[0]
-					colors[3] = colors[1]
-				else:
-					for k in range(colors.size()):
-						if colors.count(colors[k]) == 1 and colors[k] != 0:
-							colors[i] = colors[k]
-							break
-				break
-
-			elif count_block == 4:
-				if i == 0:
-					if direction == "up":
-						colors[i] = colors[2]
-					elif direction == "left":
-						colors[i] = colors[1]
-				elif i == 1:
-					if direction == "up":
-						colors[i] = colors[3]
-					elif direction == "right":
-						colors[i] = colors[0]
-				elif i == 2:
-					if direction == "down":
-						colors[i] = colors[0]
-					elif direction == "left":
-						colors[i] = colors[3]
-				elif i == 3:
-					if direction == "down":
-						colors[i] = colors[1]
-					elif direction == "right":
-						colors[i] = colors[2]
-				break
-
-	update_tiles(colors)
-	#set_reate_compain(colors)
-
-
 func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 	"""
 	Анимированно расширяет блоки.
 	fill_directions - данные из ColorBlock.get_fill_direction(side)
 	"""
 
+	if not fill_directions.keys().size():
+		# когда последний цвет удалён
+
+		if Utils.uniq_array(colors).size() == 1 and colors[0] == 0:
+			remove_block()
+
+		return
+
 	var _t: Tween = create_tween().set_parallel()
 	_t.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 
-	var tween_time = 0.5
+	var tween_time = 0.4
 	if immediate:
 		tween_time = 0
 

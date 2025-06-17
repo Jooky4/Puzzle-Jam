@@ -579,8 +579,6 @@ func check_matches(pos: Vector2i) -> void:
 	check_match_count += 1
 	var time_before_check_next: float = 0.5
 
-	#await Utils.timeout(0.5)
-
 	# За границами поля
 	if not _in_level_field(pos):
 		return
@@ -657,6 +655,7 @@ func check_matches(pos: Vector2i) -> void:
 		var center_pos = Utils.find_center_of_position_list(_tiles_positions)
 
 		var _tween_time: float = 1
+
 		for t in tiles_to_remove:
 			if t == null:
 				continue
@@ -666,13 +665,13 @@ func check_matches(pos: Vector2i) -> void:
 			t.z_index = 100
 
 			# поднимаем блок вверх
-
 			# масштаб у ColorBlock 0.5, если не сделать такой-же масштаб тайлу - он будет большой
 			t.scale = Vector2(0.5, 0.5)
 
 			# Поднимает блок вверх
-			_tween.tween_property(t, "scale", t.scale + Vector2(0.1, 0.1), _tween_time / 5)
-			_tween.tween_property(t, "position", t.position + Vector2(0, -50), _tween_time / 5)
+			var _up_tween_time = 0.2
+			_tween.tween_property(t, "scale", t.scale + Vector2(0.1, 0.1), _up_tween_time)
+			_tween.tween_property(t, "position", t.position + Vector2(0, -50), _up_tween_time)
 			_tween.set_ease(Tween.EASE_OUT)
 			_tween.chain()
 
@@ -680,12 +679,13 @@ func check_matches(pos: Vector2i) -> void:
 
 			# корректировка координаты центра
 			var _correct_center_pos = center_pos #+ Vector2(-(t.size.x / 4), -(t.size.y / 2))
-			_tween.tween_property(t, "position", _correct_center_pos, _tween_time / 2)
-			_tween.tween_property(t, "scale", Vector2(0, 0), _tween_time / 2)
+			var _center_tween_time = 0.5
+			_tween.tween_property(t, "position", _correct_center_pos, _center_tween_time)
+			_tween.tween_property(t, "scale", Vector2(0, 0), _center_tween_time)
 			_tween.play()
 			SFX.play_sound("cube_merge")
 
-		await Utils.timeout(0.1)
+		#await Utils.timeout(0.1)
 
 		# --- запускаем проверку для всех изменённых блоков ---
 		for i in used_block_list:
