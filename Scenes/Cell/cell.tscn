@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://4syyjnckjrex"]
+[gd_scene load_steps=6 format=3 uid="uid://4syyjnckjrex"]
 
 [ext_resource type="Script" uid="uid://ilcmrpa4ui3g" path="res://Scenes/Cell/cell.gd" id="1_l3g6y"]
 [ext_resource type="Shader" uid="uid://b3kqambb6o7ff" path="res://Resources/Shaders/outline_shader.gdshader" id="2_dsg24"]
-[ext_resource type="Texture2D" uid="uid://dohluh7c1ortt" path="res://Assets/cell/ads_cell_bg.png" id="3_gjjoi"]
-[ext_resource type="Texture2D" uid="uid://bb75su84f2kbf" path="res://Assets/cell/cell_bg.png" id="3_i8f8h"]
-[ext_resource type="Texture2D" uid="uid://cquobcmmdpd5t" path="res://Assets/level/ads_cell.png" id="5_bbr84"]
+[ext_resource type="Texture2D" uid="uid://b73eioo0b4u4s" path="res://Assets/cell/cell_bg.png" id="5_tggdy"]
+[ext_resource type="Texture2D" uid="uid://dseos7tweyvai" path="res://Assets/cell/ads_cell_bg.png" id="6_cnx8x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jxq24"]
 shader = ExtResource("2_dsg24")
@@ -32,8 +31,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_l3g6y")
 cell_type = "normal"
-simple_texture = ExtResource("3_i8f8h")
-ads_texture = ExtResource("3_gjjoi")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_jxq24")
@@ -42,7 +39,7 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("3_i8f8h")
+texture = ExtResource("5_tggdy")
 expand_mode = 1
 
 [node name="AdsButton" type="TextureButton" parent="."]
@@ -51,7 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
-texture_normal = ExtResource("5_bbr84")
+texture_normal = ExtResource("6_cnx8x")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

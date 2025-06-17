@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://bhu88im5cp8nc" path="res://Scenes/Level/level_title.tscn" id="6_362x8"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="6_q8n36"]
-[ext_resource type="Texture2D" uid="uid://ciye1cpko3xw1" path="res://Assets/level/level_field_bg.png" id="8_362x8"]
+[ext_resource type="Texture2D" uid="uid://cbib23cexb725" path="res://Assets/level/level_field_bg.png" id="8_362x8"]
 [ext_resource type="Texture2D" uid="uid://5ow4tqe635gs" path="res://Assets/level/new_blocks_bg.png" id="10_6rsi7"]
 [ext_resource type="PackedScene" uid="uid://c0wuc6iecq3i6" path="res://Scenes/BoosterButton/booster_button.tscn" id="10_unl86"]
 [ext_resource type="Resource" uid="uid://b3fa0qyw2m1bb" path="res://Resources/Boosters/hammer.tres" id="11_k2muv"]
@@ -81,13 +81,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -330.0
-offset_top = -333.0
-offset_right = 359.0
-offset_bottom = 377.0
+offset_left = -348.0
+offset_top = -351.0
+offset_right = 348.0
+offset_bottom = 362.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.97, 0.95)
 texture = ExtResource("8_362x8")
 
 [node name="BlockContainer" type="GridContainer" parent="UI"]

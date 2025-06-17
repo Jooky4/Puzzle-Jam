@@ -36,6 +36,7 @@ enum EState {
 	PLAY,
 	BOOSTER,
 	CHECK,
+	ADS,
 }
 
 var _current_cell_rewarded: Node
@@ -133,6 +134,7 @@ func _restart_level() -> void:
 		_make_colored_color_block(block_for_drop_2)
 
 	_update_ui()
+	_set_state(EState.PLAY)
 
 
 func _process(delta: float) -> void:
@@ -270,6 +272,7 @@ func create_level() -> void:
 	current_level = LevelManager.get_current_level()
 	pregenerated_color_blocks = LevelManager.get_pregenerated_color_blocks()
 
+	# удаляем старые клетки
 	for i in block_container.get_children():
 		block_container.remove_child(i)
 
@@ -577,7 +580,7 @@ func check_matches(pos: Vector2i) -> void:
 	_set_state(EState.CHECK)
 	# счётчик запуска функции
 	check_match_count += 1
-	var time_before_check_next: float = 0.5
+	var time_before_check_next: float = 0.7
 
 	# За границами поля
 	if not _in_level_field(pos):

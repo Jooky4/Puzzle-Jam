@@ -2,8 +2,6 @@ extends Control
 
 
 @export_enum("normal", "ads") var cell_type: String: set = _set_cell_type
-@export var simple_texture: Texture2D
-@export var ads_texture: Texture2D
 
 var level_position: Vector2i
 
@@ -27,7 +25,6 @@ func _to_string() -> String:
 
 func _update_ui() -> void:
 	if ads_button:
-		#prints("ads button", cell_type == "ads")
 		ads_button.visible = cell_type == "ads"
 
 	if texture_rect:
