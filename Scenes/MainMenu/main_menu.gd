@@ -23,3 +23,7 @@ func _on_play_button_pressed() -> void:
 func _on_shop_button_pressed() -> void:
 	SFX.play_sound("click")
 	ChangeScene.to("shop")
+
+
+func _on_button_pressed() -> void:
+	ChangeScene.to("leaderboard")

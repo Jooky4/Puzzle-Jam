@@ -9,6 +9,7 @@ var scene_aliases: Dictionary = {
 	"game": "res://Scenes/Level/level.tscn",
 	"menu": "res://Scenes/MainMenu/main_menu.tscn",
 	"shop": "res://Scenes/Shop/shop.tscn",
+	"leaderboard": "res://Scenes/Leaderboard/leaderboard.tscn"
 }
 
 @onready var color_rect = $ColorRect
@@ -37,6 +38,8 @@ func normal_screen() -> void:
 func to(scene_name: String) -> void:
 	if DEBUG:
 		prints("ChangeScene.to(%s)" % scene_name)
+
+	EventBus.change_scene.emit(scene_name)
 
 	if scene_aliases.has(scene_name):
 		var _scene = scene_aliases[scene_name]

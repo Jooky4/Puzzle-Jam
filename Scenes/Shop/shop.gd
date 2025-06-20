@@ -76,6 +76,7 @@ var catalog_mock_data = [
 @onready var booster_set_4: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet4
 
 @onready var booster_set_list = [booster_set, booster_set_2, booster_set_3, booster_set_4]
+@onready var coin_counter: Control = $Head/CoinCounter
 
 
 var _cur_purchase: Node
@@ -83,8 +84,9 @@ var _cur_purchase: Node
 
 func _ready() -> void:
 	prints("shop ready")
-	Gui.show_default_ui()
+	Gui.hide_default_ui()
 
+	coin_counter.value = Player.get_value("coins")
 	if not is_catalog_loaded:
 		_get_catalog()
 

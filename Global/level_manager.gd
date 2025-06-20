@@ -140,6 +140,23 @@ func get_current_level() -> Array:
 	return level
 
 
+func get_free_cells(_cur_level_data: Array) -> Array:
+	var result: Array
+
+	for y in _cur_level_data.size():
+		for x in _cur_level_data[y].size():
+			var _cur_cell = _cur_level_data[y][x]
+
+			if _cur_cell == LevelData.FREE_CELL:
+				var cell = {
+					"position": Vector2i(x, y),
+					"colors": _cur_cell
+				}
+				result.push_back(cell)
+
+	return result
+
+
 func get_non_empty_cells(_cur_level_data: Array) -> Array:
 	var result: Array
 

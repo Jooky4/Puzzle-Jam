@@ -34,6 +34,11 @@ func _set_count(value: int) -> void:
 		_update_ui()
 
 
+func set_locked(value: bool) -> void:
+	disabled = value
+
+	_update_ui()
+
 func _update_ui() -> void:
 	count_label.text = str(count)
 	plus_icon.visible = count == 0

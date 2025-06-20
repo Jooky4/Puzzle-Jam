@@ -1,0 +1,157 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddanxh5uq0l0m"]
+
+[ext_resource type="Script" uid="uid://cdwnjkiyg4m7g" path="res://Scenes/Leaderboard/leaderboard.gd" id="1_l68so"]
+[ext_resource type="Texture2D" uid="uid://fxo2l73ncnu7" path="res://Assets/leaderboard/background.png" id="2_1uwp6"]
+[ext_resource type="PackedScene" uid="uid://bti47vm74ld76" path="res://Scenes/Leaderboard/leaderboard_item.tscn" id="2_ttevm"]
+[ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="3_fnhgn"]
+[ext_resource type="Texture2D" uid="uid://bou100exy71nh" path="res://Assets/leaderboard/list_background.png" id="3_ttevm"]
+[ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_7crjw"]
+[ext_resource type="Texture2D" uid="uid://dte4o7iekth28" path="res://Assets/leaderboard/title_banner.png" id="6_7crjw"]
+[ext_resource type="Texture2D" uid="uid://dikdjm1kpe50r" path="res://Assets/leaderboard/glow.png" id="6_r0tq5"]
+[ext_resource type="Texture2D" uid="uid://brlaua1enw0dj" path="res://Assets/leaderboard/crown.png" id="8_ndj32"]
+
+[node name="Leaderboard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l68so")
+record = ExtResource("2_ttevm")
+
+[node name="Background2" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1658.5
+offset_top = -645.5
+offset_right = 1658.5
+offset_bottom = 645.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -640.0
+offset_right = 1301.0
+offset_bottom = 640.0
+grow_vertical = 2
+texture = ExtResource("3_fnhgn")
+
+[node name="Right" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1301.0
+offset_top = -640.0
+offset_bottom = 640.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_fnhgn")
+
+[node name="TextureRect" type="TextureRect" parent="Background2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -401.5
+offset_top = -640.0
+offset_right = 401.5
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_7crjw")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.5
+offset_top = -686.0
+offset_right = 405.5
+offset_bottom = 686.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1uwp6")
+
+[node name="Shine" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_top = -80.0
+offset_right = 370.0
+offset_bottom = 234.0
+grow_horizontal = 2
+texture = ExtResource("6_r0tq5")
+
+[node name="Top" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -209.0
+offset_right = 186.0
+offset_bottom = 167.0
+grow_horizontal = 2
+texture = ExtResource("8_ndj32")
+
+[node name="Head" type="TextureRect" parent="Top"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -299.5
+offset_top = 105.0
+offset_right = 297.5
+offset_bottom = 320.0
+grow_horizontal = 2
+texture = ExtResource("6_7crjw")
+
+[node name="BodyBG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -426.0
+offset_right = 342.0
+offset_bottom = 637.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ttevm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BodyBG"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.0
+offset_top = -411.5
+offset_right = 287.0
+offset_bottom = 475.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12

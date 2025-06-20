@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=20 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" uid="uid://14imgk83wfcp" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
@@ -10,6 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
 [ext_resource type="Texture2D" uid="uid://bwgf78txo0vgn" path="res://Assets/BuyBooster/shadow.png" id="8_jgx55"]
 [ext_resource type="PackedScene" uid="uid://de0n844wooxm0" path="res://Scenes/Gui/BuyBooster/buy_booster.tscn" id="9_8i80b"]
+[ext_resource type="ButtonGroup" uid="uid://ddmhw4t4orb6q" path="res://Assets/bottom_menu/button_group.tres" id="11_6q3xd"]
+[ext_resource type="Texture2D" uid="uid://cjdg3b1yw5r" path="res://Assets/bottom_menu/bg_normal.png" id="11_xe2re"]
+[ext_resource type="Texture2D" uid="uid://c1vogv1rfdm6y" path="res://Assets/bottom_menu/play_icon.png" id="12_bidjd"]
+[ext_resource type="Texture2D" uid="uid://kitvi7yqgwc" path="res://Assets/bottom_menu/bg_active.png" id="13_mjt16"]
+[ext_resource type="Texture2D" uid="uid://bc0uikgp18oge" path="res://Assets/bottom_menu/shop_icon.png" id="14_wf2lq"]
+[ext_resource type="LabelSettings" uid="uid://5a01mm48st42" path="res://Assets/bottom_menu/label_settings.tres" id="15_wpry6"]
+[ext_resource type="Texture2D" uid="uid://dd0ixutgivq61" path="res://Assets/bottom_menu/leaderboard_icon.png" id="16_wpry6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgx55"]
 texture = ExtResource("7_8i80b")
@@ -103,6 +110,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jgx55")
 layout_mode = 1
 
 [node name="LevelCompleteModal" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -116,6 +124,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 layout_mode = 1
 
 [node name="BuyBoosterModal" type="Panel" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -126,6 +135,124 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 [node name="BuyBooster" parent="BuyBoosterModal" instance=ExtResource("9_8i80b")]
 layout_mode = 1
 
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -363.0
+offset_top = -145.0
+offset_right = 363.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Shop" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("11_6q3xd")
+texture_normal = ExtResource("11_xe2re")
+texture_pressed = ExtResource("13_mjt16")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/Shop"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.5
+offset_top = -172.0
+offset_right = 68.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="ShopIcon" type="TextureRect" parent="Buttons/Shop/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_wf2lq")
+
+[node name="Label" type="Label" parent="Buttons/Shop/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "TITLE_SHOP"
+label_settings = ExtResource("15_wpry6")
+horizontal_alignment = 1
+
+[node name="MainScreen" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("11_6q3xd")
+texture_normal = ExtResource("11_xe2re")
+texture_pressed = ExtResource("13_mjt16")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/MainScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.5
+offset_top = -154.0
+offset_right = 56.5
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="PlayIcon" type="TextureRect" parent="Buttons/MainScreen/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_bidjd")
+
+[node name="Label" type="Label" parent="Buttons/MainScreen/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "GAME"
+label_settings = ExtResource("15_wpry6")
+horizontal_alignment = 1
+
+[node name="Leaderboards" type="TextureButton" parent="Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("11_6q3xd")
+texture_normal = ExtResource("11_xe2re")
+texture_pressed = ExtResource("13_mjt16")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons/Leaderboards"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.5
+offset_top = -175.0
+offset_right = 82.5
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="LeaderboardIcon" type="TextureRect" parent="Buttons/Leaderboards/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_wpry6")
+
+[node name="Label" type="Label" parent="Buttons/Leaderboards/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "LEADERBOARDS"
+label_settings = ExtResource("15_wpry6")
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
+[connection signal="toggled" from="Buttons/Shop" to="." method="_on_shop_toggled"]
+[connection signal="toggled" from="Buttons/MainScreen" to="." method="_on_main_screen_toggled"]
+[connection signal="toggled" from="Buttons/Leaderboards" to="." method="_on_leaderboards_toggled"]

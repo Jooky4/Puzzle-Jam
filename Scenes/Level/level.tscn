@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=20 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
-[ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block.tscn" id="2_1ov45"]
+[ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block2d.tscn" id="2_1ov45"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
 [ext_resource type="PackedScene" uid="uid://ddm5gf0xru7sp" path="res://Scenes/BoosterUi/animation_hammer.tscn" id="4_dhxf7"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="5_7i4w6"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="12_dhxf7"]
 [ext_resource type="Resource" uid="uid://bf162jva2s0ae" path="res://Resources/Boosters/shuffle.tres" id="13_mkqdc"]
 [ext_resource type="PackedScene" uid="uid://cj3ixpro2ygul" path="res://Scenes/BoosterUi/animationBomb.tscn" id="16_mkqdc"]
+[ext_resource type="PackedScene" uid="uid://c5jgkah2iwcjf" path="res://Scenes/Tutorial/tutorial.tscn" id="17_n0xg1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unl86"]
 texture = ExtResource("10_6rsi7")
@@ -173,20 +174,24 @@ theme_override_constants/separation = 18
 
 [node name="Hammer" parent="UI/Boosters" instance=ExtResource("10_unl86")]
 layout_mode = 2
+disabled = true
 booster = ExtResource("11_k2muv")
 count = 3
+locked_text = "4 ур"
 
 [node name="Bomb" parent="UI/Boosters" instance=ExtResource("10_unl86")]
 layout_mode = 2
+disabled = true
 booster = ExtResource("12_dhxf7")
 count = 1
-locked_text = "30 ур"
+locked_text = "8 ур"
 
 [node name="Shuffle" parent="UI/Boosters" instance=ExtResource("10_unl86")]
 layout_mode = 2
+disabled = true
 booster = ExtResource("13_mkqdc")
 count = 3
-locked_text = "30 ур"
+locked_text = "6 ур"
 
 [node name="BoosterUI" parent="UI" instance=ExtResource("11_unl86")]
 visible = false
@@ -207,6 +212,8 @@ grow_vertical = 0
 
 [node name="AnimationBomb" parent="." instance=ExtResource("16_mkqdc")]
 z_index = 10
+
+[node name="Tutorial" parent="." instance=ExtResource("17_n0xg1")]
 
 [connection signal="pressed" from="UI/Boosters/Hammer" to="." method="_on_hammer_pressed"]
 [connection signal="pressed" from="UI/Boosters/Bomb" to="." method="_on_bomb_pressed"]

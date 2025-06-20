@@ -1,7 +1,6 @@
 @tool
 extends VBoxContainer
 
-@export var count: int
 @export var booster: Booster: set = _set_booster
 @export_enum("coins", "ads") var buy_type: String
 
@@ -13,9 +12,10 @@ extends VBoxContainer
 @onready var coins_label: Label = $BuyForCoins/Label
 
 
+var count: int = 0
 var _price_info: Dictionary
 
-signal buy_pressed(booster: Booster, count)
+signal buy_pressed(booster: Booster, count, price)
 
 
 func _ready() -> void:
@@ -24,7 +24,17 @@ func _ready() -> void:
 
 func _set_booster(value: Booster) -> void:
 	booster = value
-	_price_info = booster.get_price()
+
+	if not booster:
+		return
+
+	if buy_type == "coins":
+		_price_info = booster.get_price()
+	else:
+		_price_info = booster.get_count_by_ads()
+
+	count = _price_info.count
+
 	_update_ui()
 
 
@@ -43,12 +53,13 @@ func _update_ui() -> void:
 		buy_for_coins_btn.visible = buy_type == "coins"
 
 	if coins_label:
-		coins_label.text = str(_price_info.cost)
+		if buy_type == "coins":
+			coins_label.text = str(_price_info.cost)
 
 
 func _on_buy_for_coins_pressed() -> void:
-	buy_pressed.emit(booster, count)
+	buy_pressed.emit(booster, _price_info.count, _price_info.cost)
 
 
 func _on_buy_for_ads_pressed() -> void:
-	buy_pressed.emit(booster, count)
+	buy_pressed.emit(booster, _price_info.count, _price_info.cost)

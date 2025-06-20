@@ -16,6 +16,11 @@ extends CanvasLayer
 @onready var home_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer2
 @onready var settings_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer
 
+@onready var bottom_buttons: HBoxContainer = $Buttons
+@onready var shop_button: TextureButton = %Shop
+@onready var main_screen_button: TextureButton = %MainScreen
+@onready var leaderboards_button: TextureButton = %Leaderboards
+
 
 signal restart_level
 signal next_level
@@ -50,6 +55,7 @@ func _ready() -> void:
 	EventBus.game_over.connect(_on_game_over)
 	EventBus.level_complete.connect(_on_level_complete)
 	EventBus.buy_booster.connect(_on_buy_booster)
+	EventBus.change_scene.connect(_on_change_scene)
 
 
 func _on_game_over_close() -> void:
@@ -151,6 +157,18 @@ func show_level_ui() -> void:
 func show_main_menu_ui() -> void:
 	home_button_wrap.hide()
 	settings_button_wrap.show()
+	money_value_label.show()
+
+
+func hide_default_ui() -> void:
+	if home_button:
+		home_button_wrap.hide()
+
+	if settings_button_wrap:
+		settings_button_wrap.hide()
+
+	if money_value_label:
+		money_value_label.hide()
 
 
 func show_default_ui() -> void:
@@ -163,3 +181,40 @@ func show_default_ui() -> void:
 
 func _on_settings_modal_modal_close() -> void:
 	hide_modal(EModal.Settings)
+
+
+func _on_shop_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		ChangeScene.to("shop")
+
+
+func _on_main_screen_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		ChangeScene.to("menu")
+
+
+func _on_leaderboards_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		ChangeScene.to("leaderboard")
+
+
+func _on_change_scene(scene_name: String) -> void:
+	bottom_buttons.show()
+	shop_button.get_node("VBoxContainer/Label").visible = false
+	main_screen_button.get_node("VBoxContainer/Label").visible = false
+	leaderboards_button.get_node("VBoxContainer/Label").visible = false
+
+	if scene_name == "game":
+		bottom_buttons.hide()
+
+	if scene_name == "shop":
+		shop_button.button_pressed = true
+		shop_button.get_node("VBoxContainer/Label").visible = true
+
+	if scene_name == "menu":
+		main_screen_button.button_pressed = true
+		main_screen_button.get_node("VBoxContainer/Label").visible = true
+
+	if scene_name == "leaderboard":
+		leaderboards_button.button_pressed = true
+		leaderboards_button.get_node("VBoxContainer/Label").visible = true

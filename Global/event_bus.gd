@@ -18,6 +18,7 @@ signal booster_used(booster_type: Booster.EType)
 signal player_data_changed(name: String)
 signal player_loaded
 signal buy_booster(booster_type: Booster)
+signal change_scene(scene_name: String)
 
 # На экране GameOver освобождает N-ячеек за монеты/рекламу, что-бы продолжить игру
 signal buy_free_cell_on_level(cell_count: int)

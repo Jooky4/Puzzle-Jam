@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://5a01mm48st42"]
+
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="1_ik3fr"]
+
+[resource]
+font = ExtResource("1_ik3fr")
+font_size = 24
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)

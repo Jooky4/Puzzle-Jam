@@ -23,6 +23,7 @@ extends Node2D
 
 @onready var hammer_animation: Node2D = $AnimationHammer
 @onready var animation_bomb: Node2D = $AnimationBomb
+@onready var tutorial: Node2D = $Tutorial
 
 
 var BLOCK_ARR: Array
@@ -43,6 +44,8 @@ var _current_cell_rewarded: Node
 var pregenerated_color_blocks: Array
 
 var _debug_var_1: bool = false
+var leaderboard_options: Dictionary
+var block_center_offset = Vector2(50, 50)
 
 
 func _ready() -> void:
@@ -57,6 +60,12 @@ func _ready() -> void:
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
 	EventBus.buy_free_cell_on_level.connect(_on_buy_free_cells)
 
+	match Bridge.platform.id:
+		"yandex":
+			leaderboard_options = {
+				"leaderboardName": Config.LEADERBOARD_NAME,
+				"score": 0
+			}
 
 func _on_buy_free_cells(count: int) -> void:
 	""" Удаляет случайные count блоков на карте """
@@ -98,7 +107,22 @@ func _next_level() -> void:
 	LevelManager.current_level += 1
 	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
+
+
+	# увеличиваем на 1 так как current_level это индекс уровня
+	leaderboard_options["score"] = LevelManager.current_level + 1
+
+	prints("next level", leaderboard_options, Bridge.player.is_authorized, Bridge.leaderboard.is_set_score_supported)
+
+	#if Bridge.player.is_authorized and Bridge.leaderboard.is_set_score_supported:
+	prints("set score")
+	Bridge.leaderboard.set_score(leaderboard_options, Callable(self, "_on_set_score_completed"))
+
 	_restart_level()
+
+
+func _on_set_score_completed() -> void:
+	prints("_on_set_score_completed")
 
 
 func _make_colored_color_block(cb: Node) -> void:
@@ -110,11 +134,50 @@ func _make_colored_color_block(cb: Node) -> void:
 		cb.create_random_color()
 
 
+func run_tutorial() -> void:
+	match LevelManager.current_level:
+		0:
+			prints("how to play totorial")
+			var _pos1 = block_for_drop_1.global_position + block_center_offset
+			var free_cell = LevelManager.get_free_cells(current_level)[0]
+			var free_cell_node = block_container.get_child(Utils.get_index_by_pos(free_cell.position, 6))
+			var _pos2 = free_cell_node.global_position + block_center_offset
+
+			tutorial.run()
+			tutorial.run_level_01(_pos1, _pos2)
+		3:
+			prints("hammer tutorial")
+			Player.set_value("hammer", 1)
+			hammer_button.count = 1
+			var _pos = hammer_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
+		5:
+			prints("shuffle tutorial")
+			Player.set_value("shuffle", 1)
+			shuffle_button.count = 1
+			var _pos = shuffle_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
+		7:
+			prints("bomb tutorial")
+			Player.set_value("bomb", 1)
+			bomb_button.count = 1
+			var _pos = bomb_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(0, -70), _pos)
+
+
 func _restart_level() -> void:
 	BLOCK_ARR = []
 
 	for i in block_container.get_children():
 		block_container.remove_child(i)
+
+	# блокируем бустеры на ранних уровнях
+	for booster_button in [hammer_button, bomb_button, shuffle_button]:
+		var _b = booster_button.booster
+		booster_button.set_locked(not _b.is_enabled_on_level(LevelManager.current_level))
 
 	LevelManager.is_prev_gameover = false
 	var goal_colors_value = LevelManager.get_target_colors()
@@ -135,6 +198,12 @@ func _restart_level() -> void:
 
 	_update_ui()
 	_set_state(EState.PLAY)
+
+	# Обучение
+
+	# задержка нужна что-бы позиции элементов успели синхронизироваться
+	await Utils.timeout(0.2)
+	run_tutorial()
 
 
 func _process(delta: float) -> void:
@@ -169,6 +238,11 @@ func _input(event):
 	var drop = false
 
 	if event is InputEventMouseButton:
+
+		# при клике останавливаем туториал
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			tutorial.stop()
+
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			var count = 0
 			for i in block_container.get_children():
@@ -629,7 +703,7 @@ func check_matches(pos: Vector2i) -> void:
 		#prints("анимация удаления тайла:", tile_color, LevelData.COLOR_NAMES[tile_color])
 
 		# Засчитываем цель по цвету
-		goal_colors_container.dec_color(tile_color)
+		goal_colors_container.dec_color(tile_color, 1)
 		# Оповещаем всех что цель обновилась
 		EventBus.goals_changed.emit(goal_colors_container.colors)
 
@@ -639,6 +713,8 @@ func check_matches(pos: Vector2i) -> void:
 			tiles_to_remove.push_back(_tile)
 
 		for i in matched_blocks:
+			goal_colors_container.dec_color(tile_color, 1)
+			EventBus.goals_changed.emit(goal_colors_container.colors)
 			var _tile2 = _cb_node_remove_colors(i.block, tile_color, i.neighbour_side)
 			tiles_to_remove.push_back(_tile2)
 
@@ -792,6 +868,24 @@ func _on_booster_button_pressed(booster: Booster) -> void:
 		EventBus.buy_booster.emit(booster)
 	else:
 		_set_state(EState.BOOSTER)
+		tutorial.hide_pointer()
+		if LevelManager.current_level not in [3, 5]:
+			return
+
+		if current_booster.type == Booster.EType.HAMMER:
+			var cell = block_container.get_child(Utils.get_index_by_pos(Vector2i(3, 3), 6))
+			var pos = cell.global_position + block_center_offset
+			prints("hammer second tutorial")
+			tutorial.stop()
+			tutorial.run()
+			tutorial.run_click_hammer(pos + Vector2(80, 80), pos)
+		if current_booster.type == Booster.EType.BOMB:
+			var cell = block_container.get_child(Utils.get_index_by_pos(Vector2i(3, 3), 6))
+			var pos = cell.global_position + block_center_offset
+			prints("bomb second tutorial")
+			tutorial.stop()
+			tutorial.run()
+			tutorial.run_click_hammer(pos + Vector2(80, 80), pos)
 
 
 func _on_hammer_pressed() -> void:

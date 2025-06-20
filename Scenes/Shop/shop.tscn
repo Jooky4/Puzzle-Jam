@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dup06l285as1o"]
+[gd_scene load_steps=19 format=3 uid="uid://dup06l285as1o"]
 
 [ext_resource type="Script" uid="uid://c6omfipd6jj2v" path="res://Scenes/Shop/shop.gd" id="1_8dak6"]
 [ext_resource type="Texture2D" uid="uid://grj6lrpbolaa" path="res://Assets/shop/shop_background.png" id="1_dqdqq"]
@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_fsgtm"]
 [ext_resource type="Texture2D" uid="uid://5rrnjjpeasay" path="res://Assets/shop/coins_list_bg.png" id="7_xybqi"]
 [ext_resource type="Texture2D" uid="uid://c006v64fvshbc" path="res://Assets/shop/coins_head_bg.png" id="8_fsgtm"]
+[ext_resource type="PackedScene" uid="uid://dc0fvnmdoovuh" path="res://Scenes/Gui/coin_counter.tscn" id="8_oha7t"]
 [ext_resource type="PackedScene" uid="uid://bk5ieei7j7ott" path="res://Scenes/Shop/booster_set/booster_set.tscn" id="10_xybqi"]
 [ext_resource type="Texture2D" uid="uid://4crb2fnclsy4" path="res://Assets/shop/booster_pack_head_bg.png" id="11_fsgtm"]
 
@@ -139,19 +140,24 @@ texture = ExtResource("3_w8bjl")
 
 [node name="Label" type="Label" parent="Head/HeadBg"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 183.0
-offset_top = -44.5
-offset_right = 456.0
-offset_bottom = 26.5
+offset_left = -166.0
+offset_top = -35.5
+offset_right = 166.0
+offset_bottom = 35.5
+grow_horizontal = 2
 grow_vertical = 2
 text = "TITLE_SHOP"
 label_settings = SubResource("LabelSettings_oha7t")
+horizontal_alignment = 1
 uppercase = true
 
 [node name="CloseButton" type="TextureButton" parent="Head"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 offset_left = 21.0
@@ -160,6 +166,21 @@ offset_right = 135.0
 offset_bottom = 129.0
 focus_mode = 0
 texture_normal = ExtResource("2_8dak6")
+
+[node name="CoinCounter" parent="Head" instance=ExtResource("8_oha7t")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -59.0
+offset_right = 32.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(720, 1115)
@@ -305,7 +326,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_bottom = 230
 
 [node name="Panel" type="PanelContainer" parent="ScrollContainer/VBoxContainer/BoosterPack/MarginContainer"]
 layout_mode = 2
