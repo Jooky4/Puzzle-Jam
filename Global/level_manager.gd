@@ -8,90 +8,74 @@ var current_level_colors: Array
 var is_prev_gameover: bool
 var current_level_data: Array
 
-enum BlockType {
-	COMMON,
-	KEY_1,
-	KEY_2,
-	KEY_3,
-	KEY_4,
-	KEY_5,
-	LOCK_1,
-	LOCK_2,
-	LOCK_3,
-	LOCK_4,
-	LOCK_5,
-	LIVE,
-	ICE,
-	ROCKET,
-}
-
 func _set_current_level(value) -> void:
-	prints("set cur lvl", value)
 	current_level = value
 
 
-func get_random_color():
+# TODO: remove
+func old_get_random_color():
 	var keys = LevelData.COLORS.keys()
 	var random_index = randi() % keys.size()
 	var random_key = keys[random_index]
 	return LevelData.COLORS[random_key]
 
 
-# TODO: протестировать
+# TODO: перенести в class ColorTile
+# TODO: возвращать ColorTile вместо словаря
 func get_color_with_type(color: int) -> Dictionary:
 	var _normalized_color = color
-	var block_type: BlockType = BlockType.COMMON
+	var block_type: ColorTile.Type = ColorTile.Type.COMMON
 
 	# Это ключ?
 	if color >= 20 and color <= 67:
 		if color <= 27:
 			_normalized_color = color - 10
-			block_type = BlockType.KEY_1
+			block_type = ColorTile.Type.KEY_1
 		elif color <= 37:
 			_normalized_color = color - 20
-			block_type = BlockType.KEY_2
+			block_type = ColorTile.Type.KEY_2
 		elif color <= 47:
 			_normalized_color = color - 30
-			block_type = BlockType.KEY_3
+			block_type = ColorTile.Type.KEY_3
 		elif color <= 57:
 			_normalized_color = color - 40
-			block_type = BlockType.KEY_4
+			block_type = ColorTile.Type.KEY_4
 		else:
 			_normalized_color = color - 50
-			block_type = BlockType.KEY_5
+			block_type = ColorTile.Type.KEY_5
 
 	# Это замок?
 	elif color >= 210 and color <= 617:
 			if color <= 217:
 				_normalized_color = color - 200
-				block_type = BlockType.LOCK_1
+				block_type = ColorTile.Type.LOCK_1
 			elif color <= 317:
 				_normalized_color = color - 300
-				block_type = BlockType.LOCK_2
+				block_type = ColorTile.Type.LOCK_2
 			elif color <= 417:
 				_normalized_color = color - 400
-				block_type = BlockType.LOCK_3
+				block_type = ColorTile.Type.LOCK_3
 			elif color <= 517:
 				_normalized_color = color - 500
-				block_type = BlockType.LOCK_4
+				block_type = ColorTile.Type.LOCK_4
 			else:
 				_normalized_color = color - 600
-				block_type = BlockType.LOCK_5
+				block_type = ColorTile.Type.LOCK_5
 
 	# Живой куб?
 	elif color >= 1010 and color <= 1017:
 		_normalized_color = color - 1000
-		block_type = BlockType.LIVE
+		block_type = ColorTile.Type.LIVE
 
 	# Замороженный куб
 	elif color >= 2010 and color <= 2017:
 		_normalized_color = color - 2000
-		block_type = BlockType.ICE
+		block_type = ColorTile.Type.ICE
 
 	# Ракета
 	elif color >= 3010 and color <= 3017:
 		_normalized_color = color - 3000
-		block_type = BlockType.ROCKET
+		block_type = ColorTile.Type.ROCKET
 
 	var _color: Color
 	if _normalized_color > 2:
@@ -129,7 +113,6 @@ func get_cell(pos: Vector2i) -> Array:
 func get_current_level() -> Array:
 	""" копия текущего уровня """
 	var _cur_level = current_level
-	prints("all, cur, max", LevelData.levels.size(), current_level, MAX_LEVEL)
 	if current_level > MAX_LEVEL - 1:
 		prints("max level reached")
 		_cur_level = (current_level % MAX_LEVEL) + 50
@@ -236,3 +219,34 @@ func get_pregenerated_color_blocks() -> Array:
 		return LevelData.blocks_for_levels[current_level].duplicate(true)
 
 	return []
+
+
+func get_color_block(pos: Vector2i, level_data: Array) -> ColorBlock:
+	var color_block = ColorBlock.new()
+	color_block.position = pos
+	color_block.colors = level_data[pos.y][pos.x]
+	return color_block
+
+
+func get_block_with_lock(level_data: Array) -> Array[ColorBlock]:
+	var result: Array[ColorBlock]
+
+	for y in level_data.size():
+		for x in level_data[y].size():
+			var _cur_cell = level_data[y][x]
+
+			# значения ячеек с замками (см. ColorTile.Type)
+			const min_lock = 210
+			const max_lock = 617
+
+			for i in _cur_cell:
+				prints("check cell", i)
+				if i >= min_lock and i <= max_lock:
+					var color_block = ColorBlock.new()
+					color_block.colors = _cur_cell
+					color_block.position.x = x
+					color_block.position.y = y
+					result.push_back(color_block)
+					break
+
+	return result

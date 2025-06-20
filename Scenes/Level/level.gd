@@ -3,13 +3,14 @@ extends Node2D
 @export var cell_block: PackedScene
 @export var color_block: PackedScene
 
+
 @onready var block_container = $UI/BlockContainer
 
 @onready var new_block_cell_left: Panel = $UI/NewColorBlocks/ColorRect
 @onready var new_block_cell_right: Panel = $UI/NewColorBlocks/ColorRect2
 
-@onready var block_for_drop_1 = $UI/NewColorBlocks/ColorRect/Block
-@onready var block_for_drop_2 = $UI/NewColorBlocks/ColorRect2/Block2
+@onready var block_for_drop_1 = $UI/NewColorBlocks/ColorRect/ColorBlock2D
+@onready var block_for_drop_2 = $UI/NewColorBlocks/ColorRect2/ColorBlock2D
 @onready var level_title: Control = $UI/LevelTitle
 
 @onready var goal_colors_container: Control = $UI/GoalColorController
@@ -27,6 +28,7 @@ extends Node2D
 
 
 var BLOCK_ARR: Array
+# данные уровня
 var current_level: Array = []
 var _state: EState
 var check_match_count: int = 0
@@ -47,6 +49,8 @@ var _debug_var_1: bool = false
 var leaderboard_options: Dictionary
 var block_center_offset = Vector2(50, 50)
 
+var _locks: Array
+
 
 func _ready() -> void:
 	for booster_btn in booster_panel.get_children():
@@ -66,6 +70,7 @@ func _ready() -> void:
 				"leaderboardName": Config.LEADERBOARD_NAME,
 				"score": 0
 			}
+
 
 func _on_buy_free_cells(count: int) -> void:
 	""" Удаляет случайные count блоков на карте """
@@ -107,7 +112,6 @@ func _next_level() -> void:
 	LevelManager.current_level += 1
 	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
-
 
 	# увеличиваем на 1 так как current_level это индекс уровня
 	leaderboard_options["score"] = LevelManager.current_level + 1
@@ -184,8 +188,11 @@ func _restart_level() -> void:
 	EventBus.goals_changed.emit(goal_colors_value)
 	goal_colors_container.set_colors(goal_colors_value)
 
+
 	create_level()
 	BLOCK_ARR = block_container.get_children()
+
+	_locks = LevelManager.get_block_with_lock(current_level)
 
 	_make_colored_color_block(block_for_drop_1)
 
@@ -368,9 +375,9 @@ func create_level() -> void:
 
 				if current_level_cell != LevelData.FREE_CELL:
 					var _cb = color_block.instantiate()
+					buff.add_child(_cb)
 					_cb.pressed.connect(_on_color_block_pressed)
 					buff.not_can_drop()
-					buff.add_child(_cb)
 					_cb.colors = current_level_cell
 					_cb.update_tiles(current_level_cell)
 
@@ -481,7 +488,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 					3: ColorBlock.ESides.LEFT,
 				}
 
-				var _cb = _create_color_block(n_pos, current_level)
+				var _cb = LevelManager.get_color_block(n_pos, current_level)
 				_cb_node_remove_colors(_cb, _remove_color, sides[_rnd_index])
 				_block.colors = _cb.colors
 
@@ -570,7 +577,8 @@ func update_level() -> void:
 	block_container.anchors_preset = Control.PRESET_CENTER
 
 
-func _create_color_block(pos: Vector2i, level_data) -> ColorBlock:
+#TODO: remove
+func old_create_color_block(pos: Vector2i, level_data) -> ColorBlock:
 	var color_block = ColorBlock.new()
 	color_block.position = pos
 	color_block.colors = level_data[pos.y][pos.x]
@@ -660,7 +668,7 @@ func check_matches(pos: Vector2i) -> void:
 	if not _in_level_field(pos):
 		return
 
-	var current_block = _create_color_block(pos, current_level)
+	var current_block = LevelManager.get_color_block(pos, current_level)
 	var around_blocks: Array
 	var tile_index: int
 	var tile_color: int
@@ -706,6 +714,7 @@ func check_matches(pos: Vector2i) -> void:
 		goal_colors_container.dec_color(tile_color, 1)
 		# Оповещаем всех что цель обновилась
 		EventBus.goals_changed.emit(goal_colors_container.colors)
+		prints("match color", tile_color)
 
 		var tiles_to_remove: Array
 		var _tile = _cb_node_remove_colors(current_block, tile_color, matched_blocks[0].current_side)
@@ -715,6 +724,13 @@ func check_matches(pos: Vector2i) -> void:
 		for i in matched_blocks:
 			goal_colors_container.dec_color(tile_color, 1)
 			EventBus.goals_changed.emit(goal_colors_container.colors)
+
+			# Проверяем что удалился ключ
+			var _color_tile = i.block.get_color_tile(tile_color)
+			if _color_tile.is_key():
+				var block_node = get_color_block(i.block.position)
+				_key_retrieved(_color_tile, block_node)
+
 			var _tile2 = _cb_node_remove_colors(i.block, tile_color, i.neighbour_side)
 			tiles_to_remove.push_back(_tile2)
 
@@ -808,12 +824,12 @@ func get_blocks_around_tile(color_block: ColorBlock, tile_index) -> Array:
 		if not _in_level_field(neighbour_pos):
 			continue
 
-		var neighbour_block = _create_color_block(neighbour_pos, current_level)
+		var neighbour_block = LevelManager.get_color_block(neighbour_pos, current_level)
 
 		# данные о соседнем блоке
 		var data = {
 			# соседний блок
-			"block": _create_color_block(neighbour_pos, current_level),
+			"block": LevelManager.get_color_block(neighbour_pos, current_level),
 			# сторона с которой соседний блок прилегает к color_block
 			"current_side": side,
 			# сторона с которой color_block прилегает к соседу
@@ -923,3 +939,32 @@ func _on_booster_ui_use_pressed() -> void:
 	await shuffle()
 	_set_state(EState.PLAY)
 	EventBus.booster_used.emit(current_booster.type)
+
+
+func _key_retrieved(_color_tile, cb) -> void:
+	var lock_type = ColorTile.get_lock_type(_color_tile.type)
+
+	var key_pos = cb.global_position
+
+	for i in _locks:
+		i.remove_lock(_color_tile.color, lock_type)
+		var lock_pos = get_color_block(i.position).global_position
+
+		var key_node = load("res://Scenes/Key/key.tscn").instantiate()
+		add_child(key_node)
+		key_node.z_index = 130
+		key_node.position = key_pos
+		var _t = create_tween()
+
+		_t.tween_property(key_node, "position", key_pos + Vector2(0, -50), 0.4)
+		_t.chain()
+		_t.tween_property(key_node, "position", lock_pos + Vector2(50, 50), 0.4)
+		_t.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		await _t.finished
+		remove_child(key_node)
+
+		current_level[i.position.y][i.position.x] = i.colors
+		var cell_idx = Utils.get_index_by_pos(i.position, 6)
+		var color_block2d = block_container.get_child(cell_idx).get_color_block()
+		color_block2d.colors = i.colors
+		color_block2d.update_tiles(i.colors)

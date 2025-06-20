@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" uid="uid://d0u0phlmb7enr" path="res://Scenes/Level/level.gd" id="1_lscpc"]
-[ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block2d.tscn" id="2_1ov45"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
+[ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block2d.tscn" id="3_2m32g"]
 [ext_resource type="PackedScene" uid="uid://ddm5gf0xru7sp" path="res://Scenes/BoosterUi/animation_hammer.tscn" id="4_dhxf7"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="5_7i4w6"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
@@ -27,7 +27,7 @@ texture = ExtResource("10_6rsi7")
 [node name="Level" type="Node2D"]
 script = ExtResource("1_lscpc")
 cell_block = ExtResource("2_lscpc")
-color_block = ExtResource("2_1ov45")
+color_block = ExtResource("3_2m32g")
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(-1, 0)
@@ -128,17 +128,8 @@ custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_unl86")
 
-[node name="Block" parent="UI/NewColorBlocks/ColorRect" instance=ExtResource("2_1ov45")]
+[node name="ColorBlock2D" parent="UI/NewColorBlocks/ColorRect" instance=ExtResource("3_2m32g")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -97.0
-offset_right = 100.0
-offset_bottom = 103.0
 
 [node name="ColorRect2" type="Panel" parent="UI/NewColorBlocks"]
 self_modulate = Color(1, 1, 1, 0.5)
@@ -146,17 +137,8 @@ custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_wvups")
 
-[node name="Block2" parent="UI/NewColorBlocks/ColorRect2" instance=ExtResource("2_1ov45")]
+[node name="ColorBlock2D" parent="UI/NewColorBlocks/ColorRect2" instance=ExtResource("3_2m32g")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -97.0
-offset_right = 100.0
-offset_bottom = 103.0
 
 [node name="Boosters" type="HBoxContainer" parent="UI"]
 layout_mode = 1

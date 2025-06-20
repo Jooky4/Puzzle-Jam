@@ -15,10 +15,14 @@ class_name ColorBlock extends Resource
 side - сторона блока (верхняя сторона, левая сторона и т.д.)
 """
 
+"""
+colors - содержит оригинальные значения цвета, как записано в уровне.
+Напр. [2013, 1010, 12, 10]
+"""
 @export var colors: Array
 @export var position: Vector2i
 
-const DEBUG = false
+const DEBUG = true
 const FREE_TILE_COLOR = 0
 
 var is_vertical: bool
@@ -97,9 +101,14 @@ func _get_side_colors(_colors: Array, side: ESides) -> Array:
 	var idx = TILE_INDEXES_BY_SIDE[side]
 	var color1 = idx[0]
 	var color2 = idx[1]
+	var _c1_with_type = ColorTile.create_from_color(_colors[color1])
+	var _c2_with_type = ColorTile.create_from_color(_colors[color2])
+
 	return [
-		_colors[color1],
-		_colors[color2]
+		#_colors[color1],
+		#_colors[color2]
+		_c1_with_type.color,
+		_c2_with_type.color
 	]
 
 
@@ -341,6 +350,8 @@ func _remove_color(color, side: ESides) -> Array:
 	"""
 	заменяем удаляемый цвет нулями, если обнаружено совпадение
 	"""
+
+	prints("_remove_color", colors, color, side)
 	var unique_colors = get_unique_colors()
 	var color_count = get_colors_count()
 
@@ -348,6 +359,8 @@ func _remove_color(color, side: ESides) -> Array:
 
 	match unique_colors.size():
 		1:
+			if DEBUG:
+				prints("один цвет", unique_colors, colors)
 			if color == colors[0]:
 				result = [
 					FREE_TILE_COLOR,
@@ -356,6 +369,8 @@ func _remove_color(color, side: ESides) -> Array:
 					FREE_TILE_COLOR
 				]
 		2:
+			if DEBUG:
+				prints("два цвета", unique_colors, colors)
 			var _side_colors = get_side_colors(side)
 			var _unique_side_colors = Utils.uniq_array(_side_colors)
 
@@ -366,7 +381,8 @@ func _remove_color(color, side: ESides) -> Array:
 						result[i] = FREE_TILE_COLOR
 		3:
 			if DEBUG:
-				prints("3 colors")
+				prints("три цвета", unique_colors, colors)
+
 			var side_colors = get_side_colors(side)
 			var side_tile_indexes = get_side_tiles(side)
 
@@ -386,15 +402,19 @@ func _remove_color(color, side: ESides) -> Array:
 			else:
 				if DEBUG:
 					prints("not same colors in side")
+
 				# ищем удаляемый цвет
 				var tile_to_remove: int
 				var tile_to_stay: int
 
 				for i in side_tile_indexes:
-					if color == colors[i]:
+					var ct = ColorTile.create_from_color(colors[i])
+					if color == ct.color:
 						tile_to_remove = i
 					else:
 						tile_to_stay = i
+
+				prints("tile to remove", color, colors, tile_to_remove, tile_to_stay)
 
 				# если удаляемый цвет занимает две клетки (в глубину)
 				if color_count[colors[tile_to_remove]] > 1:
@@ -414,7 +434,8 @@ func _remove_color(color, side: ESides) -> Array:
 					result[tile_to_remove] = FREE_TILE_COLOR
 		4:
 			if DEBUG:
-				prints("4 colors")
+				prints("четыре цвета", unique_colors, colors)
+
 			var color_index = colors.find(color)
 
 			var another_color_index = get_another_side_tile(color_index, side)
@@ -423,6 +444,7 @@ func _remove_color(color, side: ESides) -> Array:
 			else:
 				result[color_index] = FREE_TILE_COLOR
 
+	prints("result", result)
 	return result
 
 
@@ -483,3 +505,34 @@ func _side_position(side: ESides) -> Vector2i:
 
 	Vector2i(2, 3) * Vector2i(2, 3)
 	return position + SIDE_POSITION[side]
+
+
+func get_color_tile(value: int) -> ColorTile:
+	"""
+	Принимает нормализованный цвет (от 10 до 17)
+	Возвращает Colortile
+	"""
+	var result: int = value
+
+	for i in colors:
+		var ct = ColorTile.create_from_color(i)
+		if ct.color == value:
+			return ct
+
+	return
+
+
+func remove_lock(color: int, lock_type: ColorTile.Type) -> void:
+	var result: Array
+	prints("remove_lock()", color, colors, lock_type)
+
+	for i in colors.duplicate():
+		var ct = ColorTile.create_from_color(i)
+		prints("each color", i, ct.color, ct.color_value, ct.type, lock_type)
+		if ct.type == lock_type:
+			result.push_back(ct.color)
+		else:
+			result.push_back(i)
+
+	prints("remove_lock() end", result, colors)
+	colors = result

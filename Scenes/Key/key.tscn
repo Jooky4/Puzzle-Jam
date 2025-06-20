@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dklo2m4r28trj"]
+
+[ext_resource type="Texture2D" uid="uid://bapn45irskwn8" path="res://Assets/color_blocks/key_and_lock/key_gold.png" id="1_q37b3"]
+
+[node name="Key" type="Node2D"]
+
+[node name="KeySprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_q37b3")

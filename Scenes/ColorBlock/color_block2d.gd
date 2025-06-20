@@ -1,11 +1,4 @@
-extends Control
-
-@onready var tile_nodes = [
-	$ColorTile0, $ColorTile1,
-	$ColorTile2, $ColorTile3
-]
-@onready var debug_label: Label = $DebugLabel
-@onready var button = $Button
+class_name ColorBlock2D extends Control
 
 var colors: Array = LevelData.FREE_CELL.duplicate(true)
 
@@ -28,6 +21,13 @@ const FULL_H = 200
 const HALF_W = FULL_W / 2
 const HALF_H = FULL_H / 2
 
+
+@onready var tile_nodes: Array[ColorTile2D] = [
+	$ColorTile0, $ColorTile1,
+	$ColorTile2, $ColorTile3
+]
+@onready var debug_label: Label = $DebugLabel
+@onready var button = $Button
 
 signal pressed
 signal remove
@@ -209,15 +209,14 @@ func set_colors(color_list: Array) -> void:
 	for i in tile_nodes.size():
 		var _color = color_list[i]
 		var _block = tile_nodes[i]
-		_color_node_binds[_color] = _block
 
 		# сброс предыдущих манипуляций с тайлами
 		_block.position = block_pos[i]
 		_block.size = Vector2(HALF_W, HALF_H)
 		_block.visible = true
 
-		var _color_data = LevelManager.get_color_with_type(_color)
-		_block.color = _color_data.color
+		_block.color = _color
+		_color_node_binds[_block.get_color()] = _block
 
 
 func update_tiles(color_list: Array) -> void:
@@ -347,7 +346,5 @@ func get_color_tile_node(color: int) -> Node:
 	var _color_node = _color_node_binds[color]
 
 	var _node = _color_node.duplicate()
-	#_node.color = LevelManager.get_color_with_type(color).color
-	#_node.size = _color_node.size / 2
 	_node.position = global_position
 	return _node

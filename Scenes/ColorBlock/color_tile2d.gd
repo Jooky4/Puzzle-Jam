@@ -1,26 +1,51 @@
-extends Control
+class_name ColorTile2D extends Control
 
-@export var color: Color: set = _set_color
+@export var color: int: set = _set_color
 
 @export var jelly_lerp_speed: float = 8.0
 @export var jelly_offset_scale1: float = 0.5
 @export var jelly_offset_scale2: float = 0.3
 
+@onready var key_node: Control = $Key
+@onready var key_star_animation: AnimationPlayer = $Key/AnimationPlayer
 
+@onready var lock_node: TextureRect = $Lock
+
+var _color_tile: ColorTile
 var velocity: Vector2
 var is_fly: bool = false
 
 var layers: Dictionary
 
-func _set_color(value: Color) -> void:
-	var child_list = get_children()
 
-	child_list[0].modulate = value.darkened(0.3)
-	child_list[1].modulate = value.darkened(0.3)
-	child_list[2].modulate = value
+func get_color() -> int:
+	return _color_tile.color
+
+
+func get_color_value() -> int:
+	return _color_tile.color_value
+
+
+func get_rgb_color() -> Color:
+	return _color_tile.rgb_color
+
+
+func _set_color(value: int) -> void:
+	prints("ColorTile._set_color()", value)
+	_color_tile = ColorTile.create_from_color(value)
+
+	var child_list = get_children()
+	child_list[0].modulate = _color_tile.rgb_color.darkened(0.3)
+	child_list[1].modulate = _color_tile.rgb_color.darkened(0.3)
+	child_list[2].modulate = _color_tile.rgb_color
+
+	_update_ui()
 
 
 func _ready() -> void:
+	lock_node.hide()
+	key_node.hide()
+
 	var children = get_children()
 	layers = {
 		"patch1": children[1],
@@ -29,6 +54,24 @@ func _ready() -> void:
 		"pos1": children[1].position,
 		"pos2": children[2].position
 	}
+	if _color_tile:
+		_update_ui()
+
+
+func _update_ui() -> void:
+	if lock_node:
+		if _color_tile.is_lock():
+			lock_node.show()
+		else:
+			lock_node.hide()
+
+	if key_node:
+		if _color_tile.is_key():
+			key_node.show()
+			key_star_animation.play("star")
+		else:
+			key_node.hide()
+			key_star_animation.play("RESET")
 
 
 func _process(delta: float) -> void:
