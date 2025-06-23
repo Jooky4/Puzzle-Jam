@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://gxx6cqyr5t8f"]
+[gd_scene load_steps=15 format=3 uid="uid://gxx6cqyr5t8f"]
 
 [ext_resource type="Script" uid="uid://b770yeagkjo3e" path="res://Scenes/GoalColor/goal_color.gd" id="1_3l1x0"]
 [ext_resource type="Texture2D" uid="uid://dyw0nwijl2uko" path="res://Assets/color_blocks/sky_blue.png" id="2_2cjhd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bltkpcl7vcerx" path="res://Assets/color_blocks/red.png" id="7_wx3no"]
 [ext_resource type="Texture2D" uid="uid://bf8fdl0xyy2xe" path="res://Assets/color_blocks/pink.png" id="8_b1qu0"]
 [ext_resource type="Texture2D" uid="uid://dp4f7lardhr4d" path="res://Assets/color_blocks/brown.png" id="9_gkcys"]
+[ext_resource type="PackedScene" uid="uid://bocxkuoqq1o00" path="res://Scenes/ColorBlock/color_tile2d.tscn" id="10_hl22s"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="10_q5lic"]
 [ext_resource type="Texture2D" uid="uid://b370jaebtwyow" path="res://Assets/goals/check_icon.png" id="11_hl22s"]
 
@@ -29,6 +30,7 @@ script = ExtResource("1_3l1x0")
 texture_list = Array[Texture2D]([ExtResource("2_2cjhd"), ExtResource("3_0vohv"), ExtResource("4_q5lic"), ExtResource("5_hl22s"), ExtResource("6_arb3t"), ExtResource("7_wx3no"), ExtResource("8_b1qu0"), ExtResource("9_gkcys")])
 
 [node name="Block" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_top = -3.0
 offset_right = 146.0
@@ -36,7 +38,23 @@ offset_bottom = 152.0
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("8_b1qu0")
 
+[node name="ColorTile" parent="." instance=ExtResource("10_hl22s")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -44.0
+offset_right = 50.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
 [node name="Label" type="Label" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,9 +62,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -29.5
+offset_top = -27.0
 offset_right = 20.0
-offset_bottom = 15.5
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -55,16 +73,17 @@ label_settings = SubResource("LabelSettings_arb3t")
 horizontal_alignment = 1
 
 [node name="Done" type="TextureRect" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.5
-offset_top = -25.5
-offset_right = 38.5
-offset_bottom = 29.5
+offset_left = -21.0
+offset_top = -23.0
+offset_right = 38.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)

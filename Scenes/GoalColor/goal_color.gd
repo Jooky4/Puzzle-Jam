@@ -9,6 +9,7 @@ var count: int
 @onready var label: Label = $Label
 @onready var block: TextureRect = $Block
 @onready var done: TextureRect = $Done
+@onready var color_tile: ColorTile2D = $ColorTile
 
 
 @onready var texture_binds = {
@@ -52,4 +53,5 @@ func set_color(value: int) -> void:
 	color = value
 
 	if block:
+		color_tile.color = color
 		block.texture = texture_binds[value]

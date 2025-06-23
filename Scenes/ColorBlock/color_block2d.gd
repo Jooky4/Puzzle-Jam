@@ -178,17 +178,8 @@ func create_random_color(used_colors: Array = []) -> void:
 		used_colors = LevelManager.get_current_level_colors()
 
 	var data = _create_random_color(used_colors)
-
 	colors = data
-
-	# для тестов
-	#colors = [
-		#[10, 11, 10, 11],
-		#[10, 10, 11, 11],
-	#].pick_random()
-
 	update_tiles(colors)
-	#set_reate_compain(colors)
 
 
 func set_colors(color_list: Array) -> void:

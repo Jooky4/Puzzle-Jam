@@ -185,6 +185,7 @@ texture = ExtResource("7_8h45m")
 expand_mode = 1
 
 [node name="Key" type="Control" parent="."]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 0

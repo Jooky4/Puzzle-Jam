@@ -135,7 +135,7 @@ func _make_colored_color_block(cb: Node) -> void:
 		cb.colors = _colors
 		cb.update_tiles(_colors)
 	else:
-		cb.create_random_color()
+		cb.create_random_color(LevelManager.get_target_colors().keys())
 
 
 func run_tutorial() -> void:
