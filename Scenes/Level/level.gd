@@ -497,6 +497,20 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 
 func shuffle() -> void:
 	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
+	var _non_empty_without_lock: Array
+
+	# убираем блоки с замком
+	for i in _non_empty_cells:
+		var cb = ColorBlock.new()
+		cb.colors = i.colors
+		if cb.has_lock():
+			prints("is lock", i)
+			continue
+		else:
+			_non_empty_without_lock.push_back(i)
+
+	_non_empty_cells = _non_empty_without_lock
+
 	var _new_non_empty_cells = _non_empty_cells.duplicate(true)
 	_new_non_empty_cells.shuffle()
 
@@ -514,7 +528,7 @@ func shuffle() -> void:
 		var new_color_block = new_cell_block.get_color_block()
 
 		# создаём копию цветного блока для перемещения
-		var cb = load("res://Scenes/ColorBlock/color_block.tscn").instantiate()
+		var cb = load("res://Scenes/ColorBlock/color_block2d.tscn").instantiate()
 		add_child(cb)
 		cb.update_tiles(_color_block.colors)
 		cb.position = _color_block.global_position - Vector2(50, 50)

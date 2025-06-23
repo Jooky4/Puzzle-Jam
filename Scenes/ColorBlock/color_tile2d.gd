@@ -31,7 +31,7 @@ func get_rgb_color() -> Color:
 
 
 func _set_color(value: int) -> void:
-	prints("ColorTile._set_color()", value)
+	#prints("ColorTile._set_color()", value)
 	_color_tile = ColorTile.create_from_color(value)
 
 	var child_list = get_children()

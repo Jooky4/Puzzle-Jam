@@ -240,7 +240,7 @@ func get_block_with_lock(level_data: Array) -> Array[ColorBlock]:
 			const max_lock = 617
 
 			for i in _cur_cell:
-				prints("check cell", i)
+				#prints("check cell", i)
 				if i >= min_lock and i <= max_lock:
 					var color_block = ColorBlock.new()
 					color_block.colors = _cur_cell

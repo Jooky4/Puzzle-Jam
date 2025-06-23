@@ -22,7 +22,7 @@ colors - содержит оригинальные значения цвета, 
 @export var colors: Array
 @export var position: Vector2i
 
-const DEBUG = true
+const DEBUG = false
 const FREE_TILE_COLOR = 0
 
 var is_vertical: bool
@@ -536,3 +536,21 @@ func remove_lock(color: int, lock_type: ColorTile.Type) -> void:
 
 	prints("remove_lock() end", result, colors)
 	colors = result
+
+
+func has_key() -> bool:
+	for i in colors:
+		var tile = ColorTile.create_from_color(i)
+		if tile.is_key():
+			return true
+
+	return false
+
+
+func has_lock() -> bool:
+	for i in colors:
+		var tile = ColorTile.create_from_color(i)
+		if tile.is_lock():
+			return true
+
+	return false
