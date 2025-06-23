@@ -37,7 +37,6 @@ func dec_color(color: int, count: int = 2) -> void:
 		var new_count = colors[color]
 		colors[color] = max(0, new_count - count)
 
-		#SFX.play_sound("target_1")
 		_update_ui()
 
 

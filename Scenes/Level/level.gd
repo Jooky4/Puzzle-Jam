@@ -64,6 +64,7 @@ func _ready() -> void:
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
 	EventBus.buy_free_cell_on_level.connect(_on_buy_free_cells)
 
+	leaderboard_options["leaderboardName"] = Config.LEADERBOARD_NAME
 	match Bridge.platform.id:
 		"yandex":
 			leaderboard_options = {
@@ -125,8 +126,8 @@ func _next_level() -> void:
 	_restart_level()
 
 
-func _on_set_score_completed() -> void:
-	prints("_on_set_score_completed")
+func _on_set_score_completed(value) -> void:
+	prints("_on_set_score_completed", value)
 
 
 func _make_colored_color_block(cb: Node) -> void:
@@ -135,7 +136,10 @@ func _make_colored_color_block(cb: Node) -> void:
 		cb.colors = _colors
 		cb.update_tiles(_colors)
 	else:
-		cb.create_random_color(LevelManager.get_target_colors().keys())
+		var _colors = LevelManager.get_target_colors().keys()
+		_colors.append_array(LevelManager.get_current_level_colors())
+		var used_colors = Utils.uniq_array(_colors)
+		cb.create_random_color(used_colors)
 
 
 func run_tutorial() -> void:

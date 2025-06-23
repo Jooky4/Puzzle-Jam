@@ -168,7 +168,8 @@ func _create_random_color(used_colors: Array) -> Array:
 		colors = used_colors.slice(0, 4)
 		# по идее, здесь не нужно. Все цвета уникальные
 		# TODO: проверить
-		_fix_diagonal_colors(colors)
+		if colors.size() > 3:
+			_fix_diagonal_colors(colors)
 
 	return colors
 
