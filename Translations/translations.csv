@@ -1,5 +1,7 @@
 id;ru;en
 BTN_PLAY;Играть;Play
+BTN_GAME;Игра;Game
+LEADERBOARD;Лидерборд;Leaderboard
 TRY_AGAIN;Попробовать ещё раз;Try again
 LEVEL;Уровень;Level
 TITLE_SETTINGS;Настройки;Settings

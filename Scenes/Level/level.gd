@@ -233,7 +233,8 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("DEBUG_KEY_2"):
 			prints("DEBUG_KEY_2 just pressed")
-			EventBus.game_over.emit()
+			prints("COINS +1000")
+			EventBus.coins_changed.emit(Player.get_value("coins") + 1000)
 
 		if Input.is_action_just_pressed("DEBUG_KEY_3"):
 			prints("DEBUG_KEY_3 just pressed")
@@ -241,8 +242,25 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("DEBUG_KEY_4"):
 			prints("DEBUG_KEY_4 just pressed")
-			block_container.anchors_preset = Control.PRESET_FULL_RECT
-			block_container.anchors_preset = Control.PRESET_CENTER
+
+			prints("PREV LEVEL")
+			if LevelManager.current_level > 0:
+				LevelManager.current_level -= 1
+				Player.set_value("current_level", LevelManager.current_level)
+				Player.save_data()
+				_restart_level()
+
+		if Input.is_action_just_pressed("DEBUG_KEY_5"):
+			prints("DEBUG_KEY_5 just pressed")
+
+			prints("NEXT LEVEL")
+			LevelManager.current_level += 1
+			Player.set_value("current_level", LevelManager.current_level)
+			Player.save_data()
+			_restart_level()
+
+			#prints("GAME OVER")
+			#EventBus.game_over.emit()
 
 
 func _input(event):

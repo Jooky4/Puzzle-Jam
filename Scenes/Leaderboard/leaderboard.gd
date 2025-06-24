@@ -1,6 +1,7 @@
 extends Control
 
 @export var record: PackedScene
+@export var space: PackedScene
 
 @onready var v_box_container: VBoxContainer = %VBoxContainer
 
@@ -50,18 +51,27 @@ func _ready() -> void:
 		"leaderboardName": Config.LEADERBOARD_NAME,
 		"quantityTop": 10,
 		"includeUser": true,
-		"quantityAround": 3
+		"quantityAround": 1
 	}
 	Bridge.leaderboard.get_entries(options, Callable(self, "_on_get_entries_completed"))
 
 
 func _on_get_entries_completed(success, entries) -> void:
-	prints("leaderboard list", entries)
+	var cur_user_id = Bridge.player.id
+
+	var _prev_rank := 0
 
 	for i in entries:
-		prints("entry", i, i.name)
 		var record_node := record.instantiate()
 		v_box_container.add_child(record_node)
 		record_node.rank = i.rank
 		record_node.player_name = i.name
 		record_node.score = i.score
+		if i.id == cur_user_id:
+			record_node.is_current = true
+
+		if _prev_rank + 1 < i.rank and entries[-1] != i:
+			var space_node = space.instantiate()
+			v_box_container.add_child(space_node)
+
+		_prev_rank = i.rank

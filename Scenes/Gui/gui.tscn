@@ -181,6 +181,7 @@ layout_mode = 2
 text = "TITLE_SHOP"
 label_settings = ExtResource("15_wpry6")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="MainScreen" type="TextureButton" parent="Buttons"]
 unique_name_in_owner = true
@@ -212,9 +213,10 @@ texture = ExtResource("12_bidjd")
 [node name="Label" type="Label" parent="Buttons/MainScreen/VBoxContainer"]
 visible = false
 layout_mode = 2
-text = "GAME"
+text = "BTN_GAME"
 label_settings = ExtResource("15_wpry6")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Leaderboards" type="TextureButton" parent="Buttons"]
 unique_name_in_owner = true
@@ -246,9 +248,10 @@ texture = ExtResource("16_wpry6")
 [node name="Label" type="Label" parent="Buttons/Leaderboards/VBoxContainer"]
 visible = false
 layout_mode = 2
-text = "LEADERBOARDS"
+text = "LEADERBOARD"
 label_settings = ExtResource("15_wpry6")
 horizontal_alignment = 1
+uppercase = true
 
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

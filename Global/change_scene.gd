@@ -24,6 +24,8 @@ func _ready():
 	version_label.visible = Config.SHOW_BUILD_VERSION
 
 	color_rect.visible = false
+	if Config.CHEATS_ENABLED:
+		debug_label.text = "cheats enabled"
 
 
 func black_screen() -> void:

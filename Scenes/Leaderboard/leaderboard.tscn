@@ -1,14 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddanxh5uq0l0m"]
+[gd_scene load_steps=13 format=3 uid="uid://ddanxh5uq0l0m"]
 
 [ext_resource type="Script" uid="uid://cdwnjkiyg4m7g" path="res://Scenes/Leaderboard/leaderboard.gd" id="1_l68so"]
 [ext_resource type="Texture2D" uid="uid://fxo2l73ncnu7" path="res://Assets/leaderboard/background.png" id="2_1uwp6"]
 [ext_resource type="PackedScene" uid="uid://bti47vm74ld76" path="res://Scenes/Leaderboard/leaderboard_item.tscn" id="2_ttevm"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="3_fnhgn"]
 [ext_resource type="Texture2D" uid="uid://bou100exy71nh" path="res://Assets/leaderboard/list_background.png" id="3_ttevm"]
+[ext_resource type="PackedScene" uid="uid://btgf8n5q7wbok" path="res://Scenes/Leaderboard/leaderboard_item_space.tscn" id="3_wgoxs"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_7crjw"]
-[ext_resource type="Texture2D" uid="uid://dte4o7iekth28" path="res://Assets/leaderboard/title_banner.png" id="6_7crjw"]
 [ext_resource type="Texture2D" uid="uid://dikdjm1kpe50r" path="res://Assets/leaderboard/glow.png" id="6_r0tq5"]
-[ext_resource type="Texture2D" uid="uid://brlaua1enw0dj" path="res://Assets/leaderboard/crown.png" id="8_ndj32"]
+[ext_resource type="Texture2D" uid="uid://bu01tlgglt3t6" path="res://Assets/leaderboard/banner.png" id="8_axc8c"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="9_c47oi"]
+[ext_resource type="Texture2D" uid="uid://d4l7r82ct5rp1" path="res://Assets/leaderboard/stars.png" id="10_0qdfe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8v6ri"]
+font = ExtResource("9_c47oi")
+font_size = 44
+outline_size = 9
+outline_color = Color(0.329412, 0.101961, 0.34902, 1)
 
 [node name="Leaderboard" type="Control"]
 layout_mode = 3
@@ -19,6 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l68so")
 record = ExtResource("2_ttevm")
+space = ExtResource("3_wgoxs")
 
 [node name="Background2" type="Control" parent="."]
 layout_mode = 1
@@ -101,16 +110,15 @@ offset_bottom = 234.0
 grow_horizontal = 2
 texture = ExtResource("6_r0tq5")
 
-[node name="Top" type="TextureRect" parent="."]
+[node name="Top" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -209.0
-offset_right = 186.0
-offset_bottom = 167.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
 grow_horizontal = 2
-texture = ExtResource("8_ndj32")
 
 [node name="Head" type="TextureRect" parent="Top"]
 z_index = 1
@@ -118,27 +126,62 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -299.5
-offset_top = 105.0
-offset_right = 297.5
-offset_bottom = 320.0
+offset_left = -249.0
+offset_top = 41.0
+offset_right = 348.0
+offset_bottom = 195.0
 grow_horizontal = 2
-texture = ExtResource("6_7crjw")
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("8_axc8c")
 
-[node name="BodyBG" type="TextureRect" parent="."]
+[node name="Label" type="Label" parent="Top/Head"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -342.0
-offset_top = -426.0
-offset_right = 342.0
-offset_bottom = 637.0
+offset_left = -141.5
+offset_top = -46.6765
+offset_right = 141.5
+offset_bottom = 4.32352
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEADERBOARD"
+label_settings = SubResource("LabelSettings_8v6ri")
+uppercase = true
+
+[node name="Stars" type="TextureRect" parent="Top"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.0
+offset_top = 3.0
+offset_right = 511.0
+offset_bottom = 256.0
+grow_horizontal = 2
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("10_0qdfe")
+
+[node name="BodyBG" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -591.0
+offset_right = 337.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ttevm")
+patch_margin_left = 46
+patch_margin_top = 45
+patch_margin_right = 50
+patch_margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BodyBG"]
 unique_name_in_owner = true
@@ -149,9 +192,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -287.0
-offset_top = -411.5
+offset_top = -431.5
 offset_right = 287.0
 offset_bottom = 475.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4

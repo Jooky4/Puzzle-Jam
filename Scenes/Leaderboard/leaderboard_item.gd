@@ -3,6 +3,8 @@ extends Control
 
 @export var best_bg: Texture2D
 @export var common_bg: Texture2D
+@export var current_bg: Texture2D
+
 @export var gold_medal: Texture2D
 @export var silver_medal: Texture2D
 @export var bronze_medal: Texture2D
@@ -10,6 +12,8 @@ extends Control
 @export var player_name: String: set = _set_player_name
 @export var score: int: set = _set_score
 @export var rank: int: set = _set_rank
+
+@export var is_current: bool = false: set = _set_current
 
 @onready var score_label: Label = %ScoreLabel
 @onready var player_name_label: Label = %PlayerNameLabel
@@ -26,6 +30,12 @@ func _set_player_name(value: String) -> void:
 
 func _set_score(value: int) -> void:
 	score = value
+
+	_update_ui()
+
+
+func _set_current(value: bool) -> void:
+	is_current = value
 
 	_update_ui()
 
@@ -57,3 +67,6 @@ func _update_ui() -> void:
 				medal_background.texture = bronze_medal
 			else:
 				rank_label.label_settings.font_color = Color("3a048e")
+
+	if is_current and winner_background:
+		winner_background.texture = current_bg
