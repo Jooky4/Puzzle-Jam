@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cxbm0wayenbnt"]
+[gd_scene load_steps=29 format=3 uid="uid://cxbm0wayenbnt"]
 
 [ext_resource type="Script" uid="uid://bbci3dnqenni6" path="res://Scenes/Gui/LevelCompleted/level_completed.gd" id="1_hdtc0"]
 [ext_resource type="Texture2D" uid="uid://bdxh3x6tgtuk6" path="res://Assets/level_complete/stars.png" id="2_0luqf"]
@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cd8cstp7blnmt" path="res://Assets/Effects/flashlight.png" id="2_f62md"]
 [ext_resource type="Texture2D" uid="uid://cnl6r784d8cs4" path="res://Assets/level_complete/glow.png" id="2_rpji8"]
 [ext_resource type="Texture2D" uid="uid://dfjkgq27aiq1o" path="res://Assets/Effects/title_glow.png" id="3_1s5vq"]
-[ext_resource type="Texture2D" uid="uid://bkx5hvgg4u40m" path="res://Assets/level_complete/title_banner.png" id="3_def30"]
 [ext_resource type="Texture2D" uid="uid://0e345oyn1qqy" path="res://Assets/Effects/confeti.png" id="3_vhpej"]
 [ext_resource type="Texture2D" uid="uid://q0nl245bjvns" path="res://Assets/game_over/green_button.png" id="4_dkv61"]
 [ext_resource type="Texture2D" uid="uid://c1i1vapi5oqnj" path="res://Assets/level_complete/coins_icon.png" id="5_0luqf"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_2n123"]
+[ext_resource type="Texture2D" uid="uid://drtkaostjp2dp" path="res://Assets/level_complete/title_banner.png" id="7_f62md"]
 [ext_resource type="PackedScene" uid="uid://cs6j1c2jh02o6" path="res://Scenes/Gui/RewardTwister/reward_twister.tscn" id="7_pnehs"]
 [ext_resource type="Texture2D" uid="uid://p6ppfwxayl72" path="res://Assets/level_complete/coin.png" id="9_4klig"]
 
@@ -37,6 +37,12 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="Gradient" id="Gradient_hfsbd"]
 offsets = PackedFloat32Array(0.232877, 0.342466, 0.810502, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a2lux"]
+font = ExtResource("5_2n123")
+font_size = 44
+outline_size = 9
+outline_color = Color(0.329412, 0.101961, 0.34902, 1)
 
 [sub_resource type="Curve" id="Curve_m7bum"]
 _data = [Vector2(0, 0.00203085), 0.0, 5.0362, 0, 0, Vector2(0.146552, 1), 1.06169, 1.06169, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -285,7 +291,25 @@ offset_right = 276.5
 offset_bottom = -173.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_def30")
+texture = ExtResource("7_f62md")
+
+[node name="Label" type="Label" parent="Title"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = -46.0
+offset_right = 168.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL_COMPLETE"
+label_settings = SubResource("LabelSettings_a2lux")
+horizontal_alignment = 1
+uppercase = true
 
 [node name="ConfetiEffect" type="Control" parent="."]
 layout_mode = 1
@@ -431,6 +455,7 @@ offset_left = -230.0
 offset_top = 137.0
 offset_right = 230.0
 offset_bottom = 487.0
+iteration_time = 0.7
 
 [node name="LevelReward" type="Control" parent="."]
 layout_mode = 1

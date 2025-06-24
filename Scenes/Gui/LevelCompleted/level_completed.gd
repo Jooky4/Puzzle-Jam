@@ -22,7 +22,6 @@ func _on_rewarded_state_changed(status: String) -> void:
 
 	if Bridge.advertisement.rewarded_placement == LEVEL_REWARD_ADS:
 		if status == "rewarded":
-			prints("level complete reward for ads")
 			reward = _bonus_reward
 			EventBus.coins_changed.emit(Player.coins + reward)
 			Player.save_data()
