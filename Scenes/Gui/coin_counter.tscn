@@ -1,34 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc0fvnmdoovuh"]
+[gd_scene load_steps=7 format=3 uid="uid://dc0fvnmdoovuh"]
 
-[ext_resource type="Texture2D" uid="uid://clr2m5jrtgtek" path="res://Assets/coin_counter_bg.png" id="1_k6lkh"]
 [ext_resource type="Script" uid="uid://c5d2n13fpt37a" path="res://Scenes/Gui/coin_counter.gd" id="1_ratuh"]
 [ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="2_ratuh"]
+[ext_resource type="Texture2D" uid="uid://62je2hs3y1mv" path="res://Assets/coin_counter/coin_counter_bg.png" id="2_y46tk"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ajjst"]
+[ext_resource type="Texture2D" uid="uid://c1imnjnpr6r4b" path="res://Assets/coin_counter/coin_counter_plus.png" id="5_jpuuo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y46tk"]
+texture = ExtResource("2_y46tk")
+texture_margin_left = 9.0
+texture_margin_right = 20.0
+expand_margin_left = 29.0
 
 [node name="CoinCounter" type="Control"]
-custom_minimum_size = Vector2(182, 63)
+custom_minimum_size = Vector2(208, 60)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 170.0
-offset_bottom = 70.0
+offset_right = 208.0
+offset_bottom = 60.0
 script = ExtResource("1_ratuh")
 
-[node name="Background" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(170, 68)
+[node name="Background" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(158, 68)
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -29.0
-offset_right = 35.0
-offset_bottom = 39.0
-grow_horizontal = 0
+offset_left = 70.0
+offset_top = -28.0
+offset_right = 228.0
+offset_bottom = 40.0
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("1_k6lkh")
+theme_override_styles/panel = SubResource("StyleBoxTexture_y46tk")
+
+[node name="ValueLabel" type="Label" parent="Background"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_ajjst")
+theme_override_font_sizes/font_size = 40
+text = "333K"
+vertical_alignment = 1
 
 [node name="Coin" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(89, 84)
@@ -36,29 +49,26 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -35.0
-offset_right = 89.0
-offset_bottom = 49.0
+offset_left = 1.0
+offset_top = -34.0
+offset_right = 90.0
+offset_bottom = 50.0
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ratuh")
 
-[node name="ValueLabel" type="Label" parent="."]
+[node name="PlusButton" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.439
-anchor_top = 0.222
-anchor_right = 0.951
-anchor_bottom = 0.856
-offset_left = -0.630005
-offset_top = -7.54
-offset_right = 10.33
-offset_bottom = -5.92
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -21.0
+offset_right = 4.0
+offset_bottom = 21.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/line_spacing = 0
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("4_ajjst")
-theme_override_font_sizes/font_size = 40
-text = "333K"
-vertical_alignment = 1
+focus_mode = 0
+texture_normal = ExtResource("5_jpuuo")

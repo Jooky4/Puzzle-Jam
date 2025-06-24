@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clr2m5jrtgtek"
-path="res://.godot/imported/coin_counter_bg.png-2c2c78ff9e2e4fb7694d18f096eda804.ctex"
+uid="uid://62je2hs3y1mv"
+path="res://.godot/imported/coin_counter_bg.png-23c97835efdf249319d9f7bebdc09d38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/coin_counter_bg.png"
-dest_files=["res://.godot/imported/coin_counter_bg.png-2c2c78ff9e2e4fb7694d18f096eda804.ctex"]
+source_file="res://Assets/coin_counter/coin_counter_bg.png"
+dest_files=["res://.godot/imported/coin_counter_bg.png-23c97835efdf249319d9f7bebdc09d38.ctex"]
 
 [params]
 

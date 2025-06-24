@@ -83,7 +83,6 @@ mouse_filter = 2
 
 [node name="CoinCounter" parent="Top/HBoxContainer" instance=ExtResource("3_ukxxk")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(182, 98)
 layout_mode = 2
 value = 333000
 
