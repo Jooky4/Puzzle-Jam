@@ -21,13 +21,14 @@ const FULL_H = 200
 const HALF_W = FULL_W / 2
 const HALF_H = FULL_H / 2
 
-
+# ноды цветных кубиков (тайлов)
 @onready var tile_nodes: Array[ColorTile2D] = [
 	$ColorTile0, $ColorTile1,
 	$ColorTile2, $ColorTile3
 ]
 @onready var debug_label: Label = $DebugLabel
 @onready var button = $Button
+@onready var ice_node: TextureRect = $Ice
 
 signal pressed
 signal remove
@@ -206,8 +207,11 @@ func set_colors(color_list: Array) -> void:
 		_block.position = block_pos[i]
 		_block.size = Vector2(HALF_W, HALF_H)
 		_block.visible = true
-
 		_block.color = _color
+
+		if _block.is_iced():
+			ice_node.show()
+
 		_color_node_binds[_block.get_color()] = _block
 
 

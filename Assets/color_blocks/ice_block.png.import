@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp4f7lardhr4d"
-path="res://.godot/imported/brown.png-4af8776df1b5ec67d2d3f88dc3c8d3d8.ctex"
+uid="uid://dxf88b6e3mwdv"
+path="res://.godot/imported/ice_block.png-46427f62deb733be8bc2292a481ab0af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/color_blocks/brown.png"
-dest_files=["res://.godot/imported/brown.png-4af8776df1b5ec67d2d3f88dc3c8d3d8.ctex"]
+source_file="res://Assets/color_blocks/ice_block.png"
+dest_files=["res://.godot/imported/ice_block.png-46427f62deb733be8bc2292a481ab0af.ctex"]
 
 [params]
 

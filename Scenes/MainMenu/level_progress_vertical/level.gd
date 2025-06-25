@@ -42,13 +42,12 @@ func _update_ui() -> void:
 			background.self_modulate = Color(0, 1, 0)
 		"hard":
 			background.texture = hard_bg
-			background.self_modulate = Color(1,1,1,1)
+			background.self_modulate = Color(1,1,1)
 		"super_hard":
 			background.texture = super_hard_bg
+			background.self_modulate = Color(1,1,1)
 			skull_bg.show()
-			if is_active:
-				skull_bg.self_modulate = Color(1, 0, 0)
 
 	if is_shadowed:
 		background.texture = normal_bg
-		background.self_modulate = Color(1,1,1,1)
+		background.self_modulate = Color(1,1,1)

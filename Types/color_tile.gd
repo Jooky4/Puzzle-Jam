@@ -119,3 +119,7 @@ func is_lock() -> bool:
 
 func is_same_color(value: int) -> bool:
 	return color == value
+
+
+func is_iced() -> bool:
+	return type == Type.ICE

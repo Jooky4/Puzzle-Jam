@@ -19,7 +19,7 @@ side - сторона блока (верхняя сторона, левая ст
 colors - содержит оригинальные значения цвета, как записано в уровне.
 Напр. [2013, 1010, 12, 10]
 """
-@export var colors: Array
+@export var colors: Array: set = _set_colors
 @export var position: Vector2i
 
 const DEBUG = false
@@ -43,6 +43,7 @@ const SIDE_POSITION = {
 }
 
 const tiles = [0, 1, 2, 3]
+var _color_tiles: Array[ColorTile]
 
 const REVERSE_SIDE = {
 	ESides.TOP: ESides.BOTTOM,
@@ -539,8 +540,7 @@ func remove_lock(color: int, lock_type: ColorTile.Type) -> void:
 
 
 func has_key() -> bool:
-	for i in colors:
-		var tile = ColorTile.create_from_color(i)
+	for tile in _color_tiles:
 		if tile.is_key():
 			return true
 
@@ -548,9 +548,26 @@ func has_key() -> bool:
 
 
 func has_lock() -> bool:
-	for i in colors:
-		var tile = ColorTile.create_from_color(i)
+	for tile in _color_tiles:
 		if tile.is_lock():
 			return true
 
 	return false
+
+
+func is_iced() -> bool:
+	for i in _color_tiles:
+		if i.is_iced():
+			return true
+
+	return false
+
+
+func _set_colors(value: Array) -> void:
+	colors = value
+
+	# создаём массив ColorTile
+	_color_tiles = []
+	for i in colors:
+		var tile = ColorTile.create_from_color(i)
+		_color_tiles.push_back(tile)

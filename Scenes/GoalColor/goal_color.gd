@@ -7,21 +7,8 @@ var color: int # смотри номера цветов в LevelData.COLORS
 var count: int
 
 @onready var label: Label = $Label
-@onready var block: TextureRect = $Block
 @onready var done: TextureRect = $Done
 @onready var color_tile: ColorTile2D = $ColorTile
-
-
-@onready var texture_binds = {
-	10: texture_list[0],
-	11: texture_list[1],
-	12: texture_list[2],
-	13: texture_list[3],
-	14: texture_list[4],
-	15: texture_list[5],
-	16: texture_list[6],
-	17: texture_list[7],
-}
 
 
 func _ready() -> void:
@@ -51,7 +38,4 @@ func set_count(value: int) -> void:
 
 func set_color(value: int) -> void:
 	color = value
-
-	if block:
-		color_tile.color = color
-		block.texture = texture_binds[value]
+	color_tile.color = color

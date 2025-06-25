@@ -12,14 +12,6 @@ func _set_current_level(value) -> void:
 	current_level = value
 
 
-# TODO: remove
-func old_get_random_color():
-	var keys = LevelData.COLORS.keys()
-	var random_index = randi() % keys.size()
-	var random_key = keys[random_index]
-	return LevelData.COLORS[random_key]
-
-
 # TODO: перенести в class ColorTile
 # TODO: возвращать ColorTile вместо словаря
 func get_color_with_type(color: int) -> Dictionary:
@@ -89,10 +81,6 @@ func get_color_with_type(color: int) -> Dictionary:
 
 
 func get_cell(pos: Vector2i) -> Array:
-	# сначала Y потом X, так как в массиве сначала идут ряды, потом колонки
-
-	prints("get_cell", pos)
-
 	if pos.y < 0 or pos.y >= current_level_data.size():
 		return []
 
@@ -100,6 +88,8 @@ func get_cell(pos: Vector2i) -> Array:
 		return []
 
 	var cur_level = get_current_level()
+
+	# сначала Y потом X, так как в массиве сначала идут ряды, потом колонки
 	var result = cur_level[pos.y][pos.x]
 
 	prints("get_cell result", pos.y, pos.x, cur_level[pos.y])
