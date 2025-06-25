@@ -1,19 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://ttm0o0voudov"]
+[gd_scene load_steps=12 format=3 uid="uid://ttm0o0voudov"]
 
 [ext_resource type="Script" uid="uid://doa4rh178tpkt" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
 [ext_resource type="PackedScene" uid="uid://3tj3dir3mrf4" path="res://Scenes/Level/level.tscn" id="2_0qgbs"]
 [ext_resource type="Theme" uid="uid://b4wdv0akko602" path="res://Resources/Gui/green_btn_theme.tres" id="3_0qgbs"]
-[ext_resource type="Texture2D" uid="uid://de662wk2ocd18" path="res://Assets/green_button.png" id="3_qgdf6"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_omq0y"]
+[ext_resource type="PackedScene" uid="uid://cues0bckyj5rb" path="res://Scenes/MainMenu/level_progress_vertical/level_progress_vertical.tscn" id="5_omq0y"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="7_n5jej"]
-[ext_resource type="Texture2D" uid="uid://bxylty08in6vu" path="res://Assets/shop_icon.png" id="9_agesy"]
+[ext_resource type="Texture2D" uid="uid://bku0n6dx0moyk" path="res://Assets/main_menu/play_button.png" id="7_omq0y"]
 [ext_resource type="PackedScene" uid="uid://caubchhv84iv6" path="res://Scenes/MainMenu/level_progress.tscn" id="9_omq0y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_omq0y"]
 line_spacing = -7.0
 font = ExtResource("6_n5jej")
-font_size = 81
+font_size = 52
 outline_size = 4
 outline_color = Color(0, 0, 0, 0.6)
 
@@ -23,19 +23,6 @@ font = ExtResource("6_n5jej")
 font_size = 44
 outline_size = 4
 outline_color = Color(0, 0, 0, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdp32"]
-bg_color = Color(0.153, 0, 0.322, 0.55)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-expand_margin_left = 6.0
-expand_margin_right = 6.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_rlg4b"]
-font = ExtResource("6_n5jej")
-font_size = 20
 
 [node name="MainMenu" type="Control"]
 custom_minimum_size = Vector2(720, 1280)
@@ -71,23 +58,26 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(360, 640)
 texture = ExtResource("4_omq0y")
 
+[node name="LevelProgress2" parent="." instance=ExtResource("5_omq0y")]
+layout_mode = 1
+
 [node name="PlayButton" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.825781
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.825781
-offset_left = -179.0
-offset_top = -203.0
-offset_right = 179.0
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = 308.0
+offset_right = 134.0
+offset_bottom = 444.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 focus_mode = 0
 theme = ExtResource("3_0qgbs")
-texture_normal = ExtResource("3_qgdf6")
+texture_normal = ExtResource("7_omq0y")
 metadata/_edit_group_ = true
-metadata/_edit_use_anchors_ = true
 
 [node name="PlayLabel" type="Label" parent="PlayButton"]
 layout_mode = 1
@@ -134,6 +124,7 @@ uppercase = true
 position = Vector2(360, 640)
 
 [node name="LevelProgress" parent="." instance=ExtResource("9_omq0y")]
+visible = false
 layout_mode = 1
 anchor_left = 0.504167
 anchor_top = 0.434766
@@ -149,34 +140,6 @@ value = 100
 level = 122
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopButton" type="TextureButton" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 301.0
-offset_right = 180.0
-offset_bottom = 433.0
-focus_mode = 0
-texture_normal = ExtResource("9_agesy")
-
-[node name="Label" type="Label" parent="ShopButton"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -36.0
-offset_top = -18.0
-offset_right = 36.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_mdp32")
-text = "TITLE_SHOP"
-label_settings = SubResource("LabelSettings_rlg4b")
-horizontal_alignment = 1
-
 [node name="Button" type="Button" parent="."]
 visible = false
 layout_mode = 0
@@ -185,6 +148,11 @@ offset_top = 314.0
 offset_right = 458.0
 offset_bottom = 322.0
 
+[node name="TopShadow" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

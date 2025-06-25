@@ -1,0 +1,111 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxsu53wvd6yhu"]
+
+[ext_resource type="Script" uid="uid://ck1b6iv8j3odl" path="res://Scenes/MainMenu/level_progress_vertical/level.gd" id="1_l62td"]
+[ext_resource type="Texture2D" uid="uid://di4jmivrpvv68" path="res://Assets/main_menu/reached_line.png" id="2_e556j"]
+[ext_resource type="Texture2D" uid="uid://b0vhohgqw6bvd" path="res://Assets/main_menu/gray_level_bg.png" id="2_xk7lq"]
+[ext_resource type="Texture2D" uid="uid://ceywo7noiibde" path="res://Assets/main_menu/hard_level_bg.png" id="3_lor2j"]
+[ext_resource type="Texture2D" uid="uid://bsmlurt7jehw0" path="res://Assets/main_menu/super_hard_level_bg.png" id="4_b3fel"]
+[ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_lor2j"]
+[ext_resource type="Texture2D" uid="uid://d4kleu2tqe2db" path="res://Assets/main_menu/line.png" id="6_22hl3"]
+[ext_resource type="Texture2D" uid="uid://cinac2ungbyew" path="res://Assets/main_menu/lock.png" id="6_b3fel"]
+[ext_resource type="Texture2D" uid="uid://crfwfhqlrh14d" path="res://Assets/main_menu/disabled_skull_bg.png" id="7_enpk4"]
+[ext_resource type="Texture2D" uid="uid://dkqe2n7tu32pw" path="res://Assets/main_menu/mini_skull.png" id="8_yqeht"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b3fel"]
+font = ExtResource("5_lor2j")
+font_size = 74
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Level" type="Control"]
+custom_minimum_size = Vector2(170, 255)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 170.0
+offset_bottom = 250.0
+script = ExtResource("1_l62td")
+normal_bg = ExtResource("2_xk7lq")
+hard_bg = ExtResource("3_lor2j")
+super_hard_bg = ExtResource("4_b3fel")
+reached_line = ExtResource("2_e556j")
+disabled_line = ExtResource("6_22hl3")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_right = 83.0
+offset_bottom = 178.0
+grow_horizontal = 2
+texture = ExtResource("3_lor2j")
+
+[node name="LevelLabel" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -51.0
+offset_right = 66.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "200"
+label_settings = SubResource("LabelSettings_b3fel")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lock" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = 106.0
+offset_right = 32.0
+offset_bottom = 192.0
+grow_horizontal = 0
+texture = ExtResource("6_b3fel")
+
+[node name="Skull_bg" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.0
+offset_top = -5.0
+offset_right = 34.0
+offset_bottom = 46.0
+grow_horizontal = 2
+texture = ExtResource("7_enpk4")
+
+[node name="Skull" type="TextureRect" parent="Background/Skull_bg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_yqeht")
+
+[node name="Line" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 178.0
+offset_right = 20.0
+offset_bottom = 255.0
+grow_horizontal = 2
+texture = ExtResource("2_e556j")
