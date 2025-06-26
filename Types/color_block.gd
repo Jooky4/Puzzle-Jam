@@ -19,7 +19,9 @@ side - сторона блока (верхняя сторона, левая ст
 colors - содержит оригинальные значения цвета, как записано в уровне.
 Напр. [2013, 1010, 12, 10]
 """
+
 @export var colors: Array: set = _set_colors
+@export var _normalized_colors: Array
 @export var position: Vector2i
 
 const DEBUG = false
@@ -110,6 +112,17 @@ func _get_side_colors(_colors: Array, side: ESides) -> Array:
 		#_colors[color2]
 		_c1_with_type.color,
 		_c2_with_type.color
+	]
+
+
+func get_side_color_tiles(side: ESides) -> Array[ColorTile]:
+	var idx = TILE_INDEXES_BY_SIDE[side]
+	var color_tile1 = _color_tiles[idx[0]]
+	var color_tile2 = _color_tiles[idx[1]]
+
+	return [
+		color_tile1,
+		color_tile2
 	]
 
 
@@ -347,7 +360,7 @@ func get_fill_direction(side: ESides) -> Dictionary:
 	return result
 
 
-func _remove_color(color, side: ESides) -> Array:
+func _remove_color(color: int, side: ESides) -> Array:
 	"""
 	заменяем удаляемый цвет нулями, если обнаружено совпадение
 	"""
@@ -362,7 +375,8 @@ func _remove_color(color, side: ESides) -> Array:
 		1:
 			if DEBUG:
 				prints("один цвет", unique_colors, colors)
-			if color == colors[0]:
+
+			if color == _color_tiles[0].color:
 				result = [
 					FREE_TILE_COLOR,
 					FREE_TILE_COLOR,
@@ -372,13 +386,14 @@ func _remove_color(color, side: ESides) -> Array:
 		2:
 			if DEBUG:
 				prints("два цвета", unique_colors, colors)
+
 			var _side_colors = get_side_colors(side)
 			var _unique_side_colors = Utils.uniq_array(_side_colors)
 
 			if color in _side_colors:
 				for i in result.size():
-					var cur_color = result[i]
-					if cur_color == color:
+					var cur_tile = _color_tiles[i]
+					if cur_tile.color == color:
 						result[i] = FREE_TILE_COLOR
 		3:
 			if DEBUG:
@@ -386,6 +401,11 @@ func _remove_color(color, side: ESides) -> Array:
 
 			var side_colors = get_side_colors(side)
 			var side_tile_indexes = get_side_tiles(side)
+
+			for st in side_tile_indexes:
+				var t = _color_tiles[st]
+				if t.is_lock():
+					return colors
 
 			# с указанной стороны нет совпадений
 			if color not in side_colors:
@@ -395,6 +415,7 @@ func _remove_color(color, side: ESides) -> Array:
 			if side_colors[0] == side_colors[1] and side_colors[0] == color:
 				if DEBUG:
 					prints("this side has same colors")
+
 				# копируем цвета с противоположной стороны
 				result[side_tile_indexes[0]] = FREE_TILE_COLOR
 				result[side_tile_indexes[1]] = FREE_TILE_COLOR
@@ -435,17 +456,17 @@ func _remove_color(color, side: ESides) -> Array:
 					result[tile_to_remove] = FREE_TILE_COLOR
 		4:
 			if DEBUG:
-				prints("четыре цвета", unique_colors, colors)
+				prints("четыре цвета")
 
-			var color_index = colors.find(color)
+			var color_index = _normalized_colors.find(color)
 
 			var another_color_index = get_another_side_tile(color_index, side)
+
 			if another_color_index < 0:
 				result = colors
 			else:
 				result[color_index] = FREE_TILE_COLOR
 
-	prints("result", result)
 	return result
 
 
@@ -525,17 +546,14 @@ func get_color_tile(value: int) -> ColorTile:
 
 func remove_lock(color: int, lock_type: ColorTile.Type) -> void:
 	var result: Array
-	prints("remove_lock()", color, colors, lock_type)
 
 	for i in colors.duplicate():
 		var ct = ColorTile.create_from_color(i)
-		prints("each color", i, ct.color, ct.color_value, ct.type, lock_type)
 		if ct.type == lock_type:
 			result.push_back(ct.color)
 		else:
 			result.push_back(i)
 
-	prints("remove_lock() end", result, colors)
 	colors = result
 
 
@@ -568,6 +586,8 @@ func _set_colors(value: Array) -> void:
 
 	# создаём массив ColorTile
 	_color_tiles = []
+	_normalized_colors = []
 	for i in colors:
 		var tile = ColorTile.create_from_color(i)
 		_color_tiles.push_back(tile)
+		_normalized_colors.push_back(tile.color)

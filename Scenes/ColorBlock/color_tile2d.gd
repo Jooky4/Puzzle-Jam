@@ -2,12 +2,18 @@ class_name ColorTile2D extends Control
 
 @export var color: int: set = _set_color
 
+@export var gold_lock_texture: Texture2D
+@export var silver_lock_texture: Texture2D
+@export var bronze_lock_texture: Texture2D
+
 @export var jelly_lerp_speed: float = 8.0
 @export var jelly_offset_scale1: float = 0.5
 @export var jelly_offset_scale2: float = 0.3
 
+
 @onready var key_node: Control = $Key
 @onready var key_star_animation: AnimationPlayer = $Key/AnimationPlayer
+@onready var key_sprite: Control = $Key/Key
 
 @onready var lock_node: TextureRect = $Lock
 
@@ -66,6 +72,14 @@ func _update_ui() -> void:
 	if lock_node:
 		if _color_tile.is_lock():
 			lock_node.show()
+
+			match _color_tile.type:
+				ColorTile.Type.LOCK_1:
+					lock_node.texture = bronze_lock_texture
+				ColorTile.Type.LOCK_2:
+					lock_node.texture = silver_lock_texture
+				ColorTile.Type.LOCK_3:
+					lock_node.texture = gold_lock_texture
 		else:
 			lock_node.hide()
 
@@ -73,6 +87,8 @@ func _update_ui() -> void:
 		if _color_tile.is_key():
 			key_node.show()
 			key_star_animation.play("star")
+			key_sprite.type = _color_tile.type
+
 		else:
 			key_node.hide()
 			key_star_animation.play("RESET")

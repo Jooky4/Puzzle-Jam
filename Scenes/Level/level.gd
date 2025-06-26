@@ -27,7 +27,9 @@ extends Node2D
 @onready var tutorial: Node2D = $Tutorial
 
 
+# TODO: удалить. Использовать только block_container
 var BLOCK_ARR: Array
+
 # данные уровня
 var current_level: Array = []
 var _state: EState
@@ -613,19 +615,17 @@ func update_level() -> void:
 	block_container.anchors_preset = Control.PRESET_CENTER
 
 
-#TODO: remove
-func old_create_color_block(pos: Vector2i, level_data) -> ColorBlock:
-	var color_block = ColorBlock.new()
-	color_block.position = pos
-	color_block.colors = level_data[pos.y][pos.x]
-	return color_block
-
-
 # TODO: подумать над переносом в ColorBlock
 func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_block: ColorBlock, current_side: ColorBlock.ESides, neighbour_side: ColorBlock.ESides) -> bool:
 	# прилегающие блоки соприкосаются только одним цветом
 
-	var _DEBUG = false
+	var _DEBUG = true
+
+	var n_side_tiles = neighbour_block.get_side_color_tiles(neighbour_side)
+
+	for i in n_side_tiles:
+		if i.color == tile_color and i.is_lock():
+			return false
 
 	var tile_color_in_neighbour = tile_color in neighbour_block.get_side_colors(neighbour_side)
 	var is_neighbour_colors_equal = neighbour_block.is_side_colors_equal(neighbour_side)
@@ -669,7 +669,6 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 
 func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBlock.ESides) -> Node:
 	""" анимированно удаляем цвет у ColorBlock ноды """
-
 	var result: Node
 
 	var cur_fill_dir = color_block.remove_color(color, side)
@@ -983,6 +982,14 @@ func _key_retrieved(_color_tile, cb) -> void:
 	var key_pos = cb.global_position
 
 	for i in _locks:
+		var _has_lock: bool = false
+		for j in i._color_tiles:
+			if j.type == lock_type:
+				_has_lock = true
+
+		if not _has_lock:
+			return
+
 		i.remove_lock(_color_tile.color, lock_type)
 		var lock_pos = get_color_block(i.position).global_position
 
@@ -990,6 +997,8 @@ func _key_retrieved(_color_tile, cb) -> void:
 		add_child(key_node)
 		key_node.z_index = 130
 		key_node.position = key_pos
+		key_node.type = _color_tile.type
+		key_node.scale = Vector2(1, 1)
 		var _t = create_tween()
 
 		_t.tween_property(key_node, "position", key_pos + Vector2(0, -50), 0.4)

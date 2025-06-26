@@ -21,7 +21,6 @@ var scene_aliases: Dictionary = {
 
 func _ready():
 	fps_indicator.visible = Config.SHOW_FPS
-	version_label.visible = Config.SHOW_BUILD_VERSION
 
 	color_rect.visible = false
 	if Config.CHEATS_ENABLED:

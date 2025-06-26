@@ -2,6 +2,7 @@ extends AudioManager
 
 const DEBUG = false
 
+
 var sfx_config = {
 	"bomb": {
 		"path": "res://Assets/sfx/bomb.ogg",
@@ -136,6 +137,13 @@ var sfx_config = {
 		"sound": null,
 	},
 }
+
+func play_music() -> void:
+	$Music01.play()
+
+
+func _ready() -> void:
+	play_music()
 
 
 func stop_sound(name: String) -> void:

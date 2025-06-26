@@ -4,6 +4,7 @@ class_name ColorTile extends Node
 	тип цветного тайла
 	COMMON - Обычный цветной тайл
 	все остальные - цветной тайл с примочкой (ключ, замок и т.д)
+	https://docs.google.com/document/d/18OnKsO47aJFWwWle3FrUwR0puzr4-Bq-Yd3nOIvwpoI/edit?tab=t.0
 """
 enum Type {
 	COMMON,
@@ -22,7 +23,7 @@ enum Type {
 	ROCKET,
 }
 
-# изначальное значение как в LevelData. (например 213, 1010 и т.д)
+# начальное значение как записано в LevelData.levels. (напр. 10, 213, 1010 и т.д)
 @export var color_value: int
 # значение цвета от 10 до 17, он же normalized_color
 @export var color: int
@@ -35,6 +36,36 @@ const LOCK_KEY_ALIAS = {
 	Type.KEY_2: Type.LOCK_2,
 	Type.KEY_3: Type.LOCK_3,
 }
+
+func _to_string() -> String:
+	var _result: String
+	if is_lock():
+		match type:
+			Type.LOCK_1:
+				_result = "bronze"
+			Type.LOCK_2:
+				_result = "silver"
+			Type.LOCK_3:
+				_result = "gold"
+
+		_result = _result + " lock"
+
+	if is_key():
+		match type:
+			Type.KEY_1:
+				_result = "bronze"
+			Type.KEY_2:
+				_result = "silver"
+			Type.KEY_3:
+				_result = "gold"
+
+		_result = _result + " key"
+
+	if _result.length():
+		_result = " " + _result
+
+	return "<ColorTile %d(%d)%s>" % [color, color_value, _result]
+
 
 static func get_lock_type(key_type: Type) -> Type:
 	return LOCK_KEY_ALIAS[key_type]
