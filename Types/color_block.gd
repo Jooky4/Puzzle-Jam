@@ -15,13 +15,16 @@ class_name ColorBlock extends Resource
 side - сторона блока (верхняя сторона, левая сторона и т.д.)
 """
 
-"""
-colors - содержит оригинальные значения цвета, как записано в уровне.
-Напр. [2013, 1010, 12, 10]
-"""
 
+# содержит оригинальные значения цвета, как записано в уровне.
+# Напр. [2013, 1010, 12, 10]
 @export var colors: Array: set = _set_colors
+
+# нормализованные цвета без значений ключа, замка и прочих
+# напр. [13, 10, 12, 10]
 @export var _normalized_colors: Array
+
+# позиция на игровой сетке (а не позиция в 2D)
 @export var position: Vector2i
 
 const DEBUG = false
@@ -133,10 +136,10 @@ func get_side_colors(side: ESides) -> Array:
 	return _get_side_colors(colors, side)
 
 
-func is_free() -> bool:
-	""" проверяет пустой блок или нет"""
-	var _uniq_colors = Utils.uniq_array(colors)
-	return _uniq_colors.size() == 1 and _uniq_colors[0] == FREE_TILE_COLOR
+#func is_free() -> bool:
+	#""" проверяет пустой блок или нет"""
+	#var _uniq_colors = Utils.uniq_array(colors)
+	#return _uniq_colors.size() == 1 and _uniq_colors[0] == FREE_TILE_COLOR
 
 
 func is_side_colors_equal(side: ESides) -> bool:
@@ -448,12 +451,11 @@ func _remove_color(color: int, side: ESides) -> Array:
 					else:
 						tile_to_stay = i
 
-				prints("tile to remove", color, colors, tile_to_remove, tile_to_stay)
-
 				# если удаляемый цвет занимает две клетки (в глубину)
 				if color_count[colors[tile_to_remove]] > 1:
 					if DEBUG:
 						prints("2 cell in deep")
+
 					var tile_to_remove2 = get_another_side_tile(tile_to_remove, side)
 					var _side = get_side_by_tiles(tile_to_remove, tile_to_remove2)
 
@@ -591,6 +593,22 @@ func is_iced() -> bool:
 			return true
 
 	return false
+
+
+func is_live() -> bool:
+	for i in _color_tiles:
+		if i.is_live():
+			return true
+
+	return false
+
+
+func is_free() -> bool:
+	return colors == LevelData.FREE_CELL
+
+
+func is_empty() -> bool:
+	return colors == LevelData.EMPTY_CELL
 
 
 func normalize_colors() -> void:

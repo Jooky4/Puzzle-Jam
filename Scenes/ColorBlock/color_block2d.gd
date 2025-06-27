@@ -29,6 +29,7 @@ const HALF_H = FULL_H / 2
 @onready var debug_label: Label = $DebugLabel
 @onready var button = $Button
 @onready var ice_node: TextureRect = $Ice
+@onready var eyes_node: TextureRect = $Eyes
 
 signal pressed
 signal remove
@@ -211,6 +212,9 @@ func set_colors(color_list: Array) -> void:
 
 		if _block.is_iced():
 			ice_node.show()
+
+		if _block.is_live():
+			eyes_node.show()
 
 		_color_node_binds[_block.get_color()] = _block
 

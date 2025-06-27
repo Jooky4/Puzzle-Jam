@@ -1,6 +1,5 @@
 extends Node
 
-
 func timeout(value: float) -> void:
 	await get_tree().create_timer(value).timeout
 
@@ -41,3 +40,33 @@ func find_center_of_position_list(list: Array) -> Vector2:
 		sum += _pos
 
 	return sum / list.size()
+
+
+func jump_to_position(node, target_position: Vector2, duration: float = 0.5, jump_height: float = 100.0):
+	var start_pos = node.position
+	var total_time = duration
+
+	# Создаем кривую Безье для анимации прыжка (Y-смещение)
+	var curve = Curve.new()
+	curve.add_point(Vector2(0, 0))
+
+	# Пик дуги по центру
+	curve.add_point(Vector2(0.5, 1))
+
+	# подгибаем последнюю точку что-бы было падение а не планирование
+	curve.add_point(Vector2(1, 0), -4.7)
+
+	# Создаем tween
+	var tween = get_tree().create_tween()
+	tween.tween_callback(Callable(func():
+		var elapsed = 0.0
+		while elapsed < total_time:
+			var t = elapsed / total_time
+			var offset_y = curve.sample(t) * jump_height
+			var current_pos = start_pos.lerp(target_position, t)
+			current_pos.y -= offset_y
+			node.position = current_pos
+			await get_tree().process_frame
+			elapsed += get_physics_process_delta_time()
+	))
+	tween.play()

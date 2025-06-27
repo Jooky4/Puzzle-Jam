@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjdg3b1yw5r"
-path="res://.godot/imported/bg_normal.png-f496533e9c41086e49df4a44dadd1c76.ctex"
+uid="uid://vad8o6oodrcy"
+path="res://.godot/imported/eyes_2.png-447c9657ad96c288996b0be443a5b10a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/bottom_menu/bg_normal.png"
-dest_files=["res://.godot/imported/bg_normal.png-f496533e9c41086e49df4a44dadd1c76.ctex"]
+source_file="res://Assets/color_blocks/eyes/eyes_2.png"
+dest_files=["res://.godot/imported/eyes_2.png-447c9657ad96c288996b0be443a5b10a.ctex"]
 
 [params]
 

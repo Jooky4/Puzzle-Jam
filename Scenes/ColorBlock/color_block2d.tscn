@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=6 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block2d.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" uid="uid://dxf88b6e3mwdv" path="res://Assets/color_blocks/ice_block.png" id="3_diasl"]
+[ext_resource type="Texture2D" uid="uid://c52fvdnkyr4h1" path="res://Assets/color_blocks/eyes/eyes_1.png" id="4_01h3s"]
 [ext_resource type="PackedScene" uid="uid://bocxkuoqq1o00" path="res://Scenes/ColorBlock/color_tile2d.tscn" id="6_5toyq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_310ax"]
@@ -83,7 +84,6 @@ label_settings = SubResource("LabelSettings_310ax")
 horizontal_alignment = 1
 
 [node name="Ice" type="TextureRect" parent="."]
-process_mode = 4
 visible = false
 modulate = Color(1, 1, 1, 0.745098)
 z_index = 1
@@ -94,5 +94,19 @@ offset_right = 204.0
 offset_bottom = 206.0
 mouse_filter = 2
 texture = ExtResource("3_diasl")
+
+[node name="Eyes" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_01h3s")
+stretch_mode = 5
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

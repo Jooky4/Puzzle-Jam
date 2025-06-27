@@ -240,3 +240,37 @@ func get_block_with_lock(level_data: Array) -> Array[ColorBlock]:
 					break
 
 	return result
+
+
+func create_color_blocks(level_data: Array) -> Array[ColorBlock]:
+	var result: Array[ColorBlock]
+
+	for y in level_data.size():
+		for x in level_data[y].size():
+			var _cur_cell = level_data[y][x]
+			var _cb = ColorBlock.new()
+			_cb.colors = _cur_cell
+			_cb.position = Vector2i(x, y)
+			result.push_back(_cb)
+
+	return result
+
+
+func get_around_cells(level_data: Array, pos: Vector2i) -> Array[Vector2i]:
+	const around_vectors = [
+		Vector2i(-1, 0),
+		Vector2i(1, 0),
+		Vector2i(0, -1),
+		Vector2i(0, 1),
+	]
+	var result: Array[Vector2i]
+	var width = level_data[0].size()
+	var height = level_data.size()
+
+	for v in around_vectors:
+		var _pos: Vector2i = pos + v
+		if _pos.x >= 0 and _pos.x < width and _pos.y >= 0 and _pos.y < height:
+			var _cell = level_data[_pos.y][_pos.x]
+			result.push_back(_pos)
+
+	return result

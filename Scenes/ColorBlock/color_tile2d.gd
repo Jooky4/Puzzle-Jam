@@ -68,6 +68,10 @@ func is_iced() -> bool:
 	return _color_tile.is_iced()
 
 
+func is_live() -> bool:
+	return _color_tile.is_live()
+
+
 func _update_ui() -> void:
 	if lock_node:
 		if _color_tile.is_lock():

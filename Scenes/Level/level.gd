@@ -26,6 +26,12 @@ extends Node2D
 @onready var animation_bomb: Node2D = $AnimationBomb
 @onready var tutorial: Node2D = $Tutorial
 
+enum EState {
+	PLAY,
+	BOOSTER,
+	CHECK,
+	ADS,
+}
 
 # TODO: удалить. Использовать только block_container
 var BLOCK_ARR: Array
@@ -36,13 +42,8 @@ var _state: EState
 var check_match_count: int = 0
 var current_booster: Booster
 
-
-enum EState {
-	PLAY,
-	BOOSTER,
-	CHECK,
-	ADS,
-}
+var turns: int = 0
+var live_block_list: Array[ColorBlock]
 
 var _current_cell_rewarded: Node
 var pregenerated_color_blocks: Array
@@ -180,6 +181,7 @@ func run_tutorial() -> void:
 
 func _restart_level() -> void:
 	BLOCK_ARR = []
+	turns = 0
 
 	for i in block_container.get_children():
 		block_container.remove_child(i)
@@ -193,7 +195,6 @@ func _restart_level() -> void:
 	var goal_colors_value = LevelManager.get_target_colors()
 	EventBus.goals_changed.emit(goal_colors_value)
 	goal_colors_container.set_colors(goal_colors_value)
-
 
 	create_level()
 	BLOCK_ARR = block_container.get_children()
@@ -293,6 +294,7 @@ func _input(event):
 						block_for_drop_1 = buff
 						update_level()
 						var _pos = Vector2i(count % 6, count / 6)
+						turns += 1
 						check_matches(_pos)
 						drop = true
 
@@ -306,6 +308,7 @@ func _input(event):
 						block_for_drop_2 = buff
 						update_level()
 						var _pos = Vector2i(count % 6, count / 6)
+						turns += 1
 						check_matches(_pos)
 						drop = true
 						if Config.CHEATS_ENABLED:
@@ -356,8 +359,9 @@ func _make_all_color_blocks_button() -> void:
 func _demake_all_color_blocks_button() -> void:
 	for i in block_container.get_children():
 		if i.active and not i.can_drop_block:
-			var color_block = i.get_child(-1)
-			color_block.set_is_button(false)
+			var node = i.get_color_block()
+			if node is ColorBlock2D:
+				node.set_is_button(false)
 
 
 func _on_ads_cell_pressed(cell: Node) -> void:
@@ -380,6 +384,14 @@ func create_level() -> void:
 	# удаляем старые клетки
 	for i in block_container.get_children():
 		block_container.remove_child(i)
+
+	# ищем и записываем все живые кубы на поле
+	live_block_list = []
+	var cb_level = LevelManager.create_color_blocks(current_level)
+
+	for i in cb_level:
+		if i.is_live():
+			live_block_list.push_back(i)
 
 	for i in range(current_level.size()):
 		for j in range(current_level[i].size()):
@@ -469,6 +481,8 @@ func hammer(block: Node) -> void:
 
 	for tile_color in Utils.uniq_array(_colors):
 		goal_colors_container.dec_color(tile_color, 1)
+
+	update_level()
 
 
 func bomb_explode_neighbours(pos: Vector2i) -> void:
@@ -617,13 +631,10 @@ func update_level() -> void:
 
 # TODO: подумать над переносом в ColorBlock
 func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_block: ColorBlock, current_side: ColorBlock.ESides, neighbour_side: ColorBlock.ESides) -> bool:
-	# прилегающие блоки соприкосаются только одним цветом
-
-	var _DEBUG = true
+	var _DEBUG = false
 
 	var n_side_tiles = neighbour_block.get_side_color_tiles(neighbour_side)
 
-	prints("tile_color", current_block, current_block.colors)
 	for i in n_side_tiles:
 		if i.color == tile_color and i.is_lock():
 			return false
@@ -712,7 +723,6 @@ func check_matches(pos: Vector2i) -> void:
 
 	var current_block = LevelManager.get_color_block(pos, current_level)
 
-	prints("match color current block", current_block)
 	if current_block.is_iced():
 		return
 
@@ -842,6 +852,7 @@ func check_matches(pos: Vector2i) -> void:
 		update_level()
 		check_level_complete()
 		check_game_over()
+		move_live_block()
 
 
 func get_color_block(pos: Vector2i) -> Node:
@@ -849,6 +860,85 @@ func get_color_block(pos: Vector2i) -> Node:
 	var _cell = block_container.get_child(_idx)
 	var _block: Node = _cell.get_color_block()
 	return _block
+
+
+func move_live_block() -> void:
+	var _cleanup: Array[ColorBlock] = []
+
+	for i in live_block_list.size():
+		var lb = live_block_list[i]
+		var cell = block_container.get_child(Utils.get_index_by_pos(lb.position, 6))
+
+		if cell.get_color_block() is ColorBlock2D:
+			_cleanup.push_back(lb)
+
+	live_block_list = _cleanup
+
+	if turns % 2 == 0:
+		for lb in live_block_list:
+			var free_cells_around: Array
+			for i in LevelManager.get_around_cells(current_level, lb.position):
+				var _cell_data = current_level[i.y][i.x]
+				if _cell_data == LevelData.FREE_CELL:
+					var _cb = ColorBlock.new()
+					_cb.colors = _cell_data
+					_cb.position = i
+					free_cells_around.push_back(_cb)
+
+			var not_merge_cells := []
+			for i in free_cells_around:
+				# проверяем мержится ли в ячейке текущий живой блок
+				var tile_list = [0, 1, 2, 3]
+
+				var is_merge_place: bool = false
+
+				for j in tile_list:
+					var tile_index = j
+					var current_block = ColorBlock.new()
+					current_block.colors = lb.colors
+					current_block.position = i.position
+					var tile_color = current_block._color_tiles[tile_index].color
+					var around_blocks = get_blocks_around_tile(current_block, tile_index)
+					# ищем совпадения по блокам вокруг
+
+					for k in around_blocks:
+						if _is_match_side_color(tile_color, current_block, k.block, k.current_side, k.neighbour_side):
+							is_merge_place = true
+							break
+
+					if is_merge_place:
+						break
+
+				if not is_merge_place:
+					not_merge_cells.push_back(i)
+
+			free_cells_around = not_merge_cells
+
+			if not free_cells_around.size():
+				return
+
+			var random_free_cell = free_cells_around.pick_random()
+
+			if random_free_cell:
+				prints("move", lb, random_free_cell)
+				current_level[random_free_cell.position.y][random_free_cell.position.x] = lb.colors
+				current_level[lb.position.y][lb.position.x] = LevelData.FREE_CELL
+				var _old_cell = block_container.get_child(Utils.get_index_by_pos(lb.position, 6))
+				var _new_cell = block_container.get_child(Utils.get_index_by_pos(random_free_cell.position, 6))
+
+				var _old_block = _old_cell.get_color_block()
+
+				prints("remove old block", _old_cell, _old_block)
+
+				# Перемещаем блок из одной ячейки в другую
+				_old_cell.remove_child(_old_block)
+				_new_cell.add_child(_old_block)
+				_new_cell.not_can_drop()
+				_old_block.position = Vector2(-50, -50)
+				_old_cell.free_block()
+
+				lb.position = random_free_cell.position
+				update_level()
 
 
 func _in_level_field(pos: Vector2i) -> bool:

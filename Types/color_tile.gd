@@ -7,7 +7,9 @@ class_name ColorTile extends Node
 	https://docs.google.com/document/d/18OnKsO47aJFWwWle3FrUwR0puzr4-Bq-Yd3nOIvwpoI/edit?tab=t.0
 """
 enum Type {
-	COMMON,
+	FREE, # 0
+	EMPTY, # -1
+	COMMON, # любой цвет от 10 до 17
 	KEY_1,
 	KEY_2,
 	KEY_3,
@@ -127,6 +129,14 @@ static func create_from_color(value: int) -> ColorTile:
 		_normalized_color = _color - 3000
 		block_type = ColorTile.Type.ROCKET
 
+	elif _color == -1:
+		_normalized_color = 0
+		block_type = Type.EMPTY
+
+	elif _color == 0:
+		_normalized_color = 0
+		block_type = Type.FREE
+
 	var _rgb_color: Color
 	if _normalized_color > 2:
 		_rgb_color = LevelData.COLORS[_normalized_color]
@@ -154,3 +164,7 @@ func is_same_color(value: int) -> bool:
 
 func is_iced() -> bool:
 	return type == Type.ICE
+
+
+func is_live() -> bool:
+	return type == Type.LIVE

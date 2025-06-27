@@ -91,7 +91,9 @@ func set_highlighted(value: bool) -> void:
 
 func get_color_block() -> Node:
 	if active and not can_drop_block:
-		return get_child(-1)
+		var child = get_child(-1)
+		#prints("get_color_block()", child)
+		return child
 	else:
 		return null
 
