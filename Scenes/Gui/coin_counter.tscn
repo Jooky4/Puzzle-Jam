@@ -72,3 +72,5 @@ grow_horizontal = 0
 grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("5_jpuuo")
+
+[connection signal="pressed" from="PlusButton" to="." method="_on_plus_button_pressed"]

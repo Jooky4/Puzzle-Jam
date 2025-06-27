@@ -2,7 +2,7 @@ extends CanvasLayer
 
 const DEBUG = false
 
-@export var game_scene: PackedScene
+@export var game_scene: String
 
 # TODO: заменить имена на enum?
 var scene_aliases: Dictionary = {
@@ -43,6 +43,7 @@ func to(scene_name: String) -> void:
 	EventBus.change_scene.emit(scene_name)
 
 	if scene_aliases.has(scene_name):
+		game_scene = scene_name
 		var _scene = scene_aliases[scene_name]
 		var _status = get_tree().call_deferred("change_scene_to_file", _scene)
 

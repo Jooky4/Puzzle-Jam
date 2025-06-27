@@ -623,6 +623,7 @@ func _is_match_side_color(tile_color: int, current_block: ColorBlock, neighbour_
 
 	var n_side_tiles = neighbour_block.get_side_color_tiles(neighbour_side)
 
+	prints("tile_color", current_block, current_block.colors)
 	for i in n_side_tiles:
 		if i.color == tile_color and i.is_lock():
 			return false
@@ -677,6 +678,12 @@ func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBloc
 	if block_node == null:
 		return
 
+	if color_block.is_iced():
+		color_block.normalize_colors()
+		block_node.colors = color_block.colors
+		block_node.update_tiles(color_block.colors)
+		return
+
 	# получаем удаляемый тайл
 	result = block_node.get_color_tile_node(color)
 
@@ -704,6 +711,11 @@ func check_matches(pos: Vector2i) -> void:
 		return
 
 	var current_block = LevelManager.get_color_block(pos, current_level)
+
+	prints("match color current block", current_block)
+	if current_block.is_iced():
+		return
+
 	var around_blocks: Array
 	var tile_index: int
 	var tile_color: int

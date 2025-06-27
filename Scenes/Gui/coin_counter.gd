@@ -3,7 +3,7 @@ extends Control
 
 
 @export var value: int: set = _set_value
-@onready var value_label: Label = $ValueLabel
+@onready var value_label: Label = $Background/ValueLabel
 
 
 func _ready() -> void:
@@ -19,3 +19,8 @@ func _set_value(_value: int) -> void:
 
 func _update_label() -> void:
 	value_label.text = Utils.format_number(value)
+
+
+func _on_plus_button_pressed() -> void:
+	if ChangeScene.game_scene == "menu":
+		ChangeScene.to("shop")

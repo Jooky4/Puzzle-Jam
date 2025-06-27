@@ -376,6 +376,14 @@ func _remove_color(color: int, side: ESides) -> Array:
 			if DEBUG:
 				prints("один цвет", unique_colors, colors)
 
+			for st in get_side_tiles(side):
+				var t = _color_tiles[st]
+				if t.is_lock():
+					return colors
+
+				if t.is_iced():
+					return _normalized_colors
+
 			if color == _color_tiles[0].color:
 				result = [
 					FREE_TILE_COLOR,
@@ -406,6 +414,10 @@ func _remove_color(color: int, side: ESides) -> Array:
 				var t = _color_tiles[st]
 				if t.is_lock():
 					return colors
+
+				if t.is_iced():
+					return _normalized_colors
+
 
 			# с указанной стороны нет совпадений
 			if color not in side_colors:
@@ -579,6 +591,10 @@ func is_iced() -> bool:
 			return true
 
 	return false
+
+
+func normalize_colors() -> void:
+	colors = _normalized_colors
 
 
 func _set_colors(value: Array) -> void:

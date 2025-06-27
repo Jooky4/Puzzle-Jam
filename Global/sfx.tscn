@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://co3plhp54xqte"]
 
 [ext_resource type="Script" uid="uid://wqfhiaigb85o" path="res://Global/sfx.gd" id="1_4erdh"]
-[ext_resource type="AudioStream" uid="uid://drv1b0u3hpv3u" path="res://Assets/music/Colorful-Flowers_chosic.com.mp3" id="2_7g3r5"]
+[ext_resource type="AudioStream" uid="uid://durdwafgr5bva" path="res://Assets/music/Colorful-Flowers_chosic.com__mono.mp3" id="2_7g3r5"]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_4erdh")
