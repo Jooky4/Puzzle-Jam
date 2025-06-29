@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ilcmrpa4ui3g" path="res://Scenes/Cell/cell.gd" id="1_l3g6y"]
 [ext_resource type="Shader" uid="uid://b3kqambb6o7ff" path="res://Resources/Shaders/outline_shader.gdshader" id="2_dsg24"]
-[ext_resource type="Texture2D" uid="uid://b73eioo0b4u4s" path="res://Assets/cell/cell_bg.png" id="5_tggdy"]
-[ext_resource type="Texture2D" uid="uid://dseos7tweyvai" path="res://Assets/cell/ads_cell_bg.png" id="6_cnx8x"]
+[ext_resource type="Texture2D" path="res://Assets/cell/cell_bg.tres" id="3_gjjoi"]
+[ext_resource type="Texture2D" path="res://Assets/cell/ads_cell_bg.tres" id="4_gjjoi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jxq24"]
 shader = ExtResource("2_dsg24")
@@ -39,7 +39,7 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("5_tggdy")
+texture = ExtResource("3_gjjoi")
 expand_mode = 1
 
 [node name="AdsButton" type="TextureButton" parent="."]
@@ -48,7 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
-texture_normal = ExtResource("6_cnx8x")
+texture_normal = ExtResource("4_gjjoi")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

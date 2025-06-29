@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="1_1t01a"]
 [ext_resource type="Script" uid="uid://drluckgqhod0h" path="res://Scenes/BoosterUi/animation_bomb.gd" id="1_c3mvn"]
-[ext_resource type="Texture2D" uid="uid://d1cpg1kj3bh2h" path="res://Assets/BoosterButton/bomb.png" id="1_el8xm"]
 [ext_resource type="Texture2D" uid="uid://cgeejnlljot0d" path="res://Assets/Effects/shadow.png" id="2_1t01a"]
 [ext_resource type="Texture2D" uid="uid://6utcax3thvel" path="res://Assets/Effects/ring.png" id="2_x5u5p"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/bomb.tres" id="4_c3mvn"]
 
 [sub_resource type="Curve" id="Curve_x5u5p"]
 _data = [Vector2(0, 0), 0.0, 1.52118, 0, 0, Vector2(1, 0), -6.11023, 0.0, 0, 0]
@@ -220,7 +220,7 @@ color_ramp = SubResource("Gradient_c3mvn")
 [node name="Bomb" type="Sprite2D" parent="."]
 position = Vector2(95, -239)
 scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("1_el8xm")
+texture = ExtResource("4_c3mvn")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.0980392)

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Booster" load_steps=3 format=3 uid="uid://ca0xqh41q5xfr"]
 
 [ext_resource type="Script" uid="uid://bfq6jhox0x4mg" path="res://Resources/Boosters/booster.gd" id="1_xin04"]
-[ext_resource type="Texture2D" uid="uid://d1cpg1kj3bh2h" path="res://Assets/BoosterButton/bomb.png" id="1_xysp7"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/bomb.tres" id="1_xysp7"]
 
 [resource]
 script = ExtResource("1_xin04")

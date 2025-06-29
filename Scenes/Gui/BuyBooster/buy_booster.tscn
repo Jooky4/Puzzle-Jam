@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dbphalchc3plj" path="res://Assets/BuyBooster/background.png" id="1_7alo2"]
 [ext_resource type="Script" uid="uid://dwcytph8otdxi" path="res://Scenes/Gui/BuyBooster/buy_booster.gd" id="1_w4neb"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="3_6ql0y"]
-[ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="3_sfyc4"]
+[ext_resource type="Texture2D" path="res://Assets/settings/close_button.tres" id="4_tgyow"]
 [ext_resource type="PackedScene" uid="uid://cpdjbcrkxnfah" path="res://Scenes/Gui/BuyBooster/buy_booster_item.tscn" id="5_tgyow"]
 [ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="7_qt3t6"]
 
@@ -83,10 +83,10 @@ offset_right = 19.5
 offset_bottom = 47.0
 grow_horizontal = 0
 focus_mode = 0
-texture_normal = ExtResource("3_sfyc4")
-texture_pressed = ExtResource("3_sfyc4")
-texture_hover = ExtResource("3_sfyc4")
-texture_focused = ExtResource("3_sfyc4")
+texture_normal = ExtResource("4_tgyow")
+texture_pressed = ExtResource("4_tgyow")
+texture_hover = ExtResource("4_tgyow")
+texture_focused = ExtResource("4_tgyow")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background"]
 layout_mode = 1

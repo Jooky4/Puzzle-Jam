@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://dklo2m4r28trj"]
 
 [ext_resource type="Script" uid="uid://b6d3yqcjjo76" path="res://Scenes/Key/key.gd" id="1_dwpcb"]
-[ext_resource type="Texture2D" uid="uid://bapn45irskwn8" path="res://Assets/color_blocks/key_and_lock/key_gold.png" id="1_q37b3"]
-[ext_resource type="Texture2D" uid="uid://cxt5o1sbb5hys" path="res://Assets/color_blocks/key_and_lock/key_silver.png" id="3_75pei"]
-[ext_resource type="Texture2D" uid="uid://c7nslbs0ha7tr" path="res://Assets/color_blocks/key_and_lock/key_bronze.png" id="4_ckgvi"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_gold.tres" id="2_ckgvi"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_silver.tres" id="3_wyshb"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_bronze.tres" id="4_sq4g3"]
 
 [node name="Key" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(2, 2)
 script = ExtResource("1_dwpcb")
-gold_key_texture = ExtResource("1_q37b3")
-silver_key_texture = ExtResource("3_75pei")
-bronze_key_texture = ExtResource("4_ckgvi")
+gold_key_texture = ExtResource("2_ckgvi")
+silver_key_texture = ExtResource("3_wyshb")
+bronze_key_texture = ExtResource("4_sq4g3")
 
 [node name="KeySprite" type="TextureRect" parent="."]
 layout_mode = 1
@@ -27,4 +27,4 @@ offset_right = 13.0
 offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_q37b3")
+texture = ExtResource("2_ckgvi")

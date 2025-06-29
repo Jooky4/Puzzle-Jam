@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://da66456qv4f0o"]
 
 [ext_resource type="Script" uid="uid://pbv3yew2cheq" path="res://Scenes/Gui/checkbox/checkbox.gd" id="1_j26bo"]
-[ext_resource type="Texture2D" uid="uid://dpgrmrsjl80th" path="res://Assets/checkbox/bg_active.png" id="2_dxl6m"]
-[ext_resource type="Texture2D" uid="uid://c4rxbm3uakgap" path="res://Assets/checkbox/bg_inactive.png" id="2_tdb0s"]
-[ext_resource type="Texture2D" uid="uid://buwr1anjetrl" path="res://Assets/checkbox/handler.png" id="3_dxl6m"]
+[ext_resource type="Texture2D" path="res://Assets/checkbox/bg_active.tres" id="2_o8eg1"]
+[ext_resource type="Texture2D" path="res://Assets/checkbox/bg_inactive.tres" id="3_7mlmk"]
+[ext_resource type="Texture2D" path="res://Assets/checkbox/handler.tres" id="4_dxl6m"]
 
 [node name="TexturedCheckbox" type="Control"]
 custom_minimum_size = Vector2(112, 56)
@@ -13,8 +13,8 @@ anchor_bottom = 0.048
 offset_right = -27.0
 offset_bottom = -22.44
 script = ExtResource("1_j26bo")
-active_bg = ExtResource("2_dxl6m")
-inactive_bg = ExtResource("2_tdb0s")
+active_bg = ExtResource("2_o8eg1")
+inactive_bg = ExtResource("3_7mlmk")
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(110, 60)
@@ -43,7 +43,7 @@ offset_top = -20.0
 offset_right = 107.0
 offset_bottom = 20.0
 grow_vertical = 2
-texture = ExtResource("2_tdb0s")
+texture = ExtResource("3_7mlmk")
 
 [node name="Handler" type="TextureRect" parent="Button"]
 custom_minimum_size = Vector2(54, 54)
@@ -56,6 +56,6 @@ offset_top = -0.0200002
 offset_right = -0.0100021
 offset_bottom = 0.0199966
 grow_vertical = 2
-texture = ExtResource("3_dxl6m")
+texture = ExtResource("4_dxl6m")
 
 [connection signal="toggled" from="Button" to="." method="_on_checkbox_toggled"]

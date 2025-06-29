@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://c62biiwnp3w7" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
 [ext_resource type="PackedScene" uid="uid://gxx6cqyr5t8f" path="res://Scenes/GoalColor/goal_color.tscn" id="2_tgnh5"]
-[ext_resource type="Texture2D" uid="uid://shqquwuhjv0l" path="res://Assets/goals/bg_top.png" id="3_mshfx"]
+[ext_resource type="Texture2D" path="res://Assets/goals/bg_top.tres" id="3_mshfx"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_1q5yt"]
-[ext_resource type="Texture2D" uid="uid://0fxsjl7hc7kn" path="res://Assets/goals/bg_bottom.png" id="5_nbk5d"]
+[ext_resource type="Texture2D" path="res://Assets/goals/bg_bottom.tres" id="5_mshfx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y0dy1"]
 font = ExtResource("4_1q5yt")
 font_size = 44
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_utj4s"]
-atlas = ExtResource("5_nbk5d")
+atlas = ExtResource("5_mshfx")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6srid"]
 texture = SubResource("AtlasTexture_utj4s")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://bv70kwlvkx154"]
 
 [ext_resource type="Script" uid="uid://bj4rke6mosxtd" path="res://Scenes/BoosterUi/booster_ui.gd" id="1_tk7pq"]
-[ext_resource type="Texture2D" uid="uid://ci4y41wdt2bur" path="res://Assets/BoosterUI/back_button.png" id="2_ht8q7"]
-[ext_resource type="Texture2D" uid="uid://ba7gdkoowvr1g" path="res://Assets/BoosterButton/shuffle_icon.png" id="4_xe38g"]
-[ext_resource type="Texture2D" uid="uid://dgybwmgiv6hhd" path="res://Assets/BoosterUI/use_button.png" id="6_tstyh"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterUI/back_button.tres" id="2_e8myy"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/shuffle_icon.tres" id="3_e8myy"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterUI/use_button.tres" id="4_e8myy"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="7_xlsem"]
 
 [sub_resource type="Gradient" id="Gradient_e8myy"]
@@ -37,16 +37,16 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
-texture_normal = ExtResource("2_ht8q7")
-texture_pressed = ExtResource("2_ht8q7")
-texture_hover = ExtResource("2_ht8q7")
-texture_focused = ExtResource("2_ht8q7")
+texture_normal = ExtResource("2_e8myy")
+texture_pressed = ExtResource("2_e8myy")
+texture_hover = ExtResource("2_e8myy")
+texture_focused = ExtResource("2_e8myy")
 
 [node name="Icon" type="TextureRect" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("4_xe38g")
+texture = ExtResource("3_e8myy")
 
 [node name="UseButton" type="TextureButton" parent="."]
 visible = false
@@ -54,7 +54,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
-texture_normal = ExtResource("6_tstyh")
+texture_normal = ExtResource("4_e8myy")
 
 [node name="TODO_REMOVE_KOSTYL" type="TextureRect" parent="UseButton"]
 layout_mode = 0

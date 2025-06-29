@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dc0fvnmdoovuh"]
 
 [ext_resource type="Script" uid="uid://c5d2n13fpt37a" path="res://Scenes/Gui/coin_counter.gd" id="1_ratuh"]
-[ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="2_ratuh"]
-[ext_resource type="Texture2D" uid="uid://62je2hs3y1mv" path="res://Assets/coin_counter/coin_counter_bg.png" id="2_y46tk"]
+[ext_resource type="Texture2D" path="res://Assets/coin_counter/coin_counter_bg.tres" id="2_y46tk"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ajjst"]
-[ext_resource type="Texture2D" uid="uid://c1imnjnpr6r4b" path="res://Assets/coin_counter/coin_counter_plus.png" id="5_jpuuo"]
+[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="4_y46tk"]
+[ext_resource type="Texture2D" path="res://Assets/coin_counter/coin_counter_plus.tres" id="5_y46tk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y46tk"]
 texture = ExtResource("2_y46tk")
@@ -55,7 +55,7 @@ offset_right = 90.0
 offset_bottom = 50.0
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_ratuh")
+texture = ExtResource("4_y46tk")
 
 [node name="PlusButton" type="TextureButton" parent="."]
 layout_mode = 1
@@ -71,6 +71,6 @@ offset_bottom = 21.0
 grow_horizontal = 0
 grow_vertical = 2
 focus_mode = 0
-texture_normal = ExtResource("5_jpuuo")
+texture_normal = ExtResource("5_y46tk")
 
 [connection signal="pressed" from="PlusButton" to="." method="_on_plus_button_pressed"]

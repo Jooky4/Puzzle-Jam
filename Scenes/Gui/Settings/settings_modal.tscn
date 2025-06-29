@@ -2,12 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="1_dlg3q"]
 [ext_resource type="Script" uid="uid://ci2nw5s4tca04" path="res://Scenes/Gui/Settings/settings_modal.gd" id="1_jndsi"]
-[ext_resource type="Texture2D" uid="uid://xml2cb6w6pof" path="res://Assets/settings/panel_bg.png" id="3_v26iv"]
+[ext_resource type="Texture2D" path="res://Assets/settings/panel_bg.tres" id="3_ntks4"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_k6v5j"]
-[ext_resource type="Texture2D" uid="uid://cd30flxcxyn34" path="res://Assets/settings/close_button.png" id="4_qimqs"]
-[ext_resource type="Texture2D" uid="uid://5hvckofmtlt8" path="res://Assets/settings/sound.png" id="7_5ulil"]
+[ext_resource type="Texture2D" path="res://Assets/settings/close_button.tres" id="5_ntks4"]
+[ext_resource type="Texture2D" path="res://Assets/settings/sound.tres" id="6_ntks4"]
 [ext_resource type="PackedScene" uid="uid://da66456qv4f0o" path="res://Scenes/Gui/checkbox/checkbox.tscn" id="7_ntks4"]
-[ext_resource type="Texture2D" uid="uid://ybrpctbeo4hm" path="res://Assets/settings/music.png" id="9_3hsws"]
+[ext_resource type="Texture2D" path="res://Assets/settings/music.tres" id="8_ntks4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
 bg_color = Color(0, 0, 0, 0)
@@ -62,7 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_v26iv")
+texture = ExtResource("3_ntks4")
 
 [node name="Title" type="Label" parent="Panel"]
 layout_mode = 1
@@ -89,10 +89,10 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 focus_mode = 0
-texture_normal = ExtResource("4_qimqs")
-texture_pressed = ExtResource("4_qimqs")
-texture_hover = ExtResource("4_qimqs")
-texture_focused = ExtResource("4_qimqs")
+texture_normal = ExtResource("5_ntks4")
+texture_pressed = ExtResource("5_ntks4")
+texture_hover = ExtResource("5_ntks4")
+texture_focused = ExtResource("5_ntks4")
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -117,7 +117,7 @@ layout_mode = 2
 [node name="Icon" type="TextureRect" parent="Panel/VBoxContainer/Sound"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
-texture = ExtResource("7_5ulil")
+texture = ExtResource("6_ntks4")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/Sound"]
 layout_mode = 2
@@ -137,7 +137,7 @@ layout_mode = 2
 [node name="Icon" type="TextureRect" parent="Panel/VBoxContainer/Music"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
-texture = ExtResource("9_3hsws")
+texture = ExtResource("8_ntks4")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/Music"]
 layout_mode = 2

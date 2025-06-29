@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://cpdjbcrkxnfah"]
 
 [ext_resource type="Script" uid="uid://bqjkkfvi73lrr" path="res://Scenes/Gui/BuyBooster/buy_booster_item.gd" id="1_ejt25"]
-[ext_resource type="Texture2D" uid="uid://oxk43hgsv726" path="res://Assets/BoosterButton/hammer.png" id="2_ftokk"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/hammer.tres" id="2_nn6fd"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="3_qw8ku"]
-[ext_resource type="Texture2D" uid="uid://b65c7sful2i4d" path="res://Assets/game_over/try_again_coin_button.png" id="4_nn6fd"]
-[ext_resource type="Texture2D" uid="uid://bgpm4frm2r5k6" path="res://Assets/coin.png" id="5_h4q8c"]
-[ext_resource type="Texture2D" uid="uid://bs373e7t2m4e3" path="res://Assets/game_over/try_again_ads_button.png" id="6_w4drl"]
-[ext_resource type="Texture2D" uid="uid://b2hyfyi58cto6" path="res://Assets/game_over/ADS.png" id="7_psduh"]
+[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_coin_button.tres" id="4_nn6fd"]
+[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="5_nn6fd"]
+[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_ads_button.tres" id="6_nn6fd"]
+[ext_resource type="Texture2D" path="res://Assets/game_over/ADS.tres" id="7_nn6fd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1jly"]
 font = ExtResource("3_qw8ku")
@@ -39,7 +39,7 @@ offset_left = -55.0
 offset_right = 55.0
 offset_bottom = 110.0
 grow_horizontal = 2
-texture = ExtResource("2_ftokk")
+texture = ExtResource("2_nn6fd")
 expand_mode = 3
 stretch_mode = 2
 
@@ -82,7 +82,7 @@ offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_h4q8c")
+texture = ExtResource("5_nn6fd")
 
 [node name="Label" type="Label" parent="BuyForCoins"]
 layout_mode = 1
@@ -105,10 +105,10 @@ horizontal_alignment = 1
 visible = false
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("6_w4drl")
-texture_pressed = ExtResource("6_w4drl")
-texture_hover = ExtResource("6_w4drl")
-texture_focused = ExtResource("6_w4drl")
+texture_normal = ExtResource("6_nn6fd")
+texture_pressed = ExtResource("6_nn6fd")
+texture_hover = ExtResource("6_nn6fd")
+texture_focused = ExtResource("6_nn6fd")
 stretch_mode = 3
 
 [node name="AdsIcon" type="TextureRect" parent="BuyForADS"]
@@ -124,7 +124,7 @@ offset_right = 72.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_psduh")
+texture = ExtResource("7_nn6fd")
 
 [node name="Label" type="Label" parent="BuyForADS"]
 visible = false

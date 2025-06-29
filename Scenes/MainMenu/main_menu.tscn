@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cues0bckyj5rb" path="res://Scenes/MainMenu/level_progress_vertical/level_progress_vertical.tscn" id="5_omq0y"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://bhwb5xrd4orsg" path="res://Assets/main_background.png" id="7_n5jej"]
-[ext_resource type="Texture2D" uid="uid://bku0n6dx0moyk" path="res://Assets/main_menu/play_button.png" id="7_omq0y"]
+[ext_resource type="Texture2D" path="res://Assets/main_menu/play_button.tres" id="7_omq0y"]
 [ext_resource type="PackedScene" uid="uid://caubchhv84iv6" path="res://Scenes/MainMenu/level_progress.tscn" id="9_omq0y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_omq0y"]

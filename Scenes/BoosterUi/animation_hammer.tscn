@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://ddm5gf0xru7sp"]
 
-[ext_resource type="Texture2D" uid="uid://uyuyx5g4hhf2" path="res://Assets/BoosterButton/hammer_down.png" id="1_1bukn"]
 [ext_resource type="Script" uid="uid://bt3n5j60uefxb" path="res://Scenes/BoosterUi/animation_hammer.gd" id="1_wyf12"]
-[ext_resource type="Texture2D" uid="uid://dww6n7xnvlsln" path="res://Assets/BoosterButton/hammer_up.png" id="2_unyai"]
 [ext_resource type="Texture2D" uid="uid://cst5kcobfjjwi" path="res://Assets/Effects/hammer_star.png" id="3_unyai"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/hammer_down.tres" id="3_wyf12"]
 [ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="4_f5poa"]
+[ext_resource type="Texture2D" path="res://Assets/BoosterButton/hammer_up.tres" id="4_o51au"]
 
 [sub_resource type="Curve" id="Curve_wyf12"]
 _data = [Vector2(0, 0), 0.0, 1.52118, 0, 0, Vector2(1, 0), -6.11023, 0.0, 0, 0]
@@ -243,12 +243,12 @@ color_ramp = SubResource("Gradient_o51au")
 
 [node name="HammerDowm" type="Sprite2D" parent="."]
 position = Vector2(192, -134)
-texture = ExtResource("1_1bukn")
+texture = ExtResource("3_wyf12")
 offset = Vector2(10, -30)
 
 [node name="HammerUp" type="Sprite2D" parent="HammerDowm"]
 position = Vector2(-4, -22)
-texture = ExtResource("2_unyai")
+texture = ExtResource("4_o51au")
 offset = Vector2(14, -8)
 
 [node name="StarParticle" type="CPUParticles2D" parent="HammerDowm/HammerUp"]

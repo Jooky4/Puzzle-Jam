@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://gxx6cqyr5t8f"]
 
 [ext_resource type="Script" uid="uid://b770yeagkjo3e" path="res://Scenes/GoalColor/goal_color.gd" id="1_3l1x0"]
+[ext_resource type="Texture2D" path="res://Assets/goals/check_icon.tres" id="4_b7v2v"]
 [ext_resource type="PackedScene" uid="uid://bocxkuoqq1o00" path="res://Scenes/ColorBlock/color_tile2d.tscn" id="10_hl22s"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="10_q5lic"]
-[ext_resource type="Texture2D" uid="uid://b370jaebtwyow" path="res://Assets/goals/check_icon.png" id="11_hl22s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5lic"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -69,4 +69,4 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("11_hl22s")
+texture = ExtResource("4_b7v2v")

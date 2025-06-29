@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://btgf8n5q7wbok" path="res://Scenes/Leaderboard/leaderboard_item_space.tscn" id="3_wgoxs"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_7crjw"]
 [ext_resource type="Texture2D" uid="uid://dikdjm1kpe50r" path="res://Assets/leaderboard/glow.png" id="6_r0tq5"]
-[ext_resource type="Texture2D" uid="uid://bu01tlgglt3t6" path="res://Assets/leaderboard/banner.png" id="8_axc8c"]
+[ext_resource type="Texture2D" path="res://Assets/leaderboard/banner.tres" id="8_wgoxs"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="9_c47oi"]
-[ext_resource type="Texture2D" uid="uid://d4l7r82ct5rp1" path="res://Assets/leaderboard/stars.png" id="10_0qdfe"]
+[ext_resource type="Texture2D" path="res://Assets/leaderboard/stars.tres" id="10_wgoxs"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8v6ri"]
 font = ExtResource("9_c47oi")
@@ -132,7 +132,7 @@ offset_right = 348.0
 offset_bottom = 195.0
 grow_horizontal = 2
 scale = Vector2(0.85, 0.85)
-texture = ExtResource("8_axc8c")
+texture = ExtResource("8_wgoxs")
 
 [node name="Label" type="Label" parent="Top/Head"]
 layout_mode = 1
@@ -162,7 +162,7 @@ offset_right = 511.0
 offset_bottom = 256.0
 grow_horizontal = 2
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("10_0qdfe")
+texture = ExtResource("10_wgoxs")
 
 [node name="BodyBG" type="NinePatchRect" parent="."]
 layout_mode = 1

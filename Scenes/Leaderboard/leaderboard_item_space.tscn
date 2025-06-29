@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://btgf8n5q7wbok"]
 
-[ext_resource type="Texture2D" uid="uid://e1cua0ll13so" path="res://Assets/leaderboard/space.png" id="1_xgpf4"]
+[ext_resource type="Texture2D" path="res://Assets/leaderboard/space.tres" id="1_xgpf4"]
 
 [node name="LeaderboardItemSpace" type="Control"]
 custom_minimum_size = Vector2(585, 40)

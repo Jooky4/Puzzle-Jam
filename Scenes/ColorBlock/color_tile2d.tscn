@@ -1,14 +1,14 @@
 [gd_scene load_steps=14 format=3 uid="uid://bocxkuoqq1o00"]
 
-[ext_resource type="Texture2D" uid="uid://c6obotw7jb4ka" path="res://Assets/color_blocks/3.png" id="1_m8w64"]
 [ext_resource type="Script" uid="uid://cpigjt3s36m07" path="res://Scenes/ColorBlock/color_tile2d.gd" id="1_pxbud"]
-[ext_resource type="Texture2D" uid="uid://bxxb1kn7pvl7t" path="res://Assets/color_blocks/2.png" id="2_pxbud"]
-[ext_resource type="Texture2D" uid="uid://dalk2jpfvf205" path="res://Assets/color_blocks/1.png" id="3_sp4o1"]
-[ext_resource type="Texture2D" uid="uid://2jtwej5lig4x" path="res://Assets/color_blocks/blik.png" id="4_8h45m"]
-[ext_resource type="Texture2D" uid="uid://dx0xo3tswgjxm" path="res://Assets/color_blocks/key_and_lock/lock_silver.png" id="6_l2s6l"]
-[ext_resource type="Texture2D" uid="uid://cb750jjc8ivit" path="res://Assets/color_blocks/key_and_lock/lock_bronze.png" id="7_0ei6u"]
-[ext_resource type="Texture2D" uid="uid://c3e8emdrdhxe4" path="res://Assets/color_blocks/key_and_lock/lock_gold.png" id="7_8h45m"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/lock_gold.tres" id="2_bo3iy"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/lock_silver.tres" id="3_l2s6l"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/lock_bronze.tres" id="4_0ei6u"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/3.tres" id="5_or5mb"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/2.tres" id="6_or5mb"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/1.tres" id="7_or5mb"]
 [ext_resource type="Texture2D" uid="uid://r8ag07qd5lxa" path="res://Assets/Effects/star.png" id="8_fslih"]
+[ext_resource type="Texture2D" path="res://Assets/color_blocks/blik.tres" id="8_or5mb"]
 [ext_resource type="PackedScene" uid="uid://dklo2m4r28trj" path="res://Scenes/Key/key.tscn" id="12_0ei6u"]
 
 [sub_resource type="Animation" id="Animation_or5mb"]
@@ -110,9 +110,9 @@ grow_vertical = 0
 pivot_offset = Vector2(50, 50)
 mouse_filter = 2
 script = ExtResource("1_pxbud")
-gold_lock_texture = ExtResource("7_8h45m")
-silver_lock_texture = ExtResource("6_l2s6l")
-bronze_lock_texture = ExtResource("7_0ei6u")
+gold_lock_texture = ExtResource("2_bo3iy")
+silver_lock_texture = ExtResource("3_l2s6l")
+bronze_lock_texture = ExtResource("4_0ei6u")
 
 [node name="ColorRect" type="NinePatchRect" parent="."]
 modulate = Color(0.56, 0.56, 0.56, 1)
@@ -123,7 +123,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_m8w64")
+texture = ExtResource("5_or5mb")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -138,7 +138,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_pxbud")
+texture = ExtResource("6_or5mb")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -154,7 +154,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_sp4o1")
+texture = ExtResource("7_or5mb")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -169,7 +169,7 @@ anchor_bottom = 1.0
 offset_top = -22.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_8h45m")
+texture = ExtResource("8_or5mb")
 patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 20
@@ -186,7 +186,7 @@ offset_top = -21.0
 offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_8h45m")
+texture = ExtResource("2_bo3iy")
 expand_mode = 1
 stretch_mode = 5
 

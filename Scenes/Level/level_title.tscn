@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://de7bagq7htff6" path="res://Scenes/Level/level_title.gd" id="1_medeh"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="2_mf5w2"]
-[ext_resource type="Texture2D" uid="uid://bila3ypwsrqhi" path="res://Assets/level_title/hard.png" id="3_r6kbx"]
-[ext_resource type="Texture2D" uid="uid://dk1fmgttpf2kj" path="res://Assets/level_title/super_hard.png" id="4_4scjw"]
+[ext_resource type="Texture2D" path="res://Assets/level_title/hard.tres" id="3_r6kbx"]
+[ext_resource type="Texture2D" path="res://Assets/level_title/super_hard.tres" id="4_r6kbx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xh5tg"]
 line_spacing = 0.0
@@ -104,7 +104,7 @@ offset_top = -75.0
 offset_right = 135.5
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("4_4scjw")
+texture = ExtResource("4_r6kbx")
 
 [node name="Label" type="Label" parent="VeryHard"]
 layout_mode = 1
