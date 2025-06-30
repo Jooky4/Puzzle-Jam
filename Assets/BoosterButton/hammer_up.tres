@@ -4,4 +4,4 @@
 
 [resource]
 atlas = ExtResource("1_gsyle")
-region = Rect2(654, 607, 170, 172)
+region = Rect2(418, 649, 170, 172)

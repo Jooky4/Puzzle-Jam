@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://8rhmjet71ngk"]
+[gd_scene load_steps=8 format=3 uid="uid://8rhmjet71ngk"]
 
 [ext_resource type="Script" uid="uid://c62biiwnp3w7" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
 [ext_resource type="PackedScene" uid="uid://gxx6cqyr5t8f" path="res://Scenes/GoalColor/goal_color.tscn" id="2_tgnh5"]
@@ -10,11 +10,8 @@
 font = ExtResource("4_1q5yt")
 font_size = 44
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_utj4s"]
-atlas = ExtResource("5_mshfx")
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6srid"]
-texture = SubResource("AtlasTexture_utj4s")
+texture = ExtResource("5_mshfx")
 texture_margin_left = 10.0
 texture_margin_top = 12.0
 texture_margin_right = 10.0

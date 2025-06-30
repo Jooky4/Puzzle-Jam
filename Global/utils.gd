@@ -70,3 +70,23 @@ func jump_to_position(node, target_position: Vector2, duration: float = 0.5, jum
 			elapsed += get_physics_process_delta_time()
 	))
 	tween.play()
+
+
+func copy_file(source_path: String, dest_path: String) -> bool:
+	# Проверяем, существует ли исходный файл
+	if not FileAccess.file_exists(source_path):
+		printerr("Файл не найден:", source_path)
+		return false
+
+	# Создаём папку назначения, если её нет
+	var dest_dir = dest_path.get_base_dir()
+	if not DirAccess.dir_exists_absolute(dest_dir):
+		DirAccess.make_dir_recursive_absolute(dest_dir)
+
+	# Копируем файл
+	var error = DirAccess.copy_absolute(source_path, dest_path)
+	if error != OK:
+		printerr("Ошибка копирования (код ", error, "):", source_path, "->", dest_path)
+		return false
+
+	return true

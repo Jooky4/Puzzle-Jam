@@ -84,6 +84,7 @@ label_settings = SubResource("LabelSettings_310ax")
 horizontal_alignment = 1
 
 [node name="Ice" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.745098)
 z_index = 1
 layout_mode = 0

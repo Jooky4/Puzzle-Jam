@@ -13,7 +13,8 @@ config_version=5
 config/name="Puzzle Jam"
 run/main_scene="uid://jgpe81x8d2j0"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="uid://ba7gdkoowvr1g"
+boot_splash/image="res://Assets/BoosterButton/shuffle_icon.tres"
+config/icon="uid://ckdtv8h3y82ma"
 
 [audio]
 
