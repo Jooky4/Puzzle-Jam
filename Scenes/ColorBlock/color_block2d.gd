@@ -1,5 +1,9 @@
 class_name ColorBlock2D extends Control
 
+@export var gold_lock_texture: Texture2D
+@export var silver_lock_texture: Texture2D
+@export var bronze_lock_texture: Texture2D
+
 var colors: Array = LevelData.FREE_CELL.duplicate(true)
 
 enum EPlanes {
@@ -30,6 +34,7 @@ const HALF_H = FULL_H / 2
 @onready var button = $Button
 @onready var ice_node: TextureRect = $Ice
 @onready var eyes_node: TextureRect = $Eyes
+@onready var lock_node: TextureRect = $Lock
 
 signal pressed
 signal remove
@@ -192,6 +197,8 @@ func set_colors(color_list: Array) -> void:
 	"""
 
 	_color_node_binds = {}
+	var _color_block = ColorBlock.new()
+	_color_block.colors = color_list
 
 	const block_pos = {
 		0: Vector2(0, 0),
@@ -215,6 +222,19 @@ func set_colors(color_list: Array) -> void:
 
 		if _block.is_live():
 			eyes_node.show()
+
+		if _block._color_tile.is_lock():
+			lock_node.show()
+
+			match _block._color_tile.type:
+				ColorTile.Type.LOCK_1:
+					lock_node.texture = bronze_lock_texture
+				ColorTile.Type.LOCK_2:
+					lock_node.texture = silver_lock_texture
+				ColorTile.Type.LOCK_3:
+					lock_node.texture = gold_lock_texture
+		else:
+			lock_node.hide()
 
 		_color_node_binds[_block.get_color()] = _block
 

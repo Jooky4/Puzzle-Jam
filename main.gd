@@ -7,7 +7,6 @@ func _ready() -> void:
 	LevelManager.current_level = Player.get_value("current_level")
 
 	var lang = Bridge.platform.language
-	prints("platform lang", lang)
 	TranslationServer.set_locale(lang)
 
 	if Player.is_play_first_time():

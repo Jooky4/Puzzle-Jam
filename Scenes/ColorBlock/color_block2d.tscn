@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://byg7qsirmatr4"]
+[gd_scene load_steps=9 format=3 uid="uid://byg7qsirmatr4"]
 
 [ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block2d.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" path="res://Assets/color_blocks/ice_block.tres" id="3_01h3s"]
+[ext_resource type="Texture2D" uid="uid://bcumq1t2ouifb" path="res://Assets/color_blocks/key_and_lock/lock_silver.tres" id="3_63wuj"]
 [ext_resource type="Texture2D" uid="uid://c52fvdnkyr4h1" path="res://Assets/color_blocks/eyes/eyes_1.png" id="4_01h3s"]
+[ext_resource type="Texture2D" uid="uid://r0mibf8mbya4" path="res://Assets/color_blocks/key_and_lock/lock_bronze.tres" id="4_3eyof"]
+[ext_resource type="Texture2D" uid="uid://ck6gpbb3632ln" path="res://Assets/color_blocks/key_and_lock/lock_gold.tres" id="5_jrngk"]
 [ext_resource type="PackedScene" uid="uid://bocxkuoqq1o00" path="res://Scenes/ColorBlock/color_tile2d.tscn" id="6_5toyq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_310ax"]
@@ -30,6 +33,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_qv5tu")
+gold_lock_texture = ExtResource("5_jrngk")
+silver_lock_texture = ExtResource("3_63wuj")
+bronze_lock_texture = ExtResource("4_3eyof")
 
 [node name="ColorTile0" parent="." instance=ExtResource("6_5toyq")]
 layout_mode = 1
@@ -107,6 +113,22 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_01h3s")
+stretch_mode = 5
+
+[node name="Lock" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_jrngk")
+expand_mode = 1
 stretch_mode = 5
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

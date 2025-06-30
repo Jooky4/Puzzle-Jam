@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="3_mjht2"]
 [ext_resource type="Texture2D" uid="uid://dv7tjm8tsy6yw" path="res://Assets/game_over/window_bg.png" id="3_yy5sx"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ywu43"]
-[ext_resource type="Texture2D" path="res://Assets/settings/close_button.tres" id="5_tc13h"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/message_bg.tres" id="6_tc13h"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_coin_button.tres" id="7_tc13h"]
-[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="8_tc13h"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_ads_button.tres" id="9_tc13h"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/ADS.tres" id="10_tc13h"]
+[ext_resource type="Texture2D" uid="uid://dptb85hd87uxu" path="res://Assets/settings/close_button.tres" id="5_tc13h"]
+[ext_resource type="Texture2D" uid="uid://cgrfthu33u7o1" path="res://Assets/game_over/message_bg.tres" id="6_tc13h"]
+[ext_resource type="Texture2D" uid="uid://k8o1m8d8qwg1" path="res://Assets/game_over/try_again_coin_button.tres" id="7_tc13h"]
+[ext_resource type="Texture2D" uid="uid://belbox63y2tgn" path="res://Assets/coin.tres" id="8_tc13h"]
+[ext_resource type="Texture2D" uid="uid://xei0ri2slh7v" path="res://Assets/game_over/try_again_ads_button.tres" id="9_tc13h"]
+[ext_resource type="Texture2D" uid="uid://l5boxqgf1yhu" path="res://Assets/game_over/ADS.tres" id="10_tc13h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mjht2"]
 resource_local_to_scene = true
@@ -26,7 +26,7 @@ font_color = Color(1, 0.117647, 0.482353, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tc13h"]
 font = ExtResource("4_ywu43")
-font_size = 42
+font_size = 40
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ken6"]
 font = ExtResource("4_ywu43")
