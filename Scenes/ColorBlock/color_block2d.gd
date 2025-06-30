@@ -153,17 +153,21 @@ func _create_random_color(used_colors: Array) -> Array:
 
 	used_colors.shuffle()
 
-	if chance_percent <= 10:
+	const ONE_COLOR = 15 # от 0 до 15
+	const TWO_COLORS = ONE_COLOR + 15
+	const THREE_COLORS = TWO_COLORS + 45
+
+	if chance_percent <= ONE_COLOR:
 		# один цвет
 		var color = used_colors.pick_random()
 		colors = [color, color, color, color]
-	elif chance_percent > 15 and chance_percent <= 10 + 15:
+	elif chance_percent > ONE_COLOR and chance_percent <= TWO_COLORS:
 		# два цвета
 		colors = used_colors.slice(0, 2)
 		colors.append_array(colors)
 		colors.shuffle()
 		_fix_diagonal_colors(colors)
-	elif chance_percent > 10 + 15 and chance_percent <= 10 + 15 + 45:
+	elif chance_percent > TWO_COLORS and chance_percent <= THREE_COLORS:
 		# три цвета
 		colors = used_colors.slice(0, 3)
 		var add_color = colors.pick_random()
