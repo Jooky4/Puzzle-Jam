@@ -726,6 +726,11 @@ func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBloc
 	return result
 
 
+func get_cell_by_pos(pos: Vector2i) -> Node:
+	var cell = block_container.get_child(Utils.get_index_by_pos(pos, 6))
+	return cell
+
+
 func check_matches(pos: Vector2i) -> void:
 	""" Рекурсивно проверяет все блоки вокруг на совпадения цветов """
 
@@ -797,6 +802,17 @@ func check_matches(pos: Vector2i) -> void:
 			tiles_to_remove.push_back(_tile)
 
 		for i in matched_blocks:
+			if i.block.is_iced():
+				# Размораживаем блок, но не мержим
+				var _cell = get_cell_by_pos(i.block.position)
+				var _block = _cell.get_color_block()
+				i.block.normalize_colors()
+				_block.colors = i.block.colors
+				_block.update_tiles(_block.colors)
+				_block.ice_node.visible = false
+				# ...не мержим
+				continue
+
 			goal_colors_container.dec_color(tile_color, 1)
 			EventBus.goals_changed.emit(goal_colors_container.colors)
 

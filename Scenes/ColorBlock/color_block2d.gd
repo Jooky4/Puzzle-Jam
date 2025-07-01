@@ -227,8 +227,7 @@ func set_colors(color_list: Array) -> void:
 		_block.visible = true
 		_block.color = _color
 
-		if _block.is_iced():
-			ice_node.show()
+		ice_node.visible = _block.is_iced()
 
 		if _block.is_live():
 			eyes_node.show()

@@ -10,7 +10,7 @@ extends Control
 func _ready() -> void:
 	Gui.show_main_menu_ui()
 
-	level_progress.level = Player.get_value("current_level") + 1
+	#level_progress.level = Player.get_value("current_level") + 1
 	play_button_label.visible = not LevelManager.is_prev_gameover
 	#try_again_label.visible = LevelManager.is_prev_gameover
 	EventBus.player_loaded.connect(_on_update_level)
