@@ -368,7 +368,7 @@ func _remove_color(color: int, side: ESides) -> Array:
 	заменяем удаляемый цвет нулями, если обнаружено совпадение
 	"""
 
-	prints("_remove_color", colors, color, side)
+	#prints("_remove_color", colors, color, side)
 	var unique_colors = get_unique_colors()
 	var color_count = get_colors_count()
 

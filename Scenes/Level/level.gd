@@ -517,6 +517,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 	var level_height = LevelManager.get_current_level().size()
 	var level_width = LevelManager.get_current_level()[0].size()
 
+	await Utils.timeout(1)
 	for side in neighbours:
 		var n_pos = side + pos
 
@@ -525,9 +526,7 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 			if cur_level_cell == LevelData.EMPTY_CELL:
 				continue
 
-			var _idx = Utils.get_index_by_pos(n_pos, level_width)
-			var _cell = block_container.get_child(_idx)
-
+			var _cell = get_cell_by_pos(n_pos)
 			var _block = _cell.get_color_block()
 
 			if _block != null:
@@ -1118,15 +1117,14 @@ func _key_retrieved(_color_tile, cb) -> void:
 
 	var key_pos = cb.global_position
 
+	var _filtered_locks: Array
 	for i in _locks:
-		var _has_lock: bool = false
 		for j in i._color_tiles:
 			if j.type == lock_type:
-				_has_lock = true
+				_filtered_locks.push_back(i)
+				break
 
-		if not _has_lock:
-			return
-
+	for i in _filtered_locks:
 		i.remove_lock(_color_tile.color, lock_type)
 		var lock_pos = get_color_block(i.position).global_position
 
