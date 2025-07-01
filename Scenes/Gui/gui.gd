@@ -42,7 +42,6 @@ enum EModal {
 }
 
 func _ready() -> void:
-	#prints("gui ready")
 	hide_all_modals()
 
 	game_over.restart_level.connect(_on_game_over_restart_level)

@@ -56,6 +56,7 @@ var _locks: Array
 
 
 func _ready() -> void:
+	LevelManager.current_level = Player.get_value("current_level")
 	for booster_btn in booster_panel.get_children():
 		booster_btn.count = Player.get_booster_count(booster_btn.booster.type)
 
@@ -225,6 +226,7 @@ func _process(delta: float) -> void:
 		# Включение/Выключение показа номера цвета на цветном блоке
 		if Input.is_action_just_pressed("DEBUG_KEY_1"):
 			prints("DEBUG_KEY_1 just pressed")
+			tutorial.stop()
 			_debug_var_1 = not _debug_var_1
 			block_for_drop_1._enable_debug_label(_debug_var_1)
 			block_for_drop_2._enable_debug_label(_debug_var_1)
@@ -237,17 +239,17 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("DEBUG_KEY_2"):
 			prints("DEBUG_KEY_2 just pressed")
 			prints("COINS +1000")
+			tutorial.stop()
 			EventBus.coins_changed.emit(Player.get_value("coins") + 1000)
 			Player.save_data()
 
 		if Input.is_action_just_pressed("DEBUG_KEY_3"):
 			prints("DEBUG_KEY_3 just pressed")
+			tutorial.stop()
 			EventBus.level_complete.emit(Player.get_value("current_level") + 1)
-
 
 		if Input.is_action_just_pressed("DEBUG_KEY_4"):
 			prints("DEBUG_KEY_4 just pressed")
-
 			prints("PREV LEVEL")
 			if LevelManager.current_level > 0:
 				LevelManager.current_level -= 1
@@ -255,8 +257,11 @@ func _process(delta: float) -> void:
 				Player.save_data()
 				_restart_level()
 
+			tutorial.stop()
+
 		if Input.is_action_just_pressed("DEBUG_KEY_5"):
 			prints("DEBUG_KEY_5 just pressed")
+			tutorial.stop()
 
 			prints("NEXT LEVEL")
 			LevelManager.current_level += 1
@@ -266,6 +271,8 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("DEBUG_KEY_6"):
 			prints("DEBUG_KEY_6 just pressed")
+			tutorial.stop()
+
 			#prints("GAME OVER")
 			#EventBus.game_over.emit()
 
@@ -734,6 +741,7 @@ func check_matches(pos: Vector2i) -> void:
 	var current_block = LevelManager.get_color_block(pos, current_level)
 
 	if current_block.is_iced():
+		check_match_count -= 1
 		return
 
 	var around_blocks: Array
@@ -884,7 +892,8 @@ func move_live_block() -> void:
 
 	live_block_list = _cleanup
 
-	if turns % 2 == 0:
+	#if turns % 2 == 0: # каждый второй ход
+	if true:
 		for lb in live_block_list:
 			var free_cells_around: Array
 			for i in LevelManager.get_around_cells(current_level, lb.position):

@@ -54,6 +54,7 @@ func _on_coins_changed(value: int) -> void:
 
 
 func is_play_first_time() -> bool:
+	#prints("check is_play_first_time")
 	return _data.current_level == 0
 
 
@@ -63,6 +64,8 @@ func _get(property):
 
 
 func set_value(key: String, value) -> void:
+	#prints("set value()", key, value)
+
 	if key in _data.keys():
 		_data[key] = value
 		EventBus.player_data_changed.emit(key)
@@ -92,6 +95,7 @@ func config_save_data():
 
 
 func save_data():
+	prints("save player data", _data)
 	Bridge.storage.set(_data.keys(), _data.values())
 
 
@@ -112,16 +116,15 @@ func config_load_data():
 
 
 func load_data() -> void:
-	Bridge.storage.get(_data.keys(), _on_data_loaded)
+	Bridge.storage.get(_data.keys(), Callable(self, "_on_data_loaded"))
 
 
-func _on_data_loaded(success, data):
-	prints("data loaded", success, data)
+func _on_data_loaded(success, data) -> void:
+	prints("player data loaded", success, data)
 
 	for i in DATA_KEYS.size():
 		var _key: String = DATA_KEYS[i]
 		var _value = data[i]
-
 		if _key.begins_with("mute_"):
 			if not _value:
 				_value = false
@@ -130,7 +133,6 @@ func _on_data_loaded(success, data):
 					_value = false
 				else:
 					_value = true
-
 		else:
 			if not _value:
 				_value = 0
@@ -139,5 +141,4 @@ func _on_data_loaded(success, data):
 
 		set_value(_key, _value)
 
-	prints("player data updated", _data)
 	EventBus.player_loaded.emit()

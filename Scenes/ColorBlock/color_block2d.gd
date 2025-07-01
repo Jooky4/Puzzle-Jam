@@ -31,6 +31,8 @@ const HALF_H = FULL_H / 2
 	$ColorTile2, $ColorTile3
 ]
 @onready var debug_label: Label = $DebugLabel
+@onready var debug_label2: Label = $DebugLabel2
+
 @onready var button = $Button
 @onready var ice_node: TextureRect = $Ice
 @onready var eyes_node: TextureRect = $Eyes
@@ -42,16 +44,19 @@ signal remove
 
 func _toggle_debug_label() -> void:
 	debug_label.visible = not debug_label.visible
+	debug_label2.visible = not debug_label.visible
 
 
 func _enable_debug_label(value: bool) -> void:
 	if debug_label:
 		debug_label.visible = value
+		debug_label2.visible = value
 
 
 func _ready() -> void:
 	if not OS.is_debug_build():
 		debug_label.visible = false
+		debug_label2.visible = false
 
 	last_position = global_position
 
@@ -76,7 +81,8 @@ func _process(delta):
 		tile.velocity = velocity
 		tile.is_fly = follow_mouse
 
-	debug_label.text = str("%d  %d\n%d  %d" % colors)
+	debug_label.text = str("%d   %d" % [colors[0], colors[1]])
+	debug_label2.text = str("%d   %d" % [colors[2], colors[3]])
 
 
 func drop_block() -> void:

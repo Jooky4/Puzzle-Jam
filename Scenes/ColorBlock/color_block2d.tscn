@@ -10,7 +10,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_310ax"]
 line_spacing = 16.0
-font_size = 60
+font_size = 36
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
@@ -79,13 +79,27 @@ z_index = 1
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = -16.0
-offset_bottom = 182.0
+offset_top = 2.0
+offset_bottom = 200.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14
-text = "1  2
-3  4"
+text = "1    2"
+label_settings = SubResource("LabelSettings_310ax")
+horizontal_alignment = 1
+
+[node name="DebugLabel2" type="Label" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 98.0
+offset_bottom = 296.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "3    4"
 label_settings = SubResource("LabelSettings_310ax")
 horizontal_alignment = 1
 
@@ -112,6 +126,7 @@ offset_top = -40.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("4_01h3s")
 stretch_mode = 5
 
@@ -127,6 +142,7 @@ offset_top = -21.0
 offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_jrngk")
 expand_mode = 1
 stretch_mode = 5

@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _update_ui() -> void:
-	var _cur_level_idx = LevelManager.current_level
+	var _cur_level_idx = Player.get_value("current_level")
 
 	for node in levels:
 		node.level = _cur_level_idx + 1

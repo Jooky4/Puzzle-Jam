@@ -13,7 +13,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_omq0y"]
 line_spacing = -7.0
 font = ExtResource("6_n5jej")
-font_size = 52
+font_size = 40
 outline_size = 4
 outline_color = Color(0, 0, 0, 0.6)
 
@@ -140,14 +140,6 @@ value = 100
 level = 122
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 450.0
-offset_top = 314.0
-offset_right = 458.0
-offset_bottom = 322.0
-
 [node name="TopShadow" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -155,4 +147,3 @@ anchor_right = 1.0
 grow_horizontal = 2
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
