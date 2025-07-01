@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://caubchhv84iv6"]
 
 [ext_resource type="Texture2D" uid="uid://dmlvl7vs5kpa" path="res://Assets/main_menu/progress_bg.png" id="1_bxrcf"]
-[ext_resource type="Script" uid="uid://rfmknvmtcrhj" path="res://Scenes/MainMenu/level_progress.gd" id="1_gd0ml"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/level_progress.gd" id="1_gd0ml"]
 [ext_resource type="Texture2D" uid="uid://bct0v5udda336" path="res://Assets/main_menu/progressbar.png" id="2_gd0ml"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_magde"]
 [ext_resource type="Texture2D" uid="uid://61u36or66l40" path="res://Assets/main_menu/skull.png" id="5_dby52"]
@@ -44,7 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-value = 100.0
 fill_mode = 4
 radial_initial_angle = 211.0
 radial_fill_degrees = 287.0

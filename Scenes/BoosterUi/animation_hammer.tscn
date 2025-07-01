@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://ddm5gf0xru7sp"]
 
-[ext_resource type="Script" uid="uid://bt3n5j60uefxb" path="res://Scenes/BoosterUi/animation_hammer.gd" id="1_wyf12"]
+[ext_resource type="Script" path="res://Scenes/BoosterUi/animation_hammer.gd" id="1_wyf12"]
 [ext_resource type="Texture2D" uid="uid://cst5kcobfjjwi" path="res://Assets/Effects/hammer_star.png" id="3_unyai"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterButton/hammer_down.tres" id="3_wyf12"]
 [ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="4_f5poa"]
@@ -212,8 +212,8 @@ tracks/6/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h2yme"]
 _data = {
-&"RESET": SubResource("Animation_o51au"),
-&"hammer_kick": SubResource("Animation_l8htl")
+"RESET": SubResource("Animation_o51au"),
+"hammer_kick": SubResource("Animation_l8htl")
 }
 
 [node name="AnimationHammer" type="Node2D"]
@@ -222,12 +222,12 @@ script = ExtResource("1_wyf12")
 [node name="SmogParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 14
-texture = ExtResource("4_f5poa")
 lifetime = 0.6
 one_shot = true
 speed_scale = 1.4
 explosiveness = 0.85
 lifetime_randomness = 0.3
+texture = ExtResource("4_f5poa")
 direction = Vector2(0, 1)
 spread = 180.0
 gravity = Vector2(0, -190)
@@ -256,10 +256,10 @@ position = Vector2(59.2402, -31.9234)
 rotation = 0.121074
 emitting = false
 amount = 20
-texture = ExtResource("3_unyai")
 lifetime = 0.25
 preprocess = 0.19
 draw_order = 1
+texture = ExtResource("3_unyai")
 gravity = Vector2(0, 0)
 scale_amount_min = 0.35
 scale_amount_max = 0.35
@@ -268,5 +268,5 @@ color_ramp = SubResource("Gradient_wyf12")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_h2yme")
+"": SubResource("AnimationLibrary_h2yme")
 }

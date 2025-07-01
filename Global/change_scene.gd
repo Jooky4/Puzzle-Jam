@@ -16,7 +16,6 @@ var scene_aliases: Dictionary = {
 @onready var animetionplayer = $AnimationPlayer
 @onready var debug_label: Label = $DebugLabel
 @onready var fps_indicator: Label = $FpsIndicator
-@onready var version_label: Label = $VersionLabel
 
 
 func _ready():

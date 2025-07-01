@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://cxbm0wayenbnt"]
 
-[ext_resource type="Script" uid="uid://bbci3dnqenni6" path="res://Scenes/Gui/LevelCompleted/level_completed.gd" id="1_hdtc0"]
+[ext_resource type="Script" path="res://Scenes/Gui/LevelCompleted/level_completed.gd" id="1_hdtc0"]
 [ext_resource type="Texture2D" uid="uid://bdxh3x6tgtuk6" path="res://Assets/level_complete/stars.png" id="2_0luqf"]
 [ext_resource type="Texture2D" uid="uid://cwu1vhfgk2tut" path="res://Assets/Effects/Star2.png" id="2_4klig"]
 [ext_resource type="Texture2D" uid="uid://cd8cstp7blnmt" path="res://Assets/Effects/flashlight.png" id="2_f62md"]
@@ -8,11 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dfjkgq27aiq1o" path="res://Assets/Effects/title_glow.png" id="3_1s5vq"]
 [ext_resource type="Texture2D" uid="uid://0e345oyn1qqy" path="res://Assets/Effects/confeti.png" id="3_vhpej"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_2n123"]
-[ext_resource type="Texture2D" path="res://Assets/level_complete/title_banner.tres" id="7_f62md"]
+[ext_resource type="Texture2D" uid="uid://cp116kkxtpr3e" path="res://Assets/level_complete/title_banner.tres" id="7_f62md"]
 [ext_resource type="PackedScene" uid="uid://cs6j1c2jh02o6" path="res://Scenes/Gui/RewardTwister/reward_twister.tscn" id="7_pnehs"]
-[ext_resource type="Texture2D" path="res://Assets/level_complete/coins_icon.tres" id="10_f62md"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/green_button.tres" id="11_f62md"]
-[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="13_f62md"]
+[ext_resource type="Texture2D" uid="uid://bcsulpug1jwsj" path="res://Assets/level_complete/coins_icon.tres" id="10_f62md"]
+[ext_resource type="Texture2D" uid="uid://d33r5m5msgxo3" path="res://Assets/game_over/green_button.tres" id="11_f62md"]
+[ext_resource type="Texture2D" uid="uid://belbox63y2tgn" path="res://Assets/coin.tres" id="13_f62md"]
 
 [sub_resource type="Gradient" id="Gradient_1s5vq"]
 offsets = PackedFloat32Array(0, 0.182648, 0.292237, 0.826484, 1)
@@ -147,8 +147,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dad1t"]
 _data = {
-&"RESET": SubResource("Animation_f62md"),
-&"Start": SubResource("Animation_a2lux")
+"RESET": SubResource("Animation_f62md"),
+"Start": SubResource("Animation_a2lux")
 }
 
 [node name="LevelComplete" type="Control"]
@@ -175,9 +175,9 @@ grow_horizontal = 2
 [node name="ParticlesStars" type="CPUParticles2D" parent="FlashEffect"]
 position = Vector2(3, 407)
 amount = 10
-texture = ExtResource("2_4klig")
 lifetime = 1.7
 speed_scale = 0.4
+texture = ExtResource("2_4klig")
 direction = Vector2(0, -1)
 spread = 75.0
 gravity = Vector2(0, 0)
@@ -191,8 +191,8 @@ color_ramp = SubResource("Gradient_1s5vq")
 [node name="ParticlesGlow" type="CPUParticles2D" parent="FlashEffect"]
 position = Vector2(4, 367)
 amount = 2
-texture = ExtResource("3_1s5vq")
 speed_scale = 0.5
+texture = ExtResource("3_1s5vq")
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -205,10 +205,10 @@ color_ramp = SubResource("Gradient_f62md")
 position = Vector2(-136, 392)
 rotation = -0.606116
 amount = 2
-texture = ExtResource("2_f62md")
 lifetime = 2.0
 speed_scale = 0.5
 local_coords = true
+texture = ExtResource("2_f62md")
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -218,10 +218,10 @@ color_ramp = SubResource("Gradient_dad1t")
 position = Vector2(-45, 358)
 rotation = -0.158454
 amount = 2
-texture = ExtResource("2_f62md")
 lifetime = 2.0
 speed_scale = 0.5
 local_coords = true
+texture = ExtResource("2_f62md")
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -231,10 +231,10 @@ color_ramp = SubResource("Gradient_24c54")
 position = Vector2(66, 366)
 rotation = 0.200129
 amount = 2
-texture = ExtResource("2_f62md")
 lifetime = 2.0
 speed_scale = 0.5
 local_coords = true
+texture = ExtResource("2_f62md")
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -244,10 +244,10 @@ color_ramp = SubResource("Gradient_cbgro")
 position = Vector2(163, 396)
 rotation = 0.613303
 amount = 2
-texture = ExtResource("2_f62md")
 lifetime = 2.0
 speed_scale = 0.5
 local_coords = true
+texture = ExtResource("2_f62md")
 direction = Vector2(0, -1)
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -323,12 +323,12 @@ position = Vector2(181, 501)
 rotation = -0.20944
 emitting = false
 amount = 25
-texture = ExtResource("3_vhpej")
 lifetime = 2.5
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
 lifetime_randomness = 0.5
+texture = ExtResource("3_vhpej")
 direction = Vector2(0, -1)
 spread = 40.0
 gravity = Vector2(0, 350)
@@ -348,12 +348,12 @@ position = Vector2(516, 722)
 rotation = 0.20944
 emitting = false
 amount = 25
-texture = ExtResource("3_vhpej")
 lifetime = 2.5
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
 lifetime_randomness = 0.5
+texture = ExtResource("3_vhpej")
 direction = Vector2(0, -1)
 spread = 40.0
 gravity = Vector2(0, 350)
@@ -373,12 +373,12 @@ position = Vector2(181, 946)
 rotation = -0.20944
 emitting = false
 amount = 25
-texture = ExtResource("3_vhpej")
 lifetime = 2.5
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
 lifetime_randomness = 0.5
+texture = ExtResource("3_vhpej")
 direction = Vector2(0, -1)
 spread = 40.0
 gravity = Vector2(0, 350)
@@ -504,7 +504,7 @@ expand_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_dad1t")
+"": SubResource("AnimationLibrary_dad1t")
 }
 
 [connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]

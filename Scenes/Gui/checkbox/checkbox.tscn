@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://da66456qv4f0o"]
 
-[ext_resource type="Script" uid="uid://pbv3yew2cheq" path="res://Scenes/Gui/checkbox/checkbox.gd" id="1_j26bo"]
-[ext_resource type="Texture2D" path="res://Assets/checkbox/bg_active.tres" id="2_o8eg1"]
-[ext_resource type="Texture2D" path="res://Assets/checkbox/bg_inactive.tres" id="3_7mlmk"]
-[ext_resource type="Texture2D" path="res://Assets/checkbox/handler.tres" id="4_dxl6m"]
+[ext_resource type="Script" path="res://Scenes/Gui/checkbox/checkbox.gd" id="1_j26bo"]
+[ext_resource type="Texture2D" uid="uid://dnd1xvpkbl446" path="res://Assets/checkbox/bg_active.tres" id="2_o8eg1"]
+[ext_resource type="Texture2D" uid="uid://4rfvbko7whxq" path="res://Assets/checkbox/bg_inactive.tres" id="3_7mlmk"]
+[ext_resource type="Texture2D" uid="uid://cgi2g3k15oygp" path="res://Assets/checkbox/handler.tres" id="4_dxl6m"]
 
 [node name="TexturedCheckbox" type="Control"]
 custom_minimum_size = Vector2(112, 56)

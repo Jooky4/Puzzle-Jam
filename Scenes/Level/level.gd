@@ -118,7 +118,7 @@ func _next_level() -> void:
 	Player.save_data()
 
 	# увеличиваем на 1 так как current_level это индекс уровня
-	leaderboard_options["score"] = LevelManager.current_level + 1
+	leaderboard_options["score"] = LevelManager.current_level
 
 	prints("next level", leaderboard_options, Bridge.player.is_authorized, Bridge.leaderboard.is_set_score_supported)
 
@@ -158,22 +158,22 @@ func run_tutorial() -> void:
 			tutorial.run_level_01(_pos1, _pos2)
 		3:
 			prints("hammer tutorial")
-			Player.set_value("hammer", 1)
-			hammer_button.count = 1
+			Player.set_value("hammer", Config.DEMO_HAMMER_COUNT)
+			hammer_button.count = Player.get_value("hammer")
 			var _pos = hammer_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		5:
 			prints("shuffle tutorial")
-			Player.set_value("shuffle", 1)
-			shuffle_button.count = 1
+			Player.set_value("shuffle", Config.DEMO_SHUFFLE_COUNT)
+			shuffle_button.count = Player.get_value("shuffle")
 			var _pos = shuffle_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		7:
 			prints("bomb tutorial")
-			Player.set_value("bomb", 1)
-			bomb_button.count = 1
+			Player.set_value("bomb", Config.DEMO_BOMB_COUNT)
+			bomb_button.count = Player.get_value("bomb")
 			var _pos = bomb_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(0, -70), _pos)
@@ -238,10 +238,12 @@ func _process(delta: float) -> void:
 			prints("DEBUG_KEY_2 just pressed")
 			prints("COINS +1000")
 			EventBus.coins_changed.emit(Player.get_value("coins") + 1000)
+			Player.save_data()
 
 		if Input.is_action_just_pressed("DEBUG_KEY_3"):
 			prints("DEBUG_KEY_3 just pressed")
 			EventBus.level_complete.emit(Player.get_value("current_level") + 1)
+
 
 		if Input.is_action_just_pressed("DEBUG_KEY_4"):
 			prints("DEBUG_KEY_4 just pressed")
@@ -262,8 +264,16 @@ func _process(delta: float) -> void:
 			Player.save_data()
 			_restart_level()
 
+		if Input.is_action_just_pressed("DEBUG_KEY_6"):
+			prints("DEBUG_KEY_6 just pressed")
 			#prints("GAME OVER")
 			#EventBus.game_over.emit()
+
+			# Очистка данных игрока
+			for i in Player._data.keys():
+				if not i.begins_with("mute_"):
+					Player._data[i] = 0
+			Player.save_data()
 
 
 func _input(event):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://gxx6cqyr5t8f"]
 
-[ext_resource type="Script" uid="uid://b770yeagkjo3e" path="res://Scenes/GoalColor/goal_color.gd" id="1_3l1x0"]
-[ext_resource type="Texture2D" path="res://Assets/goals/check_icon.tres" id="4_b7v2v"]
+[ext_resource type="Script" path="res://Scenes/GoalColor/goal_color.gd" id="1_3l1x0"]
+[ext_resource type="Texture2D" uid="uid://em3fglcci0j3" path="res://Assets/goals/check_icon.tres" id="4_b7v2v"]
 [ext_resource type="PackedScene" uid="uid://bocxkuoqq1o00" path="res://Scenes/ColorBlock/color_tile2d.tscn" id="10_hl22s"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="10_q5lic"]
 

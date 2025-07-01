@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dc0fvnmdoovuh"]
 
-[ext_resource type="Script" uid="uid://c5d2n13fpt37a" path="res://Scenes/Gui/coin_counter.gd" id="1_ratuh"]
-[ext_resource type="Texture2D" path="res://Assets/coin_counter/coin_counter_bg.tres" id="2_y46tk"]
+[ext_resource type="Script" path="res://Scenes/Gui/coin_counter.gd" id="1_ratuh"]
+[ext_resource type="Texture2D" uid="uid://syn8fa0xhmb7" path="res://Assets/coin_counter/coin_counter_bg.tres" id="2_y46tk"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_ajjst"]
-[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="4_y46tk"]
-[ext_resource type="Texture2D" path="res://Assets/coin_counter/coin_counter_plus.tres" id="5_y46tk"]
+[ext_resource type="Texture2D" uid="uid://belbox63y2tgn" path="res://Assets/coin.tres" id="4_y46tk"]
+[ext_resource type="Texture2D" uid="uid://jdc76tmu7j0u" path="res://Assets/coin_counter/coin_counter_plus.tres" id="5_y46tk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y46tk"]
 texture = ExtResource("2_y46tk")

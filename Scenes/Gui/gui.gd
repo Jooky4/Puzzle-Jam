@@ -34,7 +34,7 @@ enum EModal {
 	BuyBooster
 }
 
-@onready var _modals: Dictionary[EModal, Node] = {
+@onready var _modals: Dictionary = {
 	EModal.Settings: settings_modal,
 	EModal.LevelComplete: level_complete_modal,
 	EModal.GameOver: game_over_modal,
@@ -42,7 +42,7 @@ enum EModal {
 }
 
 func _ready() -> void:
-	prints("gui ready")
+	#prints("gui ready")
 	hide_all_modals()
 
 	game_over.restart_level.connect(_on_game_over_restart_level)
@@ -56,6 +56,11 @@ func _ready() -> void:
 	EventBus.level_complete.connect(_on_level_complete)
 	EventBus.buy_booster.connect(_on_buy_booster)
 	EventBus.change_scene.connect(_on_change_scene)
+	EventBus.player_loaded.connect(_on_player_data_loaded)
+
+
+func _on_player_data_loaded() -> void:
+	_set_money(Player.coins)
 
 
 func _on_game_over_close() -> void:

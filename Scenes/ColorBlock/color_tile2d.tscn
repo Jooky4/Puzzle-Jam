@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bocxkuoqq1o00"]
 
-[ext_resource type="Script" uid="uid://cpigjt3s36m07" path="res://Scenes/ColorBlock/color_tile2d.gd" id="1_pxbud"]
+[ext_resource type="Script" path="res://Scenes/ColorBlock/color_tile2d.gd" id="1_pxbud"]
 [ext_resource type="Texture2D" uid="uid://d1ei3fwsx21y8" path="res://Assets/color_blocks/3.tres" id="5_or5mb"]
 [ext_resource type="Texture2D" uid="uid://dh0su7vnq12ea" path="res://Assets/color_blocks/2.tres" id="6_or5mb"]
 [ext_resource type="Texture2D" uid="uid://83fay3xkn7fc" path="res://Assets/color_blocks/1.tres" id="7_or5mb"]
@@ -91,8 +91,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bo3iy"]
 _data = {
-&"RESET": SubResource("Animation_or5mb"),
-&"star": SubResource("Animation_05jh2")
+"RESET": SubResource("Animation_or5mb"),
+"star": SubResource("Animation_05jh2")
 }
 
 [node name="ColorTile" type="Control"]
@@ -195,5 +195,5 @@ texture = ExtResource("8_fslih")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Key"]
 libraries = {
-&"": SubResource("AnimationLibrary_bo3iy")
+"": SubResource("AnimationLibrary_bo3iy")
 }

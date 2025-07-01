@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://cs6j1c2jh02o6"]
 
-[ext_resource type="Script" uid="uid://lsronnfcuv78" path="res://Scenes/Gui/RewardTwister/reward_twister.gd" id="1_uvomn"]
-[ext_resource type="Texture2D" path="res://Assets/reward_twister/scale.tres" id="2_6e08r"]
-[ext_resource type="Texture2D" path="res://Assets/reward_twister/arrow.tres" id="3_6e08r"]
-[ext_resource type="Texture2D" path="res://Assets/reward_twister/ads_button.tres" id="4_6e08r"]
-[ext_resource type="Texture2D" path="res://Assets/ads_icon.tres" id="5_6e08r"]
+[ext_resource type="Script" path="res://Scenes/Gui/RewardTwister/reward_twister.gd" id="1_uvomn"]
+[ext_resource type="Texture2D" uid="uid://c7t1dn17b6med" path="res://Assets/reward_twister/scale.tres" id="2_6e08r"]
+[ext_resource type="Texture2D" uid="uid://bdj1w3epwjskx" path="res://Assets/reward_twister/arrow.tres" id="3_6e08r"]
+[ext_resource type="Texture2D" uid="uid://domvj4r3x2mem" path="res://Assets/reward_twister/ads_button.tres" id="4_6e08r"]
+[ext_resource type="Texture2D" uid="uid://27usmvk7isyo" path="res://Assets/ads_icon.tres" id="5_6e08r"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="5_ktxr8"]
-[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="6_6e08r"]
+[ext_resource type="Texture2D" uid="uid://belbox63y2tgn" path="res://Assets/coin.tres" id="6_6e08r"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8jraf"]
 font = ExtResource("5_ktxr8")

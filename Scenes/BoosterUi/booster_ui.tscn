@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bv70kwlvkx154"]
 
-[ext_resource type="Script" uid="uid://bj4rke6mosxtd" path="res://Scenes/BoosterUi/booster_ui.gd" id="1_tk7pq"]
+[ext_resource type="Script" path="res://Scenes/BoosterUi/booster_ui.gd" id="1_tk7pq"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterUI/back_button.tres" id="2_e8myy"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterButton/shuffle_icon.tres" id="3_e8myy"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterUI/use_button.tres" id="4_e8myy"]
@@ -49,7 +49,6 @@ size_flags_vertical = 4
 texture = ExtResource("3_e8myy")
 
 [node name="UseButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

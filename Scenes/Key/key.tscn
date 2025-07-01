@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dklo2m4r28trj"]
 
-[ext_resource type="Script" uid="uid://b6d3yqcjjo76" path="res://Scenes/Key/key.gd" id="1_dwpcb"]
-[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_gold.tres" id="2_ckgvi"]
-[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_silver.tres" id="3_wyshb"]
-[ext_resource type="Texture2D" path="res://Assets/color_blocks/key_and_lock/key_bronze.tres" id="4_sq4g3"]
+[ext_resource type="Script" path="res://Scenes/Key/key.gd" id="1_dwpcb"]
+[ext_resource type="Texture2D" uid="uid://p8tiav5ruub8" path="res://Assets/color_blocks/key_and_lock/key_gold.tres" id="2_ckgvi"]
+[ext_resource type="Texture2D" uid="uid://c0se531vrjudc" path="res://Assets/color_blocks/key_and_lock/key_silver.tres" id="3_wyshb"]
+[ext_resource type="Texture2D" uid="uid://0a75gb68p1as" path="res://Assets/color_blocks/key_and_lock/key_bronze.tres" id="4_sq4g3"]
 
 [node name="Key" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://djc70uufvapqf"]
 
-[ext_resource type="Script" uid="uid://c8xe2u6evqbyk" path="res://Global/change_scene.gd" id="1_v203g"]
+[ext_resource type="Script" path="res://Global/change_scene.gd" id="1_v203g"]
 [ext_resource type="PackedScene" uid="uid://cenjuncy5arxi" path="res://Global/fps_indicator.tscn" id="1_vndcb"]
 
 [sub_resource type="Animation" id="Animation_t85mf"]
@@ -52,9 +52,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oefeh"]
 _data = {
-&"Black_screen": SubResource("Animation_t85mf"),
-&"Normal_screen": SubResource("Animation_lwdvp"),
-&"RESET": SubResource("Animation_5a2ve")
+"Black_screen": SubResource("Animation_t85mf"),
+"Normal_screen": SubResource("Animation_lwdvp"),
+"RESET": SubResource("Animation_5a2ve")
 }
 
 [node name="Change_scene" type="CanvasLayer"]
@@ -72,7 +72,7 @@ grow_vertical = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_oefeh")
+"": SubResource("AnimationLibrary_oefeh")
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]

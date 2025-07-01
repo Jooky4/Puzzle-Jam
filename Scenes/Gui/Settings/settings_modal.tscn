@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://bro82nhdbg27y"]
 
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="1_dlg3q"]
-[ext_resource type="Script" uid="uid://ci2nw5s4tca04" path="res://Scenes/Gui/Settings/settings_modal.gd" id="1_jndsi"]
-[ext_resource type="Texture2D" path="res://Assets/settings/panel_bg.tres" id="3_ntks4"]
+[ext_resource type="Script" path="res://Scenes/Gui/Settings/settings_modal.gd" id="1_jndsi"]
+[ext_resource type="Texture2D" uid="uid://wgac24scba41" path="res://Assets/settings/panel_bg.tres" id="3_ntks4"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_k6v5j"]
-[ext_resource type="Texture2D" path="res://Assets/settings/close_button.tres" id="5_ntks4"]
-[ext_resource type="Texture2D" path="res://Assets/settings/sound.tres" id="6_ntks4"]
+[ext_resource type="Texture2D" uid="uid://dptb85hd87uxu" path="res://Assets/settings/close_button.tres" id="5_ntks4"]
+[ext_resource type="Texture2D" uid="uid://cxsl8r1vou7wq" path="res://Assets/settings/sound.tres" id="6_ntks4"]
 [ext_resource type="PackedScene" uid="uid://da66456qv4f0o" path="res://Scenes/Gui/checkbox/checkbox.tscn" id="7_ntks4"]
-[ext_resource type="Texture2D" path="res://Assets/settings/music.tres" id="8_ntks4"]
+[ext_resource type="Texture2D" uid="uid://dxti0c2cxp4wr" path="res://Assets/settings/music.tres" id="8_ntks4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddinf"]
 bg_color = Color(0, 0, 0, 0)

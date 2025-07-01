@@ -10,6 +10,16 @@ var _data = {
 	"mute_music": false,
 }
 
+const DATA_KEYS = [
+	"coins",
+	"current_level", # индекс уровня
+	"hammer",
+	"bomb",
+	"shuffle",
+	"mute_sfx",
+	"mute_music",
+]
+
 var booster_name = {
 	Booster.EType.HAMMER: "hammer",
 	Booster.EType.BOMB: "bomb",
@@ -65,7 +75,7 @@ func get_value(key: String):
 	return null
 
 
-func save_data():
+func config_save_data():
 	prints("Player.save_data()", _data)
 	var config = ConfigFile.new()
 
@@ -81,7 +91,11 @@ func save_data():
 	var err = config.save("user://player.cfg")
 
 
-func load_data():
+func save_data():
+	Bridge.storage.set(_data.keys(), _data.values())
+
+
+func config_load_data():
 	var config = ConfigFile.new()
 	var error = config.load("user://player.cfg")
 	if error == OK:
@@ -94,4 +108,36 @@ func load_data():
 		set_value("mute_sfx", config.get_value("player", "mute_sfx"))
 		set_value("mute_music", config.get_value("player", "mute_music"))
 
+	EventBus.player_loaded.emit()
+
+
+func load_data() -> void:
+	Bridge.storage.get(_data.keys(), _on_data_loaded)
+
+
+func _on_data_loaded(success, data):
+	prints("data loaded", success, data)
+
+	for i in DATA_KEYS.size():
+		var _key: String = DATA_KEYS[i]
+		var _value = data[i]
+
+		if _key.begins_with("mute_"):
+			if not _value:
+				_value = false
+			else:
+				if _value == "false":
+					_value = false
+				else:
+					_value = true
+
+		else:
+			if not _value:
+				_value = 0
+			else:
+				_value = int(_value)
+
+		set_value(_key, _value)
+
+	prints("player data updated", _data)
 	EventBus.player_loaded.emit()

@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://cpdjbcrkxnfah"]
 
-[ext_resource type="Script" uid="uid://bqjkkfvi73lrr" path="res://Scenes/Gui/BuyBooster/buy_booster_item.gd" id="1_ejt25"]
-[ext_resource type="Texture2D" path="res://Assets/BoosterButton/hammer.tres" id="2_nn6fd"]
+[ext_resource type="Script" path="res://Scenes/Gui/BuyBooster/buy_booster_item.gd" id="1_ejt25"]
+[ext_resource type="Texture2D" uid="uid://blsto62rk3x0t" path="res://Assets/BoosterButton/hammer.tres" id="2_nn6fd"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="3_qw8ku"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_coin_button.tres" id="4_nn6fd"]
-[ext_resource type="Texture2D" path="res://Assets/coin.tres" id="5_nn6fd"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/try_again_ads_button.tres" id="6_nn6fd"]
-[ext_resource type="Texture2D" path="res://Assets/game_over/ADS.tres" id="7_nn6fd"]
+[ext_resource type="Texture2D" uid="uid://k8o1m8d8qwg1" path="res://Assets/game_over/try_again_coin_button.tres" id="4_nn6fd"]
+[ext_resource type="Texture2D" uid="uid://belbox63y2tgn" path="res://Assets/coin.tres" id="5_nn6fd"]
+[ext_resource type="Texture2D" uid="uid://xei0ri2slh7v" path="res://Assets/game_over/try_again_ads_button.tres" id="6_nn6fd"]
+[ext_resource type="Texture2D" uid="uid://l5boxqgf1yhu" path="res://Assets/game_over/ADS.tres" id="7_nn6fd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1jly"]
 font = ExtResource("3_qw8ku")

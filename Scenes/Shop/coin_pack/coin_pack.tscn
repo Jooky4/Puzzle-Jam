@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://m0ib0rkawnlx"]
 
 [ext_resource type="Texture2D" uid="uid://jga4fclsqkpk" path="res://Assets/shop/coin_pack/coin_pack_bg.png" id="1_1v6mu"]
-[ext_resource type="Script" uid="uid://bh24qm3yvrdwm" path="res://Scenes/Shop/coin_pack/coin_pack.gd" id="1_f7y21"]
+[ext_resource type="Script" path="res://Scenes/Shop/coin_pack/coin_pack.gd" id="1_f7y21"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_vrgho"]
 [ext_resource type="Texture2D" uid="uid://dgs8x4ji4w8rh" path="res://Assets/shop/coin_pack/price_bg.png" id="5_vrgho"]
 [ext_resource type="Texture2D" uid="uid://bungottxk2lqp" path="res://Assets/shop/coin_pack/иконка рекламы.png" id="6_4twdm"]

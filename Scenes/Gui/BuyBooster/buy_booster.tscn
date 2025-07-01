@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://de0n844wooxm0"]
 
 [ext_resource type="Texture2D" uid="uid://dbphalchc3plj" path="res://Assets/BuyBooster/background.png" id="1_7alo2"]
-[ext_resource type="Script" uid="uid://dwcytph8otdxi" path="res://Scenes/Gui/BuyBooster/buy_booster.gd" id="1_w4neb"]
+[ext_resource type="Script" path="res://Scenes/Gui/BuyBooster/buy_booster.gd" id="1_w4neb"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="3_6ql0y"]
-[ext_resource type="Texture2D" path="res://Assets/settings/close_button.tres" id="4_tgyow"]
+[ext_resource type="Texture2D" uid="uid://dptb85hd87uxu" path="res://Assets/settings/close_button.tres" id="4_tgyow"]
 [ext_resource type="PackedScene" uid="uid://cpdjbcrkxnfah" path="res://Scenes/Gui/BuyBooster/buy_booster_item.tscn" id="5_tgyow"]
 [ext_resource type="Resource" uid="uid://ca0xqh41q5xfr" path="res://Resources/Boosters/bomb.tres" id="7_qt3t6"]
 

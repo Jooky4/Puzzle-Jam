@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://8rhmjet71ngk"]
 
-[ext_resource type="Script" uid="uid://c62biiwnp3w7" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
+[ext_resource type="Script" path="res://Scenes/GoalColor/goal_color_controller.gd" id="1_lamtr"]
 [ext_resource type="PackedScene" uid="uid://gxx6cqyr5t8f" path="res://Scenes/GoalColor/goal_color.tscn" id="2_tgnh5"]
-[ext_resource type="Texture2D" path="res://Assets/goals/bg_top.tres" id="3_mshfx"]
+[ext_resource type="Texture2D" uid="uid://bxsnveelshhy6" path="res://Assets/goals/bg_top.tres" id="3_mshfx"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="4_1q5yt"]
-[ext_resource type="Texture2D" path="res://Assets/goals/bg_bottom.tres" id="5_mshfx"]
+[ext_resource type="Texture2D" uid="uid://dbbhf8vd1w10q" path="res://Assets/goals/bg_bottom.tres" id="5_mshfx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y0dy1"]
 font = ExtResource("4_1q5yt")

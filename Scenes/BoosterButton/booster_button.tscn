@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c0wuc6iecq3i6"]
 
-[ext_resource type="Script" uid="uid://bb1vbfcx3u454" path="res://Scenes/BoosterButton/booster_button.gd" id="1_4fe4r"]
+[ext_resource type="Script" path="res://Scenes/BoosterButton/booster_button.gd" id="1_4fe4r"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterButton/normal_bg.tres" id="1_swj3f"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterButton/locked_bg.tres" id="2_gp7ho"]
 [ext_resource type="Texture2D" path="res://Assets/BoosterButton/add_icon.tres" id="5_swj3f"]
@@ -80,6 +80,7 @@ grow_vertical = 0
 texture = ExtResource("5_swj3f")
 
 [node name="CountBackground" type="PanelContainer" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

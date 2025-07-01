@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://cj3ixpro2ygul"]
 
 [ext_resource type="Texture2D" uid="uid://8w4k304ocypb" path="res://Assets/Effects/smog.png" id="1_1t01a"]
-[ext_resource type="Script" uid="uid://drluckgqhod0h" path="res://Scenes/BoosterUi/animation_bomb.gd" id="1_c3mvn"]
+[ext_resource type="Script" path="res://Scenes/BoosterUi/animation_bomb.gd" id="1_c3mvn"]
 [ext_resource type="Texture2D" uid="uid://cgeejnlljot0d" path="res://Assets/Effects/shadow.png" id="2_1t01a"]
 [ext_resource type="Texture2D" uid="uid://6utcax3thvel" path="res://Assets/Effects/ring.png" id="2_x5u5p"]
-[ext_resource type="Texture2D" path="res://Assets/BoosterButton/bomb.tres" id="4_c3mvn"]
+[ext_resource type="Texture2D" uid="uid://jtas1qqek3p" path="res://Assets/BoosterButton/bomb.tres" id="4_c3mvn"]
 
 [sub_resource type="Curve" id="Curve_x5u5p"]
 _data = [Vector2(0, 0), 0.0, 1.52118, 0, 0, Vector2(1, 0), -6.11023, 0.0, 0, 0]
@@ -171,8 +171,8 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x5u5p"]
 _data = {
-&"RESET": SubResource("Animation_el8xm"),
-&"bomb_fall": SubResource("Animation_1t01a")
+"RESET": SubResource("Animation_el8xm"),
+"bomb_fall": SubResource("Animation_1t01a")
 }
 
 [node name="AnimationBomb" type="Node2D"]
@@ -181,12 +181,12 @@ script = ExtResource("1_c3mvn")
 [node name="SmogParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 30
-texture = ExtResource("1_1t01a")
 lifetime = 0.7
 one_shot = true
 speed_scale = 1.2
 explosiveness = 0.85
 lifetime_randomness = 0.3
+texture = ExtResource("1_1t01a")
 direction = Vector2(0, 1)
 spread = 180.0
 gravity = Vector2(0, -300)
@@ -205,11 +205,11 @@ color_ramp = SubResource("Gradient_c3mvn")
 [node name="RingParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 1
-texture = ExtResource("2_x5u5p")
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.85
 lifetime_randomness = 0.3
+texture = ExtResource("2_x5u5p")
 direction = Vector2(0, 0)
 gravity = Vector2(0, 0)
 scale_amount_min = 2.0
@@ -229,5 +229,5 @@ texture = ExtResource("2_1t01a")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_x5u5p")
+"": SubResource("AnimationLibrary_x5u5p")
 }

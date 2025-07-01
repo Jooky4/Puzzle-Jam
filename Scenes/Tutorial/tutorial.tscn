@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5jgkah2iwcjf"]
 
-[ext_resource type="Script" uid="uid://df8t6dav73867" path="res://Scenes/Tutorial/tutorial.gd" id="1_gycof"]
+[ext_resource type="Script" path="res://Scenes/Tutorial/tutorial.gd" id="1_gycof"]
 [ext_resource type="Texture2D" path="res://Assets/tutorial/circle.tres" id="2_cdp5x"]
 [ext_resource type="Texture2D" path="res://Assets/tutorial/pointer.tres" id="3_n1m62"]
 

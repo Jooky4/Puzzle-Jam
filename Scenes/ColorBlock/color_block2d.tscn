@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://byg7qsirmatr4"]
 
-[ext_resource type="Script" uid="uid://b2jd3d3086s4g" path="res://Scenes/ColorBlock/color_block2d.gd" id="1_qv5tu"]
+[ext_resource type="Script" path="res://Scenes/ColorBlock/color_block2d.gd" id="1_qv5tu"]
 [ext_resource type="Texture2D" path="res://Assets/color_blocks/ice_block.tres" id="3_01h3s"]
 [ext_resource type="Texture2D" uid="uid://bcumq1t2ouifb" path="res://Assets/color_blocks/key_and_lock/lock_silver.tres" id="3_63wuj"]
 [ext_resource type="Texture2D" uid="uid://c52fvdnkyr4h1" path="res://Assets/color_blocks/eyes/eyes_1.png" id="4_01h3s"]

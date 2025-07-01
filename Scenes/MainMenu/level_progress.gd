@@ -23,4 +23,4 @@ func _set_level(_value: int) -> void:
 	level = max(_value, 0)
 
 	if level_value:
-		level_value.text = str(_value)
+		level_value.text = str(_value + 1)

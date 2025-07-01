@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://bk5ieei7j7ott"]
 
-[ext_resource type="Script" uid="uid://s68x2baa3yg8" path="res://Scenes/Shop/booster_set/booster_set.gd" id="1_rog81"]
+[ext_resource type="Script" path="res://Scenes/Shop/booster_set/booster_set.gd" id="1_rog81"]
 [ext_resource type="Texture2D" uid="uid://ds0ctf1206pjg" path="res://Assets/shop/booster_set/mini_bg.png" id="2_jguy7"]
 [ext_resource type="Texture2D" uid="uid://chyx6dya2pcha" path="res://Assets/shop/booster_set/start_bg.png" id="3_6jc43"]
 [ext_resource type="Texture2D" uid="uid://m8f68ljjgqp3" path="res://Assets/shop/booster_set/best_bg.png" id="4_xx78k"]
@@ -110,7 +110,7 @@ offset_right = 92.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Мини"
+text = "PACK_MINI"
 label_settings = SubResource("LabelSettings_cq72d")
 horizontal_alignment = 1
 vertical_alignment = 1

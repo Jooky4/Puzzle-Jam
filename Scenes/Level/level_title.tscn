@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhu88im5cp8nc"]
 
-[ext_resource type="Script" uid="uid://de7bagq7htff6" path="res://Scenes/Level/level_title.gd" id="1_medeh"]
+[ext_resource type="Script" path="res://Scenes/Level/level_title.gd" id="1_medeh"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="2_mf5w2"]
 [ext_resource type="Texture2D" path="res://Assets/level_title/hard.tres" id="3_r6kbx"]
 [ext_resource type="Texture2D" path="res://Assets/level_title/super_hard.tres" id="4_r6kbx"]
