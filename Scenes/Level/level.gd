@@ -1148,3 +1148,4 @@ func _key_retrieved(_color_tile, cb) -> void:
 		var color_block2d = block_container.get_child(cell_idx).get_color_block()
 		color_block2d.colors = i.colors
 		color_block2d.update_tiles(i.colors)
+		check_matches(i.position)
