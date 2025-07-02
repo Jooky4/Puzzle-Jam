@@ -1131,16 +1131,15 @@ func _key_retrieved(_color_tile, cb) -> void:
 		var key_node = load("res://Scenes/Key/key.tscn").instantiate()
 		add_child(key_node)
 		key_node.z_index = 130
-		key_node.position = key_pos
+		key_node.position = key_pos + Vector2(25, 70) # корректировка позиции
 		key_node.type = _color_tile.type
 		key_node.scale = Vector2(1, 1)
-		var _t = create_tween()
 
-		_t.tween_property(key_node, "position", key_pos + Vector2(0, -50), 0.4)
-		_t.chain()
-		_t.tween_property(key_node, "position", lock_pos + Vector2(50, 50), 0.4)
-		_t.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-		await _t.finished
+		SFX.play_sound("key_1")
+		Utils.jump_to_position(key_node, lock_pos + Vector2(100, 100), 0.7)
+		await Utils.timeout(0.65)
+		SFX.play_sound("key_2")
+
 		remove_child(key_node)
 
 		current_level[i.position.y][i.position.x] = i.colors

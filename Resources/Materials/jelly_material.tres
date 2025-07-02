@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bg0h5af5cm0yn"]
 
-[ext_resource type="Shader" uid="uid://cukirmrxl1ey6" path="res://Resources/Shaders/jelly_effect.gdshader" id="1_74xc0"]
+[ext_resource type="Shader" path="res://Resources/Shaders/jelly_effect.gdshader" id="1_74xc0"]
 
 [resource]
 resource_local_to_scene = true

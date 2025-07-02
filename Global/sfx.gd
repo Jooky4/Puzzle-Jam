@@ -97,7 +97,7 @@ var sfx_config = {
 	"key_1": {
 		"path": "res://Assets/sfx/key_1.ogg",
 		"volume": 0,
-		"pitch": 1,
+		"pitch": 1.5,
 		"sound": null,
 	},
 	"key_2": {

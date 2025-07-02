@@ -48,7 +48,7 @@ func jump_to_position(node, target_position: Vector2, duration: float = 0.5, jum
 
 	# Создаем кривую Безье для анимации прыжка (Y-смещение)
 	var curve = Curve.new()
-	curve.add_point(Vector2(0, 0))
+	curve.add_point(Vector2(0, 0), 0, 3.6)
 
 	# Пик дуги по центру
 	curve.add_point(Vector2(0.5, 1))
