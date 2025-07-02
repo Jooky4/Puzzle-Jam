@@ -471,7 +471,7 @@ func _on_color_block_pressed(block: Node) -> void:
 				goal_colors_container.dec_color(tile_color, 1)
 
 			# запускаем удаление плиток соседей
-			await bomb_explode_neighbours(cell_pos)
+			await bomb_explode_neighbours(cell_pos, animation_bomb.position)
 			_set_state(EState.PLAY)
 			EventBus.booster_used.emit(current_booster.type)
 
@@ -502,7 +502,7 @@ func hammer(block: Node) -> void:
 	update_level()
 
 
-func bomb_explode_neighbours(pos: Vector2i) -> void:
+func bomb_explode_neighbours(pos: Vector2i, global_pos: Vector2) -> void:
 	var neighbours = [
 		Vector2i(-1, -1),
 		Vector2i(-1, 0),
@@ -517,7 +517,11 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 	var level_height = LevelManager.get_current_level().size()
 	var level_width = LevelManager.get_current_level()[0].size()
 
-	await Utils.timeout(1)
+	await Utils.timeout(0.3)
+	var _bomb_parts: Array
+
+	var _target_blocks: Array
+
 	for side in neighbours:
 		var n_pos = side + pos
 
@@ -541,12 +545,58 @@ func bomb_explode_neighbours(pos: Vector2i) -> void:
 					2: ColorBlock.ESides.BOTTOM,
 					3: ColorBlock.ESides.LEFT,
 				}
-
 				var _cb = LevelManager.get_color_block(n_pos, current_level)
-				_cb_node_remove_colors(_cb, _remove_color, sides[_rnd_index])
-				_block.colors = _cb.colors
+
+				_target_blocks.push_back({
+					"cb": _cb,
+					"remove_color": _remove_color,
+					"side": sides[_rnd_index],
+					"block": _block,
+				})
+
+	# Анимация осколка
+	for i in _target_blocks:
+		var _block = i["block"]
+		var _bomb_part = load("res://Scenes/BoosterUi/bomb_part.tscn").instantiate()
+		_bomb_part.position = global_pos
+		_bomb_part.z_index = 100
+		add_child(_bomb_part)
+		_bomb_parts.push_back(_bomb_part)
+		var _target_pos = _block.global_position + Vector2(50, 50)
+		Utils.jump_to_position(_bomb_part, _target_pos, 0.3)
+
+	# ждём когда осколки долетят
+	await Utils.timeout(0.31)
+
+	# удаляем осколки
+	for i in _bomb_parts:
+		remove_child(i)
+
+	# удаляем цвета на блоках, на которые упали осколки
+	for i in _target_blocks:
+		var _cb = i["cb"]
+		var _remove_color = i["remove_color"]
+		var side = i["side"]
+		var _block = i["block"]
+		_cb_node_remove_colors(_cb, _remove_color, side)
+		var _side = side
+		# костыль - в некоторых кейсах, цвет не удаляется
+		match side:
+			0:
+				_side = 2
+			1:
+				_side = 3
+			2:
+				_side = 0
+			3:
+				_side = 1
+		_cb_node_remove_colors(_cb, _remove_color, _side)
+
+		_block.colors = _cb.colors
 
 	await Utils.timeout(0.2)
+	for i in _target_blocks:
+		check_matches(i["cb"].position)
 
 
 func shuffle() -> void:
@@ -558,7 +608,6 @@ func shuffle() -> void:
 		var cb = ColorBlock.new()
 		cb.colors = i.colors
 		if cb.has_lock():
-			prints("is lock", i)
 			continue
 		else:
 			_non_empty_without_lock.push_back(i)
@@ -793,7 +842,6 @@ func check_matches(pos: Vector2i) -> void:
 		goal_colors_container.dec_color(tile_color, 1)
 		# Оповещаем всех что цель обновилась
 		EventBus.goals_changed.emit(goal_colors_container.colors)
-		prints("match color", tile_color)
 
 		var tiles_to_remove: Array
 		var _tile = _cb_node_remove_colors(current_block, tile_color, matched_blocks[0].current_side)
@@ -875,12 +923,13 @@ func check_matches(pos: Vector2i) -> void:
 		# --- запускаем проверку для всех изменённых блоков ---
 		for i in used_block_list:
 			var cb = i.block
-			await Utils.timeout(time_before_check_next)
+			await Utils.timeout(time_before_check_next/2)
 			check_matches(cb.position)
 
 	check_match_count -= 1
 
 	if check_match_count < 1:
+		await Utils.timeout(0.2)
 		_set_state(EState.PLAY)
 		update_level()
 		check_level_complete()

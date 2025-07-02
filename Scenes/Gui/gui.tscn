@@ -141,6 +141,7 @@ grow_vertical = 2
 
 [node name="CloseButton" type="TextureButton" parent="ShopModal"]
 z_index = 70
+layout_mode = 0
 offset_left = 97.0
 offset_top = 38.0
 offset_right = 173.0

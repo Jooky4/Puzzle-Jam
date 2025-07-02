@@ -47,6 +47,7 @@ var lb_data = [
 func _ready() -> void:
 	prints("leaderboard ready")
 	Gui.hide_default_ui()
+
 	var options = {
 		"leaderboardName": Config.LEADERBOARD_NAME,
 		"quantityTop": 10,
@@ -57,6 +58,7 @@ func _ready() -> void:
 
 
 func _on_get_entries_completed(success, entries) -> void:
+	prints("_on_get_entries_completed", success, entries)
 	var cur_user_id = Bridge.player.id
 
 	var _prev_rank := 0
