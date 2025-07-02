@@ -159,21 +159,21 @@ func run_tutorial() -> void:
 			tutorial.run_level_01(_pos1, _pos2)
 		3:
 			prints("hammer tutorial")
-			Player.set_value("hammer", Config.DEMO_HAMMER_COUNT)
+			Player.set_value("hammer", Player.get_value("hammer") + Config.DEMO_HAMMER_COUNT)
 			hammer_button.count = Player.get_value("hammer")
 			var _pos = hammer_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		5:
 			prints("shuffle tutorial")
-			Player.set_value("shuffle", Config.DEMO_SHUFFLE_COUNT)
+			Player.set_value("shuffle", Player.get_value("shuffle") + Config.DEMO_SHUFFLE_COUNT)
 			shuffle_button.count = Player.get_value("shuffle")
 			var _pos = shuffle_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		7:
 			prints("bomb tutorial")
-			Player.set_value("bomb", Config.DEMO_BOMB_COUNT)
+			Player.set_value("bomb", Player.get_value("bomb") + Config.DEMO_BOMB_COUNT)
 			bomb_button.count = Player.get_value("bomb")
 			var _pos = bomb_button.global_position + block_center_offset
 			tutorial.run()

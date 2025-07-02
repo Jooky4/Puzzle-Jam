@@ -1,83 +1,83 @@
 {
-    "platforms": {
-        "game_distribution": {
-            "gameId": ""
-        },
-        "telegram": {
-            "adsgramBlockId": ""
-        },
-        "y8": {
-            "gameId": "",
-            "adsenseId": "",
-            "channelId": ""
-        },
-        "lagged": {
-            "devId": "",
-            "publisherId": ""
-        }
-    },
-    "advertisement": {
-        "interstitial": {
-            "preloadOnStart": true
-        },
-        "rewarded": {
-            "preloadOnStart": true
-        }
-    },
-    "payments": [
-        {
-            "id": "coins_100",
-            "yandex": {
-                "amount": 5
-            }
-        },
-        {
-            "id": "coins_500",
-            "yandex": {
-                "amount": 19
-            }
-        },
-        {
-            "id": "coins_2000",
-            "yandex": {
-                "amount": 69
-            }
-        },
-        {
-            "id": "coins_5000",
-            "yandex": {
-                "amount": 139
-            }
-        },
-        {
-            "id": "coins_10000",
-            "yandex": {
-                "amount": 239
-            }
-        },
-        {
-            "id": "boosters_mini",
-            "yandex": {
-                "amount": 69
-            }
-        },
-        {
-            "id": "boosters_start",
-            "yandex": {
-                "amount": 189
-            }
-        },
-        {
-            "id": "boosters_best",
-            "yandex": {
-                "amount": 299
-            }
-        },
-        {
-            "id": "boosters_big",
-            "yandex": {
-                "amount": 469
-            }
-        }
-    ]
+	"platforms": {
+		"game_distribution": {
+			"gameId": ""
+		},
+		"telegram": {
+			"adsgramBlockId": ""
+		},
+		"y8": {
+			"gameId": "",
+			"adsenseId": "",
+			"channelId": ""
+		},
+		"lagged": {
+			"devId": "",
+			"publisherId": ""
+		}
+	},
+	"advertisement": {
+		"interstitial": {
+			"preloadOnStart": true
+		},
+		"rewarded": {
+			"preloadOnStart": true
+		}
+	},
+	"payments": [
+		{
+			"id": "coins_100",
+			"yandex": {
+				"amount": 5
+			}
+		},
+		{
+			"id": "coins_500",
+			"yandex": {
+				"amount": 19
+			}
+		},
+		{
+			"id": "coins_2000",
+			"yandex": {
+				"amount": 69
+			}
+		},
+		{
+			"id": "coins_5000",
+			"yandex": {
+				"amount": 139
+			}
+		},
+		{
+			"id": "coins_10000",
+			"yandex": {
+				"amount": 239
+			}
+		},
+		{
+			"id": "boosters_mini",
+			"yandex": {
+				"amount": 69
+			}
+		},
+		{
+			"id": "boosters_start",
+			"yandex": {
+				"amount": 189
+			}
+		},
+		{
+			"id": "boosters_best",
+			"yandex": {
+				"amount": 299
+			}
+		},
+		{
+			"id": "boosters_big",
+			"yandex": {
+				"amount": 469
+			}
+		}
+	]
 }

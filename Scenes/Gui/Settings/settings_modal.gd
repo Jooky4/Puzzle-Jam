@@ -12,11 +12,13 @@ func _ready() -> void:
 
 
 func _on_player_data_loaded() -> void:
-	var mute_sfx = Player.get_value("mute_sfx")
+	var _sfx: int = Player.get_value("mute_sfx")
+	var mute_sfx = bool(_sfx)
 	sound_checkbox.set_value_no_signal(not mute_sfx)
 	SFX.set_mute("SFX", mute_sfx)
 
-	var mute_music = Player.get_value("mute_music")
+	var _music: int = Player.get_value("mute_music")
+	var mute_music = bool(_music)
 	music_checkbox.set_value_no_signal(not mute_music)
 	SFX.set_mute("Music", mute_sfx)
 
@@ -28,11 +30,13 @@ func _on_close_button_pressed() -> void:
 
 func _on_sound_checkbox_checked(value: Variant) -> void:
 	SFX.set_mute("SFX", not value)
-	Player.set_value("mute_sfx", not value)
+	var _sfx = int(not value)
+	Player.set_value("mute_sfx", _sfx)
 	Player.save_data()
 
 
 func _on_music_checkbox_checked(value: Variant) -> void:
 	SFX.set_mute("Music", not value)
-	Player.set_value("mute_music", not value)
+	var _music = int(not value)
+	Player.set_value("mute_music", _music)
 	Player.save_data()

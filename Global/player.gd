@@ -6,8 +6,8 @@ var _data = {
 	"hammer": 0,
 	"bomb": 0,
 	"shuffle": 0,
-	"mute_sfx": false,
-	"mute_music": false,
+	"mute_sfx": 0,
+	"mute_music": 0,
 }
 
 const DATA_KEYS = [
@@ -46,11 +46,12 @@ func _on_booster_used(booster_type: Booster.EType) -> void:
 	var cur_data_name = booster_name[booster_type]
 	var old_value = get_booster_count(booster_type)
 	set_value(cur_data_name, max(old_value - 1, 0))
+	save_data()
 
 
 func _on_coins_changed(value: int) -> void:
 	set_value("coins", value)
-	prints("player on coins changed", get_value("coins"))
+	#prints("player on coins changed", get_value("coins"))
 
 
 func is_play_first_time() -> bool:
@@ -64,7 +65,7 @@ func _get(property):
 
 
 func set_value(key: String, value) -> void:
-	#prints("set value()", key, value)
+	prints("set value(%s)" % key, value, _data[key])
 
 	if key in _data.keys():
 		_data[key] = value
@@ -125,20 +126,22 @@ func _on_data_loaded(success, data) -> void:
 	for i in DATA_KEYS.size():
 		var _key: String = DATA_KEYS[i]
 		var _value = data[i]
-		if _key.begins_with("mute_"):
-			if not _value:
-				_value = false
-			else:
-				if _value == "false":
-					_value = false
-				else:
-					_value = true
-		else:
-			if not _value:
-				_value = 0
-			else:
-				_value = int(_value)
+		prints("in value", _key, data[i], typeof(data[i]))
+		#if _key.begins_with("mute_"):
+			#if not _value:
+				#_value = false
+			#else:
+				#if _value == "false":
+					#_value = false
+				#else:
+					#_value = true
+		#else:
+			#if not _value:
+				#_value = 0
+			#else:
+				#_value = int(_value)
 
-		set_value(_key, _value)
+
+		set_value(_key, int(_value))
 
 	EventBus.player_loaded.emit()

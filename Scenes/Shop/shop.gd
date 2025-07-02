@@ -154,9 +154,38 @@ func _on_booster_pressed(booster_set: Node) -> void:
 
 
 func _on_purchase_completed(success, purchase):
-	print(success)
-	print(purchase)
+	prints("purchase", success, purchase)
+	if success:
+		prints("")
+		match purchase.id:
+			"coins_100":
+				Player.set_value("coins", Player.get_value("coins") + 100)
+			"coins_500":
+				Player.set_value("coins", Player.get_value("coins") + 500)
+			"coins_2000":
+				Player.set_value("coins", Player.get_value("coins") + 2000)
+			"coins_5000":
+				Player.set_value("coins", Player.get_value("coins") + 5000)
+			"coins_10000":
+				Player.set_value("coins", Player.get_value("coins") + 10000)
+			"boosters_mini":
+				Player.set_value("hammer", Player.get_value("hammer") + 1)
+				Player.set_value("bomb", Player.get_value("bomb") + 1)
+				Player.set_value("shuffle", Player.get_value("shuffle") + 1)
+			"boosters_start":
+				Player.set_value("hammer", Player.get_value("hammer") + 3)
+				Player.set_value("bomb", Player.get_value("bomb") + 3)
+				Player.set_value("shuffle", Player.get_value("shuffle") + 3)
+			"boosters_best":
+				Player.set_value("hammer", Player.get_value("hammer") + 5)
+				Player.set_value("bomb", Player.get_value("bomb") + 5)
+				Player.set_value("shuffle", Player.get_value("shuffle") + 5)
+			"boosters_big":
+				Player.set_value("hammer", Player.get_value("hammer") + 10)
+				Player.set_value("bomb", Player.get_value("bomb") + 10)
+				Player.set_value("shuffle", Player.get_value("shuffle") + 10)
 
+		Player.save_data()
 
 func _on_ads_coin_pack_pressed() -> void:
 	prints("click ads coins")
