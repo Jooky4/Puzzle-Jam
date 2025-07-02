@@ -14,3 +14,6 @@ const DEMO_HAMMER_COUNT = 3
 
 const DEMO_BOMB_COUNT = 3
 const DEMO_SHUFFLE_COUNT = 3
+
+# Уровень, после прохождения которого, кнопка "Продолжить" возвращает в главное меню
+const LEVEL_COMPLETE_MAIN_MENU = 4 # это индекс уровня, т.е. уровень 1 это 0

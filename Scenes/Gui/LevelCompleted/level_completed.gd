@@ -25,9 +25,15 @@ func _on_rewarded_state_changed(status: String) -> void:
 			reward = _bonus_reward
 			EventBus.coins_changed.emit(Player.coins + reward)
 			Player.save_data()
-			next_level.emit()
+			if LevelManager.current_level > Config.LEVEL_COMPLETE_MAIN_MENU:
+				reward_twister.hide()
+			else:
+				next_level.emit()
+
 		elif status == "closed":
-			next_level.emit()
+			if LevelManager.current_level <= Config.LEVEL_COMPLETE_MAIN_MENU:
+				next_level.emit()
+
 
 
 func _set_reward(value: int) -> void:
@@ -45,16 +51,21 @@ func _update_ui() -> void:
 
 
 func play_animation() -> void:
+	prints("level complete play animation")
 	animation_player.play("Start")
 	SFX.play_sound("victory")
 
 
 func update() -> void:
+	reward_twister.show()
 	reward_twister.start_animation()
 
 
 func _on_next_button_pressed() -> void:
 	EventBus.coins_changed.emit(Player.coins + reward)
+	if LevelManager.current_level > Config.LEVEL_COMPLETE_MAIN_MENU:
+		ChangeScene.to("menu")
+
 	next_level.emit()
 
 

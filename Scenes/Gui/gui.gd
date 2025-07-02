@@ -86,7 +86,6 @@ func _on_level_complete(level_number: int) -> void:
 	level_complete.update()
 	level_complete.play_animation()
 
-
 	show_modal(EModal.LevelComplete)
 
 
