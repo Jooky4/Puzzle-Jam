@@ -122,6 +122,7 @@ func _on_add_money_button_pressed() -> void:
 
 
 func _on_shop_close_button_pressed() -> void:
+	SFX.play_sound("click")
 	hide_modal(EModal.Shop)
 	show_level_ui()
 

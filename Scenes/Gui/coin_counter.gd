@@ -23,4 +23,5 @@ func _update_label() -> void:
 
 
 func _on_plus_button_pressed() -> void:
+	SFX.play_sound("click")
 	plus_pressed.emit()

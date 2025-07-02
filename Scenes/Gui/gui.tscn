@@ -141,11 +141,15 @@ grow_vertical = 2
 
 [node name="CloseButton" type="TextureButton" parent="ShopModal"]
 z_index = 70
-layout_mode = 0
-offset_left = 97.0
-offset_top = 38.0
-offset_right = 173.0
-offset_bottom = 114.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -315.0
+offset_top = 31.0
+offset_right = -239.0
+offset_bottom = 107.0
+grow_horizontal = 2
 texture_normal = ExtResource("10_w627r")
 
 [node name="BuyBoosterModal" type="Panel" parent="."]
