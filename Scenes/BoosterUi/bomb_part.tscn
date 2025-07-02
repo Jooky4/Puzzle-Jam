@@ -1,8 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://814ukx0dvyam"]
 
-[ext_resource type="Texture2D" uid="uid://r8ag07qd5lxa" path="res://Assets/Effects/star.png" id="1_ylecl"]
+[ext_resource type="Texture2D" uid="uid://jtas1qqek3p" path="res://Assets/BoosterButton/bomb.tres" id="1_db7kd"]
 
 [node name="BombPart" type="Sprite2D"]
-self_modulate = Color(0, 0, 0, 1)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_ylecl")
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_db7kd")
