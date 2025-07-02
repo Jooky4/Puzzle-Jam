@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ddanxh5uq0l0m"]
+[gd_scene load_steps=17 format=3 uid="uid://ddanxh5uq0l0m"]
 
 [ext_resource type="Script" path="res://Scenes/Leaderboard/leaderboard.gd" id="1_l68so"]
 [ext_resource type="Texture2D" uid="uid://fxo2l73ncnu7" path="res://Assets/leaderboard/background.png" id="2_1uwp6"]
@@ -11,12 +11,25 @@
 [ext_resource type="Texture2D" path="res://Assets/leaderboard/banner.tres" id="8_wgoxs"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="9_c47oi"]
 [ext_resource type="Texture2D" path="res://Assets/leaderboard/stars.tres" id="10_wgoxs"]
+[ext_resource type="Texture2D" uid="uid://d33r5m5msgxo3" path="res://Assets/game_over/green_button.tres" id="12_1duwa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8v6ri"]
 font = ExtResource("9_c47oi")
 font_size = 44
 outline_size = 9
 outline_color = Color(0.329412, 0.101961, 0.34902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dqfnx"]
+font = ExtResource("9_c47oi")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_oyhh4"]
+font = ExtResource("9_c47oi")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_1xbxr"]
+font = ExtResource("9_c47oi")
+font_size = 30
 
 [node name="Leaderboard" type="Control"]
 layout_mode = 3
@@ -185,6 +198,7 @@ patch_margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BodyBG"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -198,3 +212,70 @@ offset_bottom = 475.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 4
+
+[node name="AuthControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="AuthControl"]
+layout_mode = 2
+offset_left = -196.0
+offset_top = -254.0
+offset_right = 196.0
+offset_bottom = -208.0
+text = "AUTH_TITLE"
+label_settings = SubResource("LabelSettings_dqfnx")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="AuthControl"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+offset_left = -196.0
+offset_top = -204.0
+offset_right = 196.0
+offset_bottom = -84.0
+text = "AUTH_MESSAGE"
+label_settings = SubResource("LabelSettings_oyhh4")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AuthButton" type="TextureButton" parent="AuthControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -48.5
+offset_right = 136.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("12_1duwa")
+
+[node name="Label" type="Label" parent="AuthControl/AuthButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -17.5
+offset_right = 78.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "AUTH_BTN"
+label_settings = SubResource("LabelSettings_1xbxr")
+horizontal_alignment = 1
+uppercase = true
+
+[connection signal="pressed" from="AuthControl/AuthButton" to="." method="_on_auth_button_pressed"]

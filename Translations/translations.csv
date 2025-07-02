@@ -38,3 +38,6 @@ SECOND_CHANCE_DESC;Освободи 5 клеток и продолжи игру;
 TUT_LOCKED_DESC;Этот куб заблокирован;This cube is locked
 TUT_KEY_DESC;Собери ключ, чтобы открыть его
 TUT_ICE_DESC;Эти кубы заморожены, попробуем разбить лед!;These cubes are frozen, let’s try breaking the ice!
+AUTH_TITLE;Авторизация;Authorization
+AUTH_BTN;Войти;Log in
+AUTH_MESSAGE;Хотите войти в свой аккаунт, чтобы надёжно сохранять прогресс?;Do you want to log into your account to securely save your progress?
