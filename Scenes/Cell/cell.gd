@@ -1,4 +1,4 @@
-extends Control
+class_name Cell2D extends Control
 
 
 @export_enum("normal", "ads") var cell_type: String: set = _set_cell_type
@@ -89,10 +89,9 @@ func set_highlighted(value: bool) -> void:
 	#texture_rect.modulate = color
 
 
-func get_color_block() -> Node:
+func get_color_block() -> ColorBlock2D:
 	if active and not can_drop_block:
 		var child = get_child(-1)
-		#prints("get_color_block()", child)
 		return child
 	else:
 		return null

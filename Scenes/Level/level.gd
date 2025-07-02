@@ -274,13 +274,13 @@ func _process(delta: float) -> void:
 			tutorial.stop()
 
 			#prints("GAME OVER")
-			#EventBus.game_over.emit()
+			EventBus.game_over.emit()
 
 			# Очистка данных игрока
-			for i in Player._data.keys():
-				if not i.begins_with("mute_"):
-					Player._data[i] = 0
-			Player.save_data()
+			#for i in Player._data.keys():
+				#if not i.begins_with("mute_"):
+					#Player._data[i] = 0
+			#Player.save_data()
 
 
 func _input(event):
@@ -575,6 +575,8 @@ func bomb_explode_neighbours(pos: Vector2i, global_pos: Vector2) -> void:
 	# удаляем цвета на блоках, на которые упали осколки
 	for i in _target_blocks:
 		var _cb = i["cb"]
+		if _cb.has_lock():
+			continue
 		var _remove_color = i["remove_color"]
 		var side = i["side"]
 		var _block = i["block"]
@@ -620,46 +622,79 @@ func shuffle() -> void:
 	await Utils.timeout(0.5)
 	SFX.play_sound("spinner")
 
+	const UP_DURATION = 0.2
+	const MOVE_DURATION = 0.5
+	const DOWN_DURATION = 0.3
+
+	var _animated_blocks: Array
+
+	# для каждого блока создаём копию для анимации. Скрываем сам блок
 	for i in _non_empty_cells.size():
 		var _cell = _non_empty_cells[i]
 		var _new_cell = _new_non_empty_cells[i]
+
+		prints("move", _cell, "to", _new_cell)
 		var _tween = create_tween()
 
-		var cell_block = BLOCK_ARR[Utils.get_index_by_pos(_cell.position, 6)]
-		var _color_block = cell_block.get_color_block()
-		var new_cell_block = BLOCK_ARR[Utils.get_index_by_pos(_new_cell.position, 6)]
-		var new_color_block = new_cell_block.get_color_block()
+		var cell_block = get_cell_by_pos(_cell.position)
+		var color_block_node = cell_block.get_color_block()
+		var new_cell_block = get_cell_by_pos(_new_cell.position)
+		var new_color_block_node = new_cell_block.get_color_block()
 
 		# создаём копию цветного блока для перемещения
 		var cb = load("res://Scenes/ColorBlock/color_block2d.tscn").instantiate()
 		add_child(cb)
-		cb.update_tiles(_color_block.colors)
-		cb.position = _color_block.global_position - Vector2(50, 50)
+		cb.update_tiles(color_block_node.colors)
+		cb.position = color_block_node.global_position - Vector2(50, 50)
 
-		_color_block.hide()
-		new_color_block.hide()
-		new_color_block.colors = _color_block.colors.duplicate()
-		new_color_block.update_tiles(_color_block.colors)
+		color_block_node.hide()
+		new_color_block_node.hide()
 
 		# подъём над ячейкой
-		var _up_pos = _color_block.global_position.y - 100
-		current_level[_new_cell.position.y][_new_cell.position.x] = _color_block.colors.duplicate()
-		_tween.tween_property(cb, "position:y", _up_pos, 0.2)
+		var _up_pos = color_block_node.global_position.y - 100
+
+		_tween.tween_property(cb, "position:y", _up_pos, UP_DURATION)
 		_tween.set_ease(Tween.EASE_IN_OUT)
 		_tween.chain()
 
 		# Перемещение на новую позицию (будет находиться выше ячейки из-за подъёма)
-		var _new_pos = new_color_block.global_position - Vector2(50, 50) - Vector2(0, 100)
+		var _new_pos = new_color_block_node.global_position - Vector2(50, 50) - Vector2(0, 100)
 
-		_tween.tween_property(cb, "position", _new_pos, 0.5)
+		_tween.tween_property(cb, "position", _new_pos, MOVE_DURATION)
 		_tween.set_ease(Tween.EASE_IN_OUT)
 
 		# опускание на ячейку
-		_tween.tween_property(cb, "position", _new_pos + Vector2(0, 100), 0.3)
+		_tween.tween_property(cb, "position", _new_pos + Vector2(0, 100), DOWN_DURATION)
 		_tween.play()
-		_tween.tween_callback(_restore_color_block.bind(cb, _color_block))
+		_animated_blocks.push_back(cb)
+		#_tween.tween_callback(_restore_color_block.bind(cb, color_block_node))
 
-	await Utils.timeout(0.51)
+	await Utils.timeout(UP_DURATION + MOVE_DURATION + DOWN_DURATION + 0.01)
+
+	# удаляем летающие блоки после анимации
+	for i in _animated_blocks:
+		remove_child(i)
+
+	# назначаем новые цвета блокам
+	for i in _non_empty_cells.size():
+		var _cb = _non_empty_cells[i]
+		var _new_cb = _new_non_empty_cells[i]
+
+		if _cb.is_live():
+			# перемещаем живой блок в новую позицию
+			for j in live_block_list:
+				if j.position == _cb.position:
+					j.position = _new_cb.position
+
+		var cell_block = get_cell_by_pos(_cb.position)
+		var color_block_node = cell_block.get_color_block()
+		var new_cell_block = get_cell_by_pos(_new_cb.position)
+		var new_color_block_node = new_cell_block.get_color_block()
+
+		new_color_block_node.colors = _cb.colors
+		new_color_block_node.update_tiles(_cb.colors)
+		new_color_block_node.show()
+		current_level[_new_cb.position.y][_new_cb.position.x] = _cb.colors
 
 	for cell in _new_non_empty_cells:
 		check_matches(cell.position)
@@ -667,7 +702,7 @@ func shuffle() -> void:
 
 func _restore_color_block(moving_cb_node, cb) -> void:
 	remove_child(moving_cb_node)
-	if cb:
+	if is_instance_valid(cb):
 		cb.show()
 
 
@@ -774,7 +809,7 @@ func _cb_node_remove_colors(color_block: ColorBlock, color: int, side: ColorBloc
 	return result
 
 
-func get_cell_by_pos(pos: Vector2i) -> Node:
+func get_cell_by_pos(pos: Vector2i) -> Cell2D:
 	var cell = block_container.get_child(Utils.get_index_by_pos(pos, 6))
 	return cell
 
@@ -1003,15 +1038,13 @@ func move_live_block() -> void:
 			var random_free_cell = free_cells_around.pick_random()
 
 			if random_free_cell:
-				prints("move", lb, random_free_cell)
+				#prints("move", lb, random_free_cell)
 				current_level[random_free_cell.position.y][random_free_cell.position.x] = lb.colors
 				current_level[lb.position.y][lb.position.x] = LevelData.FREE_CELL
 				var _old_cell = block_container.get_child(Utils.get_index_by_pos(lb.position, 6))
 				var _new_cell = block_container.get_child(Utils.get_index_by_pos(random_free_cell.position, 6))
 
 				var _old_block = _old_cell.get_color_block()
-
-				prints("remove old block", _old_cell, _old_block)
 
 				# Перемещаем блок из одной ячейки в другую
 				_old_cell.remove_child(_old_block)

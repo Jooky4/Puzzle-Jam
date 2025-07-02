@@ -68,7 +68,7 @@ var catalog_mock_data = [
 @onready var coin_pack_6: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack6
 
 
-@onready var coin_pack_list = [coin_pack, coin_pack_2, coin_pack_3, coin_pack_4, coin_pack_5, coin_pack_6]
+@onready var coin_pack_list = [coin_pack_2, coin_pack_3, coin_pack_4, coin_pack_5, coin_pack_6]
 
 @onready var booster_set: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet
 @onready var booster_set_2: Button = $ScrollContainer/VBoxContainer/BoosterPack/MarginContainer/Panel/VBoxContainer/BoosterSet2
@@ -110,8 +110,6 @@ func _on_close_button_pressed() -> void:
 
 
 func _get_catalog() -> void:
-	Bridge.payments.get_catalog(Callable(self, "_on_get_catalog_completed"))
-	await Utils.timeout(0.1)
 	Bridge.payments.get_catalog(Callable(self, "_on_get_catalog_completed"))
 	#_on_get_catalog_completed("OK", catalog_mock_data)
 
@@ -162,10 +160,10 @@ func _on_purchase_completed(success, purchase):
 
 func _on_ads_coin_pack_pressed() -> void:
 	prints("click ads coins")
-	Bridge.advertisement.show_rewarded()
+	Bridge.advertisement.show_rewarded(Config.BUY_COINS_ADS)
 
 
 func _on_rewarded_state_changed(state) -> void:
 	prints("rewarded state", state)
-	if state == "rewarded":
+	if state == "rewarded" and Bridge.advertisement.rewarded_placement == Config.BUY_COINS_ADS:
 		EventBus.coins_changed.emit(100 + Player.coins)

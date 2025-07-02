@@ -140,11 +140,10 @@ func get_non_empty_cells(_cur_level_data: Array) -> Array:
 			# TODO: проверять рекламный блок
 
 			if _cur_cell != LevelData.EMPTY_CELL and _cur_cell != LevelData.FREE_CELL:
-				var cell = {
-					"position": Vector2i(x, y),
-					"colors": _cur_cell
-				}
-				result.push_back(cell)
+				var _cb = ColorBlock.new()
+				_cb.position = Vector2i(x, y)
+				_cb.colors = _cur_cell
+				result.push_back(_cb)
 
 	return result
 

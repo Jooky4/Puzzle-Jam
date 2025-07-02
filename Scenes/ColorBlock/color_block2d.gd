@@ -228,9 +228,7 @@ func set_colors(color_list: Array) -> void:
 		_block.color = _color
 
 		ice_node.visible = _block.is_iced()
-
-		if _block.is_live():
-			eyes_node.show()
+		eyes_node.visible = _block.is_live()
 
 		if _block._color_tile.is_lock():
 			lock_node.show()
