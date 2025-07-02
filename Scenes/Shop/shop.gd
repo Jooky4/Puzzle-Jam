@@ -111,19 +111,15 @@ func _on_close_button_pressed() -> void:
 
 func _get_catalog() -> void:
 	Bridge.payments.get_catalog(Callable(self, "_on_get_catalog_completed"))
+	await Utils.timeout(0.1)
+	Bridge.payments.get_catalog(Callable(self, "_on_get_catalog_completed"))
 	#_on_get_catalog_completed("OK", catalog_mock_data)
 
 
 func _on_get_catalog_completed(success, catalog):
 	is_catalog_loaded = true
-	print(success, catalog)
 
 	for item in catalog:
-		print("ID: " + str(item.id))
-		print("Price: " + str(item.price))
-		#print("Price Currency Code: " + str(item.priceCurrencyCode))
-		print("Price Value: " + str(item.priceValue))
-
 		if item.id.begins_with("coin"):
 			for i in coin_pack_list:
 				if i.purchase_id == item.id:
@@ -133,7 +129,6 @@ func _on_get_catalog_completed(success, catalog):
 					break
 
 		if item.id.begins_with("booster"):
-			prints("item id booster", item.id)
 			for i in booster_set_list:
 				if i.purchase_id == item.id:
 					var _price = _split_price(item.price)

@@ -23,7 +23,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_cq72d"]
 line_spacing = 0.0
 font = ExtResource("10_xx78k")
-font_size = 33
+font_size = 42
 
 [sub_resource type="LabelSettings" id="LabelSettings_o4sqq"]
 font = ExtResource("10_xx78k")
@@ -37,7 +37,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4k2dv"]
 font = ExtResource("10_xx78k")
-font_size = 40
+font_size = 30
 
 [node name="BoosterSet" type="Button"]
 custom_minimum_size = Vector2(646, 203)
