@@ -96,7 +96,12 @@ func _ready() -> void:
 	for i in [booster_set, booster_set_2, booster_set_3, booster_set_4]:
 		i.pressed.connect(_on_booster_pressed.bind(i))
 
+	EventBus.coins_changed.connect(_set_money)
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
+
+
+func _set_money(value: int) -> void:
+	coin_counter.value = value
 
 
 func _on_close_button_pressed() -> void:

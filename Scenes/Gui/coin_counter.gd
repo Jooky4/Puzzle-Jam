@@ -5,6 +5,7 @@ extends Control
 @export var value: int: set = _set_value
 @onready var value_label: Label = $Background/ValueLabel
 
+signal plus_pressed
 
 func _ready() -> void:
 	_set_value(value)
@@ -22,5 +23,4 @@ func _update_label() -> void:
 
 
 func _on_plus_button_pressed() -> void:
-	if ChangeScene.game_scene == "menu":
-		ChangeScene.to("shop")
+	plus_pressed.emit()

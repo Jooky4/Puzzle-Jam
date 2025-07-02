@@ -12,6 +12,9 @@ extends CanvasLayer
 @onready var game_over_modal: Panel = $GameOverModal
 @onready var level_complete_modal: Panel = $LevelCompleteModal
 @onready var buy_booster_modal: Panel = $BuyBoosterModal
+@onready var shop_modal: Panel = $ShopModal
+@onready var shop_modal_control: Control = $ShopModal/Control
+
 
 @onready var home_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer2
 @onready var settings_button_wrap: MarginContainer = $Top/HBoxContainer/MarginContainer
@@ -31,7 +34,7 @@ enum EModal {
 	Shop,
 	LevelComplete,
 	GameOver,
-	BuyBooster
+	BuyBooster,
 }
 
 @onready var _modals: Dictionary = {
@@ -39,6 +42,7 @@ enum EModal {
 	EModal.LevelComplete: level_complete_modal,
 	EModal.GameOver: game_over_modal,
 	EModal.BuyBooster: buy_booster_modal,
+	EModal.Shop: shop_modal,
 }
 
 func _ready() -> void:
@@ -120,6 +124,7 @@ func _on_add_money_button_pressed() -> void:
 
 func _on_shop_close_button_pressed() -> void:
 	hide_modal(EModal.Shop)
+	show_level_ui()
 
 
 # -- MODALS --
@@ -156,6 +161,7 @@ func _on_home_button_pressed() -> void:
 func show_level_ui() -> void:
 	home_button_wrap.show()
 	settings_button_wrap.hide()
+	money_value_label.show()
 
 
 func show_main_menu_ui() -> void:
@@ -222,3 +228,14 @@ func _on_change_scene(scene_name: String) -> void:
 	if scene_name == "leaderboard":
 		leaderboards_button.button_pressed = true
 		leaderboards_button.get_node("VBoxContainer/Label").visible = true
+
+
+func _on_coin_counter_plus_pressed() -> void:
+	if ChangeScene.game_scene == "menu":
+		ChangeScene.to("shop")
+	else:
+		if shop_modal_control.get_child_count() == 0:
+			var shop_scene = load("res://Scenes/Shop/shop.tscn").instantiate()
+			shop_modal_control.add_child(shop_scene)
+
+		show_modal(EModal.Shop)

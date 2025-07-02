@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ce74w5oeltvqv"]
+[gd_scene load_steps=21 format=3 uid="uid://ce74w5oeltvqv"]
 
 [ext_resource type="Script" path="res://Scenes/Gui/gui.gd" id="1_bw16r"]
 [ext_resource type="PackedScene" uid="uid://ckvojstvrbqhu" path="res://Scenes/Gui/GameOver/game_over.tscn" id="2_aukgo"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bscoajym0287h" path="res://Assets/modal_background.png" id="7_8i80b"]
 [ext_resource type="Texture2D" uid="uid://bwgf78txo0vgn" path="res://Assets/BuyBooster/shadow.png" id="8_jgx55"]
 [ext_resource type="PackedScene" uid="uid://de0n844wooxm0" path="res://Scenes/Gui/BuyBooster/buy_booster.tscn" id="9_8i80b"]
+[ext_resource type="Texture2D" uid="uid://dptb85hd87uxu" path="res://Assets/settings/close_button.tres" id="10_w627r"]
 [ext_resource type="ButtonGroup" uid="uid://ddmhw4t4orb6q" path="res://Assets/bottom_menu/button_group.tres" id="11_6q3xd"]
 [ext_resource type="Texture2D" uid="uid://c5bdd8bj2xeu2" path="res://Assets/bottom_menu/bottom_menu_bg_normal.tres" id="12_8wll1"]
 [ext_resource type="Texture2D" uid="uid://b07amyxjfboid" path="res://Assets/bottom_menu/bottom_menu_bg_active.tres" id="13_qpt4o"]
@@ -121,6 +122,30 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 
 [node name="LevelComplete" parent="LevelCompleteModal" instance=ExtResource("3_oujc8")]
 layout_mode = 1
+
+[node name="ShopModal" type="Panel" parent="."]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ShopModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="TextureButton" parent="ShopModal"]
+z_index = 70
+offset_left = 97.0
+offset_top = 38.0
+offset_right = 173.0
+offset_bottom = 114.0
+texture_normal = ExtResource("10_w627r")
 
 [node name="BuyBoosterModal" type="Panel" parent="."]
 visible = false
@@ -254,7 +279,9 @@ uppercase = true
 
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="plus_pressed" from="Top/HBoxContainer/CoinCounter" to="." method="_on_coin_counter_plus_pressed"]
 [connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
+[connection signal="pressed" from="ShopModal/CloseButton" to="." method="_on_shop_close_button_pressed"]
 [connection signal="toggled" from="Buttons/Shop" to="." method="_on_shop_toggled"]
 [connection signal="toggled" from="Buttons/MainScreen" to="." method="_on_main_screen_toggled"]
 [connection signal="toggled" from="Buttons/Leaderboards" to="." method="_on_leaderboards_toggled"]
