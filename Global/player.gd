@@ -9,6 +9,9 @@ var _data = {
 	"mute_sfx": 0,
 	"mute_music": 0,
 	"last_coins_reward": 0,
+	"get_free_hammers": 0,
+	"get_free_bombs": 0,
+	"get_free_shuffles": 0,
 }
 
 const DATA_KEYS = [
@@ -20,6 +23,9 @@ const DATA_KEYS = [
 	"mute_sfx",
 	"mute_music",
 	"last_coins_reward",
+	"get_free_hammers",
+	"get_free_bombs",
+	"get_free_shuffles",
 ]
 
 var booster_name = {
@@ -84,7 +90,7 @@ func _get(property):
 
 
 func set_value(key: String, value) -> void:
-	prints("set value(%s)" % key, value, _data[key])
+	#prints("set value(%s)" % key, value, _data[key])
 
 	if key in _data.keys():
 		_data[key] = value
@@ -115,7 +121,7 @@ func config_save_data():
 
 
 func save_data():
-	prints("save player data", _data)
+	#prints("save player data", _data)
 	Bridge.storage.set(_data.keys(), _data.values())
 
 

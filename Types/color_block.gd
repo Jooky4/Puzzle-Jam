@@ -103,19 +103,23 @@ func _to_string() -> String:
 	return "<ColorBlock x:%d; y:%d; c:%s>" % [position.x, position.y, colors]
 
 
-func _get_side_colors(_colors: Array, side: ESides) -> Array:
+func _get_side_colors(_colors: Array, side: ESides, is_normalized:bool=true) -> Array:
 	var idx = TILE_INDEXES_BY_SIDE[side]
 	var color1 = idx[0]
 	var color2 = idx[1]
 	var _c1_with_type = ColorTile.create_from_color(_colors[color1])
 	var _c2_with_type = ColorTile.create_from_color(_colors[color2])
 
-	return [
-		#_colors[color1],
-		#_colors[color2]
-		_c1_with_type.color,
-		_c2_with_type.color
-	]
+	if is_normalized:
+		return [
+			_c1_with_type.color,
+			_c2_with_type.color
+		]
+	else:
+		return [
+			_colors[color1],
+			_colors[color2]
+		]
 
 
 func get_side_color_tiles(side: ESides) -> Array[ColorTile]:
@@ -129,11 +133,11 @@ func get_side_color_tiles(side: ESides) -> Array[ColorTile]:
 	]
 
 
-func get_side_colors(side: ESides) -> Array:
+func get_side_colors(side: ESides, is_normalized:bool=true) -> Array:
 	""" Возвращает цвета с указанной стороны """
 
 	# Цвета с указанной стороны
-	return _get_side_colors(colors, side)
+	return _get_side_colors(colors, side, is_normalized)
 
 
 #func is_free() -> bool:
@@ -493,10 +497,11 @@ func remove_color(color, side: ESides) -> Dictionary:
 func _tile_sides(tile_index: int) -> Array:
 	""" возвращает список сторон в которые "смотрит" этот тайл """
 	var result: Array
+	const _DEBUG = false
 
 	# если весь блок имеет один цвет, тайл "смотрит" во все стороны
 	if get_unique_colors().size() == 1:
-		if DEBUG:
+		if _DEBUG:
 			prints("цвет занимает весь блок")
 		return [ESides.TOP, ESides.RIGHT, ESides.BOTTOM, ESides.LEFT]
 
@@ -504,13 +509,14 @@ func _tile_sides(tile_index: int) -> Array:
 
 	# если цвет занимает два тайла (в т.ч. указанный тайл)
 	if get_colors_count()[tile_color] == 2:
-		if DEBUG:
+		if _DEBUG:
 			prints("тайл занимает два блока")
+
 		for side in TILE_INDEXES_BY_SIDE.keys():
 			var _side_tiles = TILE_INDEXES_BY_SIDE[side]
 
 			# искомый цвет с этой стороны
-			var is_color_on_side = tile_color in get_side_colors(side)
+			var is_color_on_side = tile_color in get_side_colors(side, false)
 
 			if is_color_on_side:
 				result.push_back(side)
@@ -613,6 +619,10 @@ func is_empty() -> bool:
 
 func normalize_colors() -> void:
 	colors = _normalized_colors
+
+
+func get_normalized_colors() -> Array:
+	return _normalized_colors
 
 
 func _set_colors(value: Array) -> void:

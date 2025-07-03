@@ -47,6 +47,7 @@ var check_match_count: int = 0
 var current_booster: Booster
 
 var turns: int = 0
+var _prev_turn: int = 0
 var live_block_list: Array[ColorBlock]
 
 var _current_cell_rewarded: Node
@@ -170,21 +171,32 @@ func run_tutorial() -> void:
 			tutorial.run_level_01(_pos1, _pos2)
 		3:
 			prints("hammer tutorial")
-			Player.set_value("hammer", Player.get_value("hammer") + Config.DEMO_HAMMER_COUNT)
+			if not Player.get_value("get_free_hammers"):
+				Player.set_value("hammer", Player.get_value("hammer") + Config.DEMO_HAMMER_COUNT)
+				Player.set_value("get_free_hammers", 1)
+				Player.save_data()
+
 			hammer_button.count = Player.get_value("hammer")
 			var _pos = hammer_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		5:
 			prints("shuffle tutorial")
-			Player.set_value("shuffle", Player.get_value("shuffle") + Config.DEMO_SHUFFLE_COUNT)
+			if not Player.get_value("get_free_shuffles"):
+				Player.set_value("shuffle", Player.get_value("shuffle") + Config.DEMO_SHUFFLE_COUNT)
+				Player.set_value("get_free_shuffles", 1)
+				Player.save_data()
+
 			shuffle_button.count = Player.get_value("shuffle")
 			var _pos = shuffle_button.global_position + block_center_offset
 			tutorial.run()
 			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
 		7:
 			prints("bomb tutorial")
-			Player.set_value("bomb", Player.get_value("bomb") + Config.DEMO_BOMB_COUNT)
+			if not Player.get_value("get_free_bombs"):
+				Player.set_value("bomb", Player.get_value("bomb") + Config.DEMO_BOMB_COUNT)
+				Player.set_value("get_free_bombs", 1)
+				Player.save_data()
 			bomb_button.count = Player.get_value("bomb")
 			var _pos = bomb_button.global_position + block_center_offset
 			tutorial.run()
@@ -392,7 +404,7 @@ func _demake_all_color_blocks_button() -> void:
 				node.set_is_button(false)
 
 
-func _on_ads_cell_pressed(cell: Node) -> void:
+func _on_ads_cell_pressed(cell: Cell2D) -> void:
 	_current_cell_rewarded = cell
 	if _state == EState.PLAY:
 		Bridge.advertisement.show_rewarded()
@@ -402,6 +414,8 @@ func _on_rewarded_state_changed(status: String) -> void:
 	if status == "rewarded":
 		if _current_cell_rewarded != null:
 			_current_cell_rewarded.cell_type = "normal"
+			var pos = _current_cell_rewarded.level_position
+			current_level[pos.y][pos.x] = LevelData.FREE_CELL
 			_current_cell_rewarded = null
 
 
@@ -948,9 +962,9 @@ func check_matches(pos: Vector2i) -> void:
 			t.scale = Vector2(0.5, 0.5)
 
 			# Поднимает блок вверх
-			var _up_tween_time = 0.2
+			var _up_tween_time = 0.3
 			_tween.tween_property(t, "scale", t.scale + Vector2(0.1, 0.1), _up_tween_time)
-			_tween.tween_property(t, "position", t.position + Vector2(0, -50), _up_tween_time)
+			_tween.tween_property(t, "position", t.position + Vector2(0, -55), _up_tween_time)
 			_tween.set_ease(Tween.EASE_OUT)
 			_tween.chain()
 
@@ -958,10 +972,14 @@ func check_matches(pos: Vector2i) -> void:
 
 			# корректировка координаты центра
 			var _correct_center_pos = center_pos #+ Vector2(-(t.size.x / 4), -(t.size.y / 2))
-			var _center_tween_time = 0.5
+			var _center_tween_time = 0.65
 			_tween.tween_property(t, "position", _correct_center_pos, _center_tween_time)
 			_tween.tween_property(t, "scale", Vector2(0, 0), _center_tween_time)
+			_tween.tween_property(t, "modulate", Color(1,1,1,0), 0.5)
+			_tween.chain()
+			_tween.tween_property(t, "modulate", Color(1,1,1,0), _center_tween_time)
 			_tween.play()
+			_tween.tween_callback(remove_child.bind(t))
 			SFX.play_sound("cube_merge")
 
 		#await Utils.timeout(0.1)
@@ -969,7 +987,7 @@ func check_matches(pos: Vector2i) -> void:
 		# --- запускаем проверку для всех изменённых блоков ---
 		for i in used_block_list:
 			var cb = i.block
-			await Utils.timeout(time_before_check_next/2)
+			await Utils.timeout(time_before_check_next * 0.7)
 			check_matches(cb.position)
 
 	check_match_count -= 1
@@ -983,10 +1001,9 @@ func check_matches(pos: Vector2i) -> void:
 		move_live_block()
 
 
-func get_color_block(pos: Vector2i) -> Node:
-	var _idx = Utils.get_index_by_pos(pos, 6)
-	var _cell = block_container.get_child(_idx)
-	var _block: Node = _cell.get_color_block()
+func get_color_block(pos: Vector2i) -> ColorBlock2D:
+	var _cell = get_cell_by_pos(pos)
+	var _block: ColorBlock2D = _cell.get_color_block()
 	return _block
 
 
@@ -1002,8 +1019,8 @@ func move_live_block() -> void:
 
 	live_block_list = _cleanup
 
-	#if turns % 2 == 0: # каждый второй ход
-	if true:
+	if turns > _prev_turn:
+		_prev_turn = turns
 		for lb in live_block_list:
 			var free_cells_around: Array
 			for i in LevelManager.get_around_cells(current_level, lb.position):
@@ -1031,6 +1048,10 @@ func move_live_block() -> void:
 					# ищем совпадения по блокам вокруг
 
 					for k in around_blocks:
+						var k_pos = k.block.position
+						if k_pos.x == lb.position.x and k_pos.y == lb.position.y:
+							break
+
 						if _is_match_side_color(tile_color, current_block, k.block, k.current_side, k.neighbour_side):
 							is_merge_place = true
 							break
@@ -1049,7 +1070,6 @@ func move_live_block() -> void:
 			var random_free_cell = free_cells_around.pick_random()
 
 			if random_free_cell:
-				#prints("move", lb, random_free_cell)
 				current_level[random_free_cell.position.y][random_free_cell.position.x] = lb.colors
 				current_level[lb.position.y][lb.position.x] = LevelData.FREE_CELL
 				var _old_cell = block_container.get_child(Utils.get_index_by_pos(lb.position, 6))
@@ -1059,6 +1079,17 @@ func move_live_block() -> void:
 
 				# Перемещаем блок из одной ячейки в другую
 				_old_cell.remove_child(_old_block)
+
+				# добавляем блок на основную сцену для анимации прыжка
+				add_child(_old_block)
+				_old_block.position = _old_cell.global_position + Vector2(-50, -50)
+				const JUMP_DURATION = 0.3
+				Utils.jump_to_position(_old_block, _new_cell.global_position + Vector2(-50, -50), JUMP_DURATION)
+				await Utils.timeout(JUMP_DURATION)
+				# прыжок закончен, можно удалять из основной сцены
+				remove_child(_old_block)
+
+				# после прыжка добавляем в новую ячейку
 				_new_cell.add_child(_old_block)
 				_new_cell.not_can_drop()
 				_old_block.position = Vector2(-50, -50)

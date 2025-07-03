@@ -6,6 +6,11 @@ extends Control
 @onready var v_box_container: VBoxContainer = %VBoxContainer
 @onready var auth_control: Control = $AuthControl
 
+@onready var mobile_bg: CanvasLayer = $CanvasLayer
+@onready var desktop_bg: Control = $Background2
+@onready var desktop_bg2: TextureRect = $Background
+
+
 var lb_data = [
 	{
 		"rank": 0,
@@ -46,8 +51,16 @@ var lb_data = [
 
 
 func _ready() -> void:
-	prints("leaderboard ready")
 	Gui.hide_default_ui()
+
+	if Bridge.device.type == "mobile":
+		desktop_bg.hide()
+		desktop_bg2.hide()
+		mobile_bg.show()
+	else:
+		desktop_bg.show()
+		desktop_bg2.show()
+		mobile_bg.hide()
 
 	if Bridge.player.is_authorized:
 		_update_lb()

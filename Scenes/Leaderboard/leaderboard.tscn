@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddanxh5uq0l0m"]
+[gd_scene load_steps=18 format=3 uid="uid://ddanxh5uq0l0m"]
 
 [ext_resource type="Script" path="res://Scenes/Leaderboard/leaderboard.gd" id="1_l68so"]
 [ext_resource type="Texture2D" uid="uid://fxo2l73ncnu7" path="res://Assets/leaderboard/background.png" id="2_1uwp6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bou100exy71nh" path="res://Assets/leaderboard/list_background.png" id="3_ttevm"]
 [ext_resource type="PackedScene" uid="uid://btgf8n5q7wbok" path="res://Scenes/Leaderboard/leaderboard_item_space.tscn" id="3_wgoxs"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_7crjw"]
+[ext_resource type="Texture2D" uid="uid://dcj332lr6huf8" path="res://Assets/leaderboard/leaderboard_mobile_bg.tres" id="4_aufc8"]
 [ext_resource type="Texture2D" uid="uid://dikdjm1kpe50r" path="res://Assets/leaderboard/glow.png" id="6_r0tq5"]
 [ext_resource type="Texture2D" path="res://Assets/leaderboard/banner.tres" id="8_wgoxs"]
 [ext_resource type="FontFile" uid="uid://cjofpiuwfbr7i" path="res://Assets/fonts/Lilita One Regular.ttf" id="9_c47oi"]
@@ -41,6 +42,21 @@ grow_vertical = 2
 script = ExtResource("1_l68so")
 record = ExtResource("2_ttevm")
 space = ExtResource("3_wgoxs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="MobileBG" type="TextureRect" parent="CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_aufc8")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Background2" type="Control" parent="."]
 layout_mode = 1
@@ -111,18 +127,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_1uwp6")
 
-[node name="Shine" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -370.0
-offset_top = -80.0
-offset_right = 370.0
-offset_bottom = 234.0
-grow_horizontal = 2
-texture = ExtResource("6_r0tq5")
-
 [node name="Top" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -176,6 +180,18 @@ offset_bottom = 256.0
 grow_horizontal = 2
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("10_wgoxs")
+
+[node name="Shine" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_top = -80.0
+offset_right = 370.0
+offset_bottom = 234.0
+grow_horizontal = 2
+texture = ExtResource("6_r0tq5")
 
 [node name="BodyBG" type="NinePatchRect" parent="."]
 layout_mode = 1

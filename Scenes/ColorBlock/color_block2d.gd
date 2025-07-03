@@ -191,6 +191,14 @@ func _create_random_color(used_colors: Array) -> Array:
 	return colors
 
 
+func clone() -> ColorBlock2D:
+	var _cb = ColorBlock2D.new()
+	_cb.position = position
+	_cb.colors = colors
+	_cb.set_colors(colors)
+	return _cb
+
+
 func create_random_color(used_colors: Array = []) -> void:
 	if used_colors.size() == 0:
 		used_colors = LevelManager.get_current_level_colors()
@@ -314,7 +322,7 @@ func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 	var _t: Tween = create_tween().set_parallel()
 	_t.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_IN_OUT)
 
-	var tween_time = 0.4
+	var tween_time = 0.6
 	if immediate:
 		tween_time = 0
 

@@ -103,9 +103,11 @@ func get_cell(pos: Vector2i) -> Array:
 func get_current_level() -> Array:
 	""" копия текущего уровня """
 	var _cur_level = current_level
-	if current_level > MAX_LEVEL - 1:
-		prints("max level reached")
-		_cur_level = (current_level % MAX_LEVEL) + 50
+
+	if current_level >= MAX_LEVEL:
+		_cur_level = (current_level % MAX_LEVEL) + 49
+		if _cur_level >= MAX_LEVEL:
+			_cur_level = (_cur_level % MAX_LEVEL) + 49
 
 	var level = LevelData.levels[_cur_level].duplicate(true)
 	current_level_data = level
