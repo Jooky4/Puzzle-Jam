@@ -26,7 +26,7 @@ var no_booster_msg = {
 
 var _coin_price = {
 	EType.HAMMER: {
-		"cost": 300,
+		"cost": 900,
 		"count": 3,
 	},
 	EType.BOMB: {
