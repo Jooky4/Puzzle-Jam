@@ -369,5 +369,9 @@ booster_count = 10
 price = 469
 coins_count = 10000
 
+[node name="DisableAdsButtonTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="pressed" from="Head/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack" to="." method="_on_ads_coin_pack_pressed"]
+[connection signal="timeout" from="DisableAdsButtonTimer" to="." method="_on_disable_ads_button_timer_timeout"]

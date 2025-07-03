@@ -20,3 +20,6 @@ const LEVEL_COMPLETE_MAIN_MENU = 4 # это индекс уровня, т.е. у
 
 
 const BUY_COINS_ADS = "buy_coins_ads"
+
+# количество секунд до следующей возможности получить монеты за рекламу (в магазине)
+const COIN_REWARD_COOLDOWN = 60 * 60 * 6

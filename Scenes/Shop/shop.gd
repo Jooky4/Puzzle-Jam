@@ -86,6 +86,8 @@ func _ready() -> void:
 	prints("shop ready")
 	Gui.hide_default_ui()
 
+	_update_ads_coins_button()
+
 	coin_counter.value = Player.get_value("coins")
 	if not is_catalog_loaded:
 		_get_catalog()
@@ -187,12 +189,26 @@ func _on_purchase_completed(success, purchase):
 
 		Player.save_data()
 
+
 func _on_ads_coin_pack_pressed() -> void:
-	prints("click ads coins")
-	Bridge.advertisement.show_rewarded(Config.BUY_COINS_ADS)
+	# проверяем что закончился кулдаун на получение монет за рекламу
+	if Player.can_get_coins_by_ads():
+		Bridge.advertisement.show_rewarded(Config.BUY_COINS_ADS)
 
 
 func _on_rewarded_state_changed(state) -> void:
 	prints("rewarded state", state)
 	if state == "rewarded" and Bridge.advertisement.rewarded_placement == Config.BUY_COINS_ADS:
 		EventBus.coins_changed.emit(100 + Player.coins)
+		Player.update_last_coins_reward()
+		Player.save_data()
+
+
+func _on_disable_ads_button_timer_timeout() -> void:
+	_update_ads_coins_button()
+
+func _update_ads_coins_button() -> void:
+	if Player.can_get_coins_by_ads():
+		coin_pack._set_disabled(false)
+	else:
+		coin_pack._set_disabled(true)

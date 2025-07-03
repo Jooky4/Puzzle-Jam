@@ -7,6 +7,8 @@ extends Button
 @export var count: int
 @export var info: Info
 
+var _disabled: bool = false
+
 enum Info {
 	NONE,
 	WARNING,
@@ -53,6 +55,16 @@ func _ready() -> void:
 func _set_price(value: int) -> void:
 	price = value
 	_update_ui()
+
+
+func _set_disabled(value: bool) -> void:
+	_disabled = value
+	disabled = value
+
+	if value:
+		modulate = Color(0.5, 0.5, 0.5)
+	else:
+		modulate = Color(1, 1, 1)
 
 
 func _update_ui() -> void:

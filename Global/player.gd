@@ -8,6 +8,7 @@ var _data = {
 	"shuffle": 0,
 	"mute_sfx": 0,
 	"mute_music": 0,
+	"last_coins_reward": 0,
 }
 
 const DATA_KEYS = [
@@ -18,6 +19,7 @@ const DATA_KEYS = [
 	"shuffle",
 	"mute_sfx",
 	"mute_music",
+	"last_coins_reward",
 ]
 
 var booster_name = {
@@ -30,6 +32,23 @@ var booster_name = {
 func _ready() -> void:
 	EventBus.coins_changed.connect(_on_coins_changed)
 	EventBus.booster_used.connect(_on_booster_used)
+
+
+func update_last_coins_reward() -> void:
+	set_value("last_coins_reward", Time.get_unix_time_from_system())
+
+
+func can_get_coins_by_ads() -> bool:
+	var _last_reward = int(Player.get_value("last_coins_reward"))
+	if _last_reward == 0:
+		return true
+
+	var _cur_unixtime = int(Time.get_unix_time_from_system())
+
+	if _last_reward < _cur_unixtime - Config.COINS_FOR_COMPLETE_LEVEL:
+		return true
+
+	return false
 
 
 func get_booster_count(booster_type: Booster.EType) -> int:
@@ -125,7 +144,12 @@ func _on_data_loaded(success, data) -> void:
 
 	for i in DATA_KEYS.size():
 		var _key: String = DATA_KEYS[i]
-		var _value = data[i]
+		var _value
+		if data.has(i):
+			_value = data[i]
+		else:
+			_value = 0
+
 		prints("in value", _key, data[i], typeof(data[i]))
 		#if _key.begins_with("mute_"):
 			#if not _value:
@@ -140,8 +164,6 @@ func _on_data_loaded(success, data) -> void:
 				#_value = 0
 			#else:
 				#_value = int(_value)
-
-
 		set_value(_key, int(_value))
 
 	EventBus.player_loaded.emit()
