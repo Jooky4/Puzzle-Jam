@@ -49,6 +49,7 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer" type="HBoxContainer" parent="Top"]
 layout_mode = 2
 mouse_filter = 2
+alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
@@ -124,6 +125,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_xe2re")
 layout_mode = 1
 
 [node name="ShopModal" type="Panel" parent="."]
+visible = false
 z_index = 1
 anchors_preset = 15
 anchor_right = 1.0
