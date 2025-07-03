@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://3tj3dir3mrf4"]
+[gd_scene load_steps=21 format=3 uid="uid://3tj3dir3mrf4"]
 
 [ext_resource type="Script" path="res://Scenes/Level/level.gd" id="1_lscpc"]
 [ext_resource type="PackedScene" uid="uid://4syyjnckjrex" path="res://Scenes/Cell/cell.tscn" id="2_lscpc"]
 [ext_resource type="PackedScene" uid="uid://byg7qsirmatr4" path="res://Scenes/ColorBlock/color_block2d.tscn" id="3_2m32g"]
 [ext_resource type="PackedScene" uid="uid://ddm5gf0xru7sp" path="res://Scenes/BoosterUi/animation_hammer.tscn" id="4_dhxf7"]
+[ext_resource type="Texture2D" uid="uid://c14ngx6glhd22" path="res://Assets/game_background_mobile.tres" id="4_krt0m"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="5_7i4w6"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="5_x701m"]
 [ext_resource type="PackedScene" uid="uid://bhu88im5cp8nc" path="res://Scenes/Level/level_title.tscn" id="6_362x8"]
@@ -29,22 +30,39 @@ script = ExtResource("1_lscpc")
 cell_block = ExtResource("2_lscpc")
 color_block = ExtResource("3_2m32g")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="MobileBG" type="TextureRect" parent="CanvasLayer"]
+visible = false
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_krt0m")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="DesktopBG" type="Node2D" parent="."]
+visible = false
 position = Vector2(-1, 0)
 
-[node name="Center" type="Sprite2D" parent="Background"]
-position = Vector2(362, 640)
-texture = ExtResource("5_7i4w6")
-
-[node name="Left" type="Sprite2D" parent="Background"]
+[node name="Left" type="Sprite2D" parent="DesktopBG"]
 position = Vector2(-650.5, 640)
 texture = ExtResource("6_q8n36")
 metadata/_edit_use_anchors_ = true
 
-[node name="Right" type="Sprite2D" parent="Background"]
+[node name="Right" type="Sprite2D" parent="DesktopBG"]
 position = Vector2(1370.5, 640)
 texture = ExtResource("6_q8n36")
 metadata/_edit_use_anchors_ = true
+
+[node name="Center" type="Sprite2D" parent="DesktopBG"]
+position = Vector2(362, 640)
+texture = ExtResource("5_7i4w6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 640)
@@ -62,6 +80,7 @@ offset_left = -141.0
 offset_top = 32.0
 offset_right = 131.0
 offset_bottom = 152.0
+level_value = 9999
 difficulty = 0
 
 [node name="GoalColorController" parent="UI" instance=ExtResource("5_x701m")]

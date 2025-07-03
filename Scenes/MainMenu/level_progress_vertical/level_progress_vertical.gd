@@ -4,6 +4,7 @@ extends Control
 @onready var level_1: Control = $Level1
 @onready var level_2: Control = $Level2
 @onready var level_3: Control = $Level3
+@onready var shadow: TextureRect = $Shadow
 
 @onready var levels = [
 	level_0,
@@ -18,6 +19,11 @@ func _ready() -> void:
 
 
 func _update_ui() -> void:
+	if Bridge.device.type == "mobile":
+		shadow.hide()
+	else:
+		shadow.show()
+
 	var _cur_level_idx = Player.get_value("current_level")
 
 	for node in levels:

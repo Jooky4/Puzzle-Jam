@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Scenes/MainMenu/level_progress_vertical/level_progress_vertical.gd" id="1_jisb2"]
 [ext_resource type="PackedScene" uid="uid://dxsu53wvd6yhu" path="res://Scenes/MainMenu/level_progress_vertical/level.tscn" id="3_2xoib"]
 
-[sub_resource type="Gradient" id="Gradient_qs6ak"]
+[sub_resource type="Gradient" id="Gradient_d65iw"]
 colors = PackedColorArray(0.270293, 0.0168, 0.56, 0.745098, 0.270293, 0.0168, 0.56, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ioj6v"]
-gradient = SubResource("Gradient_qs6ak")
+gradient = SubResource("Gradient_d65iw")
 fill_to = Vector2(0, 1)
 
 [node name="LevelProgress2" type="Control"]
@@ -53,6 +53,7 @@ is_active = true
 level = 100
 
 [node name="Shadow" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

@@ -11,6 +11,7 @@ func _ready() -> void:
 	hide_pointer()
 	hide_drag()
 	_t = create_tween()
+	_t.tween_property(self, "modulate", Color(1,1,1), 0.01)
 
 
 func show_pointer() -> void:

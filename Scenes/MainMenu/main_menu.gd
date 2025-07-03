@@ -6,8 +6,21 @@ extends Control
 @onready var try_again_label: Label = $PlayButton/TryAgainLabel
 @onready var level_progress: Control = $LevelProgress2
 
+@onready var desktop_bg: Node2D = $DesktopBG
+@onready var mobile_bg: TextureRect = $CanvasLayer/MobileBG
+@onready var shadow: TextureRect = $CanvasLayer2/Shadow
+
 
 func _ready() -> void:
+	if Bridge.device.type == "mobile":
+		desktop_bg.hide()
+		mobile_bg.show()
+		shadow.show()
+	else:
+		desktop_bg.show()
+		mobile_bg.hide()
+		shadow.hide()
+
 	Gui.show_main_menu_ui()
 
 	play_button_label.show()

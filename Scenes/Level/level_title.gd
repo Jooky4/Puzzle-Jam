@@ -29,5 +29,6 @@ func _update_ui() -> void:
 	if label:
 		label.text = tr("TITLE_LEVEL") + " " + str(level_value)
 
-	hard_label.visible = difficulty == "hard"
-	very_hard_label.visible = difficulty == "super_hard"
+	if difficulty:
+		hard_label.visible = difficulty == "hard"
+		very_hard_label.visible = difficulty == "super_hard"

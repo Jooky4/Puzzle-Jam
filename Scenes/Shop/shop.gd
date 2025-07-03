@@ -59,14 +59,12 @@ var catalog_mock_data = [
 	},
 ]
 
-
 @onready var coin_pack: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack
 @onready var coin_pack_2: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack2
 @onready var coin_pack_3: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack3
 @onready var coin_pack_4: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack4
 @onready var coin_pack_5: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack5
 @onready var coin_pack_6: Button = $ScrollContainer/VBoxContainer/Coins/MarginContainer/Panel/GridContainer/CoinPack6
-
 
 @onready var coin_pack_list = [coin_pack_2, coin_pack_3, coin_pack_4, coin_pack_5, coin_pack_6]
 
@@ -78,12 +76,14 @@ var catalog_mock_data = [
 @onready var booster_set_list = [booster_set, booster_set_2, booster_set_3, booster_set_4]
 @onready var coin_counter: Control = $Head/CoinCounter
 
+@onready var mobile_bg: CanvasLayer = $CanvasLayer
+@onready var desktop_bg: Control = $Background2
+
 
 var _cur_purchase: Node
 
 
 func _ready() -> void:
-	prints("shop ready")
 	Gui.hide_default_ui()
 
 	_update_ads_coins_button()
@@ -100,6 +100,18 @@ func _ready() -> void:
 
 	EventBus.coins_changed.connect(_set_money)
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
+
+	if Bridge.device.type == "mobile":
+		desktop_bg.hide()
+		mobile_bg.show()
+	else:
+		desktop_bg.show()
+		mobile_bg.hide()
+
+
+func set_modal() -> void:
+	desktop_bg.show()
+	mobile_bg.hide()
 
 
 func _set_money(value: int) -> void:
@@ -206,6 +218,7 @@ func _on_rewarded_state_changed(state) -> void:
 
 func _on_disable_ads_button_timer_timeout() -> void:
 	_update_ads_coins_button()
+
 
 func _update_ads_coins_button() -> void:
 	if Player.can_get_coins_by_ads():

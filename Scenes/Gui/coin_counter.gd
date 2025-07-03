@@ -5,7 +5,6 @@ extends Control
 @export var value: int: set = _set_value
 @onready var value_label: Label = $Background/ValueLabel
 
-signal plus_pressed
 
 func _ready() -> void:
 	_set_value(value)
@@ -22,6 +21,5 @@ func _update_label() -> void:
 	value_label.text = Utils.format_number(value)
 
 
-func _on_plus_button_pressed() -> void:
+func _on_pressed() -> void:
 	SFX.play_sound("click")
-	plus_pressed.emit()

@@ -33,11 +33,10 @@ custom_minimum_size = Vector2(720, 0)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -270.0
-offset_right = 270.0
-offset_bottom = 63.0
+offset_left = -360.0
+offset_right = 360.0
+offset_bottom = 139.0
 grow_horizontal = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_left = 22
@@ -64,6 +63,7 @@ texture_normal = ExtResource("2_wpry6")
 texture_pressed = ExtResource("2_wpry6")
 texture_hover = ExtResource("2_wpry6")
 texture_focused = ExtResource("2_wpry6")
+stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Top/HBoxContainer"]
 layout_mode = 2
@@ -77,6 +77,7 @@ texture_normal = ExtResource("3_wpry6")
 texture_pressed = ExtResource("3_wpry6")
 texture_hover = ExtResource("3_wpry6")
 texture_focused = ExtResource("3_wpry6")
+stretch_mode = 3
 
 [node name="SpaceExpander" type="Control" parent="Top/HBoxContainer"]
 layout_mode = 2
@@ -286,7 +287,7 @@ uppercase = true
 
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer2/HomeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="Top/HBoxContainer/MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="plus_pressed" from="Top/HBoxContainer/CoinCounter" to="." method="_on_coin_counter_plus_pressed"]
+[connection signal="pressed" from="Top/HBoxContainer/CoinCounter" to="." method="_on_coin_counter_pressed"]
 [connection signal="modal_close" from="SettingsModal" to="." method="_on_settings_modal_modal_close"]
 [connection signal="pressed" from="ShopModal/CloseButton" to="." method="_on_shop_close_button_pressed"]
 [connection signal="toggled" from="Buttons/Shop" to="." method="_on_shop_toggled"]

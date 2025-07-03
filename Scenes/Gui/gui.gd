@@ -23,6 +23,7 @@ extends CanvasLayer
 @onready var shop_button: TextureButton = %Shop
 @onready var main_screen_button: TextureButton = %MainScreen
 @onready var leaderboards_button: TextureButton = %Leaderboards
+@onready var top_panel: MarginContainer = $Top
 
 
 signal restart_level
@@ -60,6 +61,22 @@ func _ready() -> void:
 	EventBus.buy_booster.connect(_on_buy_booster)
 	EventBus.change_scene.connect(_on_change_scene)
 	EventBus.player_loaded.connect(_on_player_data_loaded)
+
+	_resize_top_panel()
+	get_viewport().connect("size_changed", _on_viewport_resize)
+
+
+func _resize_top_panel() -> void:
+	if Bridge.device.type == "mobile":
+		top_panel.set_anchors_preset(Control.LayoutPreset.PRESET_TOP_WIDE)
+		top_panel.offset_left = 0
+		top_panel.offset_right = 0
+	else:
+		top_panel.set_anchors_preset(Control.LayoutPreset.PRESET_CENTER_TOP)
+
+
+func _on_viewport_resize() -> void:
+	_resize_top_panel()
 
 
 func _on_player_data_loaded() -> void:
@@ -230,12 +247,13 @@ func _on_change_scene(scene_name: String) -> void:
 		leaderboards_button.get_node("VBoxContainer/Label").visible = true
 
 
-func _on_coin_counter_plus_pressed() -> void:
+func _on_coin_counter_pressed() -> void:
 	if ChangeScene.game_scene == "menu":
 		ChangeScene.to("shop")
 	else:
 		if shop_modal_control.get_child_count() == 0:
 			var shop_scene = load("res://Scenes/Shop/shop.tscn").instantiate()
 			shop_modal_control.add_child(shop_scene)
+			shop_scene.set_modal()
 
 		show_modal(EModal.Shop)

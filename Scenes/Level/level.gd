@@ -26,6 +26,10 @@ extends Node2D
 @onready var animation_bomb: Node2D = $AnimationBomb
 @onready var tutorial: Node2D = $Tutorial
 
+@onready var mobile_bg: TextureRect = $CanvasLayer/MobileBG
+@onready var desktop_bg: Node2D = $DesktopBG
+
+
 enum EState {
 	PLAY,
 	BOOSTER,
@@ -56,6 +60,13 @@ var _locks: Array
 
 
 func _ready() -> void:
+	if Bridge.device.type == "mobile":
+		desktop_bg.hide()
+		mobile_bg.show()
+	else:
+		desktop_bg.show()
+		mobile_bg.hide()
+
 	LevelManager.current_level = Player.get_value("current_level")
 	for booster_btn in booster_panel.get_children():
 		booster_btn.count = Player.get_booster_count(booster_btn.booster.type)

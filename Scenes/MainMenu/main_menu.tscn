@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ttm0o0voudov"]
+[gd_scene load_steps=15 format=3 uid="uid://ttm0o0voudov"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_v763k"]
 [ext_resource type="PackedScene" uid="uid://3tj3dir3mrf4" path="res://Scenes/Level/level.tscn" id="2_0qgbs"]
+[ext_resource type="Texture2D" uid="uid://c14ngx6glhd22" path="res://Assets/game_background_mobile.tres" id="3_0l0b0"]
 [ext_resource type="Theme" uid="uid://b4wdv0akko602" path="res://Resources/Gui/green_btn_theme.tres" id="3_0qgbs"]
 [ext_resource type="Texture2D" uid="uid://cc431u7am4j1k" path="res://Assets/game_background.png" id="4_omq0y"]
 [ext_resource type="PackedScene" uid="uid://cues0bckyj5rb" path="res://Scenes/MainMenu/level_progress_vertical/level_progress_vertical.tscn" id="5_omq0y"]
@@ -24,6 +25,13 @@ font_size = 44
 outline_size = 4
 outline_color = Color(0, 0, 0, 0.6)
 
+[sub_resource type="Gradient" id="Gradient_qs6ak"]
+colors = PackedColorArray(0.270293, 0.0168, 0.56, 0.745098, 0.270293, 0.0168, 0.56, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rjrmr"]
+gradient = SubResource("Gradient_qs6ak")
+fill_to = Vector2(0, 1)
+
 [node name="MainMenu" type="Control"]
 custom_minimum_size = Vector2(720, 1280)
 layout_mode = 3
@@ -42,19 +50,35 @@ script = ExtResource("1_v763k")
 level = ExtResource("2_0qgbs")
 metadata/_edit_use_anchors_ = true
 
-[node name="Background" type="Node2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
 
-[node name="Left" type="Sprite2D" parent="Background"]
+[node name="MobileBG" type="TextureRect" parent="CanvasLayer"]
+visible = false
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_0l0b0")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="DesktopBG" type="Node2D" parent="."]
+
+[node name="Left" type="Sprite2D" parent="DesktopBG"]
 position = Vector2(-650.5, 640)
 texture = ExtResource("7_n5jej")
 metadata/_edit_use_anchors_ = true
 
-[node name="Right" type="Sprite2D" parent="Background"]
+[node name="Right" type="Sprite2D" parent="DesktopBG"]
 position = Vector2(1370.5, 640)
 texture = ExtResource("7_n5jej")
 metadata/_edit_use_anchors_ = true
 
-[node name="Center" type="Sprite2D" parent="Background"]
+[node name="Center" type="Sprite2D" parent="DesktopBG"]
 position = Vector2(360, 640)
 texture = ExtResource("4_omq0y")
 
@@ -140,10 +164,13 @@ value = 100
 level = 122
 metadata/_edit_use_anchors_ = true
 
-[node name="TopShadow" type="TextureRect" parent="."]
-layout_mode = 1
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Shadow" type="TextureRect" parent="CanvasLayer2"]
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 644.0
 grow_horizontal = 2
+texture = SubResource("GradientTexture2D_rjrmr")
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
