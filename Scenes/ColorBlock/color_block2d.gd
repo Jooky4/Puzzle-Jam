@@ -378,8 +378,17 @@ func fill_colors(fill_directions: Dictionary, immediate:bool = false) -> Tween:
 func get_color_tile_node(color: int) -> Node:
 	""" Возвращает ноду цвета """
 
-	var _color_node = _color_node_binds[color]
+	var _color_node
+	if _color_node_binds.has(color):
+		_color_node = _color_node_binds[color]
+	else:
+		var ct = ColorTile.create_from_color(color)
+		_color_node = _color_node_binds[ct.color]
 
 	var _node = _color_node.duplicate()
 	_node.position = global_position
 	return _node
+
+
+func get_cell() -> Cell2D:
+	return get_parent()

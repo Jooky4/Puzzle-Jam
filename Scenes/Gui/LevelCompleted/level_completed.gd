@@ -35,7 +35,6 @@ func _on_rewarded_state_changed(status: String) -> void:
 				next_level.emit()
 
 
-
 func _set_reward(value: int) -> void:
 	reward = value
 

@@ -35,6 +35,7 @@ enum EState {
 	BOOSTER,
 	CHECK,
 	ADS,
+	COMPLETE,
 }
 
 # TODO: удалить. Использовать только block_container
@@ -89,40 +90,23 @@ func _ready() -> void:
 			}
 
 
-func _on_buy_free_cells(count: int) -> void:
-	""" Удаляет случайные count блоков на карте """
-	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
-
-	# исключаем рекламные блоки
-	var _non_empty_cells_no_ads: Array
-	for i in _non_empty_cells:
-		if i.colors == LevelData.ADS_CELL:
-			continue
-		_non_empty_cells_no_ads.push_back(i)
-
-	# перемешиваем найденные блоки
-	_non_empty_cells_no_ads.shuffle()
-
-	# удаляем случайные пять блоков на карте
-	for i in _non_empty_cells_no_ads.slice(0, count):
-		current_level[i.position.y][i.position.x] = LevelData.FREE_CELL
-		var _cell_idx_in_grid = Utils.get_index_by_pos(i.position, current_level[0].size())
-		var cell = block_container.get_child(_cell_idx_in_grid)
-		var cb = cell.get_color_block()
-		cb.remove_block()
-
-
 func _set_state(value: EState) -> void:
 	_state = value
 
 	match value:
 		EState.PLAY:
+			prints("PLAY MODE")
 			_hide_booster_ui()
 			_demake_all_color_blocks_button()
+			_enable_drops()
 		EState.BOOSTER:
+			prints("BOOSTER MODE")
 			_set_booster_ui()
 			_show_booster_ui()
 			_make_all_color_blocks_button()
+		EState.CHECK:
+			prints("CHECK MODE")
+			#_disable_drops()
 
 
 func _next_level() -> void:
@@ -140,67 +124,6 @@ func _next_level() -> void:
 	Bridge.leaderboard.set_score(leaderboard_options, Callable(self, "_on_set_score_completed"))
 
 	_restart_level()
-
-
-func _on_set_score_completed(value) -> void:
-	prints("_on_set_score_completed", value)
-
-
-func _make_colored_color_block(cb: Node) -> void:
-	if pregenerated_color_blocks.size():
-		var _colors = pregenerated_color_blocks.pop_front()
-		cb.colors = _colors
-		cb.update_tiles(_colors)
-	else:
-		var _colors = LevelManager.get_target_colors().keys()
-		_colors.append_array(LevelManager.get_current_level_colors())
-		var used_colors = Utils.uniq_array(_colors)
-		cb.create_random_color(used_colors)
-
-
-func run_tutorial() -> void:
-	match LevelManager.current_level:
-		0:
-			prints("how to play totorial")
-			var _pos1 = block_for_drop_1.global_position + block_center_offset
-			var free_cell = LevelManager.get_free_cells(current_level)[0]
-			var free_cell_node = block_container.get_child(Utils.get_index_by_pos(free_cell.position, 6))
-			var _pos2 = free_cell_node.global_position + block_center_offset
-
-			tutorial.run()
-			tutorial.run_level_01(_pos1, _pos2)
-		3:
-			prints("hammer tutorial")
-			if not Player.get_value("get_free_hammers"):
-				Player.set_value("hammer", Player.get_value("hammer") + Config.DEMO_HAMMER_COUNT)
-				Player.set_value("get_free_hammers", 1)
-				Player.save_data()
-
-			hammer_button.count = Player.get_value("hammer")
-			var _pos = hammer_button.global_position + block_center_offset
-			tutorial.run()
-			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
-		5:
-			prints("shuffle tutorial")
-			if not Player.get_value("get_free_shuffles"):
-				Player.set_value("shuffle", Player.get_value("shuffle") + Config.DEMO_SHUFFLE_COUNT)
-				Player.set_value("get_free_shuffles", 1)
-				Player.save_data()
-
-			shuffle_button.count = Player.get_value("shuffle")
-			var _pos = shuffle_button.global_position + block_center_offset
-			tutorial.run()
-			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
-		7:
-			prints("bomb tutorial")
-			if not Player.get_value("get_free_bombs"):
-				Player.set_value("bomb", Player.get_value("bomb") + Config.DEMO_BOMB_COUNT)
-				Player.set_value("get_free_bombs", 1)
-				Player.save_data()
-			bomb_button.count = Player.get_value("bomb")
-			var _pos = bomb_button.global_position + block_center_offset
-			tutorial.run()
-			tutorial.run_click_hammer(_pos + Vector2(0, -70), _pos)
 
 
 func _restart_level() -> void:
@@ -264,6 +187,9 @@ func _process(delta: float) -> void:
 			prints("COINS +1000")
 			tutorial.stop()
 			EventBus.coins_changed.emit(Player.get_value("coins") + 1000)
+			Player.set_value("hammer", Player.get_value("hammer") + 10)
+			Player.set_value("bomb", Player.get_value("bomb") + 10)
+			Player.set_value("shuffle", Player.get_value("shuffle") + 10)
 			Player.save_data()
 
 		if Input.is_action_just_pressed("DEBUG_KEY_3"):
@@ -380,6 +306,51 @@ func _update_ui() -> void:
 	level_title.difficulty = _dif
 
 
+func run_tutorial() -> void:
+	match LevelManager.current_level:
+		0:
+			prints("how to play totorial")
+			var _pos1 = block_for_drop_1.global_position + block_center_offset
+			var free_cell = LevelManager.get_free_cells(current_level)[0]
+			var free_cell_node = get_cell_by_pos(free_cell.position)
+			var _pos2 = free_cell_node.global_position + block_center_offset
+
+			tutorial.run()
+			tutorial.run_level_01(_pos1, _pos2)
+		3:
+			prints("hammer tutorial")
+			if not Player.get_value("get_free_hammers"):
+				Player.set_value("hammer", Player.get_value("hammer") + Config.DEMO_HAMMER_COUNT)
+				Player.set_value("get_free_hammers", 1)
+				Player.save_data()
+
+			hammer_button.count = Player.get_value("hammer")
+			var _pos = hammer_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
+		5:
+			prints("shuffle tutorial")
+			if not Player.get_value("get_free_shuffles"):
+				Player.set_value("shuffle", Player.get_value("shuffle") + Config.DEMO_SHUFFLE_COUNT)
+				Player.set_value("get_free_shuffles", 1)
+				Player.save_data()
+
+			shuffle_button.count = Player.get_value("shuffle")
+			var _pos = shuffle_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(-70, -70), _pos)
+		7:
+			prints("bomb tutorial")
+			if not Player.get_value("get_free_bombs"):
+				Player.set_value("bomb", Player.get_value("bomb") + Config.DEMO_BOMB_COUNT)
+				Player.set_value("get_free_bombs", 1)
+				Player.save_data()
+			bomb_button.count = Player.get_value("bomb")
+			var _pos = bomb_button.global_position + block_center_offset
+			tutorial.run()
+			tutorial.run_click_hammer(_pos + Vector2(0, -70), _pos)
+
+
 func move_node(block: Node, new_parent: Node):
 	var old_parent = block.get_parent()
 	old_parent.remove_child(block)
@@ -487,21 +458,41 @@ func _on_color_block_pressed(block: Node) -> void:
 			# Ждём когда пройдёт анимация падения бомбы
 			await Utils.timeout(1.25)
 
+			var cb = LevelManager.get_color_block(cell_pos, current_level)
+
+			if cb.has_lock():
+				remove_lock_from_list(cb)
+
+			# если уничтожен блок с ключом, то он открывает замок
+			if cb.has_key():
+				for i in cb._color_tiles:
+					if i.is_key():
+						_key_retrieved(i, block)
+						break
+
 			# удаляем указанный блок
 			var _colors = block.colors
 			block.colors = LevelData.FREE_CELL
 			block.remove_block()
+			current_level[cb.position.y][cb.position.x] = LevelData.FREE_CELL
 
 			for tile_color in Utils.uniq_array(_colors):
 				goal_colors_container.dec_color(tile_color, 1)
 
 			# запускаем удаление плиток соседей
 			await bomb_explode_neighbours(cell_pos, animation_bomb.position)
-			_set_state(EState.PLAY)
 			EventBus.booster_used.emit(current_booster.type)
+			_set_state(EState.PLAY)
 
 
-func hammer(block: Node) -> void:
+func remove_lock_from_list(cb: ColorBlock) -> void:
+	for i in _locks.size():
+		var _lock = _locks[i]
+		if _lock.position.x == cb.position.x and _lock.position.y == cb.position.y:
+			_locks.erase(_lock)
+
+
+func hammer(block: ColorBlock2D) -> void:
 	var _colors = block.colors.duplicate(true)
 	block.colors = LevelData.FREE_CELL
 	var animation = hammer_animation
@@ -518,6 +509,20 @@ func hammer(block: Node) -> void:
 
 	# ждём момент удара
 	await Utils.timeout(time_to_remove_block)
+
+	var cell = block.get_cell()
+	var cb = LevelManager.get_color_block(cell.level_position, current_level)
+
+
+	if cb.has_lock():
+		remove_lock_from_list(cb)
+
+	if cb.has_key():
+		for i in cb._color_tiles:
+			if i.is_key():
+				_key_retrieved(i, block)
+				break
+
 	# удаляем блок
 	block.remove_block()
 
@@ -658,7 +663,6 @@ func shuffle() -> void:
 		var _cell = _non_empty_cells[i]
 		var _new_cell = _new_non_empty_cells[i]
 
-		prints("move", _cell, "to", _new_cell)
 		var _tween = create_tween()
 
 		var cell_block = get_cell_by_pos(_cell.position)
@@ -993,12 +997,13 @@ func check_matches(pos: Vector2i) -> void:
 	check_match_count -= 1
 
 	if check_match_count < 1:
-		await Utils.timeout(0.2)
-		_set_state(EState.PLAY)
+		_disable_drops()
+		await Utils.timeout(0.15)
 		update_level()
 		check_level_complete()
 		check_game_over()
 		move_live_block()
+		_set_state(EState.PLAY)
 
 
 func get_color_block(pos: Vector2i) -> ColorBlock2D:
@@ -1160,7 +1165,8 @@ func check_game_over() -> void:
 
 
 func check_level_complete() -> void:
-	if not goal_colors_container.has_items():
+	if not goal_colors_container.has_items() and not _state == EState.COMPLETE:
+		_set_state(EState.COMPLETE)
 		EventBus.level_complete.emit(LevelManager.current_level)
 
 
@@ -1169,6 +1175,7 @@ func _set_booster_ui() -> void:
 	booster_ui._update_ui()
 
 
+# с этого метода начинается работа  бустера
 func _on_booster_button_pressed(booster: Booster) -> void:
 	if _state != EState.PLAY:
 		return
@@ -1236,7 +1243,7 @@ func _on_booster_ui_use_pressed() -> void:
 	EventBus.booster_used.emit(current_booster.type)
 
 
-func _key_retrieved(_color_tile, cb) -> void:
+func _key_retrieved(_color_tile, cb: ColorBlock2D) -> void:
 	var lock_type = ColorTile.get_lock_type(_color_tile.type)
 
 	var key_pos = cb.global_position
@@ -1272,3 +1279,55 @@ func _key_retrieved(_color_tile, cb) -> void:
 		color_block2d.colors = i.colors
 		color_block2d.update_tiles(i.colors)
 		check_matches(i.position)
+
+
+func _on_set_score_completed(value) -> void:
+	prints("_on_set_score_completed", value)
+
+
+func _make_colored_color_block(cb: ColorBlock2D) -> void:
+	if pregenerated_color_blocks.size():
+		var _colors = pregenerated_color_blocks.pop_front()
+		cb.colors = _colors
+		cb.update_tiles(_colors)
+	else:
+		var _colors = LevelManager.get_target_colors().keys()
+		_colors.append_array(LevelManager.get_current_level_colors())
+		var used_colors = Utils.uniq_array(_colors)
+		cb.create_random_color(used_colors)
+
+	# выравнивание нового блока
+	cb.position = Vector2(-35, -32)
+
+
+func _on_buy_free_cells(count: int) -> void:
+	""" Удаляет случайные count блоков на карте """
+	var _non_empty_cells = LevelManager.get_non_empty_cells(current_level)
+
+	# исключаем рекламные блоки
+	var _non_empty_cells_no_ads: Array
+	for i in _non_empty_cells:
+		if i.colors == LevelData.ADS_CELL:
+			continue
+		_non_empty_cells_no_ads.push_back(i)
+
+	# перемешиваем найденные блоки
+	_non_empty_cells_no_ads.shuffle()
+
+	# удаляем случайные пять блоков на карте
+	for i in _non_empty_cells_no_ads.slice(0, count):
+		current_level[i.position.y][i.position.x] = LevelData.FREE_CELL
+		var _cell_idx_in_grid = Utils.get_index_by_pos(i.position, current_level[0].size())
+		var cell = block_container.get_child(_cell_idx_in_grid)
+		var cb = cell.get_color_block()
+		cb.remove_block()
+
+
+func _disable_drops() -> void:
+	block_for_drop_1.get_node("Button").disabled = true
+	block_for_drop_2.get_node("Button").disabled = true
+
+
+func _enable_drops() -> void:
+	block_for_drop_1.get_node("Button").disabled = false
+	block_for_drop_2.get_node("Button").disabled = false
