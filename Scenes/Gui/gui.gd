@@ -212,16 +212,19 @@ func _on_settings_modal_modal_close() -> void:
 
 func _on_shop_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		SFX.play_sound("click")
 		ChangeScene.to("shop")
 
 
 func _on_main_screen_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		SFX.play_sound("click")
 		ChangeScene.to("menu")
 
 
 func _on_leaderboards_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		SFX.play_sound("click")
 		ChangeScene.to("leaderboard")
 
 

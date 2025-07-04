@@ -18,7 +18,7 @@ var sfx_config = {
 	},
 	"click": {
 		"path": "res://Assets/sfx/click_1.mp3",
-		"volume": 0,
+		"volume": -3,
 		"pitch": 1,
 		"sound": null,
 	},
@@ -120,19 +120,19 @@ var sfx_config = {
 	},
 	"target_1": {
 		"path": "res://Assets/sfx/target_1.ogg",
-		"volume": 0,
+		"volume": -4,
 		"pitch": 1,
 		"sound": null,
 	},
 	"target_2": {
 		"path": "res://Assets/sfx/target_2.ogg",
-		"volume": 0,
+		"volume": -4,
 		"pitch": 1,
 		"sound": null,
 	},
 	"victory": {
 		"path": "res://Assets/sfx/victory.ogg",
-		"volume": 0,
+		"volume": -5,
 		"pitch": 1,
 		"sound": null,
 	},
