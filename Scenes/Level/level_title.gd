@@ -27,7 +27,7 @@ func _set_diff(value: String) -> void:
 
 func _update_ui() -> void:
 	if label:
-		label.text = tr("TITLE_LEVEL") + " " + str(level_value)
+		label.text = tr("TITLE_LEVEL") + " " + str(level_value) # + "(%s)" % LevelManager.get_real_level_number()
 
 	if difficulty:
 		hard_label.visible = difficulty == "hard"

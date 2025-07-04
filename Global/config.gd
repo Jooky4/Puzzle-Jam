@@ -23,3 +23,6 @@ const BUY_COINS_ADS = "buy_coins_ads"
 
 # количество секунд до следующей возможности получить монеты за рекламу (в магазине)
 const COIN_REWARD_COOLDOWN = 60 * 60 * 6
+
+const MAX_LEVEL = 199
+const MAX_START_LEVEL = 49

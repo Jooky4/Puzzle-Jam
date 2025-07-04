@@ -1,6 +1,5 @@
 extends Node
 
-const MAX_LEVEL = 199
 const MAX_LEVEL_GOAL = 50
 
 var current_level: int = 0: set = _set_current_level
@@ -81,6 +80,8 @@ func get_color_with_type(color: int) -> Dictionary:
 
 
 func get_cell(pos: Vector2i) -> Array:
+	""" Возвращает массив цвето ячейки """
+
 	if pos.y < 0 or pos.y >= current_level_data.size():
 		return []
 
@@ -92,7 +93,6 @@ func get_cell(pos: Vector2i) -> Array:
 	# сначала Y потом X, так как в массиве сначала идут ряды, потом колонки
 	var result = cur_level[pos.y][pos.x]
 
-	prints("get_cell result", pos.y, pos.x, cur_level[pos.y])
 	# TODO: подумать нужно ли возвращать пустой массив
 	#if result == LevelData.EMPTY_CELL:
 		#return []
@@ -101,18 +101,34 @@ func get_cell(pos: Vector2i) -> Array:
 
 
 func get_current_level() -> Array:
-	""" копия текущего уровня """
-	var _cur_level = current_level
+	"""Возвращает копию текущего уровня"""
 
-	if current_level >= MAX_LEVEL:
-		_cur_level = (current_level % MAX_LEVEL) + 49
-		if _cur_level >= MAX_LEVEL:
-			_cur_level = (_cur_level % MAX_LEVEL) + 49
-
+	var _cur_level = get_real_level_number(current_level)
 	var level = LevelData.levels[_cur_level].duplicate(true)
 	current_level_data = level
 
 	return level
+
+
+func get_real_level_number(level: int = current_level) -> int:
+	"""
+	Всего данных для уровней 199, но уровень может быть больше
+	Т.е. после 199 выдаём данные 49-го уровня
+
+	200 это 50 уровень
+	201 это 51 уровень
+	202 это 52 уровень
+	и так далее
+	"""
+
+	var _cur_level = current_level
+
+	if current_level >= Config.MAX_LEVEL:
+		_cur_level = (current_level % Config.MAX_LEVEL) + Config.MAX_START_LEVEL
+		if _cur_level >= Config.MAX_LEVEL:
+			_cur_level = (_cur_level % Config.MAX_LEVEL) + Config.MAX_START_LEVEL
+
+	return _cur_level
 
 
 func get_free_cells(_cur_level_data: Array) -> Array:
@@ -198,11 +214,11 @@ func is_level_super_hard(level: int) -> bool:
 
 
 func is_current_level_hard() -> bool:
-	return is_level_hard(current_level)
+	return is_level_hard(get_real_level_number())
 
 
 func is_current_level_super_hard() -> bool:
-	return is_level_super_hard(current_level)
+	return is_level_super_hard(get_real_level_number())
 
 
 func get_pregenerated_color_blocks() -> Array:
