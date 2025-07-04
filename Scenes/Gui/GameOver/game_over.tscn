@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckvojstvrbqhu"]
+[gd_scene load_steps=14 format=3 uid="uid://ckvojstvrbqhu"]
 
 [ext_resource type="Script" path="res://Scenes/Gui/GameOver/game_over.gd" id="1_i811m"]
 [ext_resource type="PackedScene" uid="uid://8rhmjet71ngk" path="res://Scenes/GoalColor/goal_color_controller.tscn" id="3_mjht2"]
@@ -11,22 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://xei0ri2slh7v" path="res://Assets/game_over/try_again_ads_button.tres" id="9_tc13h"]
 [ext_resource type="Texture2D" uid="uid://l5boxqgf1yhu" path="res://Assets/game_over/ADS.tres" id="10_tc13h"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_mjht2"]
-resource_local_to_scene = true
-line_spacing = 0.0
-font = ExtResource("4_ywu43")
-font_size = 42
-
-[sub_resource type="LabelSettings" id="LabelSettings_scjl8"]
-resource_local_to_scene = true
-line_spacing = 0.0
-font = ExtResource("4_ywu43")
-font_size = 42
-font_color = Color(1, 0.117647, 0.482353, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_tc13h"]
 font = ExtResource("4_ywu43")
-font_size = 40
+font_size = 56
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ken6"]
 font = ExtResource("4_ywu43")
@@ -52,41 +39,41 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = -146.0
-offset_top = 285.0
-offset_right = 94.0
-offset_bottom = 405.0
-scale = Vector2(1.2, 1.2)
+offset_left = -175.0
+offset_top = 172.0
+offset_right = 65.0
+offset_bottom = 292.0
+scale = Vector2(1.4, 1.4)
 
 [node name="Panel" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.573438
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.573438
-offset_left = -233.0
-offset_top = -242.0
-offset_right = 233.0
-offset_bottom = 242.0
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -248.0
+offset_right = 325.0
+offset_bottom = 396.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_yy5sx")
-metadata/_edit_use_anchors_ = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -229.0
+offset_left = -262.0
 offset_top = 44.0
-offset_right = 230.0
+offset_right = 263.0
 offset_bottom = 122.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.117647, 0.482353, 1)
 theme_override_fonts/font = ExtResource("4_ywu43")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 60
 text = "TITLE_SECOND_CHANCE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -98,10 +85,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -51.0
-offset_top = -26.0
-offset_right = 25.0
-offset_bottom = 50.0
+offset_left = -67.0
+offset_top = -18.0
+offset_right = 9.0
+offset_bottom = 58.0
 grow_horizontal = 0
 focus_mode = 0
 texture_normal = ExtResource("5_tc13h")
@@ -116,95 +103,40 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -196.5
-offset_top = -69.5
-offset_right = 196.5
-offset_bottom = 69.5
+offset_left = -276.0
+offset_top = -81.0
+offset_right = 276.0
+offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_tc13h")
 
 [node name="Label" type="Label" parent="Panel/Message"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -55.0
-offset_right = 22.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_ywu43")
-theme_override_font_sizes/font_size = 45
-text = "освободи"
-label_settings = SubResource("LabelSettings_mjht2")
-
-[node name="Label2" type="Label" parent="Panel/Message"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 7.0
-offset_top = -55.0
-offset_right = 183.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_ywu43")
-theme_override_font_sizes/font_size = 45
-text = "5 клеток"
-label_settings = SubResource("LabelSettings_scjl8")
-
-[node name="Label3" type="Label" parent="Panel/Message"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -176.5
-offset_top = -6.0
-offset_right = 176.5
-offset_bottom = 46.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_ywu43")
-theme_override_font_sizes/font_size = 45
-text = "и продолжи игру"
-label_settings = SubResource("LabelSettings_mjht2")
-horizontal_alignment = 1
-
-[node name="RichTextLabel" type="Label" parent="Panel/Message"]
 layout_mode = 0
-offset_left = 17.0
-offset_top = 13.0
-offset_right = 379.0
-offset_bottom = 127.0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 541.0
+offset_bottom = 149.0
 text = "SECOND_CHANCE_DESC"
 label_settings = SubResource("LabelSettings_tc13h")
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Buttons" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 70)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -198.0
-offset_top = -118.001
-offset_right = 198.0
-offset_bottom = -44.0006
+offset_left = -274.0
+offset_top = -156.0
+offset_right = 126.0
+offset_bottom = -81.9996
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(1.4, 1.4)
 theme_override_constants/separation = 36
 
 [node name="TryAgainForCoin" type="TextureButton" parent="Panel/Buttons"]
