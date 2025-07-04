@@ -111,6 +111,8 @@ func _set_state(value: EState) -> void:
 
 func _next_level() -> void:
 	LevelManager.current_level += 1
+	_prev_turn = 0
+	turns = 0
 	Player.set_value("current_level", LevelManager.current_level)
 	Player.save_data()
 
@@ -202,6 +204,8 @@ func _process(delta: float) -> void:
 			prints("PREV LEVEL")
 			if LevelManager.current_level > 0:
 				LevelManager.current_level -= 1
+				_prev_turn = 0
+				turns = 0
 				Player.set_value("current_level", LevelManager.current_level)
 				Player.save_data()
 				_restart_level()
@@ -214,6 +218,8 @@ func _process(delta: float) -> void:
 
 			prints("NEXT LEVEL")
 			LevelManager.current_level += 1
+			_prev_turn = 0
+			turns = 0
 			Player.set_value("current_level", LevelManager.current_level)
 			Player.save_data()
 			_restart_level()
@@ -223,13 +229,15 @@ func _process(delta: float) -> void:
 			tutorial.stop()
 
 			#prints("GAME OVER")
-			EventBus.game_over.emit()
+			#EventBus.game_over.emit()
 
-			# Очистка данных игрока
-			#for i in Player._data.keys():
-				#if not i.begins_with("mute_"):
-					#Player._data[i] = 0
-			#Player.save_data()
+			prints("NEXT LEVEL")
+			LevelManager.current_level += 10
+			_prev_turn = 0
+			turns = 0
+			Player.set_value("current_level", LevelManager.current_level)
+			Player.save_data()
+			_restart_level()
 
 
 func _input(event):
@@ -363,8 +371,9 @@ func move_node(block: Node, new_parent: Node):
 func _make_all_color_blocks_button() -> void:
 	for i in block_container.get_children():
 		if i.active and not i.can_drop_block:
-			var color_block = i.get_child(-1)
-			color_block.set_is_button(true)
+			var color_block = i.get_color_block()
+			if color_block is ColorBlock2D:
+				color_block.set_is_button(true)
 
 
 func _demake_all_color_blocks_button() -> void:
@@ -998,12 +1007,12 @@ func check_matches(pos: Vector2i) -> void:
 
 	if check_match_count < 1:
 		_disable_drops()
-		await Utils.timeout(0.15)
+		await Utils.timeout(0.25)
 		update_level()
 		check_level_complete()
 		check_game_over()
-		move_live_block()
 		_set_state(EState.PLAY)
+		move_live_block()
 
 
 func get_color_block(pos: Vector2i) -> ColorBlock2D:
@@ -1024,10 +1033,14 @@ func move_live_block() -> void:
 
 	live_block_list = _cleanup
 
+	prints("turns > _prev_turns", turns > _prev_turn, turns, _prev_turn)
 	if turns > _prev_turn:
+		prints("try move live block")
 		_prev_turn = turns
 		for lb in live_block_list:
 			var free_cells_around: Array
+			var lb_cb = LevelManager.get_color_block(lb.position, current_level)
+			prints("move live block?", lb, lb_cb)
 			for i in LevelManager.get_around_cells(current_level, lb.position):
 				var _cell_data = current_level[i.y][i.x]
 				if _cell_data == LevelData.FREE_CELL:
@@ -1036,6 +1049,7 @@ func move_live_block() -> void:
 					_cb.position = i
 					free_cells_around.push_back(_cb)
 
+			prints("free around cells", free_cells_around)
 			var not_merge_cells := []
 			for i in free_cells_around:
 				# проверяем мержится ли в ячейке текущий живой блок
@@ -1046,7 +1060,7 @@ func move_live_block() -> void:
 				for j in tile_list:
 					var tile_index = j
 					var current_block = ColorBlock.new()
-					current_block.colors = lb.colors
+					current_block.colors = lb_cb.colors
 					current_block.position = i.position
 					var tile_color = current_block._color_tiles[tile_index].color
 					var around_blocks = get_blocks_around_tile(current_block, tile_index)
@@ -1069,10 +1083,10 @@ func move_live_block() -> void:
 
 			free_cells_around = not_merge_cells
 
-			if not free_cells_around.size():
+			if not not_merge_cells.size():
 				return
 
-			var random_free_cell = free_cells_around.pick_random()
+			var random_free_cell = not_merge_cells.pick_random()
 
 			if random_free_cell:
 				current_level[random_free_cell.position.y][random_free_cell.position.x] = lb.colors
@@ -1088,7 +1102,7 @@ func move_live_block() -> void:
 				# добавляем блок на основную сцену для анимации прыжка
 				add_child(_old_block)
 				_old_block.position = _old_cell.global_position + Vector2(-50, -50)
-				const JUMP_DURATION = 0.3
+				const JUMP_DURATION = 0.25
 				Utils.jump_to_position(_old_block, _new_cell.global_position + Vector2(-50, -50), JUMP_DURATION)
 				await Utils.timeout(JUMP_DURATION)
 				# прыжок закончен, можно удалять из основной сцены
