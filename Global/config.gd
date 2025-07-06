@@ -2,7 +2,7 @@ extends Node
 
 const SHOW_FPS = false
 const SHOW_BUILD_VERSION = false
-const CHEATS_ENABLED = true
+const CHEATS_ENABLED = false
 
 const LEADERBOARD_NAME = "TopGamers"
 

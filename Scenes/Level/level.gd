@@ -79,6 +79,7 @@ func _ready() -> void:
 	Gui.restart_level.connect(_restart_level)
 	Gui.next_level.connect(_next_level)
 	Bridge.advertisement.connect("rewarded_state_changed", Callable(self, "_on_rewarded_state_changed"))
+	Bridge.advertisement.connect("interstitial_state_changed", Callable(self, "_on_interstitial_state_changed"))
 	EventBus.buy_free_cell_on_level.connect(_on_buy_free_cells)
 
 	leaderboard_options["leaderboardName"] = Config.LEADERBOARD_NAME
@@ -125,7 +126,12 @@ func _next_level() -> void:
 	prints("set score")
 	Bridge.leaderboard.set_score(leaderboard_options, Callable(self, "_on_set_score_completed"))
 
+	Bridge.advertisement.show_interstitial()
 	_restart_level()
+
+
+func _on_interstitial_state_changed(state) -> void:
+	prints("interstitial state", state)
 
 
 func _restart_level() -> void:
